@@ -46,10 +46,11 @@ router.post('/', function(req, res, next) {
     //<Content><![CDATA[this is a test]]></Content>
     //<MsgId>1234567890123456</MsgId>
     //</xml>
+    console.log("test1");
     var parasString = require("xml2js").parseString;
     parasString(req.body, function(err, result){
         var msgObjFromClient = JSON.parse(result);
-
+        console.log(msgObjFromClient.toString());
         // 给客户返回的消息格式 http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
         //<xml>
         //<ToUserName><![CDATA[toUser]]></ToUserName>
