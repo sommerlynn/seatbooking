@@ -19,9 +19,7 @@ var reponsePictureTextMessage = "<xml>"+
     "</Articles>"+
     "</xml>";
 
-
 router.get('/', function(req, res, next) {
-
     res.send(req.query.echostr);
 });
 
