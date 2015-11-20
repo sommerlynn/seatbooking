@@ -3,6 +3,15 @@ var sprintf = require('sprintf');
 
 var router = express.Router();
 
+// wechat: https://github.com/node-webot/wechat
+// 微信公共平台自动回复消息接口服务中间件
+var wechat = require("wechat");
+var wechatconfig = {
+    token: 'token',
+    appid: 'appid',
+    encodingAESKey: 'encodinAESKey'
+};
+
 var receivedTextMessageFromClient = {
     toUserName: this.toUserName,
     fromUserName: this.fromUserName,
@@ -33,71 +42,82 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/', function(req, res, next) {
-    // 将客户端发来的消息（xml格式）转为Json格式 https://github.com/Leonidas-from-XIV/node-xml2js
-    // 客户端收到的消息格式:http://mp.weixin.qq.com/wiki/10/79502792eef98d6e0c6e1739da387346.html
-    //<xml>
-    //<ToUserName><![CDATA[toUser]]></ToUserName>
-    //<FromUserName><![CDATA[fromUser]]></FromUserName>
-    //<CreateTime>1348831860</CreateTime>
-    //<MsgType><![CDATA[text]]></MsgType>
-    //<Content><![CDATA[this is a test]]></Content>
-    //<MsgId>1234567890123456</MsgId>
-    //</xml>
-    console.log("test1");
-    console.log(req.originalUrl);
-    req.setEncoding('utf8');
-    var body = "";
-    req.on('data', function (chunk) {
-        console.log("read data")
-        body += chunk; //读取参数流转化为字符串
-    });
-
-    req.on('end', function () {
-        var parasString = require("xml2js").parseString;
-        parasString(body, function(err, result){
-
-            console.dir(result);
-
-            //var msgObjFromClient = JSON.parse(result); 此处错误在于xml2js 已经将xml转化为js对象，而非Json对象
-
-            // 给客户返回的消息格式 http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
-            //<xml>
-            //<ToUserName><![CDATA[toUser]]></ToUserName>
-            //<FromUserName><![CDATA[fromUser]]></FromUserName>
-            //<CreateTime>12345678</CreateTime>
-            //<MsgType><![CDATA[news]]></MsgType>
-            //<ArticleCount>2</ArticleCount>
-            //<Articles>
-            //<item>
-            //<Title><![CDATA[title1]]></Title>
-            //<Description><![CDATA[description1]]></Description>
-            //<PicUrl><![CDATA[picurl]]></PicUrl>
-            //<Url><![CDATA[url]]></Url>
-            //</item>
-            //<item>
-            //<Title><![CDATA[title]]></Title>
-            //<Description><![CDATA[description]]></Description>
-            //<PicUrl><![CDATA[picurl]]></PicUrl>
-            //<Url><![CDATA[url]]></Url>
-            //</item>
-            //</Articles>
-            //</xml>
-            var responseMsg = sprintf(reponsePictureTextMessageXML,
-                result.fromUserName,
-                result.toUserName,
-                new Date().getTime(),
-                "小蜓欢迎你",
-                "我可以陪你聊天哦",
-                "http://img5.duitang.com/uploads/item/201503/09/20150309134720_B3zUx.thumb.700_0.jpeg",
-                "http://m.sohu.com");
-
-
-            console.log(responseMsg);
-
-            res.send(responseMsg);
-        });
-    });
-});
+router.post('/', wechat(wechatconfig, function (req, res, next) {
+    var message = req.weixin;
+    res.reply([
+        {
+            title:'小蜓欢迎你',
+            description:'我可以陪你聊天哦',
+            picurl:'http://img5.duitang.com/uploads/item/201503/09/20150309134720_B3zUx.thumb.700_0.jpeg',
+            url:'http://m.sohu.com'
+        }
+    ]);
+}));
 
 module.exports = router;
+
+/* 旧代码
+ // 将客户端发来的消息（xml格式）转为Json格式 https://github.com/Leonidas-from-XIV/node-xml2js
+ // 客户端收到的消息格式:http://mp.weixin.qq.com/wiki/10/79502792eef98d6e0c6e1739da387346.html
+ //<xml>
+ //<ToUserName><![CDATA[toUser]]></ToUserName>
+ //<FromUserName><![CDATA[fromUser]]></FromUserName>
+ //<CreateTime>1348831860</CreateTime>
+ //<MsgType><![CDATA[text]]></MsgType>
+ //<Content><![CDATA[this is a test]]></Content>
+ //<MsgId>1234567890123456</MsgId>
+ //</xml>
+ console.log("test1");
+ console.log(req.originalUrl);
+ req.setEncoding('utf8');
+ var body = "";
+ req.on('data', function (chunk) {
+ console.log("read data")
+ body += chunk; //读取参数流转化为字符串
+ });
+
+ req.on('end', function () {
+ var parasString = require("xml2js").parseString;
+ parasString(body, function(err, result){
+
+ console.dir(result);
+
+ //var msgObjFromClient = JSON.parse(result); 此处错误在于xml2js 已经将xml转化为js对象，而非Json对象
+
+ // 给客户返回的消息格式 http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
+ //<xml>
+ //<ToUserName><![CDATA[toUser]]></ToUserName>
+ //<FromUserName><![CDATA[fromUser]]></FromUserName>
+ //<CreateTime>12345678</CreateTime>
+ //<MsgType><![CDATA[news]]></MsgType>
+ //<ArticleCount>2</ArticleCount>
+ //<Articles>
+ //<item>
+ //<Title><![CDATA[title1]]></Title>
+ //<Description><![CDATA[description1]]></Description>
+ //<PicUrl><![CDATA[picurl]]></PicUrl>
+ //<Url><![CDATA[url]]></Url>
+ //</item>
+ //<item>
+ //<Title><![CDATA[title]]></Title>
+ //<Description><![CDATA[description]]></Description>
+ //<PicUrl><![CDATA[picurl]]></PicUrl>
+ //<Url><![CDATA[url]]></Url>
+ //</item>
+ //</Articles>
+ //</xml>
+ var responseMsg = sprintf(reponsePictureTextMessageXML,
+ result.fromUserName,
+ result.toUserName,
+ new Date().getTime(),
+ "小蜓欢迎你",
+ "我可以陪你聊天哦",
+ "http://img5.duitang.com/uploads/item/201503/09/20150309134720_B3zUx.thumb.700_0.jpeg",
+ "http://m.sohu.com");
+
+
+ console.log(responseMsg);
+
+ res.send(responseMsg);
+ });
+ }*/
