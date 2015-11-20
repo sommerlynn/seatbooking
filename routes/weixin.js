@@ -1,5 +1,6 @@
 var express = require('express');
-var sprintf = reqiure('sprintf');
+var sprintf = require('sprintf');
+
 
 
 var router = express.Router();
