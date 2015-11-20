@@ -45,14 +45,15 @@ router.post('/', function(req, res, next) {
     //<MsgId>1234567890123456</MsgId>
     //</xml>
     console.log("test1");
-    console.log(req.baseUrl);
+    console.log(req.originalUrl);
+    req.setEncoding('utf8');
     var body = "";
     req.on('data', function (chunk) {
         body += chunk; //读取参数流转化为字符串
     });
     console.log(body);
     req.on('end', function () {
-        var parasString = require("xml2js");
+        var parasString = require("xml2js").parseString;
         parasString(body, function(err, result){
             console.log(err.toString());
             var msgObjFromClient = JSON.parse(result);
