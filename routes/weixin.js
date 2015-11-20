@@ -47,6 +47,7 @@ router.post('/', function(req, res, next) {
     //<MsgId>1234567890123456</MsgId>
     //</xml>
     console.log("test1");
+    console.log(req.body);
     var parasString = require("xml2js").parseString;
     parasString(req.body, function(err, result){
         console.log(err.toString());
