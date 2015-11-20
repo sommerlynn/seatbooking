@@ -49,13 +49,15 @@ router.post('/', function(req, res, next) {
     req.setEncoding('utf8');
     var body = "";
     req.on('data', function (chunk) {
+        console.log("read data")
         body += chunk; //读取参数流转化为字符串
     });
     console.log(body);
     req.on('end', function () {
         var parasString = require("xml2js").parseString;
         parasString(body, function(err, result){
-            console.log(err.toString());
+            console.log(err);
+            console.dir(result);
             var msgObjFromClient = JSON.parse(result);
             console.log(msgObjFromClient.toString());
             // 给客户返回的消息格式 http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
