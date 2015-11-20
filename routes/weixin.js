@@ -1,8 +1,6 @@
 var express = require('express');
 var sprintf = require('sprintf');
 
-
-
 var router = express.Router();
 
 var receivedTextMessageFromClient = {
@@ -47,14 +45,14 @@ router.post('/', function(req, res, next) {
     //<MsgId>1234567890123456</MsgId>
     //</xml>
     console.log("test1");
-    console.log(req.body.data);
+    console.log(req.baseUrl);
     var body = "";
     req.on('data', function (chunk) {
         body += chunk; //读取参数流转化为字符串
     });
     console.log(body);
     req.on('end', function () {
-        var parasString = require("xml2js").parseString;
+        var parasString = require("xml2js");
         parasString(body, function(err, result){
             console.log(err.toString());
             var msgObjFromClient = JSON.parse(result);
