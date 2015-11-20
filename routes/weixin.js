@@ -49,6 +49,7 @@ router.post('/', function(req, res, next) {
     console.log("test1");
     var parasString = require("xml2js").parseString;
     parasString(req.body, function(err, result){
+        console.log(err.toString());
         var msgObjFromClient = JSON.parse(result);
         console.log(msgObjFromClient.toString());
         // 给客户返回的消息格式 http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
