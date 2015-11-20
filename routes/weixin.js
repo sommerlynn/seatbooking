@@ -57,8 +57,8 @@ router.post('/', function(req, res, next) {
         var parasString = require("xml2js").parseString;
         console.log('test2'+body);
         parasString(body, function(err, result){
-            console.log('test3'+err);
-            console.dir('test4'+result);
+
+            console.dir(result);
             var msgObjFromClient = JSON.parse(result);
             console.log(msgObjFromClient.toString());
             // 给客户返回的消息格式 http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
