@@ -52,6 +52,7 @@ router.post('/', function(req, res, next) {
     req.on('data', function (chunk) {
         body += chunk; //读取参数流转化为字符串
     });
+    console.log(body);
     req.on('end', function () {
         var parasString = require("xml2js").parseString;
         parasString(body, function(err, result){
