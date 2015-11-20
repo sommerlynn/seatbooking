@@ -47,43 +47,49 @@ router.post('/', function(req, res, next) {
     //<MsgId>1234567890123456</MsgId>
     //</xml>
     console.log("test1");
-    console.log(req.body);
-    var parasString = require("xml2js").parseString;
-    parasString(req.body, function(err, result){
-        console.log(err.toString());
-        var msgObjFromClient = JSON.parse(result);
-        console.log(msgObjFromClient.toString());
-        // 给客户返回的消息格式 http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
-        //<xml>
-        //<ToUserName><![CDATA[toUser]]></ToUserName>
-        //<FromUserName><![CDATA[fromUser]]></FromUserName>
-        //<CreateTime>12345678</CreateTime>
-        //<MsgType><![CDATA[news]]></MsgType>
-        //<ArticleCount>2</ArticleCount>
-        //<Articles>
-        //<item>
-        //<Title><![CDATA[title1]]></Title>
-        //<Description><![CDATA[description1]]></Description>
-        //<PicUrl><![CDATA[picurl]]></PicUrl>
-        //<Url><![CDATA[url]]></Url>
-        //</item>
-        //<item>
-        //<Title><![CDATA[title]]></Title>
-        //<Description><![CDATA[description]]></Description>
-        //<PicUrl><![CDATA[picurl]]></PicUrl>
-        //<Url><![CDATA[url]]></Url>
-        //</item>
-        //</Articles>
-        //</xml>
-        var responseMsg = sprintf(reponsePictureTextMessageXML,
-            msgObjFromClient.fromUserName,
-            msgObjFromClient.toUserName,
-            new Date().getTime(),
-            "小蜓欢迎你",
-            "我可以陪你聊天哦",
-            "http://img5.duitang.com/uploads/item/201503/09/20150309134720_B3zUx.thumb.700_0.jpeg",
-            "http://m.sohu.com");
-        res.send(responseMsg);
+    console.log(req.body.data);
+    var body = "";
+    req.on('data', function (chunk) {
+        body += chunk; //读取参数流转化为字符串
+    });
+    req.on('end', function () {
+        var parasString = require("xml2js").parseString;
+        parasString(body, function(err, result){
+            console.log(err.toString());
+            var msgObjFromClient = JSON.parse(result);
+            console.log(msgObjFromClient.toString());
+            // 给客户返回的消息格式 http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
+            //<xml>
+            //<ToUserName><![CDATA[toUser]]></ToUserName>
+            //<FromUserName><![CDATA[fromUser]]></FromUserName>
+            //<CreateTime>12345678</CreateTime>
+            //<MsgType><![CDATA[news]]></MsgType>
+            //<ArticleCount>2</ArticleCount>
+            //<Articles>
+            //<item>
+            //<Title><![CDATA[title1]]></Title>
+            //<Description><![CDATA[description1]]></Description>
+            //<PicUrl><![CDATA[picurl]]></PicUrl>
+            //<Url><![CDATA[url]]></Url>
+            //</item>
+            //<item>
+            //<Title><![CDATA[title]]></Title>
+            //<Description><![CDATA[description]]></Description>
+            //<PicUrl><![CDATA[picurl]]></PicUrl>
+            //<Url><![CDATA[url]]></Url>
+            //</item>
+            //</Articles>
+            //</xml>
+            var responseMsg = sprintf(reponsePictureTextMessageXML,
+                msgObjFromClient.fromUserName,
+                msgObjFromClient.toUserName,
+                new Date().getTime(),
+                "小蜓欢迎你",
+                "我可以陪你聊天哦",
+                "http://img5.duitang.com/uploads/item/201503/09/20150309134720_B3zUx.thumb.700_0.jpeg",
+                "http://m.sohu.com");
+            res.send(responseMsg);
+        });
     });
 });
 
