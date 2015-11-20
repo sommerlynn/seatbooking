@@ -2,6 +2,7 @@ var express = require('express');
 var sprintf = reqiure('sprintf');
 
 
+
 var router = express.Router();
 
 var receivedTextMessageFromClient = {
