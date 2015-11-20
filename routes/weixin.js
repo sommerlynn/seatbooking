@@ -52,9 +52,10 @@ router.post('/', function(req, res, next) {
         console.log("read data")
         body += chunk; //读取参数流转化为字符串
     });
-    console.log('test2'+body);
+
     req.on('end', function () {
         var parasString = require("xml2js").parseString;
+        console.log('test2'+body);
         parasString(body, function(err, result){
             console.log('test3'+err);
             console.dir('test4'+result);
