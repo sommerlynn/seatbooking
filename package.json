@@ -13,6 +13,7 @@
     "express": "~4.13.1",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
-    "sprinf":"0.1.5"
+    "sprintf":"0.1.5",
+    "xml2js":"0.4.15"
   }
 }
