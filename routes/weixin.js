@@ -59,8 +59,8 @@ router.post('/', function(req, res, next) {
         parasString(body, function(err, result){
 
             console.dir(result);
-            var msgObjFromClient = JSON.parse(result);
-            console.log(msgObjFromClient.toString());
+            //var msgObjFromClient = JSON.parse(result);
+            //console.log(msgObjFromClient.toString());
             // 给客户返回的消息格式 http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
             //<xml>
             //<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -84,8 +84,8 @@ router.post('/', function(req, res, next) {
             //</Articles>
             //</xml>
             var responseMsg = sprintf(reponsePictureTextMessageXML,
-                msgObjFromClient.fromUserName,
-                msgObjFromClient.toUserName,
+                result.fromUserName,
+                result.toUserName,
                 new Date().getTime(),
                 "小蜓欢迎你",
                 "我可以陪你聊天哦",
