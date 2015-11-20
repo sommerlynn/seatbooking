@@ -55,12 +55,12 @@ router.post('/', function(req, res, next) {
 
     req.on('end', function () {
         var parasString = require("xml2js").parseString;
-        console.log('test2'+body);
         parasString(body, function(err, result){
 
             console.dir(result);
-            //var msgObjFromClient = JSON.parse(result);
-            //console.log(msgObjFromClient.toString());
+
+            //var msgObjFromClient = JSON.parse(result); 此处错误在于xml2js 已经将xml转化为js对象，而非Json对象
+
             // 给客户返回的消息格式 http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
             //<xml>
             //<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -91,6 +91,10 @@ router.post('/', function(req, res, next) {
                 "我可以陪你聊天哦",
                 "http://img5.duitang.com/uploads/item/201503/09/20150309134720_B3zUx.thumb.700_0.jpeg",
                 "http://m.sohu.com");
+
+
+            console.log(responseMsg);
+
             res.send(responseMsg);
         });
     });
