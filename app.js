@@ -8,8 +8,8 @@ var expression = require('express-session');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var weixin = require('./routes/weixin');
-var weBot = require('weixin-robot');
+//var weixin = require('./routes/weixin');
+var webot = require('weixin-robot');
 var app = express();
 
 
