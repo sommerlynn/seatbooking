@@ -7,9 +7,9 @@ var router = express.Router();
 // 微信公共平台自动回复消息接口服务中间件
 var wechat = require("wechat");
 var wechatconfig = {
-    token: 'token',
-    appid: 'appid',
-    encodingAESKey: 'encodinAESKey'
+    token: '1qazxsw2',
+    appid: 'wxc6e2122add47cc8a',
+    encodingAESKey: 'TaqAgOU4OlBEstJKO9oqqf23kanXGnFoh4VNmFzBWWM'
 };
 
 var receivedTextMessageFromClient = {
