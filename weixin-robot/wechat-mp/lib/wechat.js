@@ -59,6 +59,7 @@ function Wechat(options) {
  */
 Wechat.prototype.start =
 Wechat.prototype.parser = function bodyParser(opts) {
+  
   if ('string' == typeof opts) {
     opts = {token: opts}
   }
@@ -119,6 +120,7 @@ Wechat.prototype.parser = function bodyParser(opts) {
 Wechat.prototype.end =
 Wechat.prototype.responder = function responder() {
   return function(req, res, next) {
+    console.log("Here is a test break Wechat.prototype.responder");
     res.setHeader('Content-Type', 'application/xml')
     res.end(Wechat.dump(Wechat.ensure(res.body, req.body)))
   }
@@ -146,6 +148,7 @@ Wechat.ensure = function(reply, data) {
 Wechat.parse = function (req, callback) {
   var chunks = [];
   req.on('data', function (data) {
+    console.log("Here is a test break Wechat.parse push data");
     chunks.push(data);
   });
   req.on('end', function () {
@@ -154,6 +157,7 @@ Wechat.parse = function (req, callback) {
       var data = Wechat.load(req.rawBody)
       callback(null, data)
     } catch (e) {
+      console.log("Here is a test break Wechat.parse error");
       return callback(e)
     }
 
@@ -165,6 +169,7 @@ Wechat.parse = function (req, callback) {
  * Block unsignatured request
  */
 Wechat.block = function endRes(res) {
+  console.log("Here is a test break Wechat.block");
   res.statusCode = 401
   res.end('Invalid signature')
 }
@@ -185,7 +190,7 @@ Wechat.load = mp_xml.parse
  * see: https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=1413446944&version=15&lang=zh_CN
  */
 Wechat.dump = function(reply) {
-  console.log("Here is a test break"+reply.content);
+  console.log("Here is a test break Wechat.dump");
   if (reply.content === '') {
     return '';
   }
