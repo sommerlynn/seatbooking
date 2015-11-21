@@ -1,7 +1,7 @@
-var webot = require('/webot/index')
+var webot = require('./webot')
 var Webot = webot.Webot
 var Info = webot.Info
-var wechat = require('/wechat-mp/index')
+var wechat = require('/wechat-mp')
 var debug = require('debug')('webot:debug')
 
 var mp = wechat()

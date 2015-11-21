@@ -9,7 +9,7 @@ var session = require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 //var weixin = require('./routes/weixin');
-var webot = require('./weixin-robot/index');
+var webot = require('./weixin-robot');
 var app = express();
 
 
