@@ -98,7 +98,9 @@ Webot.prototype.middleware = function() {
     info.res = res
     info.session = req.session
 
+    console.log("self.reply.outter");
     self.reply(info, function(err, info) {
+      console.log("self.reply");
       res.body = self.formatReply(info)
       next()
     })

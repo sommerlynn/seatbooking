@@ -94,7 +94,6 @@ Wechat.prototype.parser = function bodyParser(opts) {
     }
     Wechat.parse(req, function(err, data) {
       if (err) {
-        console.log(err);
         res.statusCode = 400
         return res.end()
       }
