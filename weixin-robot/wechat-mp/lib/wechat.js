@@ -150,6 +150,7 @@ Wechat.parse = function (req, callback) {
   });
   req.on('end', function () {
     req.rawBody = Buffer.concat(chunks).toString();
+    console.log(req.rawBody);
     try {
       var data = Wechat.load(req.rawBody)
       callback(null, data)
