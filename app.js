@@ -4,10 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var expression = require('express-session');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var weixin = require('./routes/weixin');
+var weBot = require('weixin-robot');
 var app = express();
 
 
@@ -20,13 +22,29 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 //app.use(bodyParser.json()); 腾讯发来的消息是xml格式，非json格式
 app.use(bodyParser.urlencoded({ extended: true}));
-app.use(cookieParser());
+
+
+// 载入webot1的回复规则
+require('./rules')(webot);
+// 启动机器人, 接管 web 服务请求
+webot.watch(app, { token: '1qazxsw2', path: '/weixin' });
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.query());
+// 如果需要 session 支持，sessionStore 必须放在 watch 之后
+app.use(cookieParser());
+// 为了使用 waitRule 功能，需要增加 session 支持
+// https://github.com/expressjs/session
+app.use(session({
+  secret: 'hongqingting',
+  resave: false,
+  saveUninitialized: true
+}));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/weixin', weixin);
+//app.use('/weixin', weixin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
