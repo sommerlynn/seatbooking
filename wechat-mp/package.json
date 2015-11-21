@@ -1,0 +1,97 @@
+{
+  "_args": [
+    [
+      "wechat-mp@~0.2.6",
+      "D:\\AndroidProject\\seatbooking\\node_modules\\weixin-robot"
+    ]
+  ],
+  "_from": "wechat-mp@>=0.2.6 <0.3.0",
+  "_id": "wechat-mp@0.2.6",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/wechat-mp",
+  "_nodeVersion": "0.12.0",
+  "_npmUser": {
+    "email": "jyyjcc@gmail.com",
+    "name": "ktmud"
+  },
+  "_npmVersion": "2.7.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "wechat-mp",
+    "raw": "wechat-mp@~0.2.6",
+    "rawSpec": "~0.2.6",
+    "scope": null,
+    "spec": ">=0.2.6 <0.3.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/weixin-robot"
+  ],
+  "_resolved": "https://registry.npmjs.org/wechat-mp/-/wechat-mp-0.2.6.tgz",
+  "_shasum": "525da6075d5ed046558036fd84704ba7ae25ff10",
+  "_shrinkwrap": null,
+  "_spec": "wechat-mp@~0.2.6",
+  "_where": "D:\\AndroidProject\\seatbooking\\node_modules\\weixin-robot",
+  "author": {
+    "email": "kissmud@gmail.com",
+    "name": "Jesse Yang",
+    "url": "https://github.com/ktmud"
+  },
+  "bugs": {
+    "url": "https://github.com/node-webot/wechat-mp/issues"
+  },
+  "contributors": [
+    {
+      "name": "Jesse Yang",
+      "email": "jyyjcc@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "lodash-template": "~1.0",
+    "node-xml-lite": "~0.0.3"
+  },
+  "description": "Wechat open API utilities.",
+  "devDependencies": {
+    "express": "*",
+    "mocha": "*",
+    "should": "^3.3.2",
+    "supertest": "*"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "525da6075d5ed046558036fd84704ba7ae25ff10",
+    "tarball": "http://registry.npmjs.org/wechat-mp/-/wechat-mp-0.2.6.tgz"
+  },
+  "engines": {
+    "node": ">=0.6.0",
+    "npm": ">=1.1.6"
+  },
+  "gitHead": "7c4733cd1a157ac8e39b63a4d81adac3f086cac1",
+  "homepage": "https://github.com/node-webot/wechat-mp",
+  "keywords": [
+    "robot",
+    "webot",
+    "webot-plugin",
+    "wechat",
+    "weixin"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "ktmud",
+      "email": "jyyjcc@gmail.com"
+    }
+  ],
+  "name": "wechat-mp",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/node-webot/wechat-mp.git"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "version": "0.2.6"
+}

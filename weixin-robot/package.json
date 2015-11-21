@@ -1,0 +1,120 @@
+{
+  "_args": [
+    [
+      "weixin-robot@0.5.9",
+      "D:\\AndroidProject\\seatbooking"
+    ]
+  ],
+  "_from": "weixin-robot@0.5.9",
+  "_id": "weixin-robot@0.5.9",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/weixin-robot",
+  "_nodeVersion": "0.12.0",
+  "_npmUser": {
+    "email": "jyyjcc@gmail.com",
+    "name": "ktmud"
+  },
+  "_npmVersion": "2.7.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "weixin-robot",
+    "raw": "weixin-robot@0.5.9",
+    "rawSpec": "0.5.9",
+    "scope": null,
+    "spec": "0.5.9",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/weixin-robot/-/weixin-robot-0.5.9.tgz",
+  "_shasum": "759bb53409909f1f05e1b115c7d3741fcf2801b1",
+  "_shrinkwrap": null,
+  "_spec": "weixin-robot@0.5.9",
+  "_where": "D:\\AndroidProject\\seatbooking",
+  "author": {
+    "email": "kissmud@gmail.com",
+    "name": "Jesse Yang",
+    "url": "https://github.com/ktmud"
+  },
+  "bugs": {
+    "url": "https://github.com/node-webot/weixin-robot/issues"
+  },
+  "contributors": [
+    {
+      "name": "Jesse Yang",
+      "email": "jyyjcc@gmail.com"
+    },
+    {
+      "name": "TZ",
+      "email": "atian25@qq.com"
+    },
+    {
+      "name": "Jackson Tian",
+      "email": "shyvo1987@gmail.com"
+    },
+    {
+      "name": "yyfrankyy",
+      "email": "yyfrankyy@gmail.com"
+    },
+    {
+      "name": "nasa.wang",
+      "email": "nasa127@gmail.com"
+    },
+    {
+      "name": "xingkui",
+      "email": "bit3725@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "debug": "0.7.x",
+    "webot": "0.1.9",
+    "wechat-mp": "~0.2.6"
+  },
+  "description": "微信公众平台开放消息接口机器人 A robot for wechat.",
+  "devDependencies": {
+    "connect": "^3.3.3",
+    "connect-query": "^0.2.0",
+    "ejs": "*",
+    "jscover": "*",
+    "mocha": "*",
+    "should": "^4.4.1",
+    "supertest": "*"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "759bb53409909f1f05e1b115c7d3741fcf2801b1",
+    "tarball": "http://registry.npmjs.org/weixin-robot/-/weixin-robot-0.5.9.tgz"
+  },
+  "engines": {
+    "node": ">=0.6.0",
+    "npm": ">=1.1.6"
+  },
+  "gitHead": "0d0eb986c2fec8d86fb68eb5e61913919e6e045b",
+  "homepage": "https://github.com/node-webot/weixin-robot",
+  "keywords": [
+    "robot",
+    "webot",
+    "wechat",
+    "weixin"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "ktmud",
+      "email": "jyyjcc@gmail.com"
+    }
+  ],
+  "name": "weixin-robot",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/node-webot/weixin-robot.git"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -R spec"
+  },
+  "version": "0.5.9"
+}

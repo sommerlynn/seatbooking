@@ -1,0 +1,105 @@
+{
+  "_args": [
+    [
+      "webot@0.1.9",
+      "D:\\AndroidProject\\seatbooking\\node_modules\\weixin-robot"
+    ]
+  ],
+  "_from": "webot@0.1.9",
+  "_id": "webot@0.1.9",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/webot",
+  "_npmUser": {
+    "email": "jyyjcc@gmail.com",
+    "name": "ktmud"
+  },
+  "_npmVersion": "1.4.4",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "webot",
+    "raw": "webot@0.1.9",
+    "rawSpec": "0.1.9",
+    "scope": null,
+    "spec": "0.1.9",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "/weixin-robot"
+  ],
+  "_resolved": "https://registry.npmjs.org/webot/-/webot-0.1.9.tgz",
+  "_shasum": "ba4603f8fa5be427cee02a2f969a9ca67b0ddce2",
+  "_shrinkwrap": null,
+  "_spec": "webot@0.1.9",
+  "_where": "D:\\AndroidProject\\seatbooking\\node_modules\\weixin-robot",
+  "author": {
+    "email": "kissmud@gmail.com",
+    "name": "Jesse Yang",
+    "url": "https://github.com/ktmud"
+  },
+  "bugs": {
+    "url": "https://github.com/node-webot/webot/issues"
+  },
+  "contributors": [
+    {
+      "name": "Jesse Yang",
+      "email": "jyyjcc@gmail.com"
+    },
+    {
+      "name": "TZ",
+      "email": "atian25@qq.com"
+    },
+    {
+      "name": "Jackson Tian",
+      "email": "shyvo1987@gmail.com"
+    },
+    {
+      "name": "yyfrankyy",
+      "email": "yyfrankyy@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "debug": "0.7.x"
+  },
+  "description": "An easy-to-use robot for web service.",
+  "devDependencies": {
+    "async": "~0.2.9",
+    "mocha": "~1.13.0",
+    "should": "~2.0.1"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "ba4603f8fa5be427cee02a2f969a9ca67b0ddce2",
+    "tarball": "http://registry.npmjs.org/webot/-/webot-0.1.9.tgz"
+  },
+  "engines": {
+    "node": ">=0.6.0",
+    "npm": ">=1.1.6"
+  },
+  "homepage": "https://github.com/node-webot/webot",
+  "keywords": [
+    "express",
+    "robot",
+    "webot",
+    "wechat",
+    "weixin"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "ktmud",
+      "email": "jyyjcc@gmail.com"
+    }
+  ],
+  "name": "webot",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/node-webot/webot.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "version": "0.1.9"
+}
