@@ -185,10 +185,10 @@ Wechat.load = mp_xml.parse
  * see: https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=1413446944&version=15&lang=zh_CN
  */
 Wechat.dump = function(reply) {
+  console.log("Here is a test break"+reply.content);
   if (reply.content === '') {
     return '';
   }
-  console.log(reply);
   return mp_xml.build(reply);
 }
 
