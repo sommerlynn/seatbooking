@@ -1,3 +1,6 @@
+/**
+ * Created by pchen on 2015/11/21.
+ */
 var crypto = require('crypto');
 
 var debug = require('debug');
@@ -15,6 +18,9 @@ var package_info = require('../package.json');
  * 初始化路由规则
  */
 module.exports = exports = function(webot){
+
+    console.log("here is a test");
+
     var reg_help = /^(help|\?)$/i
     webot.set({
         // name 和 description 都不是必须的
@@ -79,8 +85,8 @@ module.exports = exports = function(webot){
     });
 
     // 简单的纯文本对话，可以用单独的 yaml 文件来定义
-    //require('js-yaml');
-    //webot.dialog(__dirname + '/dialog.yaml');
+    require('js-yaml');
+    webot.dialog(__dirname + '/dialog.yaml');
 
     // 支持一次性加多个（方便后台数据库存储规则）
     webot.set([{
@@ -384,6 +390,4 @@ module.exports = exports = function(webot){
         info.flag = true;
         return '你发送了「' + info.text + '」,可惜我太笨了,听不懂. 发送: help 查看可用的指令';
     });
-};/**
- * Created by pchen on 2015/11/21.
- */
+};
