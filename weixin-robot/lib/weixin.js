@@ -2,7 +2,9 @@ var webot = require('../webot')
 var Webot = webot.Webot
 var Info = webot.Info
 var wechat = require('../wechat-mp')
-var debug = require('debug')('weixin-robot::debug')
+var debug = require('debug')
+var log = debug("weixin-robot::weixin::log")
+var error = debug("weixin-robot::weixin::error")
 
 var mp = wechat()
 
@@ -28,7 +30,7 @@ Webot.prototype.watch = function(app, options) {
   process.nextTick(function() {
     app.use(path, self.middleware())
     app.use(path, mp.end())
-    debug('watching "%s" ~ %j', path, options)
+    log('watching "%s" ~ %j', path, options)
   })
 }
 
