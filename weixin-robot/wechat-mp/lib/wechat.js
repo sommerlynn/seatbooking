@@ -74,6 +74,7 @@ Wechat.prototype.parser = function bodyParser(opts) {
   var dataProp = opts.dataProp
   var generateSid
 
+  log("if (opts.session !== false) ");
   if (opts.session !== false) {
     generateSid = function(data) {
       return ['wx', data.sp, data.uid].join('.')
