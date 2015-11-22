@@ -64,7 +64,7 @@ function flattern(tree) {
       log("flattern::flattern(item)::before::"+item.name)
       var value = flattern(item)
       log("flattern::flattern(item)::after::"+item.name)
-      for(var i = 0; i < ret.length(); i++){
+      for(var i = 0; i < ret.length; i++){
         log(ret[0]);
       }
       if (item.name in ret) {
