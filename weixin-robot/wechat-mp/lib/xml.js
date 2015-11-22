@@ -1,7 +1,8 @@
 var lodash_tmpl = require('lodash-template')
 var xmllite = require('node-xml-lite')
-var log = debug("wechat-mp::xml::log");
-var error = debug("wechat-mp::xml:error");
+var debug = require('debug')
+var log = debug("wechat-mp::xml::log")
+var error = debug("wechat-mp::xml:error")
 
 var propMap = {
     FromUserName: 'uid'
@@ -60,9 +61,9 @@ function flattern(tree) {
         ret = item
         return false
       }
-      log("flattern::flattern(item)::before");
+      log("flattern::flattern(item)::before")
       var value = flattern(item)
-      log("flattern::flattern(item)::after::"+item.name);
+      log("flattern::flattern(item)::after::"+item.name)
       if (item.name in ret) {
         ret[item.name] = [ret[item.name], value]
       }
@@ -78,11 +79,11 @@ function parseXml(b, options) {
   var pmap = options.propMap|| propMap
   var mmap = options.paramMap || paramMap
 
-  log("parseXml::xmllite.parseString(b)::before");
+  log("parseXml::xmllite.parseString(b)::before")
   var tree = xmllite.parseString(b)
-  log("parseXml::flattern(tree)::before");
+  log("parseXml::flattern(tree)::before")
   var xml = flattern(tree)
-  log("parseXml::readable(xml, pmap, mmap)::before");
+  log("parseXml::readable(xml, pmap, mmap)::before")
   return readable(xml, pmap, mmap)
 }
 

@@ -1,7 +1,7 @@
 var crypto = require('crypto')
-var debug = require('debug');
-var log = debug("wechat-mp::wechat::log");
-var error = debug("wechat-mp::wechat:error");
+var debug = require('debug')
+var log = debug("wechat-mp::wechat::log")
+var error = debug("wechat-mp::wechat:error")
 
 var mp_xml = require('./xml')
 
@@ -169,7 +169,7 @@ Wechat.parse = function (req, callback) {
  * Block unsignatured request
  */
 Wechat.block = function endRes(res) {
-  console.log("Here is a test break Wechat.block");
+  log("Here is a test break Wechat.block")
   res.statusCode = 401
   res.end('Invalid signature')
 }
@@ -190,7 +190,7 @@ Wechat.load = mp_xml.parse
  * see: https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=1413446944&version=15&lang=zh_CN
  */
 Wechat.dump = function(reply) {
-  console.log("Here is a test break Wechat.dump");
+  log("Here is a test break Wechat.dump")
   if (reply.content === '') {
     return '';
   }
