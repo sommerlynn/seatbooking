@@ -62,7 +62,7 @@ function Wechat(options) {
  */
 Wechat.prototype.start =
 Wechat.prototype.parser = function bodyParser(opts) {
-
+  log("if ('string' == typeof opts) {");
   if ('string' == typeof opts) {
     opts = {token: opts}
   }
