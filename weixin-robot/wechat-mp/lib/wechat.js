@@ -1,4 +1,7 @@
 var crypto = require('crypto')
+var debug = require('debug');
+var log = debug("wechat-mp::wechat::log");
+var error = debug("wechat-mp::wechat:error");
 
 var mp_xml = require('./xml')
 
@@ -120,7 +123,6 @@ Wechat.prototype.parser = function bodyParser(opts) {
 Wechat.prototype.end =
 Wechat.prototype.responder = function responder() {
   return function(req, res, next) {
-    console.log("Here is a test break Wechat.prototype.responder");
     res.setHeader('Content-Type', 'application/xml')
     res.end(Wechat.dump(Wechat.ensure(res.body, req.body)))
   }
@@ -148,7 +150,6 @@ Wechat.ensure = function(reply, data) {
 Wechat.parse = function (req, callback) {
   var chunks = [];
   req.on('data', function (data) {
-    console.log("Here is a test break Wechat.parse push data");
     chunks.push(data);
   });
   req.on('end', function () {
