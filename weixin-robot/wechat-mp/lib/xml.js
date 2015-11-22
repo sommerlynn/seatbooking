@@ -55,6 +55,8 @@ function readable(original, pmap, mmap) {
 
 function flattern(tree) {
   var ret = {}
+  log("flattern::flattern(item)::printtree")
+  log(tree)
   if (tree.childs) {
     tree.childs.forEach(function(item) {
       if (!item.name) {
@@ -64,12 +66,13 @@ function flattern(tree) {
       log("flattern::flattern(item)::before::"+item.name)
       var value = flattern(item)
       log("flattern::flattern(item)::after::"+item.name)
-      for(var i = 0; i < ret.length; i++){
-        log(ret[0]);
-      }
+
       if (item.name in ret) {
-        log("flattern::if (item.name in ret)::enter");
+        log("flattern::if (item.name in ret)::if" + item.name)
         ret[item.name] = [ret[item.name], value]
+      }
+      else{
+        log("flattern::if (item.name in ret)::else" + item.name)
       }
       ret[item.name] = value
     })
