@@ -87,7 +87,8 @@ function parseXml(b, options) {
   var mmap = options.paramMap || paramMap
 
   log("parseXml::xmllite.parseString(b)::before")
-  var tree = xmllite.parseString(b)
+  //var tree = xmllite.parseString(b)
+  var tree = xmllite.parseString(b.replace(/\n/g,''))
   log("parseXml::flattern(tree)::before")
   var xml = flattern(tree)
   log("parseXml::readable(xml, pmap, mmap)::before")
