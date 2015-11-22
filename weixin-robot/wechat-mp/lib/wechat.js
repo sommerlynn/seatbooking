@@ -123,6 +123,7 @@ Wechat.prototype.parser = function bodyParser(opts) {
 Wechat.prototype.end =
 Wechat.prototype.responder = function responder() {
   return function(req, res, next) {
+    log("Wechat.prototype.end");
     res.setHeader('Content-Type', 'application/xml')
     res.end(Wechat.dump(Wechat.ensure(res.body, req.body)))
   }

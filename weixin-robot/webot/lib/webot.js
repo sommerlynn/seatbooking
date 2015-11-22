@@ -444,7 +444,7 @@ Webot.prototype._reply = function(ruleList, info, cb) {
 
 Webot.defaultConfig = {
   keepBlank: true,
-  breakOnError: false,
+  breakOnError: true,
 };
 
 Webot.prototype.codeReplies = {
