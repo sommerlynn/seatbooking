@@ -12,7 +12,7 @@ var error = debug("seatbooking::error");
 //var routes = require('./routes/index');
 //var users = require('./routes/users');
 //var weixin = require('./routes/weixin');
-var webot = require('./weixin-robot');
+var weixinrobot = require('./weixin-robot');
 var app = express();
 
 
@@ -28,9 +28,9 @@ app.use(logger('dev'));
 
 
 // 载入webot的回复规则
-require('./rules')(webot);
+require('./rules')(weixinrobot);
 // 启动机器人, 接管 web 服务请求
-webot.watch(app, { token: '1qazxsw2', path: '/weixin' });
+weixinrobot.watch(app, { token: '1qazxsw2', path: '/weixin' });
 
 
 app.use(express.static(path.join(__dirname, 'public')));
