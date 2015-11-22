@@ -80,6 +80,7 @@ Wechat.prototype.parser = function bodyParser(opts) {
     }
   }
 
+  log("return function(req, res, next)");
   return function(req, res, next) {
     // use a special property to demine whether this is a wechat message
     if (req[dataProp] && req[dataProp].sp) {
