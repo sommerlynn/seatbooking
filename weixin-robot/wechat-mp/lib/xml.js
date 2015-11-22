@@ -73,9 +73,12 @@ function parseXml(b, options) {
 
   var pmap = options.propMap|| propMap
   var mmap = options.paramMap || paramMap
-  var tree = xmllite.parseString(b)
-  var xml = flattern(tree)
 
+  console.log("here is a test parseXml 1");
+  var tree = xmllite.parseString(b)
+  console.log("here is a test parseXml 2");
+  var xml = flattern(tree)
+  console.log("here is a test parseXml 3");
   return readable(xml, pmap, mmap)
 }
 
