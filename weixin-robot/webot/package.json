@@ -59,7 +59,7 @@
     }
   ],
   "dependencies": {
-    "debug": "0.7.x"
+    "debug": "2.2.0"
   },
   "description": "An easy-to-use robot for web service.",
   "devDependencies": {

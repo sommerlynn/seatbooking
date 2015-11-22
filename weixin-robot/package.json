@@ -68,7 +68,7 @@
     }
   ],
   "dependencies": {
-    "debug": "0.7.x"
+    "debug": "2.2.0"
   },
   "description": "微信公众平台开放消息接口机器人 A robot for wechat.",
   "devDependencies": {
