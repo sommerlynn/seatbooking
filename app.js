@@ -3,11 +3,14 @@ var path = require('path');
 //var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
+//var bodyParser = require('body-parser');
+//var session = require('express-session');
+var debug = require('debug');
+var log = debug("seatbooking::log");
+var error = debug("seatbooking::error");
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+//var routes = require('./routes/index');
+//var users = require('./routes/users');
 //var weixin = require('./routes/weixin');
 var webot = require('./weixin-robot');
 var app = express();
@@ -36,14 +39,14 @@ app.use(express.query());
 app.use(cookieParser());
 // 为了使用 waitRule 功能，需要增加 session 支持
 // https://github.com/expressjs/session
-app.use(session({
-  secret: 'hongqingting',
-  resave: false,
-  saveUninitialized: true
-}));
+//app.use(session({
+// secret: 'hongqingting',
+//  resave: false,
+//  saveUninitialized: true
+//}));
 
-app.use('/', routes);
-app.use('/users', users);
+//app.use('/', routes);
+//app.use('/users', users);
 //app.use('/weixin', weixin);
 
 // catch 404 and forward to error handler
@@ -59,6 +62,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    log(err);
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
