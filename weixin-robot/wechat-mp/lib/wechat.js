@@ -59,7 +59,7 @@ function Wechat(options) {
  */
 Wechat.prototype.start =
 Wechat.prototype.parser = function bodyParser(opts) {
-  
+
   if ('string' == typeof opts) {
     opts = {token: opts}
   }
@@ -157,7 +157,7 @@ Wechat.parse = function (req, callback) {
       var data = Wechat.load(req.rawBody)
       callback(null, data)
     } catch (e) {
-      console.log("Here is a test break Wechat.parse error");
+      console.log(e.message);
       return callback(e)
     }
 
