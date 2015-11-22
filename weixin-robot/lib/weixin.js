@@ -71,7 +71,7 @@ Webot.prototype.formatReply = function(info) {
   var kfAccount = reply.kfAccount || "" // !!"" === false
   var content = reply.content || reply
 
-  log("WWebot.prototype.formatReply::if (msgType !== 'text')::before")
+  log("Webot.prototype.formatReply::if (msgType !== 'text')::before")
 
   if (msgType !== 'text') {
     msgType = msgType || 'news'

@@ -51,7 +51,7 @@ app.use(cookieParser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  log(req.baseUrl);
+  log("Error for request"+req.baseUrl);
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
