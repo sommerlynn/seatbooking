@@ -157,10 +157,9 @@ Wechat.parse = function (req, callback) {
       var data = Wechat.load(req.rawBody)
       callback(null, data)
     } catch (e) {
-      console.log(e.message);
+      console.log(e);
       return callback(e)
     }
-
   });
 
 }
