@@ -2,7 +2,7 @@ var webot = require('../webot')
 var Webot = webot.Webot
 var Info = webot.Info
 var wechat = require('../wechat-mp')
-var debug = require('debug')('webot:debug')
+var debug = require('debug')('weixin-robot::debug')
 
 var mp = wechat()
 
@@ -69,6 +69,8 @@ Webot.prototype.formatReply = function(info) {
   var kfAccount = reply.kfAccount || "" // !!"" === false
   var content = reply.content || reply
 
+  log("WWebot.prototype.formatReply::if (msgType !== 'text')::before")
+
   if (msgType !== 'text') {
     msgType = msgType || 'news'
     if (msgType === 'news' && !Array.isArray(content)) {
@@ -98,9 +100,9 @@ Webot.prototype.middleware = function() {
     info.res = res
     info.session = req.session
 
-    console.log("self.reply.outter");
+    log("Webot.prototype.middleware::self.reply.outter");
     self.reply(info, function(err, info) {
-      console.log("self.reply");
+      log("Webot.prototype.middleware::self.reply.enter");
       res.body = self.formatReply(info)
       next()
     })

@@ -88,6 +88,7 @@ function parseXml(b, options) {
 
   log("parseXml::xmllite.parseString(b)::before")
   //var tree = xmllite.parseString(b)
+  //issue: https://github.com/node-webot/wechat-mp/issues/11
   var tree = xmllite.parseString(b.replace(/\n/g,''))
   log("parseXml::flattern(tree)::before")
   var xml = flattern(tree)
