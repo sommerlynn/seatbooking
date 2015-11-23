@@ -74,37 +74,31 @@ Wechat.prototype.parser = function bodyParser(opts) {
   var dataProp = opts.dataProp
   var generateSid
 
-  log("if (opts.session !== false) " + opts.session)
   if (opts.session !== false) {
-
-    log("if (opts.session !== false) " + opts.session)
     generateSid = function(data) {
       return ['wx', data.sp, data.uid].join('.')
     }
   }
-  log(generateSid);
-  log("00::return function(req, res, next)")
+
   return function(req, res, next) {
     // use a special property to demine whether this is a wechat message
-    log("11::if (req[dataProp] && req[dataProp].sp) {")
     if (req[dataProp] && req[dataProp].sp) {
       // data already set, pass
       return next()
     }
-    log("22::var token = req[tokenProp] || opts.token")
     var token = req[tokenProp] || opts.token
     if (!checkSig(token, req.query)) {
+      //非法签名
       return Wechat.block(res)
     }
-    log("33::var token = req[tokenProp] || opts.token")
     if (req.method == 'GET') {
       return res.end(req.query.echostr)
     }
-    log("44::var token = req[tokenProp] || opts.token")
     if (req.method == 'HEAD') {
       return res.end()
     }
-    log("55::var token = req[tokenProp] || opts.token");
+
+    // 解析客户端的请求数据
     Wechat.parse(req, function(err, data) {
       if (err) {
         res.statusCode = 400
@@ -132,7 +126,7 @@ Wechat.prototype.parser = function bodyParser(opts) {
 Wechat.prototype.end =
 Wechat.prototype.responder = function responder() {
   return function(req, res, next) {
-    log("Wechat.prototype.end");
+    log("发送消息Response给客户端::res.end");
     res.setHeader('Content-Type', 'application/xml')
     res.end(Wechat.dump(Wechat.ensure(res.body, req.body)))
   }
@@ -157,6 +151,9 @@ Wechat.ensure = function(reply, data) {
   return reply
 }
 
+/**
+ * 解析客户端发来的请求数据
+ * */
 Wechat.parse = function (req, callback) {
   var chunks = [];
   req.on('data', function (data) {
@@ -168,18 +165,17 @@ Wechat.parse = function (req, callback) {
       var data = Wechat.load(req.rawBody)
       callback(null, data)
     } catch (e) {
+      log("error occurs in WeChat.parase::")
       log(e);
       return callback(e)
     }
   });
-
 }
 
 /**
  * Block unsignatured request
  */
 Wechat.block = function endRes(res) {
-  log("Here is a test break Wechat.block")
   res.statusCode = 401
   res.end('Invalid signature')
 }
@@ -200,7 +196,6 @@ Wechat.load = mp_xml.parse
  * see: https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=1413446944&version=15&lang=zh_CN
  */
 Wechat.dump = function(reply) {
-  log("Here is a test break Wechat.dump")
   if (reply.content === '') {
     return '';
   }

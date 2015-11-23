@@ -71,8 +71,6 @@ Webot.prototype.formatReply = function(info) {
   var kfAccount = reply.kfAccount || "" // !!"" === false
   var content = reply.content || reply
 
-  log("Webot.prototype.formatReply::if (msgType !== 'text')::before")
-
   if (msgType !== 'text') {
     msgType = msgType || 'news'
     if (msgType === 'news' && !Array.isArray(content)) {
@@ -102,9 +100,8 @@ Webot.prototype.middleware = function() {
     info.res = res
     info.session = req.session
 
-    log("Webot.prototype.middleware::self.reply.outter");
+    log("发送相应消息");
     self.reply(info, function(err, info) {
-      log("Webot.prototype.middleware::self.reply.enter");
       res.body = self.formatReply(info)
       next()
     })
