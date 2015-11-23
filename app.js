@@ -28,7 +28,7 @@ app.use(logger('dev'));
 
 
 // 载入webot的回复规则
-//require('./rules')(weixinrobot);
+require('./rules')(weixinrobot);
 // 启动机器人, 接管 web 服务请求
 weixinrobot.watch(app, { token: '1qazxsw2', path: '/weixin' });
 
