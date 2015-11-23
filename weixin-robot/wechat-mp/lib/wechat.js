@@ -74,30 +74,37 @@ Wechat.prototype.parser = function bodyParser(opts) {
   var dataProp = opts.dataProp
   var generateSid
 
-  log("if (opts.session !== false) ");
+  log("if (opts.session !== false) " + opts.session)
   if (opts.session !== false) {
+
+    log("if (opts.session !== false) " + opts.session)
     generateSid = function(data) {
       return ['wx', data.sp, data.uid].join('.')
     }
   }
-
-  log("return function(req, res, next)");
+  log(generateSid);
+  log("00::return function(req, res, next)")
   return function(req, res, next) {
     // use a special property to demine whether this is a wechat message
+    log("11::if (req[dataProp] && req[dataProp].sp) {")
     if (req[dataProp] && req[dataProp].sp) {
       // data already set, pass
       return next()
     }
+    log("22::var token = req[tokenProp] || opts.token")
     var token = req[tokenProp] || opts.token
     if (!checkSig(token, req.query)) {
       return Wechat.block(res)
     }
+    log("33::var token = req[tokenProp] || opts.token")
     if (req.method == 'GET') {
       return res.end(req.query.echostr)
     }
+    log("44::var token = req[tokenProp] || opts.token")
     if (req.method == 'HEAD') {
       return res.end()
     }
+    log("55::var token = req[tokenProp] || opts.token");
     Wechat.parse(req, function(err, data) {
       if (err) {
         res.statusCode = 400
