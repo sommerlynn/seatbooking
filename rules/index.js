@@ -29,18 +29,19 @@ module.exports = exports = function(webot){
         },
         handler: function(info){
             var reply = {
-                title: '你好，我是七月，在未来的学习生活中，我会伴你左右，陪你pass每一门考试，赔你度过春夏秋冬',
-                pic: 'https://raw.github.com/node-webot/webot-example/master/qrcode.jpg',
-                url: 'https://github.com/node-webot/webot-example',
+                title: '【你好】我是七月',
+                pic: 'http://img5.duitang.com/uploads/item/201506/12/20150612194418_T4S3r.thumb.700_0.jpeg',
+                url: 'http://180.76.185.145',
                 description: [
-                    '你可以试试以下指令:',
-                    'game : 玩玩猜数字的游戏吧',
-                    's+空格+关键词 : 我会帮你百度搜索喔',
-                    's+空格+nde : 可以试试我的纠错能力',
-                    '使用「位置」发送你的经纬度',
-                    '重看本指令请回复help或问号',
-                    '更多指令请回复more',
-                    'PS: 点击下面的「查看全文」将跳转到我的github页'
+                    '在你最青春的人生里',
+                    '陪你走过每一个季节',
+                    '助你pass每一门功课',
+                    '帮你实现每一个青春的梦想',
+                    '倾听你的烦恼',
+                    '派遣你的寂寞',
+                    '为你的人生增添快乐和希望'
+                    //'s+空格+关键词 : 我会帮你百度搜索喔',
+                    //'s+空格+nde : 可以试试我的纠错能力'
                 ].join('\n')
             };
             // 返回值如果是list，则回复图文消息列表
@@ -66,7 +67,7 @@ module.exports = exports = function(webot){
         // pattern 既可以是函数，也可以是 regexp 或 字符串(模糊匹配)
         pattern: /who|你是[谁\?]+/i,
         // 回复handler也可以直接是字符串或数组，如果是数组则随机返回一个子元素
-        handler: ['我是神马机器人', '微信机器人']
+        handler: ['你好，我是七月', '我是七月，你的学习小秘书']
     });
 
     // 正则匹配后的匹配组存在 info.query 中

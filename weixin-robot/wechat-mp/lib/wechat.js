@@ -88,7 +88,7 @@ Wechat.prototype.parser = function bodyParser(opts) {
     }
     var token = req[tokenProp] || opts.token
     if (!checkSig(token, req.query)) {
-      //非法签名
+      //闈炴硶绛惧悕
       return Wechat.block(res)
     }
     if (req.method == 'GET') {
@@ -98,7 +98,7 @@ Wechat.prototype.parser = function bodyParser(opts) {
       return res.end()
     }
 
-    // 解析客户端的请求数据
+    // 瑙ｆ瀽瀹㈡埛绔殑璇锋眰鏁版嵁
     Wechat.parse(req, function(err, data) {
       if (err) {
         res.statusCode = 400
@@ -126,7 +126,7 @@ Wechat.prototype.parser = function bodyParser(opts) {
 Wechat.prototype.end =
 Wechat.prototype.responder = function responder() {
   return function(req, res, next) {
-    log("发送消息Response给客户端::res.end");
+    log("鍙戦�佹秷鎭疪esponse缁欏鎴风::res.end");
     res.setHeader('Content-Type', 'application/xml')
     res.end(Wechat.dump(Wechat.ensure(res.body, req.body)))
   }
@@ -152,7 +152,7 @@ Wechat.ensure = function(reply, data) {
 }
 
 /**
- * 解析客户端发来的请求数据
+ * 瑙ｆ瀽瀹㈡埛绔彂鏉ョ殑璇锋眰鏁版嵁
  * */
 Wechat.parse = function (req, callback) {
   var chunks = [];
