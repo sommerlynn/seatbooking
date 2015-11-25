@@ -172,6 +172,7 @@ Webot.prototype.waitRule = function(rule_name, rule) {
 Webot.prototype.get = function(name){
   return this.gets(name)[0] || this.waits[name];
 };
+
 Webot.prototype.gets = function(name, from) {
   from = from || this.routes;
   return name ? utils.find(from, function(rule){

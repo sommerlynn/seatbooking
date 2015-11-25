@@ -29,7 +29,7 @@ module.exports = exports = function(webot){
         },
         handler: function(info){
             var reply = {
-                title: '感谢你收听webot机器人',
+                title: '你好，我是七月，在未来的学习生活中，我会伴你左右，陪你pass每一门考试，赔你度过春夏秋冬',
                 pic: 'https://raw.github.com/node-webot/webot-example/master/qrcode.jpg',
                 url: 'https://github.com/node-webot/webot-example',
                 description: [
@@ -82,8 +82,8 @@ module.exports = exports = function(webot){
     });
 
     // 简单的纯文本对话，可以用单独的 yaml 文件来定义
-    require('js-yaml');
-    webot.dialog(__dirname + '/dialog.yaml');
+    //require('js-yaml');
+    //webot.dialog(__dirname + '/dialog.yaml');
 
     // 支持一次性加多个（方便后台数据库存储规则）
     webot.set([{
