@@ -4,7 +4,7 @@ var sprintf = require('sprintf');
 var router = express.Router();
 
 // wechat: https://github.com/node-webot/wechat
-// Î¢ÐÅ¹«¹²Æ½Ì¨×Ô¶¯»Ø¸´ÏûÏ¢½Ó¿Ú·þÎñÖÐ¼ä¼þ
+// Î¢ï¿½Å¹ï¿½ï¿½ï¿½Æ½Ì¨ï¿½Ô¶ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½Ï¢ï¿½Ó¿Ú·ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½
 var wechat = require("wechat");
 var wechatconfig = {
     token: '1qazxsw2',
@@ -46,8 +46,8 @@ router.post('/', wechat(wechatconfig, function (req, res, next) {
     var message = req.weixin;
     res.reply([
         {
-            title:'Ð¡òÑ»¶Ó­Äã',
-            description:'ÎÒ¿ÉÒÔÅãÄãÁÄÌìÅ¶',
+            title:'Ð¡ï¿½Ñ»ï¿½Ó­ï¿½ï¿½',
+            description:'ï¿½Ò¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¶',
             picurl:'http://img5.duitang.com/uploads/item/201503/09/20150309134720_B3zUx.thumb.700_0.jpeg',
             url:'http://m.sohu.com'
         }
@@ -56,9 +56,9 @@ router.post('/', wechat(wechatconfig, function (req, res, next) {
 
 module.exports = router;
 
-/* ¾É´úÂë
- // ½«¿Í»§¶Ë·¢À´µÄÏûÏ¢£¨xml¸ñÊ½£©×ªÎªJson¸ñÊ½ https://github.com/Leonidas-from-XIV/node-xml2js
- // ¿Í»§¶ËÊÕµ½µÄÏûÏ¢¸ñÊ½:http://mp.weixin.qq.com/wiki/10/79502792eef98d6e0c6e1739da387346.html
+/* ï¿½É´ï¿½ï¿½ï¿½
+ // ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½xmlï¿½ï¿½Ê½ï¿½ï¿½×ªÎªJsonï¿½ï¿½Ê½ https://github.com/Leonidas-from-XIV/node-xml2js
+ // ï¿½Í»ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ê½:http://mp.weixin.qq.com/wiki/10/79502792eef98d6e0c6e1739da387346.html
  //<xml>
  //<ToUserName><![CDATA[toUser]]></ToUserName>
  //<FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -73,7 +73,7 @@ module.exports = router;
  var body = "";
  req.on('data', function (chunk) {
  console.log("read data")
- body += chunk; //¶ÁÈ¡²ÎÊýÁ÷×ª»¯Îª×Ö·û´®
+ body += chunk; //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªï¿½Ö·ï¿½ï¿½ï¿½
  });
 
  req.on('end', function () {
@@ -82,9 +82,9 @@ module.exports = router;
 
  console.dir(result);
 
- //var msgObjFromClient = JSON.parse(result); ´Ë´¦´íÎóÔÚÓÚxml2js ÒÑ¾­½«xml×ª»¯Îªjs¶ÔÏó£¬¶ø·ÇJson¶ÔÏó
+ //var msgObjFromClient = JSON.parse(result); ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xml2js ï¿½Ñ¾ï¿½ï¿½ï¿½xml×ªï¿½ï¿½Îªjsï¿½ï¿½ï¿½ó£¬¶ï¿½ï¿½ï¿½Jsonï¿½ï¿½ï¿½ï¿½
 
- // ¸ø¿Í»§·µ»ØµÄÏûÏ¢¸ñÊ½ http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
+ // ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ê½ http://mp.weixin.qq.com/wiki/14/89b871b5466b19b3efa4ada8e577d45e.html
  //<xml>
  //<ToUserName><![CDATA[toUser]]></ToUserName>
  //<FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -110,8 +110,8 @@ module.exports = router;
  result.fromUserName,
  result.toUserName,
  new Date().getTime(),
- "Ð¡òÑ»¶Ó­Äã",
- "ÎÒ¿ÉÒÔÅãÄãÁÄÌìÅ¶",
+ "Ð¡ï¿½Ñ»ï¿½Ó­ï¿½ï¿½",
+ "ï¿½Ò¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¶",
  "http://img5.duitang.com/uploads/item/201503/09/20150309134720_B3zUx.thumb.700_0.jpeg",
  "http://m.sohu.com");
 
