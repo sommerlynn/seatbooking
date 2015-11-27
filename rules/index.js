@@ -69,6 +69,31 @@ module.exports = exports = function(webot){
         handler: ['你好，我是七玥，很高兴认识你。']
     });
 
+    webot.set('want_a_seat', {
+        description: '想订座',
+        // pattern 既可以是函数，也可以是 regexp 或 字符串(模糊匹配)
+        pattern: /学|自习[座\?]+/i,
+        // 回复handler也可以直接是字符串或数组，如果是数组则随机返回一个子元素
+        handler: function(info){
+            var reply = {
+                title: '【你好】认真学习 天天向上',
+                pic: 'http://img5.duitang.com/uploads/item/201506/12/20150612194418_T4S3r.thumb.700_0.jpeg',
+                url: 'http://180.76.185.145/seatmap',
+                description: [
+                    '在青春岁月里',
+                    '陪你走过每一个季节',
+                    '助你通过每一门考试',
+                    '帮你实现每一个梦想',
+                    '倾听你的烦恼和忧愁',
+                    '给你带去快乐带走忧愁'
+                    //'s+空格+关键词 : 我会帮你百度搜索喔',
+                    //'s+空格+nde : 可以试试我的纠错能力'
+                ].join('\n')
+            };
+            // 返回值如果是list，则回复图文消息列表
+            return reply;
+        }
+    });
 
     //所有消息都无法匹配时的fallback
     webot.set(/.*/, function(info){
