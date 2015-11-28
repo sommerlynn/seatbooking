@@ -20,6 +20,9 @@
 <ul id="seat-map">
     <li class="front-indicator">教三 A 101</li>
 </ul>
+<div id="legend">
+    
+</div>
 <script>
     var firstSeatLabel = 1;
 
@@ -64,7 +67,12 @@
                         //}
                     },
                     naming : {
+                        // whether display cloumn header, true to display, false not to display
+                        // 是否显示列头行，true 显示， false 不显示
                         top : false,
+                        // whether display row header, true to display, false not to display
+                        // 是否显示行头列，true 显示， false 不显示
+                        left: false,
                         getLabel : function (character, row, column) {
                             return firstSeatLabel++;
                         },
@@ -73,8 +81,9 @@
                         node : $('#legend'),
                         items : [
                             [ 'a', 'available',   '可选' ],
-                            //[ 'e', 'available',   'Economy Class'],
-                            [ 'x', 'unavailable', '已订']
+                            [ 'b', 'booked-boy', '男生已订'],
+                            [ 'g', 'booked-girl', '男生已订'],
+                            [ 'c', 'booked-girl', '有课'],
                         ]
                     },
                     click: function () {
@@ -122,8 +131,7 @@
         //});
 
         //let's pretend some seats have already been booked
-        sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
-
+        //sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
     });
 
     function recalculateTotal(sc) {

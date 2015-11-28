@@ -25,7 +25,7 @@
           animate : false, //requires jQuery UI
           naming  : {
             top    : true,
-            left   : true,
+            left   : true, //是否显示行号列
             getId  : function(character, row, column) {
               return row + '_' + column;
             },
@@ -63,7 +63,7 @@
           seats   : {}
 
         },
-    //seat will be basically a seat object which we'll when generating the map
+        //seat will be basically a seat object which we'll when generating the map
         seat = (function(seatCharts, seatChartsSettings) {
           return function (setup) {
             var fn = this;
@@ -333,14 +333,18 @@
 
     fn.addClass('seatCharts-container').width((settings.naming.columns.length+1)*32);
 
+    // whether display cloumn header, true to display, false not to display
+    // 是否显示列头行，true 显示， false 不显示
     if (settings.naming.top) {
-      var $headerRow = $('<span></spa>')
+      var $headerRow = $('<span></span>')
           .addClass('seatCharts-row seatCharts-header');
 
+      // If column NO is displayed in the front of each row, here should
+      // insert a blank column
+      // 如果显示行号列，此处应增加一个空列
       if (settings.naming.left) {
-        $headerRow.append($('<span></spa>').addClass('seatCharts-cell'));
+        $headerRow.append($('<span></span>').addClass('seatCharts-cell'));
       }
-
 
       $.each(settings.naming.columns, function(index, value) {
         $headerRow.append(
@@ -358,7 +362,10 @@
 
       var $row = $('<li></li>').addClass('seatCharts-row');
 
+      // whether display row header, true to display, false not to display
+      // 是否显示行头列，true 显示， false 不显示
       if (settings.naming.left) {
+        // 行头列
         $row.append(
             $('<span></spa>')
                 .addClass('seatCharts-cell seatCharts-space')
@@ -472,7 +479,6 @@
 
       fn.find('.seatCharts-seat:not(.seatCharts-space):first').focus();
       seats[seatIds[0]].focus();
-
     });
 
     //public methods of seatCharts
