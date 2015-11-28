@@ -3,6 +3,11 @@ ul.seatCharts-container {
     margin: 0;
     list-style-type: none;
 }
+
+.front-indicator{
+
+}
+
 span.seatCharts-cell {
   height: 32px;
   width: 32px;
@@ -44,11 +49,11 @@ span.seatCharts-row:after {
 }
 
 span.seatCharts-seat.selected {
-  background-color: aqua;
+   background-image: url('../images/blankseat-selected.png');
 }
 
 span.seatCharts-seat.focused {
-    background-image: url('../images/blankseat-focused.png');
+   background-image: url('../images/blankseat-focused.png');
 }
 
 span.seatCharts-seat.available {
