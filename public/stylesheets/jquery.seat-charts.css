@@ -11,16 +11,15 @@ div.seatCharts-cell {
   font-size: 13px;
   line-height:16px;
   color: blue;
-  background-image: url('../images/blankseat.png');
 }
 
 div.seatCharts-seat {
-  background-color: green;
   color: white;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   cursor: default;
+  background-image: url('../images/blankseat.png');
 }
 div.seatCharts-seat:focus {
   border: none;
