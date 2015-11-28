@@ -69,8 +69,8 @@
             var fn = this;
 
             fn.settings = $.extend({
-              status : 'available', //available, unavailable, selected
-              style  : 'available',
+              status : setup.character == 'a'?'available':'unavailable', //available, unavailable, selected
+              style  : setup.character == 'a'?'available':'unavailable',
               //make sure there's an empty hash if user doesn't pass anything
               data   : seatChartsSettings.seats[setup.character] || {}
               //anything goes here?
