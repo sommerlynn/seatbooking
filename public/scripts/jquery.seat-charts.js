@@ -310,7 +310,7 @@
           }
         })(fn, settings);
 
-    fn.addClass('seatCharts-container');
+    fn.addClass('seatCharts-container').width(settings.naming.columns.length()*35);
 
     //true -> deep copy!
     $.extend(true, settings, setup);
