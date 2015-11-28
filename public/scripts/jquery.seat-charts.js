@@ -362,8 +362,9 @@
         $row.append(
             $('<div></div>')
                 .addClass('seatCharts-cell seatCharts-space')
-                .text(settings.naming.rows[row])
-                .title(settings.naming.rows[row])
+                .append($('<span></span>')
+                    .text(settings.naming.rows[row])
+                    .title(settings.naming.rows[row]))
         );
       }
 
