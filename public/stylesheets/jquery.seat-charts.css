@@ -1,7 +1,7 @@
-div.seatCharts-container {
+span.seatCharts-container {
   /*min-width: 700px;*/
 }
-div.seatCharts-cell {
+span.seatCharts-cell {
   height: 32px;
   width: 32px;
   margin: 3px;
@@ -13,7 +13,7 @@ div.seatCharts-cell {
   color: blue;
 }
 
-div.seatCharts-seat {
+span.seatCharts-seat {
   color: white;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -21,7 +21,7 @@ div.seatCharts-seat {
   cursor: default;
 
 }
-div.seatCharts-seat:focus {
+span.seatCharts-seat:focus {
   border: none;
 }
 /*
@@ -30,30 +30,30 @@ div.seatCharts-seat:focus {
 }
 */
 
-div.seatCharts-space {
+span.seatCharts-space {
   background-color: white;
 }
-div.seatCharts-row {
+span.seatCharts-row {
   height: 50px;
 }
 
-div.seatCharts-row:after {
+span.seatCharts-row:after {
   clear: both;
 }
 
-div.seatCharts-seat.selected {
+span.seatCharts-seat.selected {
   background-color: aqua;
 }
 
-div.seatCharts-seat.focused {
+span.seatCharts-seat.focused {
     background-image: url('../images/blankseat-focused.png');
 }
 
-div.seatCharts-seat.available {
+span.seatCharts-seat.available {
     background-image: url('../images/blankseat.png');
 }
 
-div.seatCharts-seat.unavailable {
+span.seatCharts-seat.unavailable {
     background: url('../images/girl.png') no-repeat;
     background-size: 24px 24px;
     cursor: not-allowed;
