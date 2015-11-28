@@ -1,4 +1,4 @@
-span.seatCharts-container {
+ul.seatCharts-container {
   /*min-width: 700px;*/
 }
 span.seatCharts-cell {
@@ -33,7 +33,7 @@ span.seatCharts-seat:focus {
 span.seatCharts-space {
   background-color: white;
 }
-span.seatCharts-row {
+li.seatCharts-row {
   height: 50px;
 }
 
