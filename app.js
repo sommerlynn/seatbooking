@@ -10,6 +10,7 @@ var log = debug("seatbooking::log");
 var error = debug("seatbooking::error");
 
 var routes = require('./routes/index');
+var seatmap = require('./routes/seatmap');
 //var users = require('./routes/users');
 //var weixin = require('./routes/weixin');
 var weixinrobot = require('./lib/weixin-robot');
@@ -46,6 +47,7 @@ app.use(cookieParser());
 //}));
 
 app.use('/', routes);
+app.use('/seatmap', seatmap);
 //app.use('/users', users);
 //app.use('/weixin', weixin);
 
