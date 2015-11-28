@@ -5,7 +5,11 @@ ul.seatCharts-container {
 }
 
 .front-indicator{
-
+    text-align: center;
+    background: #AD939F;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 span.seatCharts-cell {
@@ -38,8 +42,9 @@ span.seatCharts-seat:focus {
 */
 
 span.seatCharts-space {
-  
+  visibility: hidden;
 }
+
 li.seatCharts-row {
   height: 50px;
 }
