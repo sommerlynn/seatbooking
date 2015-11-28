@@ -55,6 +55,7 @@ div.seatCharts-seat.available {
 
 div.seatCharts-seat.unavailable {
     background-image: url('../images/girl.png');
+    background-size: 24px 24px;
     cursor: not-allowed;
 }
 
