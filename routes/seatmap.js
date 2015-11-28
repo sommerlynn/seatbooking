@@ -5,7 +5,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/seatmap', function(req, res, next) {
+router.get('/', function(req, res, next) {
     res.render('seatmap',{ title: '×ùÎ»Í¼' });
 });
 
