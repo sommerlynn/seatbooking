@@ -76,7 +76,7 @@
               //anything goes here?
             }, setup);
 
-            fn.settings.$node = $('<div></div>');
+            fn.settings.$node = $('<span></span>');
 
             fn.settings.$node
                 .attr({
@@ -334,17 +334,17 @@
         })(settings.map[0].split('').length);
 
     if (settings.naming.top) {
-      var $headerRow = $('<div></div>')
+      var $headerRow = $('<span></spa>')
           .addClass('seatCharts-row seatCharts-header');
 
       if (settings.naming.left) {
-        $headerRow.append($('<div></div>').addClass('seatCharts-cell'));
+        $headerRow.append($('<span></spa>').addClass('seatCharts-cell'));
       }
 
 
       $.each(settings.naming.columns, function(index, value) {
         $headerRow.append(
-            $('<div></div>')
+            $('<span></spa>')
                 .addClass('seatCharts-cell')
                 .text(value)
         );
@@ -360,11 +360,10 @@
 
       if (settings.naming.left) {
         $row.append(
-            $('<div></div>')
+            $('<span></spa>')
                 .addClass('seatCharts-cell seatCharts-space')
-                .append($('<span></span>')
-                    .text(settings.naming.rows[row])
-                    .attr('title', '第'+settings.naming.rows[row]+'排'))
+                .text(settings.naming.rows[row])
+                .attr('title', '第'+settings.naming.rows[row]+'排')
         );
       }
 
