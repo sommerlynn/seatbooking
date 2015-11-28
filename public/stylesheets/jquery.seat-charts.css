@@ -6,7 +6,7 @@ ul.seatCharts-container {
 span.seatCharts-cell {
   height: 32px;
   width: 32px;
-  margin: 3px;
+  margin: 0px;
   float: left;
   text-align: center;
   outline: none;
