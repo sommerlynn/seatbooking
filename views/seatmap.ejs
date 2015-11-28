@@ -30,28 +30,27 @@
             // $total = $('#total'),
                 sc = $('#seat-map').seatCharts({
                     map: [
-                        'ff_ff',
-                        'ff_ff',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee___',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'eeeee',
+                        'a_aaa_a',
+                        'a_aaa_a',
+                        'a_aaa_a',
+                        'a_aaa_a',
+                        'a_aaa_a',
+                        'a_aaa_a',
+                        'a_aaa_a',
+                        'a_aaa_a',
+                        'a_aaa_a',
                     ],
                     seats: {
-                        f: {
-                            price   : 100,
-                            classes : 'first-class', //your custom CSS class
-                            category: 'First Class'
+                        a: {
+                            //price   : 100,
+                            classes : 'normal-seat', //your custom CSS class
+                            category: 'normal-seat'
                         },
-                        e: {
-                            price   : 40,
-                            classes : 'economy-class', //your custom CSS class
-                            category: 'Economy Class'
-                        }
-
+                        //e: {
+                        //    price   : 40,
+                        //    classes : 'economy-class', //your custom CSS class
+                        //    category: 'Economy Class'
+                        //}
                     },
                     naming : {
                         top : false,
@@ -62,9 +61,9 @@
                     legend : {
                         node : $('#legend'),
                         items : [
-                            [ 'f', 'available',   'First Class' ],
-                            [ 'e', 'available',   'Economy Class'],
-                            [ 'f', 'unavailable', 'Already Booked']
+                            [ 'a', 'available',   '可选' ],
+                            //[ 'e', 'available',   'Economy Class'],
+                            [ 'x', 'unavailable', '已订']
                         ]
                     },
                     click: function () {
