@@ -30,13 +30,13 @@
                 sc = $('#seat-map').seatCharts({
                     map: [
                         'aaa_aaaaaaaaa_aaa',
-                        'aaa_aaaaaaaaa_aaa',
-                        'aaa_aaaaaaaaa_aaa',
-                        'aaa_aaaaaaaaa_aaa',
-                        'aaa_aaaxaaaaa_aaa',
-                        'aaa_aaaaaaaaa_aaa',
-                        'aaa_aaaaaxaaa_aaa',
-                        'aaa_aaaaaaaaa_aaa',
+                        'aaa_aaaaaabaa_aaa',
+                        'aaa_aaaabaaaa_aaa',
+                        'aaa_aaaaaagaa_aga',
+                        'aaa_aaataaaaa_aaa',
+                        'aaa_ataaaaaaa_aaa',
+                        'aaa_aaaaagaaa_aaa',
+                        'aaa_aacaaaaaa_aaa',
                         'aaa_aaaaaaaaa_aaa',
                     ],
                     seats: {
@@ -45,9 +45,17 @@
                             classes : 'normal-seat', //your custom CSS class
                             category: 'normal-seat'
                         },
-                        x: {
-                            classes : 'booked-seat', //your custom CSS class
-                            category: 'booked-seat'
+                        t: {
+                            classes : 'booked-seat-teaching',
+                            category: 'booked-seat-teaching'
+                        },
+                        g: {
+                            classes : 'booked-seat-girl',
+                            category: 'booked-seat-girl'
+                        },
+                        b: {
+                            classes : 'booked-seat-boy',
+                            category: 'booked-seat-boy'
                         }
                         //e: {
                         //    price   : 40,

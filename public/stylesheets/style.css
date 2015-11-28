@@ -81,8 +81,19 @@ span.seatCharts-seat.available {
 }
 
 span.seatCharts-seat.unavailable {
-  background: url('../images/girl.png') no-repeat;
   cursor: not-allowed;
+}
+
+span.seatCharts-seat.booked-seat-girl{
+  background: url('../images/girl.png') no-repeat;
+}
+
+span.seatCharts-seat.booked-seat-boy{
+  background: url('../images/boy.png') no-repeat;
+}
+
+span.seatCharts-seat.booked-seat-teaching{
+  background: url('../images/teaching.png') no-repeat;
 }
 
 ul.seatCharts-legendList {
