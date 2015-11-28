@@ -45,8 +45,8 @@ span.seatCharts-seat {
   -moz-border-radius: 5px;
   border-radius: 5px;
   cursor: default;
-
 }
+
 span.seatCharts-seat:focus {
   border: none;
 }
@@ -84,6 +84,10 @@ span.seatCharts-seat.unavailable {
   cursor: not-allowed;
 }
 
+span.seatCharts-seat.available {
+  background-image: url('../images/blankseat.png');
+}
+
 span.seatCharts-seat.booked-seat-girl{
   background: url('../images/girl.png') no-repeat;
 }
@@ -99,7 +103,50 @@ span.seatCharts-seat.booked-seat-teaching{
 ul.seatCharts-legendList {
   list-style: none;
 }
+
 li.seatCharts-legendItem {
-  margin-top: 10px;
-  line-height: 2;
+  margin-top: 5px;
+  line-height: 30px;
+  display: inline-block;
+}
+
+span.seatCharts-cell-legend {
+  height: 16px;
+  width: 16px;
+  margin: 0px;
+  float: left;
+  text-align: center;
+  outline: none;
+  font-size: 12px;
+  line-height:30px;
+  color: blue;
+}
+
+span.seatCharts-seat-legend {
+  color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  cursor: default;
+}
+
+span.seatCharts-legendDescription{
+  color: white;
+  font-size: 12px;
+}
+
+span.seatCharts-seat-legend.available16 {
+  background-image: url('../images/blankseat16.png');
+}
+
+span.seatCharts-seat-legend.booked-seat-girl16{
+  background: url('../images/girl16.png') no-repeat;
+}
+
+span.seatCharts-seat-legend.booked-seat-boy16{
+  background: url('../images/boy16.png') no-repeat;
+}
+
+span.seatCharts-seat-legend.booked-seat-teaching16{
+  background: url('../images/teaching16.png') no-repeat;
 }
