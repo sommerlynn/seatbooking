@@ -1,5 +1,7 @@
 ul.seatCharts-container {
-  
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
 }
 span.seatCharts-cell {
   height: 32px;

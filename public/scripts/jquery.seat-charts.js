@@ -332,7 +332,7 @@
         })(settings.map[0].split('').length);
 
     fn.addClass('seatCharts-container').width(settings.naming.columns.length*35);
-      
+
     if (settings.naming.top) {
       var $headerRow = $('<span></spa>')
           .addClass('seatCharts-row seatCharts-header');
