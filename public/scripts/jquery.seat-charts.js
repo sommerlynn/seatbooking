@@ -356,7 +356,7 @@
     //do this for each map row
     $.each(settings.map, function(row, characters) {
 
-      var $row = $('<div></div>').addClass('seatCharts-row');
+      var $row = $('<li></li>').addClass('seatCharts-row');
 
       if (settings.naming.left) {
         $row.append(
@@ -420,7 +420,7 @@
                 })(settings.naming)
                 :
                 //this is just an empty space (_)
-                $('<div></div>').addClass('seatCharts-cell seatCharts-space')
+                $('<span></span>').addClass('seatCharts-cell seatCharts-space')
         );
       });
 
@@ -442,7 +442,7 @@
             $('<li></li>')
                 .addClass('seatCharts-legendItem')
                 .append(
-                $('<div></div>')
+                $('<span></span>')
                   //merge user defined classes with our standard ones
                     .addClass(['seatCharts-seat', 'seatCharts-cell', item[1]].concat(
                         settings.classes,
