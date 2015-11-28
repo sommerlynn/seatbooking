@@ -15,8 +15,8 @@ span.seatCharts-cell {
   float: left;
   text-align: center;
   outline: none;
-  font-size: 13px;
-  line-height:16px;
+  font-size: 12px;
+  line-height:50px;
   color: blue;
 }
 
