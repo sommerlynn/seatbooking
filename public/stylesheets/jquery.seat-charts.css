@@ -9,6 +9,7 @@ ul.seatCharts-container {
     color: #EBE4EA;
     margin: 0px 0px 10px 0px;
     height: 50px;
+    line-height: 50px;
     font-size: 16px;
     font-weight:bold;
     border:solid #EBE4eA;
