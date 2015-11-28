@@ -364,7 +364,7 @@
                 .addClass('seatCharts-cell seatCharts-space')
                 .append($('<span></span>')
                     .text(settings.naming.rows[row])
-                    .attr('title', 'µÚ'+settings.naming.rows[row]+'ÅÅ'))
+                    .attr('title', 'ç¬¬'+settings.naming.rows[row]+'æŽ’'))
         );
       }
 
