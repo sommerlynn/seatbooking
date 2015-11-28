@@ -62,7 +62,6 @@ span.seatCharts-seat.available {
 
 span.seatCharts-seat.unavailable {
     background: url('../images/girl.png') no-repeat;
-    background-size: 24px 24px;
     cursor: not-allowed;
 }
 
