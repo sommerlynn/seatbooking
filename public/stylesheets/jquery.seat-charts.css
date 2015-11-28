@@ -19,7 +19,7 @@ div.seatCharts-seat {
   -moz-border-radius: 5px;
   border-radius: 5px;
   cursor: default;
-  background-image: url('../images/blankseat.png');
+
 }
 div.seatCharts-seat:focus {
   border: none;
@@ -46,16 +46,16 @@ div.seatCharts-seat.selected {
 }
 
 div.seatCharts-seat.focused {
-  background-color: #6db131;
+    background-image: url('../images/blankseat-focused.png');
 }
 
 div.seatCharts-seat.available {
-  background-color: green;
+    background-image: url('../images/blankseat.png');
 }
 
 div.seatCharts-seat.unavailable {
-  background-color: red;
-  cursor: not-allowed;
+    background-image: url('../images/girl.png');
+    cursor: not-allowed;
 }
 
 ul.seatCharts-legendList {
