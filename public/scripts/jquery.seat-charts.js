@@ -417,8 +417,9 @@
                   seatIds.push(id);
                   return seats[id].node();
 
-                })(settings.naming) :
-              //this is just an empty space (_)
+                })(settings.naming)
+                :
+                //this is just an empty space (_)
                 $('<div></div>').addClass('seatCharts-cell seatCharts-space')
         );
       });
@@ -429,7 +430,7 @@
     //if there're any legend items to be rendered
     settings.legend.items.length ? (function(legend) {
       //either use user-defined container or create our own and insert it right after the seat chart div
-      var $container = (legend.node || $('<div></div').insertAfter(fn))
+      var $container = (legend.node || $('<div></div>').insertAfter(fn))
           .addClass('seatCharts-legend');
 
       var $ul = $('<ul></ul>')
