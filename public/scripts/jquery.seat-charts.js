@@ -332,7 +332,8 @@
         })(settings.map[0].split('').length);
 
     fn.addClass('seatCharts-container').width((settings.naming.columns.length+1)*32);
-
+    $('body').width((settings.naming.columns.length+1)*32);
+      
     // whether display cloumn header, true to display, false not to display
     // 是否显示列头行，true 显示， false 不显示
     if (settings.naming.top) {
