@@ -142,7 +142,8 @@
         var clientWidth = document.documentElement.clientWidth;
         var initialContentWidth = $('#content-wrapper').width();
         if(initialContentWidth > clientWidth){
-            $('#content-wrapper').attr('style', '-webkit-transform:scale('+clientWidth/initialContentWidth+');-webkit-transform-origin:top left;')
+            $('#content-wrapper').attr('style', '-webkit-transform:scale('+clientWidth/initialContentWidth+');-webkit-transform-origin:top left;');
+            $('front-indicator').width(clientWidth);
         }
     });
 
