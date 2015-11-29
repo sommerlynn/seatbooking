@@ -17,9 +17,11 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
-<ul id="seat-map">
-    <li class="front-indicator">教三 A 101</li>
-</ul>
+<div id="seat-map">
+    <ul id="seat-list">
+        <li class="front-indicator">教三 A 101</li>
+    </ul>
+</div>
 
 <script>
     var firstSeatLabel = 1;
@@ -28,7 +30,7 @@
         var //$cart = $('#selected-seats'),
             // $counter = $('#counter'),
             // $total = $('#total'),
-                sc = $('#seat-map').seatCharts({
+                sc = $('#seat-list').seatCharts({
                     map: [
                         'aaa_aaaaaaaaa_aaa',
                         'aaa_aaaaaabaa_aaa',
@@ -80,8 +82,8 @@
                         items : [
                             [ 'a', 'available16',   '空座' ],
                             [ 'b', 'booked-seat-boy16', '已订（男生）'],
-                            [ 'g', 'booked--seat-girl16', '已订（女生）'],
-                            [ 'c', 'booked--seat-teaching16', '有课'],
+                            [ 'g', 'booked-seat-girl16', '已订（女生）'],
+                            [ 'c', 'booked-seat-teaching16', '有课'],
                         ]
                     },
                     click: function () {

@@ -15,6 +15,10 @@ ul.seatCharts-container {
   list-style-type: none;
 }
 
+div#seat-map{
+  margin: 0px auto;
+}
+
 .front-indicator{
   text-align: center;
   color: #EBE4EA;
