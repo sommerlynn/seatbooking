@@ -141,7 +141,7 @@
         //根据手机屏幕自适应缩放
         var clientWidth = document.documentElement.clientWidth;
         var initialContentWidth = $('#content-wrapper').width();
-        $('#content-wrapper').attr('style', '-webkit-transform:scale('+clientWidth/initialContentWidth+');-webkit-transform-origin:top center;')
+        $('#content-wrapper').attr('style', '-webkit-transform:scale('+clientWidth/initialContentWidth+');-webkit-transform-origin:top left;')
     });
 
     function recalculateTotal(sc) {
