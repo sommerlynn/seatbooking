@@ -100,12 +100,15 @@ span.seatCharts-seat.booked-seat-teaching{
   background: url('../images/teaching.png') no-repeat;
 }
 
+div.seatCharts-legend{
+  margin: 5px auto;
+}
+
 ul.seatCharts-legendList {
   list-style: none;
 }
 
 li.seatCharts-legendItem {
-  margin-top: 5px;
   line-height: 16px;
   display: inline-block;
 }

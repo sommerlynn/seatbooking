@@ -330,10 +330,10 @@
           }
           return columns;
         })(settings.map[0].split('').length);
+    var contentWidth = (settings.naming.columns.length+1)*32;
+    fn.addClass('seatCharts-container').width(contentWidth);
+    $('body').width(contentWidth);
 
-    fn.addClass('seatCharts-container').width((settings.naming.columns.length+1)*32);
-    $('body').width((settings.naming.columns.length+1)*32);
-      
     // whether display cloumn header, true to display, false not to display
     // 是否显示列头行，true 显示， false 不显示
     if (settings.naming.top) {
@@ -437,15 +437,15 @@
     //if there're any legend items to be rendered
     settings.legend.items.length ? (function(legend) {
       //either use user-defined container or create our own and insert it right after the seat chart div
-      var $container = (legend.node || $('<ul></ul>').insertAfter(fn))
-          .addClass('seatCharts-legend seatCharts-legendList');
+      var $container = (legend.node || $('<div></div>').insertAfter(fn))
+          .addClass('seatCharts-legend').width(contentWidth);
 
-      //var $ul = $('<ul></ul>')
-      //    .addClass('seatCharts-legendList')
-      //    .appendTo($container);
+      var $ul = $('<ul></ul>')
+          .addClass('seatCharts-legendList')
+          .appendTo($container);
 
       $.each(legend.items, function(index, item) {
-          $container.append(
+          $ul.append(
             $('<li></li>')
                 .addClass('seatCharts-legendItem')
                 .append(
