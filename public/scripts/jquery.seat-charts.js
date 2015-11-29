@@ -332,7 +332,7 @@
         })(settings.map[0].split('').length);
 
     var contentWidth = (settings.naming.columns.length+1)*32;
-    //fn.addClass('seatCharts-container').width(contentWidth);
+    fn.addClass('seatCharts-container');
     $('#seat-map').width(contentWidth);
 
     // whether display cloumn header, true to display, false not to display

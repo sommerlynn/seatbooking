@@ -9,11 +9,7 @@ a {
   color: #00B7FF;
 }
 
-ul.seatCharts-container {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
+
 
 div#seat-map{
 }
@@ -21,6 +17,16 @@ div#seat-map{
 div#content-wrapper{
   text-align: center;
   margin: 0px auto;
+}
+
+ul.seatCharts-container {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+li.seatCharts-row{
+  display: inline-block;
 }
 
 .front-indicator{
