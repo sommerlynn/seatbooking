@@ -9,10 +9,11 @@ a {
   color: #00B7FF;
 }
 
-
-
 div#seat-map{
   margin: 0px auto;
+  padding: 10px 0px 0px 0px;
+  border:solid #EBE4eA;
+  border-width: 1px 0px 0px 0px;
 }
 
 div#content-wrapper{
@@ -33,13 +34,11 @@ li.seatCharts-row{
 .front-indicator{
   text-align: center;
   color: #EBE4EA;
-  margin: 0px 0px 10px 0px;
-  height: 50px;
-  line-height: 50px;
+  margin: 0px 0px 0px 0px;
+  height: 40px;
+  line-height: 40px;
   font-size: 16px;
   font-weight:bold;
-  border:solid #EBE4eA;
-  border-width: 0px 0px 1px 0px;
 }
 
 span.seatCharts-cell {
