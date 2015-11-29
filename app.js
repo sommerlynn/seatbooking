@@ -1,21 +1,12 @@
 var express = require('express');
+var app = express();
 var path = require('path');
 //var favicon = require('serve-favicon');
+
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-//var bodyParser = require('body-parser');
-//var session = require('express-session');
 var debug = require('debug');
 var log = debug("seatbooking::log");
 var error = debug("seatbooking::error");
-
-var routes = require('./routes/index');
-var seatmap = require('./routes/seatmap');
-//var users = require('./routes/users');
-//var weixin = require('./routes/weixin');
-var weixinrobot = require('./lib/weixin-robot');
-var app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,32 +15,36 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-//app.use(bodyParser.json()); 腾讯发来的消息是xml格式，非json格式
-//app.use(bodyParser.urlencoded({ extended: true}));
-
 
 // 载入webot的回复规则
-require('./rules')(weixinrobot);
+var weixinrobot = require('./lib/weixin-robot');
+require('./lib/weixin-robot/rules')(weixinrobot);
 // 启动机器人, 接管 web 服务请求
 weixinrobot.watch(app, { token: '1qazxsw2', path: '/weixin' });
 
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.query());
+
 // 如果需要 session 支持，sessionStore 必须放在 watch 之后
+var cookieParser = require('cookie-parser');
 app.use(cookieParser());
+
+//var bodyParser = require('body-parser');
+//app.use(bodyParser.json()); 腾讯发来的消息是xml格式，非json格式
+//app.use(bodyParser.urlencoded({ extended: true}));
+
 // 为了使用 waitRule 功能，需要增加 session 支持
 // https://github.com/expressjs/session
+//var session = require('express-session');
 //app.use(session({
 // secret: 'hongqingting',
 //  resave: false,
 //  saveUninitialized: true
 //}));
 
-app.use('/', routes);
-app.use('/seatmap', seatmap);
-//app.use('/users', users);
-//app.use('/weixin', weixin);
+
+var index = require('./routes/index');
+app.use('/', index);
 
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
@@ -74,7 +69,7 @@ if (app.get('env') === 'development') {
 }
 
 // production error handler
-// no stacktraces leaked to user
+// no stack traces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
@@ -82,6 +77,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
