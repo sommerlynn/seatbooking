@@ -16,6 +16,10 @@ ul.seatCharts-container {
 }
 
 div#seat-map{
+}
+
+div#content-wrapper{
+  text-align: center;
   margin: 0px auto;
 }
 
