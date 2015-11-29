@@ -1,8 +1,8 @@
 body {
   padding: 0px;
-  margin: 5px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #1D2025;
+  margin: 5px auto;
+  font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #1D2025;  
 }
 
 a {
@@ -135,6 +135,8 @@ span.seatCharts-seat-legend {
 span.seatCharts-legendDescription{
   color: white;
   font-size: 12px;
+  height: 16px;
+  line-height: 16px;
   margin: 0px 0px 0px 2px;
 }
 
