@@ -1,7 +1,7 @@
 body {
   padding: 0px;
   margin: 5px auto;
-  font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 0.75em "Lucida Grande", Helvetica, Arial, sans-serif;
   background: #1D2025;  
 }
 
@@ -37,7 +37,7 @@ li.seatCharts-row{
   margin: 0px auto;
   height: 40px;
   line-height: 40px;
-  font-size: 16px;
+  font-size: 1em;
   font-weight:bold;
 }
 
@@ -48,7 +48,7 @@ span.seatCharts-cell {
   float: left;
   text-align: center;
   outline: none;
-  font-size: 12px;
+  font-size: 0.75em;
   line-height:50px;
   color: blue;
 }
@@ -134,7 +134,7 @@ span.seatCharts-cell-legend {
   float: left;
   text-align: center;
   outline: none;
-  font-size: 12px;
+  font-size: 0.75em;
   line-height:16px;
   color: blue;
 }
@@ -151,7 +151,7 @@ span.seatCharts-seat-legend {
 
 span.seatCharts-legendDescription{
   color: white;
-  font-size: 12px;
+  font-size: 0.75em;
   height: 16px;
   line-height: 16px;
   margin: 0px 0px 0px 2px;

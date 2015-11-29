@@ -333,6 +333,7 @@
 
     var contentWidth = (settings.naming.columns.length+1)*32;
     fn.addClass('seatCharts-container');
+
     $('#seat-map').width(contentWidth);
     $('#content-wrapper').width(contentWidth);
 

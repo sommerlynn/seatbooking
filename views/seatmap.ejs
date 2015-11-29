@@ -137,6 +137,11 @@
 
         //let's pretend some seats have already been booked
         //sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
+
+        //根据手机屏幕自适应缩放
+        var clientWidth = document.documentElement.clientWidth;
+        var initialContentWidth = $('content-wrapper').width;
+        $('content-wrapper').attr.setAttribute('style', '-webkit-transform:scale('+clientWidth/initialContentWidth+');-webkit-transform-origin:top center;')
     });
 
     function recalculateTotal(sc) {
@@ -150,7 +155,7 @@
         return total;
     }
 
-    
+
 </script>
 
 </body>
