@@ -118,7 +118,7 @@ span.seatCharts-cell-legend {
   text-align: center;
   outline: none;
   font-size: 12px;
-  line-height:30px;
+  line-height:16px;
   color: blue;
 }
 
@@ -128,11 +128,14 @@ span.seatCharts-seat-legend {
   -moz-border-radius: 5px;
   border-radius: 5px;
   cursor: default;
+  margin: 0px auto;
+  padding: 0px;
 }
 
 span.seatCharts-legendDescription{
   color: white;
   font-size: 12px;
+  margin: 0px 0px 0px 2px;
 }
 
 span.seatCharts-seat-legend.available16 {
