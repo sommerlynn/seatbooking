@@ -334,6 +334,7 @@
     var contentWidth = (settings.naming.columns.length+1)*32;
     fn.addClass('seatCharts-container');
     $('#seat-map').width(contentWidth);
+    $('#content-wrapper').width(contentWidth);
 
     // whether display cloumn header, true to display, false not to display
     // 是否显示列头行，true 显示， false 不显示
