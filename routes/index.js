@@ -4,28 +4,28 @@ var express = require('express'),
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'ÆßÔÂÌìÊ¹' });
+  res.render('index', { title: 'ä¸ƒæœˆå¤©ä½¿' });
 });
 
 /*
 * Get seat map of a classroom
-* »ñÈ¡Ò»¸ö½ÌÊÒµÄ×ùÎ»Í¼
+* è·å–ä¸€ä¸ªæ•™å®¤çš„åº§ä½å›¾
 * */
 router.get('/seatmap', function(req, res, next) {
-  res.render('seatmap',{ title: 'Æß«hÌìÊ¹-½ÌÊÒ×ùÎ»Í¼' });
+  res.render('seatmap',{ title: 'ä¸ƒç¥å¤©ä½¿-æ•™å®¤åº§ä½å›¾' });
 });
 
 /*
 * Get buildings of a school
-* »ñÈ¡½ÌÑ§Â¥ÁĞ±í
+* è·å–æ•™å­¦æ¥¼åˆ—è¡¨
 * */
 router.get('/building', function(req, res, next){
   models.getAll(1, function(err, areas){
     if(err){
-      res.render('error', {title:'·şÎñÆ÷¹ÊÕÏ£¬ÇëÉÔºóÔÙÊÔ'});
+      res.render('error', {title:'æœåŠ¡å™¨æ•…éšœï¼Œè¯·ç¨åå†è¯•'});
     }
     else{
-      res.render('building', {title:'Æß«hÌìÊ¹-»ªµçĞ£Ô°×ÔÏ°ÊÒ', areas: areas});
+      res.render('building', {title:'ä¸ƒç¥å¤©ä½¿-åç”µæ ¡å›­è‡ªä¹ å®¤', areas: areas});
     }
   });
 });

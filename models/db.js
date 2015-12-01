@@ -58,7 +58,7 @@ db.process = process.on('exit', function (){
  */
 db.connect = function() {
 
-    var connection = mysql.createConnection(config.mysql);
+    var connection = mysql.createConnection(mysqlConfig);
     connection.connect(function(err) {
         if (err) {
             logger.error("DB connection error: " + err);
