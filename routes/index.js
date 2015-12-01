@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var models = require('../models');
+var express = require('express'),
+    router = express.Router(),
+    models = require('../models/buildings');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -20,7 +20,7 @@ router.get('/seatmap', function(req, res, next) {
 * 获取教学楼列表
 * */
 router.get('/building', function(req, res, next){
-  models.buildings.getAll(1, function(err, areas){
+  models.getAll(1, function(err, areas){
     if(err){
       res.render('error', {title:'服务器故障，请稍后再试'});
     }
