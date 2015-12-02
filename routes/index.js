@@ -4,7 +4,7 @@ var express = require('express'),
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('indexView', { title: '七玥天使' });
+  res.render('indexview', { title: '七玥天使' });
 });
 
 /*
@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 * 获取一个教室的座位图
 * */
 router.get('/seatmap', function(req, res, next) {
-  res.render('seatMapView',{ title: '七玥天使-教室座位图' });
+  res.render('seatmapview',{ title: '七玥天使-教室座位图' });
 });
 
 /*
@@ -22,10 +22,10 @@ router.get('/seatmap', function(req, res, next) {
 router.get('/building', function(req, res, next){
   models.buildingModel.getAll(1, function(err, areas){
     if(err){
-      res.render('errorView', {title:'服务器故障，请稍后再试'});
+      res.render('errorview', {title:'服务器故障，请稍后再试'});
     }
     else{
-      res.render('buildingView', {title:'七玥天使-华电校园自习室', areas: areas});
+      res.render('buildingview', {title:'七玥天使-华电校园自习室', areas: areas});
     }
   });
 });
