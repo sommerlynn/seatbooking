@@ -4,7 +4,7 @@
 var models;
 
 models = {
-    buildingModel : require('./buildingModel')
+    buildingModel : require('./buildingModel.js')
 };
 
 module.exports = models;
