@@ -4,7 +4,7 @@ var express = require('express'),
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('indexview', { title: '七玥天使' });
+  res.render('indexView', { title: '七玥天使' });
 });
 
 /*
