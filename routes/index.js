@@ -25,7 +25,7 @@ router.get('/building', function(req, res, next){
       res.render('errorView', {title:'服务器故障，请稍后再试'});
     }
     else{
-      res.render('buildingView', {title:'七玥天使-华电校园自习室', areas: areas});
+      res.render('buildingView', {title:'七玥天使-自习室导航', areas: areas});
     }
   });
 });
