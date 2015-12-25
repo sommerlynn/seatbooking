@@ -23,12 +23,12 @@ router.get('/seatmap', function(req, res, next) {
 * 获取教学楼列表
 * */
 router.get('/building', function(req, res, next){
-  models.buildingModel.getAll(1, function(err, areas){
+  models.buildingModel.getAll(1, function(err, classroomList){
     if(err){
-      res.render('errorView', {title:'服务器故障，请稍后再试'});
+      res.render('errorView', {message:'服务器故障', error: err});
     }
     else{
-      res.render('buildingView', {title:'七玥天使-自习室导航', areas: areas});
+      res.render('buildingView', {title:'七玥天使-自习室导航', classroomList: classroomList});
     }
   });
 });

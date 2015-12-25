@@ -1,17 +1,28 @@
-<include header.html></include>
-<div class="mui-content">
-    <ul class="mui-table-view mui-table-view-chevron">
-        <% for ( var index = 0; index < areas.length; index++) { %>
-        <li class="mui-table-view-cell mui-media">
-            <a class='mui-navigate-right' href="javascript:;">
-                <img class="mui-media-object mui-pull-left" src="../images/tsg.jpg">
-                <div class="mui-media-body">
-                    <%= areas[index].building_name %> <%= areas[index].area_name %>
-                    <p class='mui-ellipsis'>当前空闲教室{0}个，座位空闲率{1}</p>
-                </div>
-            </a>
-            </li>
-        <% } %>
-    </ul>
+<% include header.html %>
+<div class="page">
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.5.8/js/sm.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.seat-charts.js"></script>
+    <header class="bar bar-nav">
+        <h1 class="title">自习室</h1>
+    </header>
+    <div class="content">
+        <div class="content-block-title">图书馆</div>
+        <div class="list-block">
+            <ul>
+                <% for ( var index = 0; index < classroomList.length; index++) { %>
+                <li>
+                    <a class="item-link item-content" href="/seatmap">
+                    <div class="item-inner">
+                        <div class="item-title"><%= classroomList[index].area_name %><%= classroomList[index].classroom_name %></div>
+                        <div class="item-title">座位数</div>
+                    </div>
+                    </a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <% include footer.html %>
 </div>
-<include footer.html></include>
