@@ -14,8 +14,38 @@ router.get('/', function(req, res, next) {
 * Get seat map of a classroom
 * 获取一个教室的座位图
 * */
-router.get('/seatmap', function(req, res, next) {
-  res.render('seatMapView',{ title: '七玥天使-教室座位图' });
+router.get('/seatmap/:cid', function(req, res) {
+
+  models.classroomModel.getByID(req.params.cid, function(err, classroom){
+      if(err){
+          res.render('errorView', {message:'服务器故障', error: err});
+      }
+      else {
+          var map = new Array();
+          var rowCount = classroom['row_count'];
+          var columnCount = classroom['column_count'];
+
+          for(var rindex = 0; rindex < rowCount; rindex++){
+              var cstr = '';
+              for (var cindex = 0; cindex < columnCount; cindex++){
+                  cstr = cstr+'a';
+              }
+              map[rindex] = cstr;
+          }
+
+          /*var map = ['aaa_aaaaaaaaa_aaa',
+              'aaa_aaaaaabaa_aaa',
+              'aaa_aaaabaaaa_aaa',
+              'aaa_aaaaaagaa_aga',
+              'aaa_aaataaaaa_aaa',
+              'aaa_ataaaaaaa_aaa',
+              'aaa_aaaaagaaa_aaa',
+              'aaa_aataaaaaa_aaa',
+              'aaa_aaaaaaaaa_aaa'];*/
+
+          res.render('seatMapView',{ title: '座位布局图', map: map });
+      }
+  });
 });
 
 /*
@@ -23,11 +53,12 @@ router.get('/seatmap', function(req, res, next) {
 * 获取教学楼列表
 * */
 router.get('/building', function(req, res, next){
-  models.buildingModel.getAll(1, function(err, classroomList){
+  models.classroomModel.getAll(1, function(err, classroomList){
     if(err){
       res.render('errorView', {message:'服务器故障', error: err});
     }
     else{
+
       res.render('buildingView', {title:'七玥天使-自习室导航', classroomList: classroomList});
     }
   });

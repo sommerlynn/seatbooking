@@ -3,7 +3,7 @@
 <script type="text/javascript" src="/scripts/jquery.seat-charts.js"></script>
 <div id="content-wrapper">
     <div class="front-indicator">
-        <span>教三 A 101</span>
+        <span><%=title%></span>
     </div>
     <div id="seat-map">
         <ul id="seat-list">
@@ -21,15 +21,9 @@
             // $total = $('#total'),
                 sc = $('#seat-list').seatCharts({
                     map: [
-                        'aaa_aaaaaaaaa_aaa',
-                        'aaa_aaaaaabaa_aaa',
-                        'aaa_aaaabaaaa_aaa',
-                        'aaa_aaaaaagaa_aga',
-                        'aaa_aaataaaaa_aaa',
-                        'aaa_ataaaaaaa_aaa',
-                        'aaa_aaaaagaaa_aaa',
-                        'aaa_aataaaaaa_aaa',
-                        'aaa_aaaaaaaaa_aaa',
+                            <% for (var i=0; i< map.length; i++){%>
+                                '<%=map[i]%>',
+                            <% }%>
                     ],
                     seats: {
                         a: {

@@ -4,7 +4,7 @@
 var models;
 
 models = {
-    buildingModel : require('./buildingModel'),
+    classroomModel : require('./classroomModel'),
     parseModel: require('./parseModel')
 };
 
