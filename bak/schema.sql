@@ -27,3 +27,5 @@ classroom.status AS classroom_status, building_area.status AS area_status,
 row_count, column_count, aisle
 FROM classroom LEFT JOIN building_area ON classroom.area_id = building_area.area_id
 ORDER BY order_no, area_name, classroom_name
+
+

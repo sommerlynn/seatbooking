@@ -23,8 +23,8 @@ ul.seatCharts-container {
 div#seat-map{
   margin: 0px auto;
   padding: 10px 0px 0px 0px;
-  border:solid #EBE4eA;
-  border-width: 1px 0px 0px 0px;
+  /*border:solid #EBE4eA;
+  border-width: 1px 0px 0px 0px;*/
 }
 
 
@@ -121,6 +121,9 @@ div.seatCharts-legend{
 
 ul.seatCharts-legendList {
   list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
 }
 
 li.seatCharts-legendItem {

@@ -1,109 +1,82 @@
 <% include header.html %>
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.js' charset='utf-8'></script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.5.8/js/sm.min.js' charset='utf-8'></script>
 <script type="text/javascript" src="/scripts/jquery.min.js"></script>
 <script type="text/javascript" src="/scripts/jquery.seat-charts.js"></script>
 <div class="page">
+    <div id="content-wrapper">
+        <div class="front-indicator">
+            <span><%=title%></span>
+        </div>
+        <div id="seat-map">
+            <ul id="seat-list">
+
+            </ul>
+        </div>
+    </div>
 
     <header class="bar bar-nav">
-        <h1 class="title"><%= title %></h1>
+        <h1 class="title"><%=title%></h1>
     </header>
     <div class="content">
-        <div id="content-wrapper">
-            <div id="seat-map">
-                <ul id="seat-list">
 
-                </ul>
-            </div>
-        </div>
-
-        <!--<div class="seatCharts-legend" style="width: 224px;">
-            <ul class="seatCharts-legendList">
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend available16 normal-seat"></span><span
-                            class="seatCharts-legendDescription">空座</span></li>
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-boy16 booked-seat-boy"></span><span
-                            class="seatCharts-legendDescription">已订（男生）</span></li>
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-girl16 booked-seat-girl"></span><span
-                            class="seatCharts-legendDescription">已订（女生）</span></li>
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-teaching16 booked-seat-teaching"></span><span
-                            class="seatCharts-legendDescription">有课</span></li>
-            </ul>
-        </div>-->
-
-        <div class="seatCharts-legend">
-            <ul class="seatCharts-legendList">
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend available16 normal-seat"></span><span
-                            class="seatCharts-legendDescription">空座</span></li>
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-boy16 booked-seat-boy"></span><span
-                            class="seatCharts-legendDescription">已订（男生）</span></li>
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-girl16 booked-seat-girl"></span><span
-                            class="seatCharts-legendDescription">已订（女生）</span></li>
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-teaching16 booked-seat-teaching"></span><span
-                            class="seatCharts-legendDescription">有课</span></li>
-            </ul>
-        </div>
     </div>
 
     <script>
         var firstSeatLabel = 1;
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             var //$cart = $('#selected-seats'),
             // $counter = $('#counter'),
             // $total = $('#total'),
                     sc = $('#seat-list').seatCharts({
                         map: [
-                            <% for (var i = 0; i < map.length; i++){ %>
-                            '<%= map[i] %>',
-                            <% } %>
+                            <% for (var i=0; i< map.length; i++){%>
+                            '<%=map[i]%>',
+                            <% }%>
                         ],
                         seats: {
                             a: {
                                 //price   : 100,
-                                classes: 'normal-seat', //your custom CSS class
+                                classes : 'normal-seat', //your custom CSS class
                                 category: 'normal-seat'
                             },
                             t: {
-                                classes: 'booked-seat-teaching',
+                                classes : 'booked-seat-teaching',
                                 category: 'booked-seat-teaching'
                             },
                             g: {
-                                classes: 'booked-seat-girl',
+                                classes : 'booked-seat-girl',
                                 category: 'booked-seat-girl'
                             },
                             b: {
-                                classes: 'booked-seat-boy',
+                                classes : 'booked-seat-boy',
                                 category: 'booked-seat-boy'
                             }
+                            //e: {
+                            //    price   : 40,
+                            //    classes : 'economy-class', //your custom CSS class
+                            //    category: 'Economy Class'
+                            //}
                         },
-                        naming: {
+                        naming : {
                             // whether display cloumn header, true to display, false not to display
                             // 是否显示列头行，true 显示， false 不显示
-                            top: false,
+                            top : false,
                             // whether display row header, true to display, false not to display
                             // 是否显示行头列，true 显示， false 不显示
                             left: false,
-                            getLabel: function (character, row, column) {
+                            getLabel : function (character, row, column) {
                                 return firstSeatLabel++;
                             },
                         },
-                        /*legend: {
+                        legend : {
                             //node : $('#legend'),
-                            items: [
-                                ['a', 'available16', '空座'],
-                                ['b', 'booked-seat-boy16', '已订（男生）'],
-                                ['g', 'booked-seat-girl16', '已订（女生）'],
-                                ['t', 'booked-seat-teaching16', '有课'],
+                            items : [
+                                [ 'a', 'available16',   '空座' ],
+                                [ 'b', 'booked-seat-boy16', '已订（男生）'],
+                                [ 'g', 'booked-seat-girl16', '已订（女生）'],
+                                [ 't', 'booked-seat-teaching16', '有课'],
                             ]
-                        },*/
+                        },
                         click: function () {
                             if (this.status() == 'available') {
                                 //let's create a new <li> which we'll add to the cart items
@@ -154,9 +127,9 @@
             //根据手机屏幕自适应缩放
             var clientWidth = document.documentElement.clientWidth;
             var initialContentWidth = $('#content-wrapper').width();
-            if (initialContentWidth > clientWidth) {
-                $('#content-wrapper').attr('style', '-webkit-transform:scale(' + clientWidth / initialContentWidth + ');-webkit-transform-origin:top left;');
-                //$('front-indicator').width(clientWidth);
+            if(initialContentWidth > clientWidth){
+                $('#content-wrapper').attr('style', '-webkit-transform:scale('+clientWidth/initialContentWidth+');-webkit-transform-origin:top left;');
+                $('front-indicator').width(clientWidth);
             }
         });
 
