@@ -5,7 +5,7 @@
     <header class="bar bar-nav">
         <h1 class="title"><%= title %></h1>
     </header>
-    <div class="content">
+    <div class="content" style="background-color: #1D2025">
         <div id="content-wrapper">
             <div id="seat-map">
                 <ul id="seat-list">
@@ -49,14 +49,24 @@
         </div>
     </div>
 </div>
-<div class="panel panel-right panel-reveal">
+<div class="panel panel-right panel-reveal" style="background-color: #1D2025">
     <div class="content-block">
-        <p>选座信息</p>
-
-        <input type="text" id='picker'/>
-
+        <p style="text-align: center">选座信息</p>
+        <p><span id="selectedSeatInfo"></span></p>
+        <p>请选择您的预约入座时间</p>
+        <input type="text" id='picker' style="width: 100%"/>
         <!-- Click on link with "close-panel" class will close panel -->
-        <p><a href="#" class="close-panel">取消</a><a href="#" class="close-panel">确定</a></p>
+        <p class="buttons-row"><a href="#" class="close-panel button button-round">取消</a><a href="#" class="close-panel button button-round">立即预约</a></p>
+        <p>注意事项:</p>
+        <p>
+           1、最迟在预约入座时间之后半小时内入座并签到；否则系统自动释放座位供其他同学使用。
+        </p>
+        <p>
+           2、离开超过一小时，请设置暂离，以方便其他同学临时使用。
+        </p>
+        <p>
+           3、使用结束，请释放座位供他人使用。
+        </p>
     </div>
 </div>
 
@@ -103,8 +113,23 @@
                         // whether display row header, true to display, false not to display
                         // 是否显示行头列，true 显示， false 不显示
                         left: false,
+                        // 2015-12-26 CHEN PU: 重写座位编号算法为行号+列号
                         getLabel: function (character, row, column) {
-                            return firstSeatLabel++;
+                            if(row < 10){
+                                row = '0'+row;
+                            }
+                            else{
+                                row = row+'';
+                            }
+                            if(column < 10){
+                                column = '0'+column;
+                            }
+                            else{
+                                column = column+'';
+                            }
+
+                            //return firstSeatLabel++;
+                            return row+column;
                         },
                     },
                     /*legend: {
@@ -134,8 +159,15 @@
                             //$total.text(recalculateTotal(sc)+this.data().price);
 
                             $.openPanel();
+                            sc.find('selected').status('available');
+                            var selectedSeatID = this.node()[0].id;
+                            var selectedSeatCode = this.node()[0].innerText;
+                            var selectedSeatInfo = selectedSeatID.split('_');
+                            var selectedSeatRowID = selectedSeatInfo[0];
+                            var selectedSeatColumnID = selectedSeatInfo[1];
 
-                            return 'available';
+                            $('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
+                            return 'selected';
                         } else if (this.status() == 'selected') {
                             //update the counter
                             //$counter.text(sc.find('selected').length-1);
@@ -189,7 +221,7 @@
         toolbarTemplate: '<header class="bar bar-nav">\
   <button class="button button-link pull-left close-picker">取消</button>\
   <button class="button button-link pull-right close-picker">确定</button>\
-  <h1 class="title">预约上座时间</h1>\
+  <h1 class="title">预约入座时间</h1>\
   </header>',
         cols: [
             {

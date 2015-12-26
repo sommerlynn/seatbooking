@@ -352,7 +352,7 @@
 
       $.each(settings.naming.columns, function(index, value) {
         $headerRow.append(
-            $('<span></spa>')
+            $('<span></span>')
                 .addClass('seatCharts-cell')
                 .text(value)
         );
@@ -371,7 +371,7 @@
       if (settings.naming.left) {
         // 行头列
         $row.append(
-            $('<span></spa>')
+            $('<span></span>')
                 .addClass('seatCharts-cell seatCharts-space')
                 .text(settings.naming.rows[row])
                 .attr('title', '第'+settings.naming.rows[row]+'排')
