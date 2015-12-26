@@ -1,8 +1,5 @@
 <% include header.html %>
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.js' charset='utf-8'></script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.5.8/js/sm.min.js' charset='utf-8'></script>
-<script type="text/javascript" src="/scripts/jquery.min.js"></script>
-<script type="text/javascript" src="/scripts/jquery.seat-charts.js"></script>
+
 <div class="page">
 
     <header class="bar bar-nav">
@@ -51,126 +48,166 @@
             </ul>
         </div>
     </div>
+</div>
+<div class="panel panel-right panel-reveal">
+    <div class="content-block">
+        <p>选座信息</p>
 
-    <script>
-        var firstSeatLabel = 1;
+        <input type="text" id='picker'/>
 
-        $(document).ready(function () {
-            var //$cart = $('#selected-seats'),
-            // $counter = $('#counter'),
-            // $total = $('#total'),
-                    sc = $('#seat-list').seatCharts({
-                        map: [
-                            <% for (var i = 0; i < map.length; i++){ %>
-                            '<%= map[i] %>',
-                            <% } %>
-                        ],
-                        seats: {
-                            a: {
-                                //price   : 100,
-                                classes: 'normal-seat', //your custom CSS class
-                                category: 'normal-seat'
-                            },
-                            t: {
-                                classes: 'booked-seat-teaching',
-                                category: 'booked-seat-teaching'
-                            },
-                            g: {
-                                classes: 'booked-seat-girl',
-                                category: 'booked-seat-girl'
-                            },
-                            b: {
-                                classes: 'booked-seat-boy',
-                                category: 'booked-seat-boy'
-                            }
+        <!-- Click on link with "close-panel" class will close panel -->
+        <p><a href="#" class="close-panel">取消</a><a href="#" class="close-panel">确定</a></p>
+    </div>
+</div>
+
+<script type='text/javascript' src='/scripts/zepto.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/panels.js' charset='utf-8'></script>
+<script type="text/javascript" src="/scripts/jquery.seat-charts.js"></script>
+<script>
+    var firstSeatLabel = 1;
+
+    $(document).ready(function () {
+        var //$cart = $('#selected-seats'),
+        // $counter = $('#counter'),
+        // $total = $('#total'),
+                sc = $('#seat-list').seatCharts({
+                    map: [
+                        <% for (var i = 0; i < map.length; i++){ %>
+                        '<%= map[i] %>',
+                        <% } %>
+                    ],
+                    seats: {
+                        a: {
+                            //price   : 100,
+                            classes: 'normal-seat', //your custom CSS class
+                            category: 'normal-seat'
                         },
-                        naming: {
-                            // whether display cloumn header, true to display, false not to display
-                            // 是否显示列头行，true 显示， false 不显示
-                            top: false,
-                            // whether display row header, true to display, false not to display
-                            // 是否显示行头列，true 显示， false 不显示
-                            left: false,
-                            getLabel: function (character, row, column) {
-                                return firstSeatLabel++;
-                            },
+                        t: {
+                            classes: 'booked-seat-teaching',
+                            category: 'booked-seat-teaching'
                         },
-                        /*legend: {
-                            //node : $('#legend'),
-                            items: [
-                                ['a', 'available16', '空座'],
-                                ['b', 'booked-seat-boy16', '已订（男生）'],
-                                ['g', 'booked-seat-girl16', '已订（女生）'],
-                                ['t', 'booked-seat-teaching16', '有课'],
-                            ]
-                        },*/
-                        click: function () {
-                            if (this.status() == 'available') {
-                                //let's create a new <li> which we'll add to the cart items
-                                //$('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
-                                //        .attr('id', 'cart-item-'+this.settings.id)
-                                //        .data('seatId', this.settings.id)
-                                //        .appendTo($cart);
-
-                                /*
-                                 * Lets update the counter and total
-                                 *
-                                 * .find function will not find the current seat, because it will change its stauts only after return
-                                 * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
-                                 */
-                                //$counter.text(sc.find('selected').length+1);
-                                //$total.text(recalculateTotal(sc)+this.data().price);
-
-                                return 'selected';
-                            } else if (this.status() == 'selected') {
-                                //update the counter
-                                //$counter.text(sc.find('selected').length-1);
-                                //and total
-                                //$total.text(recalculateTotal(sc)-this.data().price);
-
-                                //remove the item from our cart
-                                //$('#cart-item-'+this.settings.id).remove();
-
-                                //seat has been vacated
-                                return 'available';
-                            } else if (this.status() == 'unavailable') {
-                                //seat has been already booked
-                                return 'unavailable';
-                            } else {
-                                return this.style();
-                            }
+                        g: {
+                            classes: 'booked-seat-girl',
+                            category: 'booked-seat-girl'
+                        },
+                        b: {
+                            classes: 'booked-seat-boy',
+                            category: 'booked-seat-boy'
                         }
-                    });
+                    },
+                    naming: {
+                        // whether display cloumn header, true to display, false not to display
+                        // 是否显示列头行，true 显示， false 不显示
+                        top: false,
+                        // whether display row header, true to display, false not to display
+                        // 是否显示行头列，true 显示， false 不显示
+                        left: false,
+                        getLabel: function (character, row, column) {
+                            return firstSeatLabel++;
+                        },
+                    },
+                    /*legend: {
+                     //node : $('#legend'),
+                     items: [
+                     ['a', 'available16', '空座'],
+                     ['b', 'booked-seat-boy16', '已订（男生）'],
+                     ['g', 'booked-seat-girl16', '已订（女生）'],
+                     ['t', 'booked-seat-teaching16', '有课'],
+                     ]
+                     },*/
+                    click: function () {
+                        if (this.status() == 'available') {
+                            //let's create a new <li> which we'll add to the cart items
+                            //$('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
+                            //        .attr('id', 'cart-item-'+this.settings.id)
+                            //        .data('seatId', this.settings.id)
+                            //        .appendTo($cart);
 
-            //this will handle "[cancel]" link clicks
-            //$('#selected-seats').on('click', '.cancel-cart-item', function () {
-            //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
-            //sc.get($(this).parents('li:first').data('seatId')).click();
-            //});
+                            /*
+                             * Lets update the counter and total
+                             *
+                             * .find function will not find the current seat, because it will change its stauts only after return
+                             * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
+                             */
+                            //$counter.text(sc.find('selected').length+1);
+                            //$total.text(recalculateTotal(sc)+this.data().price);
 
-            //let's pretend some seats have already been booked
-            //sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
+                            $.openPanel();
 
-            //根据手机屏幕自适应缩放
-            var clientWidth = document.documentElement.clientWidth;
-            var initialContentWidth = $('#content-wrapper').width();
-            if (initialContentWidth > clientWidth) {
-                $('#content-wrapper').attr('style', '-webkit-transform:scale(' + clientWidth / initialContentWidth + ');-webkit-transform-origin:top left;');
-                //$('front-indicator').width(clientWidth);
-            }
+                            return 'available';
+                        } else if (this.status() == 'selected') {
+                            //update the counter
+                            //$counter.text(sc.find('selected').length-1);
+                            //and total
+                            //$total.text(recalculateTotal(sc)-this.data().price);
+
+                            //remove the item from our cart
+                            //$('#cart-item-'+this.settings.id).remove();
+
+                            //seat has been vacated
+                            return 'available';
+                        } else if (this.status() == 'unavailable') {
+                            //seat has been already booked
+                            return 'unavailable';
+                        } else {
+                            return this.style();
+                        }
+                    }
+                });
+
+        //this will handle "[cancel]" link clicks
+        //$('#selected-seats').on('click', '.cancel-cart-item', function () {
+        //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
+        //sc.get($(this).parents('li:first').data('seatId')).click();
+        //});
+
+        //let's pretend some seats have already been booked
+        //sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
+
+        //根据手机屏幕自适应缩放
+        var clientWidth = document.documentElement.clientWidth;
+        var initialContentWidth = $('#content-wrapper').width();
+        if (initialContentWidth > clientWidth) {
+            $('#content-wrapper').attr('style', '-webkit-transform:scale(' + clientWidth / initialContentWidth + ');-webkit-transform-origin:top left;');
+            //$('front-indicator').width(clientWidth);
+        }
+    });
+
+    function recalculateTotal(sc) {
+        var total = 0;
+
+        //basically find every selected seat and sum its price
+        sc.find('selected').each(function () {
+            total += this.data().price;
         });
 
-        function recalculateTotal(sc) {
-            var total = 0;
+        return total;
+    }
 
-            //basically find every selected seat and sum its price
-            sc.find('selected').each(function () {
-                total += this.data().price;
-            });
+    $("#picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker">确定</button>\
+  <h1 class="title">预约上座时间</h1>\
+  </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: ['今天', '明天']
+            },
+            {
+                textAlign: 'center',
+                values: ['8点', '9点', '10点', '11点', '12点', '13点', '14点', '15点', '16点', '17点', '18点', '19点', '20点', '21点']
+            },
+            {
+                textAlign: 'center',
+                values: ['00分', '30分']
+            }
+        ]
+    });
+</script>
 
-            return total;
-        }
-    </script>
+<% include footer.html %>
 
-    <% include footer.html %>
-</div>
+

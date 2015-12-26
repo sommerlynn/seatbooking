@@ -1,9 +1,5 @@
 <% include header.html %>
 <div class="page">
-    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.js' charset='utf-8'></script>
-    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.5.8/js/sm.min.js' charset='utf-8'></script>
-    <script type="text/javascript" src="/scripts/jquery.min.js"></script>
-    <script type="text/javascript" src="/scripts/jquery.seat-charts.js"></script>
     <header class="bar bar-nav">
         <h1 class="title">自习室</h1>
     </header>
@@ -13,7 +9,7 @@
             <ul>
                 <% for ( var index = 0; index < classroomList.length; index++) { %>
                 <li>
-                    <a class="item-link item-content" href="/seatmap/<%=classroomList[index].classroom_id%>">
+                    <a class="item-link item-content external" href="/seatmap/<%=classroomList[index].classroom_id%>">
                     <div class="item-inner">
                         <div class="item-title"><%= classroomList[index].area_name %><%= classroomList[index].classroom_name %></div>
                         <div class="item-title"><%= classroomList[index].row_count * classroomList[index].column_count %></div>
@@ -24,5 +20,8 @@
             </ul>
         </div>
     </div>
-    <% include footer.html %>
 </div>
+<script type='text/javascript' src='/scripts/zepto.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
+
+<% include footer.html %>

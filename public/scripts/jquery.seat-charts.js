@@ -622,4 +622,4 @@
     return fn.data('seatCharts');
   }
 
-})(jQuery);
+})(Zepto);
