@@ -247,8 +247,10 @@
         if(selectedSeatRowID > 0 &&
            selectedSeatColumnID > 0 &&
            $('#picker')[0].value){
+            $.showPreloader('提交预约申请...');
             $.post('/order', {classroom:'<%= cid %>', row:selectedSeatRowID, column:selectedSeatColumnID, time:$('#picker')[0].value}, function(response){
                 alert(response);
+                $.hidePreloader();
             });
 
         }else if(selectedSeatRowID == 0 ||
