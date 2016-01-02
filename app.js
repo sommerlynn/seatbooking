@@ -16,24 +16,20 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 
-// 载入webot的回复规则
 var weixinrobot = require('./lib/weixin-robot');
 require('./lib/weixin-robot/rules')(weixinrobot);
-// 启动机器人, 接管 web 服务请求
 weixinrobot.watch(app, { token: '1qazxsw2', path: '/weixin' });
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.query());
 
-// 如果需要 session 支持，sessionStore 必须放在 watch 之后
+
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-//var bodyParser = require('body-parser');
-//app.use(bodyParser.json()); 腾讯发来的消息是xml格式，非json格式
-//app.use(bodyParser.urlencoded({ extended: true}));
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
 
-// 为了使用 waitRule 功能，需要增加 session 支持
 // https://github.com/expressjs/session
 //var session = require('express-session');
 //app.use(session({

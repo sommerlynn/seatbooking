@@ -43,7 +43,7 @@ router.get('/seatmap/:cid', function(req, res) {
               'aaa_aataaaaaa_aaa',
               'aaa_aaaaaaaaa_aaa'];*/
 
-          res.render('seatMapView',{ title: '座位布局图', map: map });
+          res.render('seatMapView',{ title: '座位布局图', map: map, cid: req.params.cid});
       }
   });
 });
@@ -58,10 +58,25 @@ router.get('/building', function(req, res, next){
       res.render('errorView', {message:'服务器故障', error: err});
     }
     else{
-
       res.render('buildingView', {title:'七玥天使-自习室导航', classroomList: classroomList});
     }
   });
+});
+
+router.post('/order', function(req, res, next){
+    var dateArr = req.body.time.split(' ');
+    var hour = dateArr[0].substr(0, dateArr[0].length-1);
+    var minute = dateArr[1].substr(0, dateArr[1].length-1);
+    var today = new Date();
+    var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
+
+    models.userModel.order(1, req.body.classroom, req.body.row, req.body.column, orderTime, function(err){
+        if(err) {
+            res.send('错误' + err);
+        }else{
+            res.send('已成功预定');
+        }
+    });
 });
 
 router.get('/loadcourse', function(req, res, next){

@@ -1,6 +1,5 @@
 /*======================================================
  ************   Panels   ************
- * https://github.com/sdc-alibaba/SUI-Mobile/blob/dev/js/panels.js
  ======================================================*/
 /* global Zepto:true */
 /*jshint unused: false*/

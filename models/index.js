@@ -5,7 +5,8 @@ var models;
 
 models = {
     classroomModel : require('./classroomModel'),
-    parseModel: require('./parseModel')
+    parseModel: require('./parseModel'),
+    userModel:require('./userModel')
 };
 
 module.exports = models;

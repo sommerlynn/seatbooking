@@ -4,7 +4,7 @@
  *
  * =====================================================
  */
-;$.smVersion = "0.5.8";/* global Zepto:true */
+;$.smVersion = "0.5.9";/* global Zepto:true */
 +function ($) {
     "use strict";
 
@@ -319,8 +319,8 @@
 })(Zepto);
 
 /*===========================
-Device/OS Detection
-===========================*/
+ Device/OS Detection
+ ===========================*/
 /* global Zepto:true */
 ;(function ($) {
     "use strict";
@@ -576,10 +576,10 @@ Device/OS Detection
                 var adv = Node.prototype.addEventListener;
                 if (type === 'click') {
                     adv.call(layer, type, callback.hijacked || (callback.hijacked = function(event) {
-                        if (!event.propagationStopped) {
-                            callback(event);
-                        }
-                    }), capture);
+                            if (!event.propagationStopped) {
+                                callback(event);
+                            }
+                        }), capture);
                 } else {
                     adv.call(layer, type, callback, capture);
                 }
@@ -984,8 +984,8 @@ Device/OS Detection
         //修复安卓微信下，input type="date" 的bug，经测试date,time,month已没问题
         var unsupportedType = ['date', 'time', 'month'];
         if(unsupportedType.indexOf(event.target.type) !== -1){
-            　　　　return false;
-            　　}
+            return false;
+        }
         // Reset to prevent wrong click cancel on input (issue #156).
         this.cancelNextClick = false;
 
@@ -1283,107 +1283,9 @@ Device/OS Detection
     FastClick.attach(document.body);
 }());
 
-/* ===============================================================================
-************   Tabs   ************
-=============================================================================== */
-/* global Zepto:true */
-+function ($) {
-    "use strict";
-
-    var showTab = function (tab, tabLink, force) {
-        var newTab = $(tab);
-        if (arguments.length === 2) {
-            if (typeof tabLink === 'boolean') {
-                force = tabLink;
-            }
-        }
-        if (newTab.length === 0) return false;
-        if (newTab.hasClass('active')) {
-            if (force) newTab.trigger('show');
-            return false;
-        }
-        var tabs = newTab.parent('.tabs');
-        if (tabs.length === 0) return false;
-
-        // Animated tabs
-        /*var isAnimatedTabs = tabs.parent().hasClass('tabs-animated-wrap');
-          if (isAnimatedTabs) {
-          tabs.transform('translate3d(' + -newTab.index() * 100 + '%,0,0)');
-          }*/
-
-        // Remove active class from old tabs
-        var oldTab = tabs.children('.tab.active').removeClass('active');
-        // Add active class to new tab
-        newTab.addClass('active');
-        // Trigger 'show' event on new tab
-        newTab.trigger('show');
-
-        // Update navbars in new tab
-        /*if (!isAnimatedTabs && newTab.find('.navbar').length > 0) {
-        // Find tab's view
-        var viewContainer;
-        if (newTab.hasClass(app.params.viewClass)) viewContainer = newTab[0];
-        else viewContainer = newTab.parents('.' + app.params.viewClass)[0];
-        app.sizeNavbars(viewContainer);
-        }*/
-
-        // Find related link for new tab
-        if (tabLink) tabLink = $(tabLink);
-        else {
-            // Search by id
-            if (typeof tab === 'string') tabLink = $('.tab-link[href="' + tab + '"]');
-            else tabLink = $('.tab-link[href="#' + newTab.attr('id') + '"]');
-            // Search by data-tab
-            if (!tabLink || tabLink && tabLink.length === 0) {
-                $('[data-tab]').each(function () {
-                    if (newTab.is($(this).attr('data-tab'))) tabLink = $(this);
-                });
-            }
-        }
-        if (tabLink.length === 0) return;
-
-        // Find related link for old tab
-        var oldTabLink;
-        if (oldTab && oldTab.length > 0) {
-            // Search by id
-            var oldTabId = oldTab.attr('id');
-            if (oldTabId) oldTabLink = $('.tab-link[href="#' + oldTabId + '"]');
-            // Search by data-tab
-            if (!oldTabLink || oldTabLink && oldTabLink.length === 0) {
-                $('[data-tab]').each(function () {
-                    if (oldTab.is($(this).attr('data-tab'))) oldTabLink = $(this);
-                });
-            }
-        }
-
-        // Update links' classes
-        if (tabLink && tabLink.length > 0) tabLink.addClass('active');
-        if (oldTabLink && oldTabLink.length > 0) oldTabLink.removeClass('active');
-
-        //app.refreshScroller();
-
-        return true;
-    };
-
-    var old = $.showTab;
-    $.showTab = showTab;
-
-    $.showTab.noConflict = function () {
-        $.showTab = old;
-        return this;
-    };
-
-
-    $(document).on("click", ".tab-link", function(e) {
-        e.preventDefault();
-        var clicked = $(this);
-        showTab(clicked.data("tab") || clicked.attr('href'), clicked);
-    });
-}(Zepto);
-
 /*======================================================
-************   Modals   ************
-======================================================*/
+ ************   Modals   ************
+ ======================================================*/
 /*jshint unused: false*/
 /* global Zepto:true */
 +function ($) {
@@ -1545,7 +1447,7 @@ Device/OS Detection
         return $.showPreloader.preloaderModal;
     };
     $.hidePreloader = function () {
-        $.closeModal($.showPreloader.preloaderModal);
+        $.showPreloader.preloaderModal && $.closeModal($.showPreloader.preloaderModal);
     };
     $.showIndicator = function () {
         if ($('.preloader-indicator-modal')[0]) return;
@@ -1720,7 +1622,7 @@ Device/OS Detection
         });
         // excute callback
         if (typeof cb === 'function') {
-          cb.call(this);
+            cb.call(this);
         }
         return true;
     };
@@ -1830,8 +1732,8 @@ Device/OS Detection
 }(Zepto);
 
 /*======================================================
-************   Calendar   ************
-======================================================*/
+ ************   Calendar   ************
+ ======================================================*/
 /* global Zepto:true */
 /*jshint unused: false*/
 +function ($) {
@@ -1856,18 +1758,18 @@ Device/OS Detection
             closeOnSelect: true,
             monthPicker: true,
             monthPickerTemplate:
-                '<div class="picker-calendar-month-picker">' +
-                '<a href="#" class="link icon-only picker-calendar-prev-month"><i class="icon icon-prev"></i></a>' +
-                '<div class="current-month-value"></div>' +
-                '<a href="#" class="link icon-only picker-calendar-next-month"><i class="icon icon-next"></i></a>' +
-                '</div>',
+            '<div class="picker-calendar-month-picker">' +
+            '<a href="#" class="link icon-only picker-calendar-prev-month"><i class="icon icon-prev"></i></a>' +
+            '<div class="current-month-value"></div>' +
+            '<a href="#" class="link icon-only picker-calendar-next-month"><i class="icon icon-next"></i></a>' +
+            '</div>',
             yearPicker: true,
             yearPickerTemplate:
-                '<div class="picker-calendar-year-picker">' +
-                '<a href="#" class="link icon-only picker-calendar-prev-year"><i class="icon icon-prev"></i></a>' +
-                '<span class="current-year-value"></span>' +
-                '<a href="#" class="link icon-only picker-calendar-next-year"><i class="icon icon-next"></i></a>' +
-                '</div>',
+            '<div class="picker-calendar-year-picker">' +
+            '<a href="#" class="link icon-only picker-calendar-prev-year"><i class="icon icon-prev"></i></a>' +
+            '<span class="current-year-value"></span>' +
+            '<a href="#" class="link icon-only picker-calendar-next-year"><i class="icon icon-next"></i></a>' +
+            '</div>',
             weekHeader: true,
             // Common settings
             scrollToInput: true,
@@ -1875,22 +1777,22 @@ Device/OS Detection
             toolbar: true,
             toolbarCloseText: 'Done',
             toolbarTemplate:
-                '<div class="toolbar">' +
-                '<div class="toolbar-inner">' +
-                '{{monthPicker}}' +
-                '{{yearPicker}}' +
+            '<div class="toolbar">' +
+            '<div class="toolbar-inner">' +
+            '{{monthPicker}}' +
+            '{{yearPicker}}' +
                 // '<a href="#" class="link close-picker">{{closeText}}</a>' +
-                '</div>' +
-                '</div>',
+            '</div>' +
+            '</div>',
             /* Callbacks
-               onMonthAdd
-               onChange
-               onOpen
-               onClose
-               onDayClick
-               onMonthYearChangeStart
-               onMonthYearChangeEnd
-               */
+             onMonthAdd
+             onChange
+             onOpen
+             onClose
+             onDayClick
+             onMonthYearChangeStart
+             onMonthYearChangeEnd
+             */
         };
         params = params || {};
         for (var def in defaults) {
@@ -2656,8 +2558,8 @@ Device/OS Detection
 }(Zepto);
 
 /*======================================================
-************   Picker   ************
-======================================================*/
+ ************   Picker   ************
+ ======================================================*/
 /* global Zepto:true */
 /* jshint unused:false */
 /* jshint multistr:true */
@@ -2827,13 +2729,13 @@ Device/OS Detection
                 var previousActiveIndex = col.activeIndex;
                 col.activeIndex = activeIndex;
                 /*
-                   col.wrapper.find('.picker-selected, .picker-after-selected, .picker-before-selected').removeClass('picker-selected picker-after-selected picker-before-selected');
+                 col.wrapper.find('.picker-selected, .picker-after-selected, .picker-before-selected').removeClass('picker-selected picker-after-selected picker-before-selected');
 
-                   col.items.transition(transition);
-                   var selectedItem = col.items.eq(activeIndex).addClass('picker-selected').transform('');
-                   var prevItems = selectedItem.prevAll().addClass('picker-before-selected');
-                   var nextItems = selectedItem.nextAll().addClass('picker-after-selected');
-                   */
+                 col.items.transition(transition);
+                 var selectedItem = col.items.eq(activeIndex).addClass('picker-selected').transform('');
+                 var prevItems = selectedItem.prevAll().addClass('picker-before-selected');
+                 var nextItems = selectedItem.nextAll().addClass('picker-after-selected');
+                 */
                 //去掉 .picker-after-selected, .picker-before-selected 以提高性能
                 col.wrapper.find('.picker-selected').removeClass('picker-selected');
                 if (p.params.rotateEffect) {
@@ -3294,44 +3196,44 @@ Device/OS Detection
 
         cols: [
             // Years
-        {
-            values: initYears
-        },
-        // Months
-        {
-            values: initMonthes
-        },
-        // Days
-        {
-            values: getDays()
-        },
+            {
+                values: initYears
+            },
+            // Months
+            {
+                values: initMonthes
+            },
+            // Days
+            {
+                values: getDays()
+            },
 
-        // Space divider
-        {
-            divider: true,
-            content: '  '
-        },
-        // Hours
-        {
-            values: (function () {
-                var arr = [];
-                for (var i = 0; i <= 23; i++) { arr.push(i); }
-                return arr;
-            })(),
-        },
-        // Divider
-        {
-            divider: true,
-            content: ':'
-        },
-        // Minutes
-        {
-            values: (function () {
-                var arr = [];
-                for (var i = 0; i <= 59; i++) { arr.push(i < 10 ? '0' + i : i); }
-                return arr;
-            })(),
-        }
+            // Space divider
+            {
+                divider: true,
+                content: '  '
+            },
+            // Hours
+            {
+                values: (function () {
+                    var arr = [];
+                    for (var i = 0; i <= 23; i++) { arr.push(i); }
+                    return arr;
+                })(),
+            },
+            // Divider
+            {
+                divider: true,
+                content: ':'
+            },
+            // Minutes
+            {
+                values: (function () {
+                    var arr = [];
+                    for (var i = 0; i <= 59; i++) { arr.push(i < 10 ? '0' + i : i); }
+                    return arr;
+                })(),
+            }
         ]
     };
 
@@ -3359,10 +3261,10 @@ Device/OS Detection
             window.setTimeout(callback, 1000 / 60);
         };
     /*var cRAF = window.cancelRequestAnimationFrame ||
-        window.webkitCancelRequestAnimationFrame ||
-        window.mozCancelRequestAnimationFrame ||
-        window.oCancelRequestAnimationFrame ||
-        window.msCancelRequestAnimationFrame;*/
+     window.webkitCancelRequestAnimationFrame ||
+     window.mozCancelRequestAnimationFrame ||
+     window.oCancelRequestAnimationFrame ||
+     window.msCancelRequestAnimationFrame;*/
 
     var utils = (function() {
         var me = {};
@@ -3389,12 +3291,12 @@ Device/OS Detection
         }
 
         me.getTime = Date.now || function getTime() {
-            return new Date().getTime();
-        };
+                return new Date().getTime();
+            };
 
         me.extend = function(target, obj) {
             for (var i in obj) {  // jshint ignore:line
-                    target[i] = obj[i]; 
+                target[i] = obj[i];
             }
         };
 
@@ -3408,7 +3310,7 @@ Device/OS Detection
 
         me.prefixPointerEvent = function(pointerEvent) {
             return window.MSPointerEvent ?
-                'MSPointer' + pointerEvent.charAt(9).toUpperCase() + pointerEvent.substr(10) :
+            'MSPointer' + pointerEvent.charAt(9).toUpperCase() + pointerEvent.substr(10) :
                 pointerEvent;
         };
 
@@ -3641,7 +3543,7 @@ Device/OS Detection
 
             snapThreshold: 0.334,
 
-            // INSERT POINT: OPTIONS 
+            // INSERT POINT: OPTIONS
 
             startX: 0,
             startY: 0,
@@ -3667,7 +3569,7 @@ Device/OS Detection
         };
 
         for (var i in options) {
-                this.options[i] = options[i];
+            this.options[i] = options[i];
         }
 
         // Normalize options
@@ -3707,7 +3609,7 @@ Device/OS Detection
 
         // INSERT POINT: NORMALIZATION
 
-        // Some defaults    
+        // Some defaults
         this.x = 0;
         this.y = 0;
         this.directionX = 0;
@@ -3992,10 +3894,10 @@ Device/OS Detection
                 var snap = this._nearestSnap(newX, newY);
                 this.currentPage = snap;
                 time = this.options.snapSpeed || Math.max(
-                    Math.max(
-                        Math.min(Math.abs(newX - snap.x), 1000),
-                        Math.min(Math.abs(newY - snap.y), 1000)
-                    ), 300);
+                        Math.max(
+                            Math.min(Math.abs(newX - snap.x), 1000),
+                            Math.min(Math.abs(newY - snap.y), 1000)
+                        ), 300);
                 newX = snap.x;
                 newY = snap.y;
 
@@ -4642,10 +4544,10 @@ Device/OS Detection
 
             this.on('flick', function() {
                 var time = this.options.snapSpeed || Math.max(
-                    Math.max(
-                        Math.min(Math.abs(this.x - this.startX), 1000),
-                        Math.min(Math.abs(this.y - this.startY), 1000)
-                    ), 300);
+                        Math.max(
+                            Math.min(Math.abs(this.x - this.startX), 1000),
+                            Math.min(Math.abs(this.y - this.startY), 1000)
+                        ), 300);
 
                 this.goToPage(
                     this.currentPage.pageX + this.directionX,
@@ -4823,7 +4725,7 @@ Device/OS Detection
             }
 
             for (i in keys) { // jshint ignore:line
-                    this.options.keyBindings[i] = this.options.keyBindings[i] || keys[i];
+                this.options.keyBindings[i] = this.options.keyBindings[i] || keys[i];
             }
 
             utils.addEvent(window, 'keydown', this);
@@ -5070,7 +4972,7 @@ Device/OS Detection
         };
 
         for (var i in options) { // jshint ignore:line
-                this.options[i] = options[i];
+            this.options[i] = options[i];
 
         }
 
@@ -5233,10 +5135,10 @@ Device/OS Detection
                 var snap = this.scroller._nearestSnap(this.scroller.x, this.scroller.y);
 
                 var time = this.options.snapSpeed || Math.max(
-                    Math.max(
-                        Math.min(Math.abs(this.scroller.x - snap.x), 1000),
-                        Math.min(Math.abs(this.scroller.y - snap.y), 1000)
-                    ), 300);
+                        Math.max(
+                            Math.min(Math.abs(this.scroller.x - snap.x), 1000),
+                            Math.min(Math.abs(this.scroller.y - snap.y), 1000)
+                        ), 300);
 
                 if (this.scroller.x !== snap.x || this.scroller.y !== snap.y) {
                     this.scroller.directionX = 0;
@@ -5451,8 +5353,8 @@ Device/OS Detection
 }(window);
 
 /* ===============================================================================
-************   scroller   ************
-=============================================================================== */
+ ************   scroller   ************
+ =============================================================================== */
 /* global Zepto:true */
 + function($) {
     "use strict";
@@ -5497,7 +5399,7 @@ Device/OS Detection
 
         var type = this.options.type;
         //auto的type,系统版本的小于4.4.0的安卓设备和系统版本小于6.0.0的ios设备，启用js版的iscoll
-        var useJSScroller = (type === 'js') || (type === 'auto' && ($.device.android && $.compareVersion('4.4.0', $.device.osVersion) > -1) || ($.device.ios && $.compareVersion('6.0.0', $.device.osVersion) > -1));
+        var useJSScroller = (type === 'js') || (type === 'auto' && ($.device.android && $.compareVersion('4.4.0', $.device.osVersion) > -1) || (type === 'auto' && ($.device.ios && $.compareVersion('6.0.0', $.device.osVersion) > -1)));
 
         if (useJSScroller) {
 
@@ -5515,20 +5417,32 @@ Device/OS Detection
 
             if ($pageContent.hasClass('pull-to-refresh-content')) {
                 //因为iscroll 当页面高度不足 100% 时无法滑动，所以无法触发下拉动作，这里改动一下高度
-                $pageContent.find('.content-inner').css('min-height', ($(window).height() + 20) + 'px');
+                //区分是否有.bar容器，如有，则content的top:0，无则content的top:-2.2rem,这里取2.2rem的最大值，近60
+                var minHeight = $(window).height() + ($pageContent.prev().hasClass(".bar") ? 1 : 61);
+                $pageContent.find('.content-inner').css('min-height', minHeight + 'px');
             }
 
             var ptr = $(pageContent).hasClass('pull-to-refresh-content');
+            //js滚动模式，用transform移动内容区位置，会导致fixed失效，表现类似absolute。因此禁用transform模式
+            var useTransform = $pageContent.find('.fixed-tab').length === 0;
             var options = {
                 probeType: 1,
                 mouseWheel: true,
-                //解决安卓js模式下，刷新滚动条后绑定的事件不响应
-                click:true
+                //解决安卓js模式下，刷新滚动条后绑定的事件不响应，对chrome内核浏览器设置click:true
+                click: $.device.androidChrome,
+                useTransform: useTransform,
+                //js模式下允许滚动条横向滚动，但是需要注意，滚动容易宽度必须大于屏幕宽度滚动才生效
+                scrollX: true
             };
             if (ptr) {
                 options.ptr = true;
                 options.ptrOffset = 44;
             }
+            //如果用js滚动条，用transform计算内容区位置，position：fixed将实效。若有.fixed-tab，强制使用native滚动条；备选方案，略粗暴
+            // if($(pageContent).find('.fixed-tab').length>0){
+            //     $pageContent.addClass('native-scroll');
+            //     return;
+            // }
             this.scroller = new IScroll(pageContent, options); // jshint ignore:line
             //和native滚动统一起来
             this._bindEventToDomWhenJs();
@@ -5537,6 +5451,12 @@ Device/OS Detection
             $.pullToRefreshTrigger = $._pullToRefreshJSScroll.pullToRefreshTrigger;
             $.destroyToRefresh = $._pullToRefreshJSScroll.destroyToRefresh;
             $pageContent.addClass('javascript-scroll');
+            if (!useTransform) {
+                $pageContent.find('.content-inner').css({
+                    width: '100%',
+                    position: 'absolute'
+                });
+            }
 
             //如果页面本身已经进行了原生滚动，那么把这个滚动换成JS的滚动
             var nativeScrollTop = this.$pageContent[0].scrollTop;
@@ -5651,7 +5571,7 @@ Device/OS Detection
             if (typeof option === 'string' && typeof data[option] === 'function') {
                 internal_return = data[option].apply(data, args);
                 if (internal_return !== undefined)
-            return false;
+                    return false;
             }
 
         });
@@ -5699,6 +5619,8 @@ Device/OS Detection
     };
     //获取scroller对象
     $.getScroller = function(content) {
+        //以前默认只能有一个无限滚动，因此infinitescroll都是加在content上，现在允许里面有多个，因此要判断父元素是否有content
+        content = content.hasClass('content') ? content : content.parents('.content');
         if (content) {
             return $(content).data('scroller');
         } else {
@@ -5717,6 +5639,194 @@ Device/OS Detection
             }
         }
     };
+
+}(Zepto);
+
+/* ===============================================================================
+ ************   Tabs   ************
+ =============================================================================== */
+/* global Zepto:true */
++function ($) {
+    "use strict";
+
+    var showTab = function (tab, tabLink, force) {
+        var newTab = $(tab);
+        if (arguments.length === 2) {
+            if (typeof tabLink === 'boolean') {
+                force = tabLink;
+            }
+        }
+        if (newTab.length === 0) return false;
+        if (newTab.hasClass('active')) {
+            if (force) newTab.trigger('show');
+            return false;
+        }
+        var tabs = newTab.parent('.tabs');
+        if (tabs.length === 0) return false;
+
+        // Animated tabs
+        /*var isAnimatedTabs = tabs.parent().hasClass('tabs-animated-wrap');
+         if (isAnimatedTabs) {
+         tabs.transform('translate3d(' + -newTab.index() * 100 + '%,0,0)');
+         }*/
+
+        // Remove active class from old tabs
+        var oldTab = tabs.children('.tab.active').removeClass('active');
+        // Add active class to new tab
+        newTab.addClass('active');
+        // Trigger 'show' event on new tab
+        newTab.trigger('show');
+
+        // Update navbars in new tab
+        /*if (!isAnimatedTabs && newTab.find('.navbar').length > 0) {
+         // Find tab's view
+         var viewContainer;
+         if (newTab.hasClass(app.params.viewClass)) viewContainer = newTab[0];
+         else viewContainer = newTab.parents('.' + app.params.viewClass)[0];
+         app.sizeNavbars(viewContainer);
+         }*/
+
+        // Find related link for new tab
+        if (tabLink) tabLink = $(tabLink);
+        else {
+            // Search by id
+            if (typeof tab === 'string') tabLink = $('.tab-link[href="' + tab + '"]');
+            else tabLink = $('.tab-link[href="#' + newTab.attr('id') + '"]');
+            // Search by data-tab
+            if (!tabLink || tabLink && tabLink.length === 0) {
+                $('[data-tab]').each(function () {
+                    if (newTab.is($(this).attr('data-tab'))) tabLink = $(this);
+                });
+            }
+        }
+        if (tabLink.length === 0) return;
+
+        // Find related link for old tab
+        var oldTabLink;
+        if (oldTab && oldTab.length > 0) {
+            // Search by id
+            var oldTabId = oldTab.attr('id');
+            if (oldTabId) oldTabLink = $('.tab-link[href="#' + oldTabId + '"]');
+            // Search by data-tab
+            if (!oldTabLink || oldTabLink && oldTabLink.length === 0) {
+                $('[data-tab]').each(function () {
+                    if (oldTab.is($(this).attr('data-tab'))) oldTabLink = $(this);
+                });
+            }
+        }
+
+        // Update links' classes
+        if (tabLink && tabLink.length > 0) tabLink.addClass('active');
+        if (oldTabLink && oldTabLink.length > 0) oldTabLink.removeClass('active');
+        tabLink.trigger('active');
+
+        //app.refreshScroller();
+
+        return true;
+    };
+
+    var old = $.showTab;
+    $.showTab = showTab;
+
+    $.showTab.noConflict = function () {
+        $.showTab = old;
+        return this;
+    };
+    //a标签上的click事件，在iscroll下响应有问题
+    $(document).on("click", ".tab-link", function(e) {
+        e.preventDefault();
+        var clicked = $(this);
+        showTab(clicked.data("tab") || clicked.attr('href'), clicked);
+    });
+
+
+}(Zepto);
+
+/* ===============================================================================
+ ************   Tabs   ************
+ =============================================================================== */
+/* global Zepto:true */
++function ($) {
+    "use strict";
+    $.initFixedTab = function(){
+        var $fixedTab = $('.fixed-tab');
+        if ($fixedTab.length === 0) return;
+        $('.fixed-tab').fixedTab();//默认{offset: 0}
+    };
+    var FixedTab = function(pageContent, _options) {
+        var $pageContent = this.$pageContent = $(pageContent);
+        var shadow = $pageContent.clone();
+        var fixedTop = $pageContent[0].getBoundingClientRect().top;
+
+        shadow.css('visibility', 'hidden');
+        this.options = $.extend({}, this._defaults, {
+            fixedTop: fixedTop,
+            shadow: shadow,
+            offset: 0
+        }, _options);
+
+        this._bindEvents();
+    };
+
+    FixedTab.prototype = {
+        _defaults: {
+            offset: 0,
+        },
+        _bindEvents: function() {
+            this.$pageContent.parents('.content').on('scroll', this._scrollHandler.bind(this));
+            this.$pageContent.on('active', '.tab-link', this._tabLinkHandler.bind(this));
+        },
+        _tabLinkHandler: function(ev) {
+            var isFixed = $(ev.target).parents('.buttons-fixed').length > 0;
+            var fixedTop = this.options.fixedTop;
+            var offset = this.options.offset;
+            $.refreshScroller();
+            if (!isFixed) return;
+            this.$pageContent.parents('.content').scrollTop(fixedTop - offset);
+        },
+        // 滚动核心代码
+        _scrollHandler: function(ev) {
+            var $scroller = $(ev.target);
+            var $pageContent = this.$pageContent;
+            var shadow = this.options.shadow;
+            var offset = this.options.offset;
+            var fixedTop = this.options.fixedTop;
+            var scrollTop = $scroller.scrollTop();
+            var isFixed = scrollTop >= fixedTop - offset;
+            if (isFixed) {
+                shadow.insertAfter($pageContent);
+                $pageContent.addClass('buttons-fixed').css('top', offset);
+            } else {
+                shadow.remove();
+                $pageContent.removeClass('buttons-fixed').css('top', 0);
+            }
+        }
+    };
+
+    //FixedTab PLUGIN DEFINITION
+    // =======================
+
+    function Plugin(option) {
+        var args = Array.apply(null, arguments);
+        args.shift();
+        this.each(function() {
+            var $this = $(this);
+            var options = $.extend({}, $this.dataset(), typeof option === 'object' && option);
+            var data = $this.data('fixedtab');
+            if (!data) {
+                //获取data-api的
+                $this.data('fixedtab', (data = new FixedTab(this, options)));
+            }
+        });
+
+    }
+    $.fn.fixedTab = Plugin;
+    $.fn.fixedTab.Constructor = FixedTab;
+    $(document).on('pageInit',function(){
+        $.initFixedTab();
+    });
+
+
 
 }(Zepto);
 
@@ -5752,11 +5862,7 @@ Device/OS Detection
             if (container.hasClass('refreshing')) return;
             container.removeClass('pull-down pull-up');
             container.addClass('refreshing transitioning');
-            container.trigger('refresh', {
-                done: function() {
-                    $.pullToRefreshDone(container);
-                }
-            });
+            container.trigger('refresh');
             refreshTime = +new Date();
         }
         scroller.on('scroll', handleScroll);
@@ -5793,11 +5899,7 @@ Device/OS Detection
         container.addClass('refreshing');
         var scroller = $.getScroller(container);
         scroller.scrollTop(44 + 1, 200);
-        container.trigger('refresh', {
-            done: function() {
-                $.pullToRefreshDone(container);
-            }
-        });
+        container.trigger('refresh');
     };
 
     var destroyPullToRefreshJS = function(pageContainer) {
@@ -5929,12 +6031,10 @@ Device/OS Detection
             }
             container.transform('');
             if (refresh) {
+                //防止二次触发
+                if(container.hasClass('refreshing')) return;
                 container.addClass('refreshing');
-                container.trigger('refresh', {
-                    done: function() {
-                        $.pullToRefreshDone(container);
-                    }
-                });
+                container.trigger('refresh');
             } else {
                 container.removeClass('pull-down');
             }
@@ -5970,11 +6070,7 @@ Device/OS Detection
         if (container.length === 0) container = $('.pull-to-refresh-content');
         if (container.hasClass('refreshing')) return;
         container.addClass('transitioning refreshing');
-        container.trigger('refresh', {
-            done: function() {
-                $.pullToRefreshDone(container);
-            }
-        });
+        container.trigger('refresh');
     };
 
     $.destroyPullToRefresh = function(pageContainer) {
@@ -5985,52 +6081,52 @@ Device/OS Detection
     };
 
     //这里是否需要写到 scroller 中去？
-/*    $.initPullToRefresh = function(pageContainer) {
-        var $pageContainer = $(pageContainer);
-        $pageContainer.each(function(index, item) {
-            if ($.detectScrollerType(item) === 'js') {
-                $._pullToRefreshJSScroll.initPullToRefresh(item);
-            } else {
-                initPullToRefresh(item);
-            }
-        });
-    };
+    /*    $.initPullToRefresh = function(pageContainer) {
+     var $pageContainer = $(pageContainer);
+     $pageContainer.each(function(index, item) {
+     if ($.detectScrollerType(item) === 'js') {
+     $._pullToRefreshJSScroll.initPullToRefresh(item);
+     } else {
+     initPullToRefresh(item);
+     }
+     });
+     };
 
 
-    $.pullToRefreshDone = function(pageContainer) {
-        var $pageContainer = $(pageContainer);
-        $pageContainer.each(function(index, item) {
-            if ($.detectScrollerType(item) === 'js') {
-                $._pullToRefreshJSScroll.pullToRefreshDone(item);
-            } else {
-                pullToRefreshDone(item);
-            }
-        });
-    };
+     $.pullToRefreshDone = function(pageContainer) {
+     var $pageContainer = $(pageContainer);
+     $pageContainer.each(function(index, item) {
+     if ($.detectScrollerType(item) === 'js') {
+     $._pullToRefreshJSScroll.pullToRefreshDone(item);
+     } else {
+     pullToRefreshDone(item);
+     }
+     });
+     };
 
 
-    $.pullToRefreshTrigger = function(pageContainer) {
-       var $pageContainer = $(pageContainer);
-        $pageContainer.each(function(index, item) {
-            if ($.detectScrollerType(item) === 'js') {
-                $._pullToRefreshJSScroll.pullToRefreshTrigger(item);
-            } else {
-                pullToRefreshTrigger(item);
-            }
-        });
-    };
+     $.pullToRefreshTrigger = function(pageContainer) {
+     var $pageContainer = $(pageContainer);
+     $pageContainer.each(function(index, item) {
+     if ($.detectScrollerType(item) === 'js') {
+     $._pullToRefreshJSScroll.pullToRefreshTrigger(item);
+     } else {
+     pullToRefreshTrigger(item);
+     }
+     });
+     };
 
-    $.destroyPullToRefresh = function(pageContainer) {
-        var $pageContainer = $(pageContainer);
-        $pageContainer.each(function(index, item) {
-            if ($.detectScrollerType(item) === 'js') {
-                $._pullToRefreshJSScroll.destroyPullToRefresh(item);
-            } else {
-                destroyPullToRefresh(item);
-            }
-        });
-    };
-*/
+     $.destroyPullToRefresh = function(pageContainer) {
+     var $pageContainer = $(pageContainer);
+     $pageContainer.each(function(index, item) {
+     if ($.detectScrollerType(item) === 'js') {
+     $._pullToRefreshJSScroll.destroyPullToRefresh(item);
+     } else {
+     destroyPullToRefresh(item);
+     }
+     });
+     };
+     */
 
 }(Zepto); //jshint ignore:line
 
@@ -6085,7 +6181,7 @@ Device/OS Detection
         pageContainer.forEach(function(v){
             if($(v).hasClass('infinite-scroll-top')){
                 var height = v.scrollHeight - v.clientHeight;
-                $(v).scrollTop(height);     
+                $(v).scrollTop(height);
             }
         });
         function detachEvents() {
@@ -6116,8 +6212,8 @@ Device/OS Detection
 }(Zepto);
 
 /*======================================================
-************   Panels   ************
-======================================================*/
+ ************   Panels   ************
+ ======================================================*/
 /* global Zepto:true */
 /*jshint unused: false*/
 +function ($) {
@@ -6151,7 +6247,7 @@ Device/OS Detection
                     else {
                         panel.trigger('closed');
                     }
-            $.allowPanelOpen = true;
+                    $.allowPanelOpen = true;
                 }
                 else panelTransitionEnd();
             });
@@ -6265,15 +6361,15 @@ Device/OS Detection
                 }
 
                 if (
-                        side === 'left' &&
-                        (
-                         direction === 'to-left' && !panel.hasClass('active')
-                        ) ||
-                        side === 'right' &&
-                        (
-                         direction === 'to-right' && !panel.hasClass('active')
-                        )
-                   )
+                    side === 'left' &&
+                    (
+                        direction === 'to-left' && !panel.hasClass('active')
+                    ) ||
+                    side === 'right' &&
+                    (
+                        direction === 'to-right' && !panel.hasClass('active')
+                    )
+                )
                 {
                     isTouched = false;
                     return;
@@ -6307,10 +6403,10 @@ Device/OS Detection
                 panelWidth = panel[0].offsetWidth;
                 panel.transition(0);
                 /*
-                   if (panel.find('.' + app.params.viewClass).length > 0) {
-                   if (app.sizeNavbars) app.sizeNavbars(panel.find('.' + app.params.viewClass)[0]);
-                   }
-                   */
+                 if (panel.find('.' + app.params.viewClass).length > 0) {
+                 if (app.sizeNavbars) app.sizeNavbars(panel.find('.' + app.params.viewClass)[0]);
+                 }
+                 */
             }
 
             isMoved = true;
@@ -6362,11 +6458,11 @@ Device/OS Detection
                     action = 'reset';
                 }
                 else if (
-                        timeDiff < 300 && Math.abs(translate) > 0 ||
-                        timeDiff >= 300 && (Math.abs(translate) >= panelWidth / 2)
-                        ) {
-                            action = 'swap';
-                        }
+                    timeDiff < 300 && Math.abs(translate) > 0 ||
+                    timeDiff >= 300 && (Math.abs(translate) >= panelWidth / 2)
+                ) {
+                    action = 'swap';
+                }
                 else {
                     action = 'reset';
                 }
@@ -6376,12 +6472,12 @@ Device/OS Detection
                     action = 'reset';
                 }
                 else if (
-                        timeDiff < 300 && Math.abs(translate) >= 0 ||
-                        timeDiff >= 300 && (Math.abs(translate) <= panelWidth / 2)
-                        ) {
-                            if (side === 'left' && translate === panelWidth) action = 'reset';
-                            else action = 'swap';
-                        }
+                    timeDiff < 300 && Math.abs(translate) >= 0 ||
+                    timeDiff >= 300 && (Math.abs(translate) <= panelWidth / 2)
+                ) {
+                    if (side === 'left' && translate === panelWidth) action = 'reset';
+                    else action = 'swap';
+                }
                 else {
                     action = 'reset';
                 }
@@ -6490,7 +6586,7 @@ Device/OS Detection
 
         var id = this.genStateID(),
             curUrl = location.href,
-            // 需要设置入口页的Url，方便用户在类似xx/yy#step2 的页面刷新加载后 点击后退可以回到入口页
+        // 需要设置入口页的Url，方便用户在类似xx/yy#step2 的页面刷新加载后 点击后退可以回到入口页
             entryUrl = curUrl.split('#')[0];
 
         // 在页面加载时，可能会包含一个非空的状态对象history.state。这种情况是会发生的，例如，如果页面中使用pushState()或replaceState()方法设置了一个状态对象，然后用户重启了浏览器。https://developer.mozilla.org/en-US/docs/Web/API/History_API#Reading_the_current_state
@@ -6866,14 +6962,14 @@ Device/OS Detection
  * http://www.opensource.org/licenses/mit-license.php
  */
 /* ===============================================================================
-************   ScrollFix   ************
-=============================================================================== */
+ ************   ScrollFix   ************
+ =============================================================================== */
 
 /* global Zepto:true */
 + function($) {
     "use strict";
     //安卓微信中使用scrollfix会有问题，因此只在ios中使用，安卓机器按照原来的逻辑
-   
+
     if($.device.ios){
         var ScrollFix = function(elem) {
 
@@ -6893,10 +6989,10 @@ Device/OS Detection
                 startTopScroll = elem.scrollTop;
 
                 if(startTopScroll <= 0)
-                elem.scrollTop = 1;
+                    elem.scrollTop = 1;
 
-            if(startTopScroll + elem.offsetHeight >= elem.scrollHeight)
-                elem.scrollTop = elem.scrollHeight - elem.offsetHeight - 1;
+                if(startTopScroll + elem.offsetHeight >= elem.scrollHeight)
+                    elem.scrollTop = elem.scrollHeight - elem.offsetHeight - 1;
             }, false);
         };
 
@@ -6905,19 +7001,19 @@ Device/OS Detection
             var scrollable = $(prefix + ".content");
             new ScrollFix(scrollable[0]);
         };
-    
+
         $(document).on($.touchEvents.move, ".page-current .bar",function(){
             event.preventDefault();
-        }); 
+        });
         //监听ajax页面跳转
         $(document).on("pageLoadComplete", function(){
-             initScrollFix(); 
-        }); 
+            initScrollFix();
+        });
         //监听内联页面跳转
         $(document).on("pageAnimationEnd", function(){
-             initScrollFix(); 
+            initScrollFix();
         });
         initScrollFix();
     }
-   
+
 }(Zepto);
