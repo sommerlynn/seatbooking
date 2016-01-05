@@ -43,7 +43,7 @@ router.get('/seatmap/:cid', function(req, res) {
               'aaa_aataaaaaa_aaa',
               'aaa_aaaaaaaaa_aaa'];*/
 
-          res.render('seatMapView',{ title: '座位布局图', map: map, cid: req.params.cid});
+          res.render('seatMapView',{ title:classroom['full_name'], map: map, cid: req.params.cid});
       }
   });
 });
