@@ -4343,11 +4343,11 @@ Framework7 Layouts Themes
 ==========================*/
 /* === Dark layout === */
 .theme-dark {
-  background-color: #222426;
+  background-color: #202022;
 }
 .theme-dark .bar,
 .bar.theme-dark {
-  background-color: #131313;
+  background-color: #202022;
   color: #fff;
 }
 .theme-dark .bar:after,
@@ -4443,7 +4443,7 @@ Framework7 Layouts Themes
   color: #bbb;
 }
 .theme-dark .content-block-inner {
-  background: #1c1d1f;
+  background: #202022;
   color: #ddd;
 }
 .theme-dark .content-block-inner:before {
@@ -4454,7 +4454,7 @@ Framework7 Layouts Themes
 }
 .theme-dark .list-block ul,
 .list-block.theme-dark ul {
-  background: #1c1d1f;
+  background: #202022;
 }
 .theme-dark .list-block ul:before,
 .list-block.theme-dark ul:before {
@@ -4466,7 +4466,7 @@ Framework7 Layouts Themes
 }
 .theme-dark .list-block.inset ul,
 .list-block.theme-dark.inset ul {
-  background: #1c1d1f;
+  background: #202022;
 }
 .theme-dark .list-block.notifications > ul,
 .list-block.theme-dark.notifications > ul {
@@ -4479,7 +4479,7 @@ Framework7 Layouts Themes
   color: #bbb;
 }
 .theme-dark .card {
-  background: #1c1d1f;
+  background: #202022;
 }
 .theme-dark .card-header:after {
   background-color: #393939;
@@ -4520,7 +4520,7 @@ html:not(.watch-active-state) .theme-dark label.label-radio:active,
 }
 .theme-dark .item-divider,
 .theme-dark .list-group-title {
-  background: #1a1a1a;
+  background: #202022;
   color: #bbb;
 }
 .theme-dark .item-divider:before,
@@ -4559,13 +4559,13 @@ html:not(.watch-active-state) .theme-dark label.label-radio:active,
   background-color: #393939;
 }
 .theme-dark .label-switch .checkbox:before {
-  background-color: #1c1d1f;
+  background-color: #202022;
 }
 .theme-dark .range-slider input[type="range"]:after {
-  background: #1c1d1f;
+  background: #202022;
 }
 .theme-dark .buttons-tab {
-  background: #131313;
+  background: #202022;
 }
 .theme-dark .buttons-tab .tab-link:not(.active) {
   color: #ddd;
