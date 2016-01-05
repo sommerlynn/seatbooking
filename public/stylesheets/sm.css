@@ -4361,7 +4361,7 @@ Framework7 Layouts Themes
 .theme-dark .bar-tab,
 .bar-nav.theme-dark,
 .bar-tab.theme-dark {
-  background-color: #131313;
+  background-color: #121214;
   color: #fff;
 }
 .theme-dark .bar-nav:before,
@@ -4378,7 +4378,7 @@ Framework7 Layouts Themes
 }
 .theme-dark .picker-calendar-week-days {
   color: #fff;
-  background-color: #131313;
+  background-color: #121214;
 }
 .theme-dark .picker-modal.picker-modal-inline .picker-center-highlight:before {
   background-color: #333;
