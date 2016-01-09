@@ -32,6 +32,7 @@
     "lodash":"3.10.1",
     "generic-pool":"2.2.1",
     "node-xlsx":"0.6.0",
-    "bluebird":"3.0.6"
+    "bluebird":"3.0.6",
+    "wechat-oauth":"1.1.0"
   }
 }

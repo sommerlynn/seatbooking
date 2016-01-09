@@ -3,11 +3,28 @@ var express = require('express'),
     async = require('async'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
-    models = require('../models');
+    models = require('../models'),
+    OAuth = require('wechat-oauth');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('indexView', { title: '七玥天使' });
+  var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+  var url = client.getAuthorizeURL('http://www.julyangel.cn/userinfo', '0', 'snsapi_userinfo');
+  res.redirect(url);
+
+  //res.render('indexView', { title: '七玥天使' });
+});
+
+router.get('/userinfo',function(req, res, next){
+    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+    client.getAccessToken('code', function (err, result) {
+        var accessToken = result.data.access_token;
+        var openid = result.data.openid;
+
+        client.getUser('openid', function (err, result) {
+            var userInfo = result;
+        });
+    });
 });
 
 /*
