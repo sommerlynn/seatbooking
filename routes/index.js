@@ -9,7 +9,7 @@ var express = require('express'),
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-  var url = client.getAuthorizeURL('http://www.julyangel.cn/userinfo', '0', 'snsapi_userinfo');
+  var url = client.getAuthorizeURL('http://www.julyangel.cn/userinfo', '123', 'snsapi_userinfo');
   res.redirect(url);
 
   //res.render('indexView', { title: '七玥天使' });
