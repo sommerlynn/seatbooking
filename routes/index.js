@@ -23,6 +23,8 @@ router.get('/userinfo',function(req, res, next){
 
         client.getUser('openid', function (err, result) {
             var userInfo = result;
+
+            res.redirect('building');
         });
     });
 });
