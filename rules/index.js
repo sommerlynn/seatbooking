@@ -75,7 +75,13 @@ module.exports = exports = function(webot){
 
             info.noReply = true;
             // 返回值如果是list，则回复图文消息列表
-            models.weixinMessageModel.logUserLocation(info.param.uid, info.param.lat, info.param.lng);
+            models.weixinMessageModel.logUserLocation(info.param.uid, info.param.lat, info.param.lng, function(err){
+                if(err){
+
+                }else{
+                    
+                }
+            });
             return;
         }
     });
