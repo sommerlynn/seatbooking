@@ -19,7 +19,7 @@ weixinMessage.logUserLocation = function(openid, lat, lng, callback){
 
 weixinMessage.addUserInfo = function(userInfo, callback){
     var insertQuery = "insert into user (openid, nickname, sex, city, country, province, headimgurl) "+
-        "values (?,?,?,?,?,?,?,?)",
+        "values (?,?,?,?,?,?,?)",
         params = [userInfo.openid, userInfo.nickname, userInfo.sex, userInfo.province,
             userInfo.city, userInfo.country, userInfo.headimgurl];
     db.insertQuery(insertQuery, params, function(err, id){
