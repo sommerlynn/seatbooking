@@ -30,7 +30,7 @@ module.exports = exports = function(webot){
             var reply = {
                 title: '【你好】我是七玥',
                 pic: 'http://img5.duitang.com/uploads/item/201506/12/20150612194418_T4S3r.thumb.700_0.jpeg',
-                url: 'http://julyangel.cn/building',
+                url: 'http://julyangel.cn',
                 description: [
                     '在青春岁月里',
                     '陪你走过每一个季节',
@@ -60,7 +60,7 @@ module.exports = exports = function(webot){
                 noReply: 1,
                 title: '【您好】我是七玥，欢迎您的到来',
                 //pic: 'http://img5.duitang.com/uploads/item/201506/12/20150612194418_T4S3r.thumb.700_0.jpeg',
-                url: 'http://julyangel.cn/building',
+                url: 'http://julyangel.cn',
                 description: [
                     '您在',
                     '维度:'+info.param.lat,
@@ -116,7 +116,7 @@ module.exports = exports = function(webot){
             var reply = {
                 title: '【你好】认真学习 天天向上',
                 pic: 'http://img5.duitang.com/uploads/item/201506/12/20150612194418_T4S3r.thumb.700_0.jpeg',
-                url: 'http://www.julyangel.cn/seatmap',
+                url: 'http://www.julyangel.cn',
                 description: [
                     '在青春岁月里',
                     '陪你走过每一个季节',
