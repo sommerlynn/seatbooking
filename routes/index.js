@@ -20,7 +20,7 @@ router.get('/userinfo',function(req, res, next){
     client.getAccessToken(req.query.code, function (err, result) {
         var accessToken = result.data.access_token;
         var openid = result.data.openid;
-
+        console.log('openid='+openid);
         client.getUser('openid', function (err, result) {
             var userInfo = result;
 
