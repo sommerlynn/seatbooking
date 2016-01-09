@@ -4,7 +4,7 @@
 var weixinMessage = {},
     db = require('./db');
 
-weixinMessage.logUserLocation = function(openid, lat, lng){
+weixinMessage.logUserLocation = function(openid, lat, lng, callback){
     var insertQuery = "insert into user_location_log (openid, latitude, longitude) values (?, ?, ?)",
         params = [openid, lat, lng];
     db.insertQuery(insertQuery, params, function(err, id){
