@@ -17,8 +17,10 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 
 var weixinrobot = require('./lib/weixin-robot');
-require('./lib/weixin-robot/rules')(weixinrobot);
+//require('./lib/weixin-robot/rules')(weixinrobot);
+require('./rules')(weixinrobot);
 weixinrobot.watch(app, { token: '1qazxsw2', path: '/weixin' });
+
 
 
 app.use(express.static(path.join(__dirname, 'public')));
