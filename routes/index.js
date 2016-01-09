@@ -2,8 +2,8 @@ var express = require('express'),
     router = express.Router(),
     async = require('async'),
     Promise = require('bluebird'),
-    xlsx = require('node-xlsx'),
-    models = require('../models'); // https://github.com/mgcrea/node-xlsx
+    xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
+    models = require('../models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

@@ -2,16 +2,16 @@
  * Created by pchen on 2015/11/21.
  */
 var crypto = require('crypto');
-
 var debug = require('debug');
 var log = debug('webot-example:log');
 //var verbose = debug('webot-example:verbose');
 var error = debug('webot-example:error');
-
 var _ = require('underscore')._;
 //var search = require('../../support').search;
 //var geo2loc = require('./../support').geo2loc;
 //var package_info = require('../package.json');
+
+var models = require('../models');
 
 /**
  * 初始化路由规则
@@ -75,6 +75,7 @@ module.exports = exports = function(webot){
 
             info.noReply = true;
             // 返回值如果是list，则回复图文消息列表
+            models.weixinMessageModel.logUserLocation(info.param.uid, info.param.lat, info.param.lng);
             return;
         }
     });
@@ -109,7 +110,7 @@ module.exports = exports = function(webot){
             var reply = {
                 title: '【你好】认真学习 天天向上',
                 pic: 'http://img5.duitang.com/uploads/item/201506/12/20150612194418_T4S3r.thumb.700_0.jpeg',
-                url: 'http://180.76.185.145/seatmap',
+                url: 'http://www.julyangel.cn/seatmap',
                 description: [
                     '在青春岁月里',
                     '陪你走过每一个季节',
