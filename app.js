@@ -35,12 +35,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
 // https://github.com/expressjs/session
-//var session = require('express-session');
-//app.use(session({
-// secret: 'hongqingting',
-//  resave: false,
-//  saveUninitialized: true
-//}));
+var session = require('express-session');
+var SessionStore = require('express-mysql-session');
+var options = {
+  host: 'mysql56.rdsmxaxdpurey85.rds.bj.baidubce.com',
+  port: 3306,
+  user: 'pchen',
+  password: '1qazxsw2',
+  database: 'seatbooking'
+};
+var sessionStore = new SessionStore(options);
+app.use(session({
+  key: 'seatbooking',
+  secret: 'seatbooking_kkk',
+  store: sessionStore,
+  resave: true,
+  saveUninitialized: true
+}));
 
 
 var index = require('./routes/index');

@@ -19,4 +19,8 @@ user.order = function(userID, classroomID, row, column, time, callback){
     });
 };
 
+user.getUser = function(){
+
+};
+
 module.exports = user;

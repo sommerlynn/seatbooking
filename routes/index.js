@@ -7,7 +7,7 @@ var express = require('express'),
     OAuth = require('wechat-oauth');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
   var url = client.getAuthorizeURL('http://www.julyangel.cn/userinfo', '123', 'snsapi_userinfo');
   res.redirect(url);
@@ -15,14 +15,14 @@ router.get('/', function(req, res, next) {
   //res.render('indexView', { title: '七玥天使' });
 });
 
-router.get('/userinfo',function(req, res, next){
+router.get('/userinfo',function(req, res){
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
     client.getAccessToken(req.query.code, function (err, result) {
         var accessToken = result.data.access_token;
         var openid = result.data.openid;
         client.getUser(openid, function (err, result) {
             var userInfo = result;
-
+            req.session.userInfo = userInfo;
             models.weixinMessageModel.addUserInfo(userInfo, function(err){
                 if(err) {
                     res.send('错误' + err);
@@ -76,7 +76,7 @@ router.get('/seatmap/:cid', function(req, res) {
 * Get buildings of a school
 * 获取教学楼列表
 * */
-router.get('/building', function(req, res, next){
+router.get('/building', function(req, res){
   models.classroomModel.getAll(1, function(err, classroomList){
     if(err){
       res.render('errorView', {message:'服务器故障', error: err});
@@ -87,7 +87,7 @@ router.get('/building', function(req, res, next){
   });
 });
 
-router.post('/order', function(req, res, next){
+router.post('/order', function(req, res){
     var dateArr = req.body.time.split(' ');
     var hour = dateArr[0].substr(0, dateArr[0].length-1);
     var minute = dateArr[1].substr(0, dateArr[1].length-1);
@@ -101,6 +101,13 @@ router.post('/order', function(req, res, next){
             res.send('已成功预定');
         }
     });
+});
+
+router.get('/me', function(req, res){
+
+    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+    var url = client.getAuthorizeURL('http://www.julyangel.cn/userinfo', '123', 'snsapi_userinfo');
+    res.redirect(url);
 });
 
 router.get('/loadcourse', function(req, res, next){
