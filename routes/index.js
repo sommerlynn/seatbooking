@@ -108,7 +108,7 @@ router.get('/callbackbuilding',function(req, res){
                 if(err) {
                     res.send('错误' + err);
                 }else{
-                    res.redirect("buidling");
+                    res.redirect("building");
                 }
             });
         });
