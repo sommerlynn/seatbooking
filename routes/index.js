@@ -54,7 +54,7 @@ router.get('/seatmap/:cid', function(req, res) {
 * 获取教学楼列表
 * */
 router.get('/building', function(req, res){
-  if(req.session.userInfo){
+  /*if(req.session.userInfo){
       models.classroomModel.getAll(1, function(err, classroomList){
           if(err){
               res.render('errorView', {message:'服务器故障', error: err});
@@ -67,7 +67,9 @@ router.get('/building', function(req, res){
       var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
       var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
       res.redirect(url);
-  }
+  }*/
+    var err = {status:'ok', stack:'ok 111'};
+    res.render('errorView', {message:'building', error: err});
 });
 
 router.post('/order', function(req, res){
