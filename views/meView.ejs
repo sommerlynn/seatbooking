@@ -1,15 +1,15 @@
 <% include header.html %>
 <div class="page">
     <nav class="bar bar-tab">
-        <a class="tab-item external" href="/building">
+        <a class="tab-item external" id="buildingTab" href="/building">
             <span class="icon icon-home"></span>
             <span class="tab-label">预约座位</span>
         </a>
-        <a class="tab-item external" href="/">
+        <a class="tab-item external" id="skyTab" href="/">
             <span class="icon icon-settings"></span>
             <span class="tab-label">七玥星空</span>
         </a>
-        <a class="tab-item external active" href="/me">
+        <a class="tab-item external active" id="meTab" href="/me">
             <span class="icon icon-star"></span>
             <span class="tab-label">我的</span>
         </a>
@@ -35,5 +35,17 @@
     </div>
     <script type='text/javascript' src='/scripts/zepto.js' charset='utf-8'></script>
     <script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
+    <script>
+        $("#buildingTab").tap(function(){
+            window.location.assign("/building");
+        });
+        $("#skyTab").tap(function(){
+            window.location.assign("/");
+        });
+        $("#meTab").tap(function(){
+            window.location.assign("/me");
+        });
+
+    </script>
 </div>
 <% include footer.html %>
