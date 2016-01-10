@@ -4,7 +4,7 @@
  *
  * =====================================================
  */
-;$.smVersion = "0.6.0";/* global Zepto:true */
+;$.smVersion = "0.5.9";/* global Zepto:true */
 +function ($) {
     "use strict";
 
@@ -14,7 +14,8 @@
         showPageLoadingIndicator: true, //push.js加载页面的时候显示一个加载提示
         router: true, //默认使用router
         swipePanel: "left", //滑动打开侧栏
-        swipePanelOnlyClose: true  //只允许滑动关闭，不允许滑动打开侧栏
+        swipePanelOnlyClose: true,  //只允许滑动关闭，不允许滑动打开侧栏
+        pushAnimationDuration: 400  //不要动这个，这是解决安卓 animationEnd 事件无法触发的bug
     };
 
     $.smConfig = $.extend(defaults, $.config);
@@ -77,6 +78,7 @@
         };
     });
 
+
     //support
     $.support = (function() {
         var support = {
@@ -106,7 +108,7 @@
             transformMatrix = new WebKitCSSMatrix(curStyle.webkitTransform === 'none' ? '' : curStyle.webkitTransform);
         }
         else {
-            transformMatrix = curStyle.MozTransform || curStyle.transform || curStyle.getPropertyValue('transform').replace('translate(', 'matrix(1, 0, 0, 1,');
+            transformMatrix = curStyle.MozTransform || curStyle.OTransform || curStyle.MsTransform || curStyle.msTransform  || curStyle.transform || curStyle.getPropertyValue('transform').replace('translate(', 'matrix(1, 0, 0, 1,');
             matrix = transformMatrix.toString().split(',');
         }
 
@@ -135,71 +137,28 @@
 
         return curTransform || 0;
     };
-    /* jshint ignore:start */
     $.requestAnimationFrame = function (callback) {
-        if (requestAnimationFrame) return requestAnimationFrame(callback);
-        else if (webkitRequestAnimationFrame) return webkitRequestAnimationFrame(callback);
-        else if (mozRequestAnimationFrame) return mozRequestAnimationFrame(callback);
+        if (window.requestAnimationFrame) return window.requestAnimationFrame(callback);
+        else if (window.webkitRequestAnimationFrame) return window.webkitRequestAnimationFrame(callback);
+        else if (window.mozRequestAnimationFrame) return window.mozRequestAnimationFrame(callback);
         else {
-            return setTimeout(callback, 1000 / 60);
+            return window.setTimeout(callback, 1000 / 60);
         }
     };
+
     $.cancelAnimationFrame = function (id) {
-        if (cancelAnimationFrame) return cancelAnimationFrame(id);
-        else if (webkitCancelAnimationFrame) return webkitCancelAnimationFrame(id);
-        else if (mozCancelAnimationFrame) return mozCancelAnimationFrame(id);
+        if (window.cancelAnimationFrame) return window.cancelAnimationFrame(id);
+        else if (window.webkitCancelAnimationFrame) return window.webkitCancelAnimationFrame(id);
+        else if (window.mozCancelAnimationFrame) return window.mozCancelAnimationFrame(id);
         else {
-            return clearTimeout(id);
+            return window.clearTimeout(id);
         }
     };
-    /* jshint ignore:end */
 
-    $.fn.dataset = function() {
-        var dataset = {},
-            ds = this[0].dataset;
-        for (var key in ds) { // jshint ignore:line
-            var item = (dataset[key] = ds[key]);
-            if (item === 'false') dataset[key] = false;
-            else if (item === 'true') dataset[key] = true;
-            else if (parseFloat(item) === item * 1) dataset[key] = item * 1;
-        }
-        // mixin dataset and __eleData
-        return $.extend({}, dataset, this[0].__eleData);
-    };
-    $.fn.data = function(key, value) {
-        var tmpData = $(this).dataset();
-        if (!key) {
-            return tmpData;
-        }
-        // value may be 0, false, null
-        if (typeof value === 'undefined') {
-            // Get value
-            var dataVal = tmpData[key],
-                __eD = this[0].__eleData;
 
-            //if (dataVal !== undefined) {
-            if (__eD && (key in __eD)) {
-                return __eD[key];
-            } else {
-                return dataVal;
-            }
-
-        } else {
-            // Set value,uniformly set in extra ```__eleData```
-            for (var i = 0; i < this.length; i++) {
-                var el = this[i];
-                // delete multiple data in dataset
-                if (key in tmpData) delete el.dataset[key];
-
-                if (!el.__eleData) el.__eleData = {};
-                el.__eleData[key] = value;
-            }
-            return this;
-        }
-    };
-    function __dealCssEvent(eventNameArr, callback) {
-        var events = eventNameArr,
-            i, dom = this;// jshint ignore:line
+    $.fn.transitionEnd = function(callback) {
+        var events = ['webkitTransitionEnd', 'transitionend'],
+            i, dom = this;
 
         function fireCallBack(e) {
             /*jshint validthis:true */
@@ -214,13 +173,79 @@
                 dom.on(events[i], fireCallBack);
             }
         }
-    }
-    $.fn.animationEnd = function(callback) {
-        __dealCssEvent.call(this, ['webkitAnimationEnd', 'animationend'], callback);
         return this;
     };
-    $.fn.transitionEnd = function(callback) {
-        __dealCssEvent.call(this, ['webkitTransitionEnd', 'transitionend'], callback);
+    $.fn.dataset = function() {
+        var el = this[0];
+        if (el) {
+            var dataset = {};
+            if (el.dataset) {
+
+                for (var dataKey in el.dataset) { // jshint ignore:line
+                    dataset[dataKey] = el.dataset[dataKey];
+                }
+            } else {
+                for (var i = 0; i < el.attributes.length; i++) {
+                    var attr = el.attributes[i];
+                    if (/^data-/.test(attr.name)) {
+                        dataset[$.toCamelCase(attr.name.split('data-')[1])] = attr.value;
+                    }
+                }
+            }
+            for (var key in dataset) {
+                if (dataset[key] === 'false') dataset[key] = false;
+                else if (dataset[key] === 'true') dataset[key] = true;
+                else if (parseFloat(dataset[key]) === dataset[key] * 1) dataset[key] = dataset[key] * 1;
+            }
+            return dataset;
+        } else return undefined;
+    };
+    $.fn.data = function(key, value) {
+        if (typeof key === 'undefined') {
+            return $(this).dataset();
+        }
+        if (typeof value === 'undefined') {
+            // Get value
+            if (this[0] && this[0].getAttribute) {
+                var dataKey = this[0].getAttribute('data-' + key);
+
+                if (dataKey) {
+                    return dataKey;
+                } else if (this[0].smElementDataStorage && (key in this[0].smElementDataStorage)) {
+
+
+                    return this[0].smElementDataStorage[key];
+
+                } else {
+                    return undefined;
+                }
+            } else return undefined;
+
+        } else {
+            // Set value
+            for (var i = 0; i < this.length; i++) {
+                var el = this[i];
+                if (!el.smElementDataStorage) el.smElementDataStorage = {};
+                el.smElementDataStorage[key] = value;
+            }
+            return this;
+        }
+    };
+    $.fn.animationEnd = function(callback) {
+        var events = ['webkitAnimationEnd', 'animationend'],
+            i, dom = this;
+
+        function fireCallBack(e) {
+            callback(e);
+            for (i = 0; i < events.length; i++) {
+                dom.off(events[i], fireCallBack);
+            }
+        }
+        if (callback) {
+            for (i = 0; i < events.length; i++) {
+                dom.on(events[i], fireCallBack);
+            }
+        }
         return this;
     };
     $.fn.transition = function(duration) {
@@ -229,14 +254,14 @@
         }
         for (var i = 0; i < this.length; i++) {
             var elStyle = this[i].style;
-            elStyle.webkitTransitionDuration = elStyle.MozTransitionDuration = elStyle.transitionDuration = duration;
+            elStyle.webkitTransitionDuration = elStyle.MsTransitionDuration = elStyle.msTransitionDuration = elStyle.MozTransitionDuration = elStyle.OTransitionDuration = elStyle.transitionDuration = duration;
         }
         return this;
     };
     $.fn.transform = function(transform) {
         for (var i = 0; i < this.length; i++) {
             var elStyle = this[i].style;
-            elStyle.webkitTransform = elStyle.MozTransform = elStyle.transform = transform;
+            elStyle.webkitTransform = elStyle.MsTransform = elStyle.msTransform = elStyle.MozTransform = elStyle.OTransform = elStyle.transform = transform;
         }
         return this;
     };
@@ -6508,69 +6533,12 @@
     $.initSwipePanels();
 }(Zepto);
 
-/* globals Zepto */
-
-/**
- * 路由
- *
- * 路由功能将接管页面的链接点击行为，最后达到动画切换的效果，具体如下：
- *  1. 链接对应的是另一个页面，那么则尝试 ajax 加载，然后把新页面里的符合约定的结构提取出来，然后做动画切换；如果没法 ajax 或结构不符合，那么则回退为普通的页面跳转
- *  2. 链接是当前页面的锚点，并且该锚点对应的元素存在且符合路由约定，那么则把该元素做动画切入
- *  3. 浏览器前进后退（history.forward/history.back）时，也使用动画效果
- *  4. 如果链接有 back 这个 class，那么则忽略一切，直接调用 history.back() 来后退
- *
- * 路由功能默认开启，如果需要关闭路由功能，那么在 zepto 之后，msui 脚本之前设置 $.config.router = false 即可（intro.js 中会 extend 到 $.smConfig 中）。
- *
- * 可以设置 $.config.routerFilter 函数来设置当前点击链接是否使用路由功能，实参是 a 链接的 zepto 对象；返回 false 表示不使用 router 功能。
- *
- * ajax 载入新的文档时，并不会执行里面的 js。到目前为止，在开启路由功能时，建议的做法是：
- *  把所有页面的 js 都放到同一个脚本里，js 里面的事件绑定使用委托而不是直接的绑定在元素上（因为动态加载的页面元素还不存在），然后所有页面都引用相同的 js 脚本。非事件类可以通过监控 pageInit 事件，根据里面的 pageId 来做对应区别处理。
- *
- * 如果有需要
- *
- * 对外暴露的方法
- *  - load （原 loadPage 效果一致,但后者已标记为待移除）
- *  - forward
- *  - back
- *
- * 事件
- * pageLoad* 系列在发生 ajax 加载时才会触发；当是块切换或已缓存的情况下，不会发送这些事件
- *  - pageLoadCancel: 如果前一个还没加载完,那么取消并发送该事件
- *  - pageLoadStart: 开始加载
- *  - pageLodComplete: ajax complete 完成
- *  - pageLoadError: ajax 发生 error
- *  - pageAnimationStart: 执行动画切换前，实参是 event，sectionId 和 $section
- *  - pageAnimationEnd: 执行动画完毕，实参是 event，sectionId 和 $section
- *  - beforePageRemove: 新 document 载入且动画切换完毕，旧的 document remove 之前在 window 上触发，实参是 event 和 $pageContainer
- *  - pageRemoved: 新的 document 载入且动画切换完毕，旧的 document remove 之后在 window 上触发
- *  - pageInitInternal: （经 init.js 处理后，对外是 pageInit）紧跟着动画完成的事件，实参是 event，sectionId 和 $section
- *
- * 术语
- *  - 文档（document），不带 hash 的 url 关联着的应答 html 结构
- *  - 块（section），一个文档内有指定块标识的元素
- *
- * 路由实现约定
- *  - 每个文档的需要展示的内容必需位于指定的标识（routerConfig.sectionGroupClass）的元素里面，默认是: div.page-group （注意,如果改变这个需要同时改变 less 中的命名）
- *  - 每个块必需带有指定的块标识（routerConfig.pageClass），默认是 .page
- *
- *  即，使用路由功能的每一个文档应当是下面这样的结构（省略 <body> 等）:
- *      <div class="page-group">
- *          <div class="page">xxx</div>
- *          <div class="page">yyy</div>
- *      </div>
- *
- * 另，每一个块都应当有一个唯一的 ID，这样才能通过 #the-id 的形式来切换定位。
- * 当一个块没有 id 时，如果是第一个的默认的需要展示的块，那么会给其添加一个随机的 id；否则，没有 id 的块将不会被切换展示。
- *
- * 通过 history.state/history.pushState 以及用 sessionStorage 来记录当前 state 以及最大的 state id 来辅助前进后退的切换效果，所以在不支持 sessionStorage 的情况下，将不开启路由功能。
- *
- * 为了解决 ajax 载入页面导致重复 ID 以及重复 popup 等功能，上面约定了使用路由功能的所有可展示内容都必需位于指定元素内。从而可以在进行文档间切换时可以进行两个文档的整体移动，切换完毕后再把前一个文档的内容从页面之间移除。
- *
- * 注: 以 _ 开头的函数标明用于此处内部使用，可根据需要随时重构变更，不对外确保兼容性。
- *
+// jshint ignore: start
+/*
+ * 路由器
  */
 +function($) {
-    'use strict';
+    "use strict";
 
     if (!window.CustomEvent) {
         window.CustomEvent = function(type, config) {
@@ -6583,377 +6551,216 @@
         window.CustomEvent.prototype = window.Event.prototype;
     }
 
-    var Util = {
-        /**
-         * 获取 url 的 fragment（即 hash 中去掉 # 的剩余部分）
-         *
-         * 如果没有则返回空字符串
-         * 如: http://example.com/path/?query=d#123 => 123
-         *
-         * @param {String} url url
-         * @returns {String}
-         */
-        getUrlFragment: function(url) {
-            var hashIndex = url.indexOf('#');
-            return hashIndex === -1 ? '' : url.slice(hashIndex + 1);
-        },
-        /**
-         * 获取一个链接相对于当前页面的绝对地址形式
-         *
-         * 假设当前页面是 http://a.com/b/c
-         * 那么有以下情况:
-         * d => http://a.com/b/d
-         * /e => http://a.com/e
-         * #1 => http://a.com/b/c#1
-         * http://b.com/f => http://b.com/f
-         *
-         * @param {String} url url
-         * @returns {String}
-         */
-        getAbsoluteUrl: function(url) {
-            var link = document.createElement('a');
-            link.setAttribute('href', url);
-            var absoluteUrl = link.href;
-            link = null;
-            return absoluteUrl;
-        },
-        /**
-         * 获取一个 url 的基本部分，即不包括 hash
-         *
-         * @param {String} url url
-         * @returns {String}
-         */
-        getBaseUrl: function(url) {
-            var hashIndex = url.indexOf('#');
-            return hashIndex === -1 ? url.slice(0) : url.slice(0, hashIndex);
-        },
-        /**
-         * 把一个字符串的 url 转为一个可获取其 base 和 fragment 等的对象
-         *
-         * @param {String} url url
-         * @returns {UrlObject}
-         */
-        toUrlObject: function(url) {
-            var fullUrl = this.getAbsoluteUrl(url),
-                baseUrl = this.getBaseUrl(fullUrl),
-                fragment = this.getUrlFragment(url);
-
-            return {
-                base: baseUrl,
-                full: fullUrl,
-                original: url,
-                fragment: fragment
-            };
-        },
-        /**
-         * 判断浏览器是否支持 sessionStorage，支持返回 true，否则返回 false
-         * @returns {Boolean}
-         */
-        supportStorage: function() {
-            var mod = 'sm.router.storage.ability';
-            try {
-                sessionStorage.setItem(mod, mod);
-                sessionStorage.removeItem(mod);
-                return true;
-            } catch(e) {
-                return false;
-            }
-        }
-    };
-
-    var routerConfig = {
-        sectionGroupClass: 'page-group',
-        // 表示是当前 page 的 class
-        curPageClass: 'page-current',
-        // 用来辅助切换时表示 page 是 visible 的,
-        // 之所以不用 curPageClass，是因为 page-current 已被赋予了「当前 page」这一含义而不仅仅是 display: block
-        // 并且，别的地方已经使用了，所以不方便做变更，故新增一个
-        visiblePageClass: 'page-visible',
-        // 表示是 page 的 class，注意，仅是标志 class，而不是所有的 class
-        pageClass: 'page'
-    };
-
-    var DIRECTION = {
-        leftToRight: 'from-left-to-right',
-        rightToLeft: 'from-right-to-left'
-    };
-
-    var theHistory = window.history;
-
     var Router = function() {
-        this.sessionNames = {
-            currentState: 'sm.router.currentState',
-            maxStateId: 'sm.router.maxStateId'
-        };
-
-        this._init();
+        this.state = sessionStorage;
+        this.state.setItem("stateid", parseInt(this.state.getItem("stateid") || 1) + 1);
+        this.state.setItem("currentStateID", this.state.getItem("stateid"));
+        this.stack = sessionStorage;
+        this.stack.setItem("back", "[]");  //返回栈, {url, pageid, stateid}
+        this.stack.setItem("forward", "[]");  //前进栈, {url, pageid, stateid}
+        this.init();
         this.xhr = null;
-        window.addEventListener('popstate', this._onPopState.bind(this));
+        // 解决各个webview针对页面重新加载（包括后退造成的）时History State的处理差异，加此标志位
+        this.newLoaded = true;
+    };
+
+    Router.prototype.defaults = {};
+
+    Router.prototype.init = function() {
+        var currentPage = this.getCurrentPage(),
+            page1st = $(".page").eq(0);
+        if (!currentPage[0]) currentPage = page1st.addClass("page-current");
+        var hash = location.hash;
+        if(currentPage[0] && !currentPage[0].id) currentPage[0].id = (hash ? hash.slice(1) : this.genRandomID());
+
+        if (!currentPage[0]) throw new Error("can't find .page element");
+        var newCurrentPage = $(hash);
+
+        // 确保是 page 时才切换显示，不然可能只是普通的 hash（#129）
+        if (newCurrentPage[0] && newCurrentPage.hasClass('page')
+            && (!currentPage[0] || hash.slice(1) !== currentPage[0].id)) {
+            currentPage.removeClass("page-current");
+            newCurrentPage.addClass("page-current");
+            currentPage = newCurrentPage;
+        }
+
+        var id = this.genStateID(),
+            curUrl = location.href,
+        // 需要设置入口页的Url，方便用户在类似xx/yy#step2 的页面刷新加载后 点击后退可以回到入口页
+            entryUrl = curUrl.split('#')[0];
+
+        // 在页面加载时，可能会包含一个非空的状态对象history.state。这种情况是会发生的，例如，如果页面中使用pushState()或replaceState()方法设置了一个状态对象，然后用户重启了浏览器。https://developer.mozilla.org/en-US/docs/Web/API/History_API#Reading_the_current_state
+        history.replaceState({url: curUrl, id: id}, '', curUrl);
+        this.setCurrentStateID(id);
+        this.pushBack({
+            url: entryUrl,
+            pageid: '#' + page1st[0].id,
+            id: id
+        });
+        window.addEventListener('popstate', $.proxy(this.onpopstate, this));
+    };
+
+    //加载一个页面,传入的参数是页面id或者url
+    Router.prototype.loadPage = function(url) {
+
+        // android chrome 在移动端加载页面时不会触发一次‘popstate’事件
+        this.newLoaded && (this.newLoaded = false);
+        this.getPage(url, function(page) {
+
+            var pageid = this.getCurrentPage()[0].id;
+            this.pushBack({
+                url: url,
+                pageid: "#" + pageid,
+                id: this.getCurrentStateID()
+            });
+
+            //删除全部forward
+            var forward = JSON.parse(this.state.getItem("forward") || "[]");
+            for (var i = 0; i < forward.length; i++) {
+                $(forward[i].pageid).each(function() {
+                    var $page = $(this);
+                    if ($page.data("page-remote")) $page.remove();
+                });
+            }
+            this.state.setItem("forward", "[]");  //clearforward
+
+            page.insertAfter($(".page")[0]);
+            this.animatePages(this.getCurrentPage(), page);
+
+            var id = this.genStateID();
+            this.setCurrentStateID(id);
+
+            this.pushState(url, id);
+
+            this.forwardStack = [];  //clear forward stack
+
+        });
     };
 
     /**
-     * 初始化
+     * 页面转场效果
      *
-     * - 把当前文档内容缓存起来
-     * - 查找默认展示的块内容，查找顺序如下
-     *      1. id 是 url 中的 fragment 的元素
-     *      2. 有当前块 class 标识的第一个元素
-     *      3. 第一个块
-     * - 初始页面 state 处理
+     * 首先给要移入展示的页面添加上当前页面标识（page-current），要移出展示的移除当前页面标识；
+     * 然后给移入移除的页面添加上对应的动画 class，动画结束后清除动画 class 并发送对应事件。
      *
-     * @private
+     * 注意，不能在动画后才给移入展示的页面添加当前页面标识，否则，在快速切换的时候将会因为没有 .page-current
+     * 的页面而报错（具体来说是找这类页面的 id 时报错，目前并没有确保 id 查找的健壮性）
+     *
+     * @param leftPage 从效果上看位于左侧的页面，jQuery/Zepto 对象
+     * @param rightPage 从效果上位于右侧的页面，jQuery/Zepto 对象
+     * @param {Boolean} leftToRight 是否是从左往右切换（代表是后退），默认是相当于 false
      */
-    Router.prototype._init = function() {
+    Router.prototype.animatePages = function(leftPage, rightPage, leftToRight) {
+        var curPageClass = 'page-current';
+        var animPageClasses = [
+            'page-from-center-to-left',
+            'page-from-center-to-right',
+            'page-from-right-to-center',
+            'page-from-left-to-center'].join(' ');
 
-        this.$view = $('body');
-
-        // 用来保存 document 的 map
-        this.cache = {};
-        var $doc = $(document);
-        var currentUrl = location.href;
-        this._saveDocumentIntoCache($doc, currentUrl);
-
-        var curPageId;
-
-        var currentUrlObj = Util.toUrlObject(currentUrl);
-        var $allSection = $doc.find('.' + routerConfig.pageClass);
-        var $visibleSection = $doc.find('.' + routerConfig.curPageClass);
-        var $curVisibleSection = $visibleSection.eq(0);
-        var $hashSection;
-
-        if (currentUrlObj.fragment) {
-            $hashSection = $doc.find('#' + currentUrlObj.fragment);
-        }
-        if ($hashSection && $hashSection.length) {
-            $visibleSection = $hashSection.eq(0);
-        } else if (!$visibleSection.length) {
-            $visibleSection = $allSection.eq(0);
-        }
-        if (!$visibleSection.attr('id')) {
-            $visibleSection.attr('id', this._generateRandomId());
-        }
-
-        if ($curVisibleSection.length &&
-            ($curVisibleSection.attr('id') !== $visibleSection.attr('id'))) {
-            // 在 router 到 inner page 的情况下，刷新（或者直接访问该链接）
-            // 直接切换 class 会有「闪」的现象,或许可以采用 animateSection 来减缓一下
-            $curVisibleSection.removeClass(routerConfig.curPageClass);
-            $visibleSection.addClass(routerConfig.curPageClass);
+        if (!leftToRight) {
+            // 新页面从右侧切入
+            rightPage.trigger("pageAnimationStart", [rightPage[0].id, rightPage]);
+            leftPage.removeClass(animPageClasses).removeClass(curPageClass).addClass('page-from-center-to-left');
+            rightPage.removeClass(animPageClasses).addClass(curPageClass).addClass('page-from-right-to-center');
+            leftPage.animationEnd(function() {
+                leftPage.removeClass(animPageClasses);
+            });
+            rightPage.animationEnd(function() {
+                rightPage.removeClass(animPageClasses);
+                rightPage.trigger("pageAnimationEnd", [rightPage[0].id, rightPage]);
+                rightPage.trigger("pageInitInternal", [rightPage[0].id, rightPage]);
+            });
         } else {
-            $curVisibleSection.addClass(routerConfig.curPageClass);
-        }
-        curPageId = $visibleSection.attr('id');
-
-
-        // 新进入一个使用 history.state 相关技术的页面时，如果第一个 state 不 push/replace,
-        // 那么在后退回该页面时，将不触发 popState 事件
-        if (theHistory.state === null) {
-            var curState = {
-                id: this._getNextStateId(),
-                url: Util.toUrlObject(currentUrl),
-                pageId: curPageId
-            };
-
-            theHistory.replaceState(curState, '', currentUrl);
-            this._saveAsCurrentState(curState);
-            this._incMaxStateId();
-        }
-    };
-
-    /**
-     * 切换到 url 指定的块或文档
-     *
-     * 如果 url 指向的是当前页面，那么认为是切换块；
-     * 否则是切换文档
-     *
-     * @param {String} url url
-     */
-    Router.prototype.load = function(url) {
-        if (this._isTheSameDocument(location.href, url)) {
-            this._switchToSection(Util.getUrlFragment(url));
-        } else {
-            this._saveDocumentIntoCache($(document), location.href);
-            this._switchToDocument(url);
-        }
-    };
-
-    /**
-     * 调用 history.forward()
-     */
-    Router.prototype.forward = function() {
-        theHistory.forward();
-    };
-
-    /**
-     * 调用 history.back()
-     */
-    Router.prototype.back = function() {
-        theHistory.back();
-    };
-
-    //noinspection JSUnusedGlobalSymbols
-    /**
-     * @deprecated
-     */
-    Router.prototype.loadPage = Router.prototype.load;
-
-    /**
-     * 切换显示当前文档另一个块
-     *
-     * 把新块从右边切入展示，同时会把新的块的记录用 history.pushState 来保存起来
-     *
-     * 如果已经是当前显示的块，那么不做任何处理；
-     * 如果没对应的块，那么忽略。
-     *
-     * @param {String} sectionId 待切换显示的块的 id
-     * @private
-     */
-    Router.prototype._switchToSection = function(sectionId) {
-        if (!sectionId) {
-            return;
-        }
-
-        var $curPage = this._getCurrentSection(),
-            $newPage = $('#' + sectionId);
-
-        // 如果已经是当前页，不做任何处理
-        if ($curPage === $newPage) {
-            return;
-        }
-
-        this._animateSection($curPage, $newPage, DIRECTION.rightToLeft);
-        this._pushNewState('#' + sectionId, sectionId);
-    };
-
-    /**
-     * 载入显示一个新的文档
-     *
-     * - 如果有缓存，那么直接利用缓存来切换
-     * - 否则，先把页面加载过来缓存，然后再切换
-     *      - 如果解析失败，那么用 location.href 的方式来跳转
-     *
-     * 注意：不能在这里以及其之后用 location.href 来 **读取** 切换前的页面的 url，
-     *     因为如果是 popState 时的调用，那么此时 location 已经是 pop 出来的 state 的了
-     *
-     * @param {String} url 新的文档的 url
-     * @param {Boolean=} isPushState 是否需要 pushState
-     * @param {String=} direction 新文档切入的方向
-     * @private
-     */
-    Router.prototype._switchToDocument = function(url, isPushState, direction) {
-        var baseUrl = Util.toUrlObject(url).base;
-        var cacheDocument = this.cache[baseUrl];
-        var context = this;
-
-        if (cacheDocument) {
-            this._doSwitchDocument(url, isPushState, direction);
-        } else {
-            this._loadDocument(url, {
-                success: function($doc) {
-                    try {
-                        context._parseDocument(url, $doc);
-                        context._doSwitchDocument(url, isPushState, direction);
-                    } catch (e) {
-                        location.href = url;
-                    }
-                },
-                error: function() {
-                    location.href = url;
-                }
+            leftPage.trigger("pageAnimationStart", [rightPage[0].id, rightPage]);
+            leftPage.removeClass(animPageClasses).addClass(curPageClass).addClass('page-from-left-to-center');
+            rightPage.removeClass(animPageClasses).removeClass(curPageClass).addClass('page-from-center-to-right');
+            leftPage.animationEnd(function() {
+                leftPage.removeClass(animPageClasses);
+                leftPage.trigger("pageAnimationEnd", [leftPage[0].id, leftPage]);
+                leftPage.trigger("pageReinit", [leftPage[0].id, leftPage]);
+            });
+            rightPage.animationEnd(function() {
+                rightPage.removeClass(animPageClasses);
             });
         }
+
     };
 
-    /**
-     * 利用缓存来做具体的切换文档操作
-     *
-     * - 确定待切入的文档的默认展示 section
-     * - 把新文档 append 到 view 中
-     * - 动画切换文档
-     * - 如果需要 pushState，那么把最新的状态 push 进去并把当前状态更新为该状态
-     *
-     * @param {String} url 待切换的文档的 url
-     * @param {Boolean} isPushState 加载页面后是否需要 pushState，默认是 true
-     * @param {String} direction 动画切换方向，默认是 DIRECTION.rightToLeft
-     * @private
-     */
-    Router.prototype._doSwitchDocument = function(url, isPushState, direction) {
-        if (typeof isPushState === 'undefined') {
-            isPushState = true;
-        }
+    Router.prototype.getCurrentPage = function() {
+        return $(".page-current");
+    };
 
-        var urlObj = Util.toUrlObject(url);
-        var $currentDoc = this.$view.find('.' + routerConfig.sectionGroupClass);
-        var $newDoc = $($('<div></div>').append(this.cache[urlObj.base].$content).html());
-
-        // 确定一个 document 展示 section 的顺序
-        // 1. 与 hash 关联的 element
-        // 2. 默认的标识为 current 的 element
-        // 3. 第一个 section
-        var $allSection = $newDoc.find('.' + routerConfig.pageClass);
-        var $visibleSection = $newDoc.find('.' + routerConfig.curPageClass);
-        var $hashSection;
-
-        if (urlObj.fragment) {
-            $hashSection = $newDoc.find('#' + urlObj.fragment);
-        }
-        if ($hashSection && $hashSection.length) {
-            $visibleSection = $hashSection.eq(0);
-        } else if (!$visibleSection.length) {
-            $visibleSection = $allSection.eq(0);
-        }
-        if (!$visibleSection.attr('id')) {
-            $visibleSection.attr('id', this._generateRandomId());
-        }
-
-        $allSection.removeClass(routerConfig.curPageClass);
-        $visibleSection.addClass(routerConfig.curPageClass);
-
-        // prepend 而不 append 的目的是避免 append 进去新的 document 在后面，
-        // 其里面的默认展示的(.page-current) 的页面直接就覆盖了原显示的页面（因为都是 absolute）
-        this.$view.prepend($newDoc);
-
-        this._animateDocument($currentDoc, $newDoc, $visibleSection, direction);
-
-        if (isPushState) {
-            this._pushNewState(url, $visibleSection.attr('id'));
+    // 其实没调用到，如果无法前进，则加载对应的url
+    Router.prototype.forward = function(url) {
+        var stack = JSON.parse(this.stack.getItem("forward"));
+        if (stack.length) {
+            history.forward();
+        } else {
+            location.href = url;
         }
     };
 
-    /**
-     * 判断两个 url 指向的页面是否是同一个
-     *
-     * 判断方式: 如果两个 url 的 base 形式（不带 hash 的绝对形式）相同，那么认为是同一个页面
-     *
-     * @param {String} url
-     * @param {String} anotherUrl
-     * @returns {Boolean}
-     * @private
-     */
-    Router.prototype._isTheSameDocument = function(url, anotherUrl) {
-        return Util.toUrlObject(url).base === Util.toUrlObject(anotherUrl).base;
+    // 点击 .back 按钮，如果无法后退，则加载对应的url
+    Router.prototype.back = function(url) {
+        var stack = JSON.parse(this.stack.getItem("back"));
+        if (stack.length) {
+            history.back();
+        } else if (url) {
+            location.href = url;
+        } else {
+            console.warn('[router.back]: can not back')
+        }
     };
 
-    /**
-     * ajax 加载 url 指定的页面内容
-     *
-     * 加载过程中会发出以下事件
-     *  pageLoadCancel: 如果前一个还没加载完,那么取消并发送该事件
-     *  pageLoadStart: 开始加载
-     *  pageLodComplete: ajax complete 完成
-     *  pageLoadError: ajax 发生 error
-     *
-     *
-     * @param {String} url url
-     * @param {Object=} callback 回调函数配置，可选，可以配置 success\error 和 complete
-     *      所有回调函数的 this 都是 null，各自实参如下：
-     *      success: $doc, status, xhr
-     *      error: xhr, status, err
-     *      complete: xhr, status
-     *
-     * @private
-     */
-    Router.prototype._loadDocument = function(url, callback) {
+    // popstate 后退
+    Router.prototype._back = function(url) {
+        var h = this.popBack();
+        var currentPage = this.getCurrentPage();
+        var newPage = $(h.pageid);
+        if (!newPage[0]) return;
+        this.pushForward({url: location.href, pageid: "#" + currentPage[0].id, id: this.getCurrentStateID()});
+        this.setCurrentStateID(h.id);
+        this.animatePages(newPage, currentPage, true);
+    };
+
+    // popstate 前进
+    Router.prototype._forward = function() {
+        var h = this.popForward();
+        var currentPage = this.getCurrentPage();
+        var newPage = $(h.pageid);
+        if (!newPage[0]) return;
+        this.pushBack({url: location.href, pageid: "#" + currentPage[0].id, id: this.getCurrentStateID()});
+        this.setCurrentStateID(h.id);
+        this.animatePages(currentPage, newPage);
+    };
+
+    Router.prototype.pushState = function(url, id) {
+        history.pushState({url: url, id: id}, '', url);
+    };
+
+    Router.prototype.onpopstate = function(d) {
+        var state = d.state;
+        // 刷新再后退导致无法取到state
+        if (!state || this.newLoaded) {
+            this.newLoaded = false;
+            return;
+        }
+
+        if (state.id === this.getCurrentStateID()) {
+            return false;
+        }
+        var forward = state.id > this.getCurrentStateID();
+        if (forward) this._forward();
+        else this._back(state.url);
+    };
+
+    //根据url获取页面的DOM，如果是一个内联页面，则直接返回，否则用ajax加载
+    Router.prototype.getPage = function(url, callback) {
+        if (url[0] === "#") return callback.apply(this, [$(url)]);
+
+        this.dispatch("pageLoadStart");
+
         if (this.xhr && this.xhr.readyState < 4) {
             this.xhr.onreadystatechange = function() {
             };
@@ -6961,345 +6768,88 @@
             this.dispatch("pageLoadCancel");
         }
 
-        this.dispatch("pageLoadStart");
-
-        callback = callback || {};
         var self = this;
 
         this.xhr = $.ajax({
             url: url,
-            success: $.proxy(function(data, status, xhr) {
-                // 给包一层 <html/>，从而可以拿到完整的结构
-                var $doc = $('<html></html>');
-                $doc.append(data);
-                callback.success && callback.success.call(null, $doc, status, xhr);
+            success: $.proxy(function(data, s, xhr) {
+                var $page = this.parseXHR(xhr);
+                if (!$page[0].id) $page[0].id = this.genRandomID();
+                $page.data("page-remote", 1);
+                callback.apply(this, [$page]);
             }, this),
-            error: function(xhr, status, err) {
-                callback.error && callback.error.call(null, xhr, status, err);
+            error: function() {
                 self.dispatch("pageLoadError");
             },
-            complete: function(xhr, status) {
-                callback.complete && callback.complete.call(null, xhr, status);
+            complete: function() {
                 self.dispatch("pageLoadComplete");
             }
         });
     };
 
-    /**
-     * 对于 ajax 加载进来的页面，把其缓存起来
-     *
-     * @param {String} url url
-     * @param $doc ajax 载入的页面的 jq 对象，可以看做是该页面的 $(document)
-     * @private
-     */
-    Router.prototype._parseDocument = function(url, $doc) {
-        var $innerView = $doc.find('.' + routerConfig.sectionGroupClass);
-
-        if (!$innerView.length) {
-            throw new Error('missing router view mark: ' + routerConfig.sectionGroupClass);
-        }
-
-        this._saveDocumentIntoCache($doc, url);
-    };
-
-    /**
-     * 把一个页面的相关信息保存到 this.cache 中
-     *
-     * 以页面的 baseUrl 为 key,而 value 则是一个 DocumentCache
-     *
-     * @param {*} doc doc
-     * @param {String} url url
-     * @private
-     */
-    Router.prototype._saveDocumentIntoCache = function(doc, url) {
-        var urlAsKey = Util.toUrlObject(url).base;
-        var $doc = $(doc);
-
-        this.cache[urlAsKey] = {
-            $doc: $doc,
-            $content: $doc.find('.' + routerConfig.sectionGroupClass)
-        };
-    };
-
-    /**
-     * 从 sessionStorage 中获取保存下来的「当前状态」
-     *
-     * 如果解析失败，那么认为当前状态是 null
-     *
-     * @returns {State|null}
-     * @private
-     */
-    Router.prototype._getLastState = function() {
-        var currentState = sessionStorage.getItem(this.sessionNames.currentState);
-        try {
-            currentState = JSON.parse(currentState);
-        } catch(e) {
-            currentState = null;
-        }
-
-        return currentState;
-    };
-
-    /**
-     * 把一个状态设为当前状态，保存仅 sessionStorage 中
-     *
-     * @param {State} state
-     * @private
-     */
-    Router.prototype._saveAsCurrentState = function(state) {
-        sessionStorage.setItem(this.sessionNames.currentState, JSON.stringify(state));
-    };
-
-    /**
-     * 获取下一个 state 的 id
-     *
-     * 读取 sessionStorage 里的最后的状态的 id，然后 + 1；如果原没设置，那么返回 1
-     *
-     * @returns {number}
-     * @private
-     */
-    Router.prototype._getNextStateId = function() {
-        var maxStateId = sessionStorage.getItem(this.sessionNames.maxStateId);
-        return maxStateId ? parseInt(maxStateId, 10) + 1 : 1;
-    };
-
-    /**
-     * 把 sessionStorage 里的最后状态的 id 自加 1
-     *
-     * @private
-     */
-    Router.prototype._incMaxStateId = function() {
-        sessionStorage.setItem(this.sessionNames.maxStateId, this._getNextStateId());
-    };
-
-    /**
-     * 从一个文档切换为显示另一个文档
-     *
-     * @param $from 目前显示的文档
-     * @param $to 待切换显示的新文档
-     * @param $visibleSection 新文档中展示的 section 元素
-     * @param direction 新文档切入方向
-     * @private
-     */
-    Router.prototype._animateDocument = function($from, $to, $visibleSection, direction) {
-        var sectionId = $visibleSection.attr('id');
-        var $visibleSectionInFrom = $from.find('.' + routerConfig.curPageClass);
-        $visibleSectionInFrom.addClass(routerConfig.visiblePageClass).removeClass(routerConfig.curPageClass);
-
-        $visibleSection.trigger('pageAnimationStart', [sectionId, $visibleSection]);
-
-        this._animateElement($from, $to, direction);
-
-        $from.animationEnd(function() {
-            $visibleSectionInFrom.removeClass(routerConfig.visiblePageClass);
-            // 移除 document 前后，发送 beforePageRemove 和 pageRemoved 事件
-            $(window).trigger('beforePageRemove', [$from]);
-            $from.remove();
-            $(window).trigger('pageRemoved');
-        });
-
-        $to.animationEnd(function() {
-            $visibleSection.trigger('pageAnimationEnd', [sectionId, $visibleSection]);
-            // 外层（init.js）中会绑定 pageInitInternal 事件，然后对页面进行初始化
-            $visibleSection.trigger('pageInitInternal', [sectionId, $visibleSection]);
-        });
-    };
-
-    /**
-     * 把当前文档的展示 section 从一个 section 切换到另一个 section
-     *
-     * @param $from
-     * @param $to
-     * @param direction
-     * @private
-     */
-    Router.prototype._animateSection = function($from, $to, direction) {
-        var toId = $to.attr('id');
-
-        $from.removeClass(routerConfig.curPageClass);
-        $to.addClass(routerConfig.curPageClass);
-        $to.trigger('pageAnimationStart', [toId, $to]);
-        this._animateElement($from, $to, direction);
-        $to.animationEnd(function() {
-            $to.trigger('pageAnimationEnd', [toId, $to]);
-            // 外层（init.js）中会绑定 pageInitInternal 事件，然后对页面进行初始化
-            $to.trigger('pageInitInternal', [toId, $to]);
-        });
-    };
-
-    /**
-     * 切换显示两个元素
-     *
-     * 切换是通过更新 class 来实现的，而具体的切换动画则是 class 关联的 css 来实现
-     *
-     * @param $from 当前显示的元素
-     * @param $to 待显示的元素
-     * @param direction 切换的方向
-     * @private
-     */
-    Router.prototype._animateElement = function($from, $to, direction) {
-        // todo: 可考虑如果入参不指定，那么尝试读取 $to 的属性，再没有再使用默认的
-        // 考虑读取点击的链接上指定的方向
-        if (typeof direction === 'undefined') {
-            direction = DIRECTION.rightToLeft;
-        }
-
-        var animPageClasses = [
-            'page-from-center-to-left',
-            'page-from-center-to-right',
-            'page-from-right-to-center',
-            'page-from-left-to-center'].join(' ');
-
-        var classForFrom, classForTo;
-        switch(direction) {
-            case DIRECTION.rightToLeft:
-                classForFrom = 'page-from-center-to-left';
-                classForTo = 'page-from-right-to-center';
-                break;
-            case DIRECTION.leftToRight:
-                classForFrom = 'page-from-center-to-right';
-                classForTo = 'page-from-left-to-center';
-                break;
-            default:
-                classForFrom = 'page-from-center-to-left';
-                classForTo = 'page-from-right-to-center';
-                break;
-        }
-
-        $from.removeClass(animPageClasses).addClass(classForFrom);
-        $to.removeClass(animPageClasses).addClass(classForTo);
-
-        $from.animationEnd(function() {
-            $from.removeClass(animPageClasses);
-        });
-        $to.animationEnd(function() {
-            $to.removeClass(animPageClasses);
-        });
-    };
-
-    /**
-     * 获取当前显示的第一个 section
-     *
-     * @returns {*}
-     * @private
-     */
-    Router.prototype._getCurrentSection = function() {
-        return this.$view.find('.' + routerConfig.curPageClass).eq(0);
-    };
-
-    /**
-     * popState 事件关联着的后退处理
-     *
-     * 判断两个 state 判断是否是属于同一个文档，然后做对应的 section 或文档切换；
-     * 同时在切换后把新 state 设为当前 state
-     *
-     * @param {State} state 新 state
-     * @param {State} fromState 旧 state
-     * @private
-     */
-    Router.prototype._back = function(state, fromState) {
-        if (this._isTheSameDocument(state.url.full, fromState.url.full)) {
-            var $newPage = $('#' + state.pageId);
-            if ($newPage.length) {
-                var $currentPage = this._getCurrentSection();
-                this._animateSection($currentPage, $newPage, DIRECTION.leftToRight);
-                this._saveAsCurrentState(state);
-            } else {
-                location.href = state.url.full;
-            }
+    Router.prototype.parseXHR = function(xhr) {
+        var html = '';
+        var response = xhr.responseText;
+        var matches = response.match(/<body[^>]*>([\s\S.]*)<\/body>/i);
+        if(matches) {
+            html = matches[1];
         } else {
-            this._saveDocumentIntoCache($(document), fromState.url.full);
-            this._switchToDocument(state.url.full, false, DIRECTION.leftToRight);
-            this._saveAsCurrentState(state);
+            html = response;
         }
+        html = "<div>" + html + "</div>";
+        var tmp = $(html);
+
+        tmp.find(".popup, .panel, .panel-overlay").appendTo(document.body);
+
+        var $page = tmp.find(".page");
+        if (!$page[0]) $page = tmp.addClass("page");
+        return $page;
     };
 
-    /**
-     * popState 事件关联着的前进处理,类似于 _back，不同的是切换方向
-     *
-     * @param {State} state 新 state
-     * @param {State} fromState 旧 state
-     * @private
-     */
-    Router.prototype._forward = function(state, fromState) {
-        if (this._isTheSameDocument(state.url.full, fromState.url.full)) {
-            var $newPage = $('#' + state.pageId);
-            if ($newPage.length) {
-                var $currentPage = this._getCurrentSection();
-                this._animateSection($currentPage, $newPage, DIRECTION.rightToLeft);
-                this._saveAsCurrentState(state);
-            } else {
-                location.href = state.url.full;
-            }
-        } else {
-            this._saveDocumentIntoCache($(document), fromState.url.full);
-            this._switchToDocument(state.url.full, false, DIRECTION.rightToLeft);
-            this._saveAsCurrentState(state);
-        }
+    Router.prototype.genStateID = function() {
+        var id = parseInt(this.state.getItem("stateid")) + 1;
+        this.state.setItem("stateid", id);
+        return id;
     };
 
-    /**
-     * popState 事件处理
-     *
-     * 根据 pop 出来的 state 和当前 state 来判断是前进还是后退
-     *
-     * @param event
-     * @private
-     */
-    Router.prototype._onPopState = function(event) {
-        var state = event.state;
-        // if not a valid state, do nothing
-        if (!state || !state.pageId) {
-            return;
-        }
-
-        var lastState = this._getLastState();
-
-        if (!lastState) {
-            console.error && console.error('Missing last state when backward or forward');
-            return;
-        }
-
-        if (state.id === lastState.id) {
-            return;
-        }
-
-        if (state.id < lastState.id) {
-            this._back(state, lastState);
-        } else {
-            this._forward(state, lastState);
-        }
+    Router.prototype.getCurrentStateID = function() {
+        return parseInt(this.state.getItem("currentStateID"));
     };
 
-    /**
-     * 页面进入到一个新状态
-     *
-     * 把新状态 push 进去，设置为当前的状态，然后把 maxState 的 id +1。
-     *
-     * @param {String} url 新状态的 url
-     * @param {String} sectionId 新状态中显示的 section 元素的 id
-     * @private
-     */
-    Router.prototype._pushNewState = function(url, sectionId) {
-        var state = {
-            id: this._getNextStateId(),
-            pageId: sectionId,
-            url: Util.toUrlObject(url)
-        };
-
-        theHistory.pushState(state, '', url);
-        this._saveAsCurrentState(state);
-        this._incMaxStateId();
+    Router.prototype.setCurrentStateID = function(id) {
+        this.state.setItem("currentStateID", id);
     };
 
-    /**
-     * 生成一个随机的 id
-     *
-     * @returns {string}
-     * @private
-     */
-    Router.prototype._generateRandomId = function() {
+    Router.prototype.genRandomID = function() {
         return "page-" + (+new Date());
+    };
+
+    Router.prototype.popBack = function() {
+        var stack = JSON.parse(this.stack.getItem("back"));
+        if (!stack.length) return null;
+        var h = stack.splice(stack.length - 1, 1)[0];
+        this.stack.setItem("back", JSON.stringify(stack));
+        return h;
+    };
+
+    Router.prototype.pushBack = function(h) {
+        var stack = JSON.parse(this.stack.getItem("back"));
+        stack.push(h);
+        this.stack.setItem("back", JSON.stringify(stack));
+    };
+
+    Router.prototype.popForward = function() {
+        var stack = JSON.parse(this.stack.getItem("forward"));
+        if (!stack.length) return null;
+        var h = stack.splice(stack.length - 1, 1)[0];
+        this.stack.setItem("forward", JSON.stringify(stack));
+        return h;
+    };
+
+    Router.prototype.pushForward = function(h) {
+        var stack = JSON.parse(this.stack.getItem("forward"));
+        stack.push(h);
+        this.stack.setItem("forward", JSON.stringify(stack));
     };
 
     Router.prototype.dispatch = function(event) {
@@ -7308,146 +6858,51 @@
             cancelable: true
         });
 
-        //noinspection JSUnresolvedFunction
         window.dispatchEvent(e);
     };
 
-    /**
-     * 判断一个链接是否使用 router 来处理
-     *
-     * @param $link
-     * @returns {boolean}
-     */
-    function isInRouterBlackList($link) {
-        var classBlackList = [
-            'external',
-            'tab-link',
-            'open-popup',
-            'close-popup',
-            'open-panel',
-            'close-panel'
-        ];
-
-        for (var i = classBlackList.length -1 ; i >=0; i--) {
-            if ($link.hasClass(classBlackList[i])) {
-                return true;
-            }
-        }
-
-        //noinspection RedundantIfStatementJS
-        if ($link.get(0).hasAttribute('external')) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * 自定义是否执行路由功能的过滤器
-     *
-     * 可以在外部定义 $.config.routerFilter 函数，实参是点击链接的 Zepto 对象。
-     *
-     * @param $link 当前点击的链接的 Zepto 对象
-     * @returns {boolean} 返回 true 表示执行路由功能，否则不做路由处理
-     */
-    function customClickFilter($link) {
-        var customRouterFilter = $.smConfig.routerFilter;
-        if ($.isFunction(customRouterFilter)) {
-            var filterResult = customRouterFilter($link);
-            if (typeof filterResult === 'boolean') {
-                return filterResult;
-            }
-        }
-
-        return true;
-    }
-
     $(function() {
         // 用户可选关闭router功能
-        if (!$.smConfig.router) {
-            return;
-        }
-
-        if (!Util.supportStorage()) {
-            return;
-        }
-
-        var $pages = $('.' + routerConfig.pageClass);
-        if (!$pages.length) {
-            var logFn = console.warn || console.log;
-            logFn && logFn('Disable router function because of no .page elements');
-            return;
-        }
-
+        if (!$.smConfig.router) return;
         var router = $.router = new Router();
-
-        $(document).on('click', 'a', function(e) {
+        $(document).on("click", "a", function(e) {
             var $target = $(e.currentTarget);
-
-            var filterResult = customClickFilter($target);
-            if (!filterResult) {
-                return;
-            }
-
-            if (isInRouterBlackList($target)) {
-                return;
-            }
-
+            if ($target.hasClass("external") ||
+                $target[0].hasAttribute("external") ||
+                $target.hasClass("tab-link") ||
+                $target.hasClass("open-popup") ||
+                $target.hasClass("open-panel")
+            ) return;
             e.preventDefault();
-
-            if ($target.hasClass('back')) {
-                router.back();
-            } else {
-                var url = $target.attr('href');
-                if (!url || url === '#') {
-                    return;
-                }
-
-                router.load(url);
+            var url = $target.attr("href");
+            if ($target.hasClass("back")) {
+                router.back(url);
+                return;
             }
-        });
+
+            if (!url || url === "#") return;
+            router.loadPage(url);
+        })
     });
 }(Zepto);
-
-/**
- * @typedef {Object} State
- * @property {Number} id
- * @property {String} url
- * @property {String} pageId
- */
-
-/**
- * @typedef {Object} UrlObject 字符串 url 转为的对象
- * @property {String} base url 的基本路径
- * @property {String} full url 的完整绝对路径
- * @property {String} origin 转换前的 url
- * @property {String} fragment url 的 fragment
- */
-
-/**
- * @typedef {Object} DocumentCache
- * @property {*|HTMLElement} $doc 看做是 $(document)
- * @property {*|HTMLElement} $content $doc 里的 routerConfig.innerViewClass 元素
- */
+// jshint ignore: end
 
 /* global Zepto:true */
 /*jshint unused: false*/
-+function($) {
-    'use strict';
++function ($) {
+    "use strict";
 
     var getPage = function() {
         var $page = $(".page-current");
-        if (!$page[0]) $page = $(".page").addClass('page-current');
+        if(!$page[0]) $page = $(".page").addClass("page-current");
         return $page;
     };
 
     //初始化页面中的JS组件
     $.initPage = function(page) {
         var $page = getPage();
-        if (!$page[0]) $page = $(document.body);
-        var $content = $page.hasClass('content') ?
-            $page :
-            $page.find('.content');
+        if(!$page[0]) $page = $(document.body);
+        var $content = $page.hasClass("content") ? $page : $page.find(".content");
         $content.scroller();  //注意滚动条一定要最先初始化
 
         $.initPullToRefresh($content);
@@ -7455,66 +6910,42 @@
         $.initCalendar($content);
 
         //extend
-        if ($.initSwiper) $.initSwiper($content);
+        if($.initSwiper) $.initSwiper($content);
     };
 
-    if ($.smConfig.showPageLoadingIndicator) {
+
+    if($.smConfig.showPageLoadingIndicator) {
         //这里的 以 push 开头的是私有事件，不要用
-        $(window).on('pageLoadStart', function() {
+        $(window).on("pageLoadStart", function() {
             $.showIndicator();
         });
-        $(window).on('pageAnimationStart', function() {
+        $(document).on("pageAnimationStart", function() {
             $.hideIndicator();
         });
-        $(window).on('pageLoadCancel', function() {
+        $(window).on("pageLoadCancel", function() {
             $.hideIndicator();
         });
-        $(window).on('pageLoadComplete', function() {
+        $(window).on("pageLoadError", function() {
             $.hideIndicator();
-        });
-        $(window).on('pageLoadError', function() {
-            $.hideIndicator();
-            $.toast('加载失败');
+            $.toast("加载失败");
         });
     }
 
-    $(window).on('pageAnimationStart', function() {
-        // 在路由切换页面动画开始前,为了把位于 .page 之外的 popup 等隐藏,此处做些处理
-        $.closeModal();
-        $.closePanel();
-        // 如果 panel 的 effect 是 reveal 时,似乎是 page 的动画或别的样式原因导致了 transitionEnd 时间不会触发
-        // 这里暂且处理一下
-        $('body').removeClass('panel-closing');
-        $.allowPanelOpen = true;
-    });
 
-    // safari 在后退的时候会使用缓存技术，但实现上似乎存在些问题，
-    // 导致路由中绑定的点击事件不会正常如期的运行（log 和 debugger 都没法调试），
-    // 从而后续的跳转等完全乱了套。
-    // 所以，这里检测到是 safari 的 cache 的情况下，做一次 reload
-    // 测试路径(后缀 D 表示是 document，E 表示 external，不使用路由跳转）：
-    // 1. aD -> bDE
-    // 2. back
-    // 3. aD -> bD
-    window.addEventListener('pageshow', function(event) {
-        if (event.persisted) {
-            location.reload();
-        }
-    });
 
     $.init = function() {
         var $page = getPage();
         var id = $page[0].id;
         $.initPage();
-        $page.trigger('pageInit', [id, $page]);
+        $page.trigger("pageInit", [id, $page]);
     };
 
     $(function() {
-        if ($.smConfig.autoInit) {
+        if($.smConfig.autoInit) {
             $.init();
         }
 
-        $(document).on('pageInitInternal', function(e, id, page) {
+        $(document).on("pageInitInternal", function(e, id, page) {
             $.init();
         });
     });
