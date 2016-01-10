@@ -65,7 +65,7 @@ router.get('/building', function(req, res){
       });
   }else{
       var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-      var url = client.getAuthorizeURL('http://www.julyangel.cn/callback?from=building', '123', 'snsapi_userinfo');
+      var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
       res.redirect(url);
   }
 });
@@ -91,12 +91,12 @@ router.get('/me', function(req, res){
         res.render('meView',{title:'我的信息', userInfo:req.session.userInfo});
     }else{
         var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-        var url = client.getAuthorizeURL('http://www.julyangel.cn/callback?from=me', '123', 'snsapi_userinfo');
+        var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackme', '123', 'snsapi_userinfo');
         res.redirect(url);
     }
 });
 
-router.get('/callback/:from',function(req, res){
+router.get('/callbackbuilding',function(req, res){
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
     client.getAccessToken(req.query.code, function (err, result) {
         //var accessToken = result.data.access_token;
@@ -108,7 +108,26 @@ router.get('/callback/:from',function(req, res){
                 if(err) {
                     res.send('错误' + err);
                 }else{
-                    res.redirect(req.params.from);
+                    res.redirect("buidling");
+                }
+            });
+        });
+    });
+});
+
+router.get('/callbackme',function(req, res){
+    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+    client.getAccessToken(req.query.code, function (err, result) {
+        //var accessToken = result.data.access_token;
+        var openid = result.data.openid;
+        client.getUser(openid, function (err, result) {
+            var userInfo = result;
+            req.session.userInfo = userInfo;
+            models.weixinMessageModel.addUserInfo(userInfo, function(err){
+                if(err) {
+                    res.send('错误' + err);
+                }else{
+                    res.redirect("me");
                 }
             });
         });
