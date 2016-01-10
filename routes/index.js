@@ -97,9 +97,15 @@ router.get('/me', function(req, res){
 });
 
 router.get('/medebug', function(req, res){
-    if(req.session.userInfo){
-        res.render('meView',{title:'我的信息', userInfo:req.session.userInfo});
-    }
+    var userInfo = {
+        nickname:'璞',
+        province:'北京',
+        city:'昌平',
+        headimgurl:'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0'
+    };
+
+    res.render('meView',{title:'我的信息', userInfo:userInfo});
+
 });
 
 router.get('/callbackbuilding',function(req, res){
