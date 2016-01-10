@@ -9,7 +9,7 @@ A seat booking system for campus
  https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxeec4313f49704ee2&secret=36012f4bbf7488518922ca5ae73aef8e
 
  2、创建菜单
- https://api.weixin.qq.com/cgi-bin/menu/create?access_token=mwOgafKa-OIc5opATX-RoqhqqF6SUbGIRvXLm3QarOY6BRT103hxHzDbtdUPxyXvSD1PoalKpi6n7KndYwqDk52VDTBWxcvfmIgw-ZgmEs4IPJbAAASZT
+ https://api.weixin.qq.com/cgi-bin/menu/create?access_token=wnXUiI9oMAdLrRXYQE7iTDz43eebypoSrSAwKWDf4VqhkHzXR0Wt0H6X6b91W60bgpYOTz3KbM8z6YezB0qQlgZLsGlhs30TFFPlK4r6SMELOAdACAHKW
  {
      "button":[
      {
