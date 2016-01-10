@@ -68,7 +68,7 @@ router.get('/building', function(req, res){
       var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
       res.redirect(url);
   }*/
-    var classroomList = new array();
+    var classroomList = new Array();
     res.render('buildingView', {title:'七玥天使-自习室导航', classroomList: classroomList});
 
 });
