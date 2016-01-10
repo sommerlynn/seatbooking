@@ -1,4 +1,9 @@
 <% include header.html %>
+<style>
+    .item-subtitle span{
+        padding: 0 1.25rem 0 0;
+    }
+</style>
 <div class="page">
     <nav class="bar bar-tab">
         <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building2" external>
@@ -24,7 +29,8 @@
                             <div class="item-title-row">
                                 <div class="item-title"></div>
                             </div>
-                            <div class="item-subtitle"><span><%= userInfo.nickname%></span><span><%= userInfo.province%></span><span><%= userInfo.city%></span></div>
+                            <div class="item-subtitle">
+                                <span><%= userInfo.nickname%></span><span><%= userInfo.province%></span><span><%= userInfo.city%></span></div>
                             <div class="item-text"></div>
                         </div>
                     </a>
