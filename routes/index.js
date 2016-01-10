@@ -69,7 +69,7 @@ router.get('/building', function(req, res){
       res.redirect(url);
   }*/
     var err = {status:'ok', stack:'ok 111'};
-    res.render('errorView', {message:'building', error: err});
+    res.render('errorView', {title:'预约座位', message:'building', error: err});
 });
 
 router.post('/order', function(req, res){
