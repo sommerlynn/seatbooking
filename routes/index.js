@@ -86,8 +86,8 @@ router.post('/order', function(req, res){
     });
 });
 
-router.get('/me', function(req, res){
-    if(req.session.userInfo){
+router.get('/me/:op', function(req, res){
+    if(req.session.userInfo && req.params.op){
         res.render('meView',{title:'我的信息', userInfo:req.session.userInfo});
     }else{
         var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
