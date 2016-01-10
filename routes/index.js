@@ -110,24 +110,29 @@ router.get('/medebug', function(req, res){
 router.get('/callbackbuilding',function(req, res){
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
     client.getAccessToken(req.query.code, function (err, result) {
-        //var accessToken = result.data.access_token;
-        var openid = result.data.openid;
-        client.getUser(openid, function (err, result) {
-            if(err){
-                res.send('错误' + err);
-            }else{
-                var userInfo = result;
-                req.session.userInfo = userInfo;
-                res.redirect("building");
+        if(err){
+            res.send('错误' + err);
+        }
+        else{
+            //var accessToken = result.data.access_token;
+            var openid = result.data.openid;
+            client.getUser(openid, function (err, result) {
+                if(err){
+                    res.send('错误' + err);
+                }else{
+                    var userInfo = result;
+                    req.session.userInfo = userInfo;
+                    res.redirect("building");
 
-                models.weixinMessageModel.addUserInfo(userInfo, function(err){
-                    if(err) {
-                        res.send('错误' + err);
-                    }else{
-                    }
-                });
-            }
-        });
+                    models.weixinMessageModel.addUserInfo(userInfo, function(err){
+                        if(err) {
+                            res.send('错误' + err);
+                        }else{
+                        }
+                    });
+                }
+            });
+        }
     });
 });
 
@@ -135,22 +140,26 @@ router.get('/callbackme',function(req, res){
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
     client.getAccessToken(req.query.code, function (err, result) {
         //var accessToken = result.data.access_token;
-        var openid = result.data.openid;
-        client.getUser(openid, function (err, result) {
-            if(err){
-                res.send('错误' + err);
-            }else{
-                var userInfo = result;
-                req.session.userInfo = userInfo;
-                res.redirect("me");
-                models.weixinMessageModel.addUserInfo(userInfo, function(err){
-                    if(err) {
-                        res.send('错误' + err);
-                    }else{
-                    }
-                });
-            }
-        });
+        if(err){
+            res.send('错误' + err);
+        }else{
+            var openid = result.data.openid;
+            client.getUser(openid, function (err, result) {
+                if(err){
+                    res.send('错误' + err);
+                }else{
+                    var userInfo = result;
+                    req.session.userInfo = userInfo;
+                    res.redirect("me");
+                    models.weixinMessageModel.addUserInfo(userInfo, function(err){
+                        if(err) {
+                            res.send('错误' + err);
+                        }else{
+                        }
+                    });
+                }
+            });
+        }
     });
 });
 
