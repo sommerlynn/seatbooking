@@ -54,7 +54,7 @@ router.get('/seatmap/:cid', function(req, res) {
 * 获取教学楼列表
 * */
 router.get('/building', function(req, res){
-  /*if(req.session.userInfo){
+  if(req.session.userInfo){
       models.classroomModel.getAll(1, function(err, classroomList){
           if(err){
               res.render('errorView', {message:'服务器故障', error: err});
@@ -67,10 +67,7 @@ router.get('/building', function(req, res){
       var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
       var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
       res.redirect(url);
-  }*/
-    var classroomList = new Array();
-    res.render('buildingView', {title:'七玥天使-自习室导航', classroomList: classroomList});
-
+  }
 });
 
 router.post('/order', function(req, res){
@@ -90,21 +87,13 @@ router.post('/order', function(req, res){
 });
 
 router.get('/me', function(req, res){
-    /*if(req.session.userInfo){
+    if(req.session.userInfo){
         res.render('meView',{title:'我的信息', userInfo:req.session.userInfo});
     }else{
         var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
         var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackme', '123', 'snsapi_userinfo');
         res.redirect(url);
-    }*/
-    var userInfo = {
-        nickname:'璞',
-        province:'北京',
-        city:'昌平',
-        headimgurl:'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0'
-    };
-
-    res.render('meView',{title:'我的信息', userInfo:userInfo});
+    }
 });
 
 router.get('/medebug', function(req, res){
