@@ -105,7 +105,6 @@ router.get('/medebug', function(req, res){
     };
 
     res.render('meView',{title:'我的信息', userInfo:userInfo});
-
 });
 
 router.get('/callbackbuilding',function(req, res){
@@ -114,15 +113,20 @@ router.get('/callbackbuilding',function(req, res){
         //var accessToken = result.data.access_token;
         var openid = result.data.openid;
         client.getUser(openid, function (err, result) {
-            var userInfo = result;
-            req.session.userInfo = userInfo;
-            models.weixinMessageModel.addUserInfo(userInfo, function(err){
-                if(err) {
-                    res.send('错误' + err);
-                }else{
-                    res.redirect("building");
-                }
-            });
+            if(err){
+                res.send('错误' + err);
+            }else{
+                var userInfo = result;
+                req.session.userInfo = userInfo;
+                res.redirect("building");
+
+                models.weixinMessageModel.addUserInfo(userInfo, function(err){
+                    if(err) {
+                        res.send('错误' + err);
+                    }else{
+                    }
+                });
+            }
         });
     });
 });
@@ -133,15 +137,19 @@ router.get('/callbackme',function(req, res){
         //var accessToken = result.data.access_token;
         var openid = result.data.openid;
         client.getUser(openid, function (err, result) {
-            var userInfo = result;
-            req.session.userInfo = userInfo;
-            models.weixinMessageModel.addUserInfo(userInfo, function(err){
-                if(err) {
-                    res.send('错误' + err);
-                }else{
-                    res.redirect("me");
-                }
-            });
+            if(err){
+                res.send('错误' + err);
+            }else{
+                var userInfo = result;
+                req.session.userInfo = userInfo;
+                res.redirect("me");
+                models.weixinMessageModel.addUserInfo(userInfo, function(err){
+                    if(err) {
+                        res.send('错误' + err);
+                    }else{
+                    }
+                });
+            }
         });
     });
 });
