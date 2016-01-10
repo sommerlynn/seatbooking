@@ -18,9 +18,31 @@
         </a>
     </nav>
     <div class="content">
-        <%= userInfo.nickname%>
 
-        <img src="<%= userInfo.headimgurl.replace('/0', '/46')%>"/>
+        <div class="header">
+
+        </div>
+
+        <div class="list-block media-list">
+            <ul>
+                <li>
+                    <a href="#" class="item-link item-content">
+                        <div class="item-media"><img src="<%= userInfo.headimgurl.replace('/0', '/46')%>"/></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title"><%= userInfo.nickname%></div>
+                                <div class="item-after"><%= userInfo.sex%></div>
+                            </div>
+                            <div class="item-subtitle"><%= userInfo.province%></div>
+                            <div class="item-text"><%= userInfo.city%></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+
     </div>
     <script type='text/javascript' src='/scripts/zepto.js' charset='utf-8'></script>
     <script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
