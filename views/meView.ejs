@@ -15,18 +15,17 @@
         </a>
     </nav>
     <div class="content">
-        <div class="list-block media-list" style="margin: 0">
+        <div class="list-block media-list" style="margin: 0; height: 15rem; padding: 1.25rem">
             <ul>
                 <li style="background: url('../images/headerbg.jpg') no-repeat; background-size: 100%">
                     <a href="#" class="item-link item-content">
                         <div class="item-media"><img src="<%= userInfo.headimgurl.replace('/0', '/46')%>"/></div>
                         <div class="item-inner">
                             <div class="item-title-row">
-                                <div class="item-title"><%= userInfo.nickname%></div>
-                                <div class="item-after"><%= userInfo.sex%></div>
+                                <div class="item-title"><span><%= userInfo.nickname%></span><span><%= userInfo.province%></span><span><%= userInfo.city%></span></div>
                             </div>
-                            <div class="item-subtitle"><%= userInfo.province%></div>
-                            <div class="item-text"><%= userInfo.city%></div>
+                            <div class="item-subtitle"></div>
+                            <div class="item-text"></div>
                         </div>
                     </a>
                 </li>
