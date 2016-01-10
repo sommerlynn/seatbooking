@@ -17,7 +17,7 @@
     <div class="content">
         <div class="list-block media-list" style="margin: 0">
             <ul>
-                <li style="background-image: url('../images/headerbg.jpg')">
+                <li style="background: url('../images/headerbg.jpg') no-repeat; background-size: 100%">
                     <a href="#" class="item-link item-content">
                         <div class="item-media"><img src="<%= userInfo.headimgurl.replace('/0', '/46')%>"/></div>
                         <div class="item-inner">
@@ -35,5 +35,16 @@
     </div>
     <script type='text/javascript' src='/scripts/zepto.js' charset='utf-8'></script>
     <script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
 
+            $("img").load(function() {
+                $(this).wrap(function(){
+                    return '<span class="image-wrap ' + $(this).attr('class') + '" style="position:relative; display:inline-block; background:url(' + $(this).attr('src') + ') no-repeat center center; width: ' + $(this).width() + 'px; height: ' + $(this).height() + 'px;" />';
+                });
+                $(this).css("opacity","0");
+            });
+
+        });
+    </script>
 <% include footer.html %>
