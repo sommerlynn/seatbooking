@@ -11,6 +11,10 @@ router.get('/', function(req, res) {
   res.render('indexView', { title: '七玥星空' });
 });
 
+router.get('/index', function(req, res) {
+    res.render('indexView', { title: '七玥星空' });
+});
+
 /*
 * Get seat map of a classroom
 * 获取一个教室的座位图
