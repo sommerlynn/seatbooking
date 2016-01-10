@@ -11,25 +11,6 @@ router.get('/', function(req, res) {
   res.render('indexView', { title: '七玥天使' });
 });
 
-router.get('/callback/:from',function(req, res){
-    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-    client.getAccessToken(req.query.code, function (err, result) {
-        //var accessToken = result.data.access_token;
-        var openid = result.data.openid;
-        client.getUser(openid, function (err, result) {
-            var userInfo = result;
-            req.session.userInfo = userInfo;
-            models.weixinMessageModel.addUserInfo(userInfo, function(err){
-                if(err) {
-                    res.send('错误' + err);
-                }else{
-                    res.redirect(req.params.from);
-                }
-            });
-        });
-    });
-});
-
 /*
 * Get seat map of a classroom
 * 获取一个教室的座位图
@@ -107,12 +88,31 @@ router.post('/order', function(req, res){
 
 router.get('/me', function(req, res){
     if(req.session.userInfo){
-        res.render('meView',{title:'我的信息'});
+        res.render('meView',{title:'我的信息', userInfo:req.session.userInfo});
     }else{
         var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
         var url = client.getAuthorizeURL('http://www.julyangel.cn/callback?from=me', '123', 'snsapi_userinfo');
         res.redirect(url);
     }
+});
+
+router.get('/callback/:from',function(req, res){
+    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+    client.getAccessToken(req.query.code, function (err, result) {
+        //var accessToken = result.data.access_token;
+        var openid = result.data.openid;
+        client.getUser(openid, function (err, result) {
+            var userInfo = result;
+            req.session.userInfo = userInfo;
+            models.weixinMessageModel.addUserInfo(userInfo, function(err){
+                if(err) {
+                    res.send('错误' + err);
+                }else{
+                    res.redirect(req.params.from);
+                }
+            });
+        });
+    });
 });
 
 router.get('/loadcourse', function(req, res, next){
