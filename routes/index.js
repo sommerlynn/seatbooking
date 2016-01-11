@@ -93,22 +93,6 @@ router.get('/building2', function(req, res){
     res.render('errorView', {title:'预约座位', message:'building', error: err});*/
 });
 
-router.post('/order', function(req, res){
-    var dateArr = req.body.time.split(' ');
-    var hour = dateArr[0].substr(0, dateArr[0].length-1);
-    var minute = dateArr[1].substr(0, dateArr[1].length-1);
-    var today = new Date();
-    var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
-
-    models.userModel.order(1, req.body.classroom, req.body.row, req.body.column, orderTime, function(err){
-        if(err) {
-            res.send('错误' + err);
-        }else{
-            res.send('已成功预定');
-        }
-    });
-});
-
 router.get('/me', function(req, res){
     if(req.session.userInfo){
         res.render('meView',{title:'我的信息', userInfo:req.session.userInfo});
@@ -194,6 +178,27 @@ router.get('/callbackme',function(req, res){
             });
         }
     });
+});
+
+router.post('/order', function(req, res){
+    if(req.session.userInfo){
+        var dateArr = req.body.time.split(' ');
+        var hour = dateArr[0].substr(0, dateArr[0].length-1);
+        var minute = dateArr[1].substr(0, dateArr[1].length-1);
+        var today = new Date();
+        var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
+
+        models.userModel.order(req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column, orderTime, function(err){
+            if(err) {
+                res.send('错误' + err);
+            }else{
+                res.send('已成功预定');
+            }
+        });
+    }
+    else{
+        res.send('未取得用户信息');
+    }
 });
 
 router.get('/loadcourse', function(req, res, next){
