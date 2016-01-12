@@ -23,17 +23,10 @@ user.getUser = function(){
 
 };
 
-user.getSeatOrderSheet = function(openid, callback){
+user.getSeatOrderSheet = function(openid, callback) {
     var selectQuery = "select * from user_seat_order_view where openid = ?",
         params = [openid];
-    db.executeQuery(selectQuery, params, function(err, userSeatOrders){
-        if(err){
-            callback(null);
-        }
-        else{
-            callback(userSeatOrders);
-        }
-    });
+    db.executeQuery(selectQuery, params, callback);
 };
 
 module.exports = user;
