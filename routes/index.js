@@ -105,7 +105,13 @@ router.get('/me', function(req, res){
 
 router.get('/me2', function(req, res){
     if(req.session.userInfo){
-        res.render('meView',{title:'我的信息', userInfo:req.session.userInfo});
+        models.userModel.getSeatOrderSheet(req.session.userInfo.openid, function(err, userSeatOrders){
+            if(err){
+                res.send('错误' + err);
+            }else{
+                res.render('meView',{title:'我的信息', userInfo:req.session.userInfo, userSeatOrders:userSeatOrders});
+            }
+        });
     }else{
         var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
         var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackme', '123', 'snsapi_userinfo');
@@ -197,6 +203,21 @@ router.post('/order', function(req, res){
         });
     }
     else{
+        res.send('未取得用户信息');
+    }
+});
+
+router.get('/myseatorder', function(req, res){
+    if(req.session.userInfo){
+
+        models.userModel.getSeatOrderSheet(req.session.userInfo.openid, function(err, userSeatOrders){
+            if(err){
+                res.send('错误' + err);
+            }else{
+
+            }
+        });
+    }else{
         res.send('未取得用户信息');
     }
 });

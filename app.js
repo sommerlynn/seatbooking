@@ -50,7 +50,8 @@ app.use(session({
   secret: 'seatbooking_kkk',
   store: sessionStore,
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie:{maxAge:7*24*60*60} // 设置session有效期为一周
 }));
 
 

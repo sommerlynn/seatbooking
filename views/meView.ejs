@@ -61,6 +61,15 @@
                         <div class="item-after"></div>
                     </div>
                 </li>
+                <% for(var index = 0; index < userSeatOrders.length; index++){%>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-home"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%= userSeatOrders[index].full_name%></div>
+                        <div class="item-after"></div>
+                    </div>
+                </li>
+                <% }%>
             </ul>
         </div>
     </div>
