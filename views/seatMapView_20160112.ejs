@@ -1,0 +1,304 @@
+<% include header.html %>
+
+<div class="page">
+
+    <header class="bar bar-nav">
+        <h1 class="title"><%= title %></h1>
+    </header>
+    <!-- 工具栏 -->
+    <nav class="bar bar-tab">
+        <a class="tab-item active" id="buildingTab" href="http://www.julyangel.cn/building2" external>
+            <span class="icon icon-home"></span>
+            <span class="tab-label">预约座位</span>
+        </a>
+        <a class="tab-item" id="skyTab" href="http://www.julyangel.cn/index" external>
+            <span class="icon icon-settings"></span>
+            <span class="tab-label">七玥星空</span>
+        </a>
+        <a class="tab-item" id="meTab" href="http://www.julyangel.cn/me2" external>
+            <span class="icon icon-star"></span>
+            <span class="tab-label">我的</span>
+        </a>
+    </nav>
+    <div class="content" style="background-color: #1D2025">
+        <div id="content-wrapper">
+            <div id="seat-map">
+                <ul id="seat-list">
+
+                </ul>
+            </div>
+        </div>
+
+        <!--<div class="seatCharts-legend" style="width: 224px;">
+            <ul class="seatCharts-legendList">
+                <li class="seatCharts-legendItem"><span
+                            class="seatCharts-seat-legend seatCharts-cell-legend available16 normal-seat"></span><span
+                            class="seatCharts-legendDescription">空座</span></li>
+                <li class="seatCharts-legendItem"><span
+                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-boy16 booked-seat-boy"></span><span
+                            class="seatCharts-legendDescription">已订（男生）</span></li>
+                <li class="seatCharts-legendItem"><span
+                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-girl16 booked-seat-girl"></span><span
+                            class="seatCharts-legendDescription">已订（女生）</span></li>
+                <li class="seatCharts-legendItem"><span
+                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-teaching16 booked-seat-teaching"></span><span
+                            class="seatCharts-legendDescription">有课</span></li>
+            </ul>
+        </div>-->
+
+        <div class="seatCharts-legend">
+            <ul class="seatCharts-legendList">
+                <li class="seatCharts-legendItem"><span
+                            class="seatCharts-seat-legend seatCharts-cell-legend available16 normal-seat"></span><span
+                            class="seatCharts-legendDescription">空座</span></li>
+                <li class="seatCharts-legendItem"><span
+                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-boy16 booked-seat-boy"></span><span
+                            class="seatCharts-legendDescription">已订（男生）</span></li>
+                <li class="seatCharts-legendItem"><span
+                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-girl16 booked-seat-girl"></span><span
+                            class="seatCharts-legendDescription">已订（女生）</span></li>
+                <li class="seatCharts-legendItem"><span
+                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-teaching16 booked-seat-teaching"></span><span
+                            class="seatCharts-legendDescription">有课</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="panel panel-right panel-reveal" style="background-color: #1D2025">
+    <div class="content-block">
+        <p style="text-align: center">选座信息</p>
+        <p><span id="selectedSeatInfo"></span></p>
+        <p>请选择您的预约入座时间</p>
+        <input type="text" id='picker' style="width: 100%; line-height: 1.2rem"/>
+        <!-- Click on link with "close-panel" class will close panel -->
+        <p class="buttons-row"><a href="#" class="close-panel button button-round">取消</a><a id="orderLnk" href="#" class="button button-round">立即预约</a></p>
+        <p>注意事项:</p>
+        <p>
+           1、最迟在预约入座时间之后半小时内入座并签到；否则系统自动释放座位供其他同学使用。
+        </p>
+        <p>
+           2、离开超过一小时，请设置暂离，以方便其他同学临时使用。
+        </p>
+        <p>
+           3、使用结束，请释放座位供他人使用。
+        </p>
+    </div>
+</div>
+
+<script type='text/javascript' src='/scripts/zepto.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/ajax.js' charset='utf-8'></script>
+<script>
+    $.config = {
+        autoInit: true,
+        router:false
+    }
+</script>
+<script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/panels.js' charset='utf-8'></script>
+
+<script type="text/javascript" src="/scripts/jquery.seat-charts.js"></script>
+<script>
+    var firstSeatLabel = 1,
+        selectedSeatRowID = 0,
+        selectedSeatColumnID = 0;
+
+    $(document).ready(function () {
+        var //$cart = $('#selected-seats'),
+        // $counter = $('#counter'),
+        // $total = $('#total'),
+                sc = $('#seat-list').seatCharts({
+                    map: [
+                        <% for (var i = 0; i < map.length; i++){ %>
+                        '<%= map[i] %>',
+                        <% } %>
+                    ],
+                    seats: {
+                        a: {
+                            //price   : 100,
+                            classes: 'normal-seat', //your custom CSS class
+                            category: 'normal-seat'
+                        },
+                        t: {
+                            classes: 'booked-seat-teaching',
+                            category: 'booked-seat-teaching'
+                        },
+                        g: {
+                            classes: 'booked-seat-girl',
+                            category: 'booked-seat-girl'
+                        },
+                        b: {
+                            classes: 'booked-seat-boy',
+                            category: 'booked-seat-boy'
+                        }
+                    },
+                    naming: {
+                        // whether display cloumn header, true to display, false not to display
+                        // 是否显示列头行，true 显示， false 不显示
+                        top: false,
+                        // whether display row header, true to display, false not to display
+                        // 是否显示行头列，true 显示， false 不显示
+                        left: false,
+                        // 2015-12-26 CHEN PU: 重写座位编号算法为行号+列号
+                        getLabel: function (character, row, column) {
+                            if(row < 10){
+                                row = '0'+row;
+                            }
+                            else{
+                                row = row+'';
+                            }
+                            if(column < 10){
+                                column = '0'+column;
+                            }
+                            else{
+                                column = column+'';
+                            }
+
+                            //return firstSeatLabel++;
+                            return row+column;
+                        },
+                    },
+                    /*legend: {
+                     //node : $('#legend'),
+                     items: [
+                     ['a', 'available16', '空座'],
+                     ['b', 'booked-seat-boy16', '已订（男生）'],
+                     ['g', 'booked-seat-girl16', '已订（女生）'],
+                     ['t', 'booked-seat-teaching16', '有课'],
+                     ]
+                     },*/
+                    click: function () {
+                        if (this.status() == 'available') {
+                            //let's create a new <li> which we'll add to the cart items
+                            //$('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
+                            //        .attr('id', 'cart-item-'+this.settings.id)
+                            //        .data('seatId', this.settings.id)
+                            //        .appendTo($cart);
+
+                            /*
+                             * Lets update the counter and total
+                             *
+                             * .find function will not find the current seat, because it will change its stauts only after return
+                             * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
+                             */
+                            //$counter.text(sc.find('selected').length+1);
+                            //$total.text(recalculateTotal(sc)+this.data().price);
+
+                            $.openPanel();
+                            sc.find('selected').status('available');
+                            var selectedSeatID = this.node()[0].id;
+                            var selectedSeatCode = this.node()[0].innerText;
+                            var selectedSeatInfo = selectedSeatID.split('_');
+                            selectedSeatRowID = selectedSeatInfo[0];
+                            selectedSeatColumnID = selectedSeatInfo[1];
+
+                            $('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
+                            return 'selected';
+                        } else if (this.status() == 'selected') {
+                            //update the counter
+                            //$counter.text(sc.find('selected').length-1);
+                            //and total
+                            //$total.text(recalculateTotal(sc)-this.data().price);
+
+                            //remove the item from our cart
+                            //$('#cart-item-'+this.settings.id).remove();
+
+                            //seat has been vacated
+                            return 'available';
+                        } else if (this.status() == 'unavailable') {
+                            //seat has been already booked
+                            return 'unavailable';
+                        } else {
+                            return this.style();
+                        }
+                    }
+                });
+
+        //this will handle "[cancel]" link clicks
+        //$('#selected-seats').on('click', '.cancel-cart-item', function () {
+        //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
+        //sc.get($(this).parents('li:first').data('seatId')).click();
+        //});
+
+        //let's pretend some seats have already been booked
+        //sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
+
+        //根据手机屏幕自适应缩放
+        var clientWidth = document.documentElement.clientWidth;
+        var initialContentWidth = $('#content-wrapper').width();
+        if (initialContentWidth > clientWidth) {
+            $('#content-wrapper').attr('style', '-webkit-transform:scale(' + clientWidth / initialContentWidth + ');-webkit-transform-origin:top left;');
+            //$('front-indicator').width(clientWidth);
+        }
+    });
+
+    function recalculateTotal(sc) {
+        var total = 0;
+
+        //basically find every selected seat and sum its price
+        sc.find('selected').each(function () {
+            total += this.data().price;
+        });
+
+        return total;
+    }
+
+    $("#picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker">确定</button>\
+  <h1 class="title">预约入座时间</h1>\
+  </header>',
+        cols: [
+            /*{
+                textAlign: 'center',
+                values: ['今天', '明天']
+            },*/
+            {
+                textAlign: 'center',
+                values: ['8点', '9点', '10点', '11点', '12点', '13点', '14点', '15点', '16点', '17点', '18点', '19点', '20点', '21点']
+            },
+            {
+                textAlign: 'center',
+                values: ['00分', '30分']
+            }
+        ]
+    });
+
+    $("#orderLnk").tap(function(){
+        if(selectedSeatRowID > 0 &&
+           selectedSeatColumnID > 0 &&
+           $('#picker')[0].value){
+            $.showPreloader('提交预约申请...');
+            $.post('/order', {classroom:'<%= cid %>', row:selectedSeatRowID, column:selectedSeatColumnID, time:$('#picker')[0].value}, function(response){
+                $.hidePreloader();
+                alert(response);
+            });
+
+        }else if(selectedSeatRowID == 0 ||
+                selectedSeatColumnID == 0){
+            $.alert('请用手指触摸选择您想预约的座位');
+        }
+        else if(!$('#picker')[0].value){
+            $.alert('请选择您计划的预约时间');
+        }
+
+    });
+
+</script>
+
+<script>
+    $("#buildingTab").tap(function(){
+        window.location.assign("http://www.julyangel.cn/building2");
+    });
+    $("#skyTab").tap(function(){
+        window.location.assign("http://www.julyangel.cn/index");
+    });
+    $("#meTab").tap(function(){
+        window.location.assign("http://www.julyangel.cn/me2");
+    });
+</script>
+
+<% include footer.html %>
+
+
