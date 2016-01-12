@@ -180,10 +180,9 @@
                                 $('#seat_tickets').append(response);
 
                                 $.openPanel();
-
                                 //$('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
-                                return 'selected';
                             });
+                            return 'selected';
                         } else if (this.status() == 'selected') {
                             //update the counter
                             //$counter.text(sc.find('selected').length-1);
