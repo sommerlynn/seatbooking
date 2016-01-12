@@ -196,18 +196,13 @@ router.get('/callbackme',function(req, res){
 });
 
 router.post('/seatStatus', function(req, res){
-    if(req.session.userInfo){
-        //req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column
-        var response = '<div class="card">'+
-            '<div class="card-header">'+
-            '座位预约票'+
-            '</div>'+
-            '</div>';
-        res.send(response);
-    }
-    else{
-        res.send('未取得用户信息');
-    }
+   //req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column
+   var response = '<div class="card">'+
+       '<div class="card-header">'+
+       '座位预约票'+
+       '</div>'+
+       '</div>';
+   res.send(response);
 });
 
 router.post('/order', function(req, res){
