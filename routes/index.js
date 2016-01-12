@@ -198,14 +198,31 @@ router.get('/callbackme',function(req, res){
 router.post('/seatStatus', function(req, res){
    //req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column
    var response = '';
+   var row = req.body.row,
+       column = req.body.column;
+   if(row < 10){
+        row = '0'+row;
+   }
+   else{
+        row = row+'';
+   }
+   if(column < 10){
+        column = '0'+column;
+   }
+   else{
+        column = column+'';
+   }
    for(var index = 8; index < 22; index=index+2){
 
        response += '<li class="card">'+
            '<div class="card-header">座位预约券</div>'+
            '<div class="card-content">'+
+           '<div class="card-content-inner">日期:'+new Date()+'</div>'+
            '<div class="card-content-inner">时间:'+index+':00 -'+(index+2)+':00</div>'+
+           '<div class="card-content-inner">教室:'+'图书馆主馆 五层南区'+'</div>'+
+           '<div class="card-content-inner">座位:'+row+column+'(第'+req.body.row+'排'+'第'+req.body.column+'列</div>'+
            '</div>'+
-           '<div class="card-footer">卡脚</div>'+
+           '<div class="card-footer">领券</div>'+
            '</li>'
    }
 
