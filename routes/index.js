@@ -211,7 +211,7 @@ router.post('/seatStatus', function(req, res){
        '</div>'+ // item-media
        '<div class="item-inner">'+
        '<div class="item-title-row">'+
-       '<div class="item-title">有效时间:'+index+':00 -'+(index+2)+':00</div>'+
+       '<div class="item-title">'+index+':00 -'+(index+2)+':00</div>'+
        '</div>'+ // item-title-row
        '</div>'+ // item-inner
        '</li>'+  // item-content
