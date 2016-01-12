@@ -217,10 +217,10 @@ router.post('/seatStatus', function(req, res){
        response += '<li class="card">'+
            '<div class="card-header">座位预约券</div>'+
            '<div class="card-content">'+
-           '<div class="card-content-inner">'+new Date().toDateString()+'</div>'+
+           '<div class="card-content-inner">'+new Date().toLocaleDateString()+'</div>'+
            '<div class="card-content-inner">'+index+':00 -'+(index+2)+':00</div>'+
            '<div class="card-content-inner">'+'图书馆主馆 五层南区'+'</div>'+
-           '<div class="card-content-inner">'+row+column+'(第'+req.body.row+'排'+'第'+req.body.column+'列</div>'+
+           '<div class="card-content-inner">'+row+column+'(第'+req.body.row+'排'+'第'+req.body.column+'列)</div>'+
            '</div>'+
            '<div class="card-footer">领券</div>'+
            '</li>'
