@@ -49,16 +49,9 @@
 </div>
 <div class="panel panel-right panel-reveal" style="background-color: #1D2025">
     <div class="content-block">
-        <p style="text-align: center">选座信息</p>
-        <p><span id="selectedSeatInfo"></span></p>
-        <p>请选择您的预约入座时间</p>
-        <input type="text" id='picker' style="width: 100%; line-height: 1.2rem"/>
         <div id="seat_tickets">
-
         </div>
-        <!-- Click on link with "close-panel" class will close panel -->
-        <p class="buttons-row"><a href="#" class="close-panel button button-round">取消</a><a id="orderLnk" href="#" class="button button-round">立即预约</a></p>
-        <p>注意事项:</p>
+        <p>使用规则:</p>
         <p>
            1、最迟在预约入座时间之后半小时内入座并签到；否则系统自动释放座位供其他同学使用。
         </p>
@@ -177,18 +170,18 @@
                                 $('.card').remove();
 
                                 $('#seat_tickets').append(response);
+
+                                $.openPanel();
+                                sc.find('selected').status('available');
+                                var selectedSeatID = this.node()[0].id;
+                                var selectedSeatCode = this.node()[0].innerText;
+                                var selectedSeatInfo = selectedSeatID.split('_');
+                                selectedSeatRowID = selectedSeatInfo[0];
+                                selectedSeatColumnID = selectedSeatInfo[1];
+
+                                //$('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
+                                return 'selected';
                             });
-
-                            $.openPanel();
-                            sc.find('selected').status('available');
-                            var selectedSeatID = this.node()[0].id;
-                            var selectedSeatCode = this.node()[0].innerText;
-                            var selectedSeatInfo = selectedSeatID.split('_');
-                            selectedSeatRowID = selectedSeatInfo[0];
-                            selectedSeatColumnID = selectedSeatInfo[1];
-
-                            $('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
-                            return 'selected';
                         } else if (this.status() == 'selected') {
                             //update the counter
                             //$counter.text(sc.find('selected').length-1);
