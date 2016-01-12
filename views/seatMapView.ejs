@@ -29,23 +29,6 @@
             </div>
         </div>
 
-        <!--<div class="seatCharts-legend" style="width: 224px;">
-            <ul class="seatCharts-legendList">
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend available16 normal-seat"></span><span
-                            class="seatCharts-legendDescription">空座</span></li>
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-boy16 booked-seat-boy"></span><span
-                            class="seatCharts-legendDescription">已订（男生）</span></li>
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-girl16 booked-seat-girl"></span><span
-                            class="seatCharts-legendDescription">已订（女生）</span></li>
-                <li class="seatCharts-legendItem"><span
-                            class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-teaching16 booked-seat-teaching"></span><span
-                            class="seatCharts-legendDescription">有课</span></li>
-            </ul>
-        </div>-->
-
         <div class="seatCharts-legend">
             <ul class="seatCharts-legendList">
                 <li class="seatCharts-legendItem"><span
@@ -232,38 +215,6 @@
         }
     });
 
-    function recalculateTotal(sc) {
-        var total = 0;
-
-        //basically find every selected seat and sum its price
-        sc.find('selected').each(function () {
-            total += this.data().price;
-        });
-
-        return total;
-    }
-
-    $("#picker").picker({
-        toolbarTemplate: '<header class="bar bar-nav">\
-  <button class="button button-link pull-left close-picker">取消</button>\
-  <button class="button button-link pull-right close-picker">确定</button>\
-  <h1 class="title">预约入座时间</h1>\
-  </header>',
-        cols: [
-            /*{
-                textAlign: 'center',
-                values: ['今天', '明天']
-            },*/
-            {
-                textAlign: 'center',
-                values: ['8点', '9点', '10点', '11点', '12点', '13点', '14点', '15点', '16点', '17点', '18点', '19点', '20点', '21点']
-            },
-            {
-                textAlign: 'center',
-                values: ['00分', '30分']
-            }
-        ]
-    });
 
     $("#orderLnk").tap(function(){
         if(selectedSeatRowID > 0 &&

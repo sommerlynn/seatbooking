@@ -70,6 +70,9 @@
         <p><span id="selectedSeatInfo"></span></p>
         <p>请选择您的预约入座时间</p>
         <input type="text" id='picker' style="width: 100%; line-height: 1.2rem"/>
+        <ul id="tickets">
+
+        </ul>
         <!-- Click on link with "close-panel" class will close panel -->
         <p class="buttons-row"><a href="#" class="close-panel button button-round">取消</a><a id="orderLnk" href="#" class="button button-round">立即预约</a></p>
         <p>注意事项:</p>
@@ -184,6 +187,7 @@
                             //$counter.text(sc.find('selected').length+1);
                             //$total.text(recalculateTotal(sc)+this.data().price);
 
+                            $('tickets').append('<li>test</li>');
                             $.openPanel();
                             sc.find('selected').status('available');
                             var selectedSeatID = this.node()[0].id;
