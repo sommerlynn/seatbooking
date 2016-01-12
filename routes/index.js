@@ -197,11 +197,30 @@ router.get('/callbackme',function(req, res){
 
 router.post('/seatStatus', function(req, res){
    //req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column
-   var response = '<div class="card">'+
+   var response = '';
+   for(var index = 8; index < 23; index ++){
+       response += '<div class="card">'+
        '<div class="card-header">'+
-       '座位预约票'+
+       '座位预约券'+
        '</div>'+
-       '</div>';
+       '<div class="card-content">'+
+       '<div class="list-block media-list">'+
+       '<ul>'+
+       '<li class="item-content">'+
+       '<div class="item-media">'+
+       '</div>'+ // item-media
+       '<div class="item-inner">'+
+       '<div class="item-title-row">'+
+       '<div class="item-title">'+index+':00 -'+(index+1)+':00</div>'+
+       '</div>'+ // item-title-row
+       '</div>'+ // item-inner
+       '</li>'+  // item-content
+       '</ul>'+
+       '</div>'+ // list-block
+       '</div>'+ // card-contend
+       '</div>'; // card
+   }
+
    res.send(response);
 });
 
