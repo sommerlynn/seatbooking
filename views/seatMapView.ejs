@@ -163,8 +163,15 @@
                              */
                             //$counter.text(sc.find('selected').length+1);
                             //$total.text(recalculateTotal(sc)+this.data().price);
-
                             $.showPreloader('正在查询座位预约情况');
+
+                            sc.find('selected').status('available');
+                            var selectedSeatID = this.node()[0].id;
+                            var selectedSeatCode = this.node()[0].innerText;
+                            var selectedSeatInfo = selectedSeatID.split('_');
+                            selectedSeatRowID = selectedSeatInfo[0];
+                            selectedSeatColumnID = selectedSeatInfo[1];
+
                             $.post('/seatStatus', {classroom:'<%= cid %>', row:selectedSeatRowID, column:selectedSeatColumnID}, function(response){
                                 $.hidePreloader();
 
@@ -173,12 +180,6 @@
                                 $('#seat_tickets').append(response);
 
                                 $.openPanel();
-                                sc.find('selected').status('available');
-                                var selectedSeatID = this.node()[0].id;
-                                var selectedSeatCode = this.node()[0].innerText;
-                                var selectedSeatInfo = selectedSeatID.split('_');
-                                selectedSeatRowID = selectedSeatInfo[0];
-                                selectedSeatColumnID = selectedSeatInfo[1];
 
                                 //$('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
                                 return 'selected';
