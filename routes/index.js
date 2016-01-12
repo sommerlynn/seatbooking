@@ -198,7 +198,7 @@ router.get('/callbackme',function(req, res){
 router.post('/seatStatus', function(req, res){
    //req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column
    var response = '';
-   for(var index = 8; index < 22; index+2){
+   for(var index = 8; index < 22; index=index+2){
        response += '<div class="card">'+
        '<div class="card-header">'+
        '座位预约券'+
