@@ -198,7 +198,7 @@ router.get('/callbackme',function(req, res){
 router.post('/seatStatus', function(req, res){
    //req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column
    var response = '';
-   for(var index = 8; index < 23; index ++){
+   for(var index = 8; index < 22; index+2){
        response += '<div class="card">'+
        '<div class="card-header">'+
        '座位预约券'+
@@ -211,7 +211,7 @@ router.post('/seatStatus', function(req, res){
        '</div>'+ // item-media
        '<div class="item-inner">'+
        '<div class="item-title-row">'+
-       '<div class="item-title">'+index+':00 -'+(index+1)+':00</div>'+
+       '<div class="item-title">有效时间:'+index+':00 -'+(index+2)+':00</div>'+
        '</div>'+ // item-title-row
        '</div>'+ // item-inner
        '</li>'+  // item-content
