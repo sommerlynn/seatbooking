@@ -170,13 +170,14 @@
                             //$counter.text(sc.find('selected').length+1);
                             //$total.text(recalculateTotal(sc)+this.data().price);
 
-                            $('.card').remove();
-                            $('#seat_tickets').append('<div class="card">'+
-                                    '<div class="card-header">'+
-                                    '座位预约票'+
-                                    '</div>'+
-                                    '</div>');
+                            $.showPreloader('正在查询座位预约情况');
+                            $.post('/seatStatus', {classroom:'<%= cid %>', row:selectedSeatRowID, column:selectedSeatColumnID}, function(response){
+                                $.hidePreloader();
 
+                                $('.card').remove();
+
+                                $('#seat_tickets').append(response);
+                            });
 
                             $.openPanel();
                             sc.find('selected').status('available');
