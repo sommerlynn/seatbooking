@@ -212,8 +212,12 @@ router.post('/seatStatus', function(req, res){
    else{
         column = column+'';
    }
-    response += '<li class="card">'+
-        '<div class="card-header">'+new Date().toLocaleDateString()+'</div>'+
+
+   var today = new Date(),
+       nextDay = new Date(today.getTime()+24*60*60*1000);
+
+   response += '<li class="card">'+
+        '<div class="card-header">'+today.toLocaleDateString()+'</div>'+
         '<div class="card-content">'+
         '<div class="card-content-inner">'+'图书馆五层南区'+'</div>'+
         '<div class="card-content-inner">'+row+column+'号 (第'+req.body.row+'排'+'第'+req.body.column+'列)</div>'+
@@ -221,8 +225,8 @@ router.post('/seatStatus', function(req, res){
         '</div>'+
         '<div class="card-footer">'+'仅限本人使用 点击领取'+'</div>'+
         '</li>';
-    response += '<li class="card">'+
-        '<div class="card-header">'+new Date(Date.now()+24*60*60).toLocaleDateString()+'</div>'+
+   response += '<li class="card">'+
+        '<div class="card-header">'+nextDay.toLocaleDateString()+'</div>'+
         '<div class="card-content">'+
         '<div class="card-content-inner">'+'图书馆五层南区'+'</div>'+
         '<div class="card-content-inner">'+row+column+'号 (第'+req.body.row+'排'+'第'+req.body.column+'列)</div>'+
