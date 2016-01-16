@@ -217,7 +217,7 @@ router.post('/seatStatus', function(req, res){
        nextDay = new Date(today.getTime()+24*60*60*1000);
 
    response += '<li class="card">'+
-        '<div class="card-header"><span>'+today.toLocaleDateString()+'</span></div>'+
+        '<div class="card-header"><span>座位券</span><span>'+today.toLocaleDateString()+'</span></div>'+
         '<div class="card-content">'+
         '<div class="card-content-inner">'+'图书馆五层南区'+'</div>'+
         '<div class="card-content-inner">'+row+column+'号 (第'+req.body.row+'排'+'第'+req.body.column+'列)</div>'+
@@ -226,7 +226,7 @@ router.post('/seatStatus', function(req, res){
         '<div class="card-footer">'+'仅限本人使用 点击领取'+'</div>'+
         '</li>';
    response += '<li class="card">'+
-        '<div class="card-header"><span>'+nextDay.toLocaleDateString()+'</span></div>'+
+        '<div class="card-header"><span>座位券</span><span>'+nextDay.toLocaleDateString()+'</span></div>'+
         '<div class="card-content">'+
         '<div class="card-content-inner">'+'图书馆五层南区'+'</div>'+
         '<div class="card-content-inner">'+row+column+'号 (第'+req.body.row+'排'+'第'+req.body.column+'列)</div>'+
