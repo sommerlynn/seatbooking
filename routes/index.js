@@ -217,7 +217,7 @@ router.post('/seatStatus', function(req, res){
        nextDay = new Date(today.getTime()+24*60*60*1000);
 
    response += '<li class="card">'+
-        '<div class="card-header"><span style="float:left">座位券</span><span style="float:right">'+today.toLocaleDateString()+'</span></div>'+
+        '<div class="card-header"><span style="width: 75px">座位券</span><span style="width: 75px">'+today.toLocaleDateString()+'</span></div>'+
         '<div class="card-content">'+
         '<div class="card-content-inner">'+'图书馆五层南区'+'</div>'+
         '<div class="card-content-inner">'+row+column+'号 (第'+req.body.row+'排'+'第'+req.body.column+'列)</div>'+
