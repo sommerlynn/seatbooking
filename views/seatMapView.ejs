@@ -192,6 +192,10 @@
 
                                 $('#seat_tickets').append(response);
 
+                                $('#today-card-footer').tap(function(){
+                                    $.alert('选座');
+                                });
+
                                 $.openPanel();
                                 //$('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
                             });
@@ -253,10 +257,6 @@
             $.alert('请选择您计划的预约时间');
         }
 
-    });
-
-    $('#today-card-footer').tap(function(){
-        $.alert('选座');
     });
 
 </script>
