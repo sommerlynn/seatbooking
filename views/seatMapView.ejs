@@ -1,12 +1,25 @@
 <% include header.html %>
+<style>
+    .card {
+        background-color: #A61000;
+        color:#ffffff;
+    }
 
+    .card-header{
+        font-size: 0.6rem;
+    }
+
+    .card-content-inner{
+        padding: 0.35rem;
+        text-align: center;
+    }
+</style>
 <div class="page">
-
-    <header class="bar bar-nav">
+    <header class="bar bar-nav theme-dark">
         <h1 class="title"><%= title %></h1>
     </header>
     <!-- 工具栏 -->
-    <nav class="bar bar-tab">
+    <nav class="bar bar-tab theme-dark">
         <a class="tab-item active" id="buildingTab" href="http://www.julyangel.cn/building2" external>
             <span class="icon icon-home"></span>
             <span class="tab-label">预约座位</span>
@@ -178,6 +191,10 @@
                                 $('.card').remove();
 
                                 $('#seat_tickets').append(response);
+
+                                $('#today-card-footer').tap(function(){
+                                    $.alert('选座');
+                                });
 
                                 $.openPanel();
                                 //$('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
