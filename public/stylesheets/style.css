@@ -121,6 +121,7 @@ div.seatCharts-legend{
   left: 0;
   right: 0;
   top: 2.2rem;
+  height: 1.25rem;
   z-index: 20;
 }
 
