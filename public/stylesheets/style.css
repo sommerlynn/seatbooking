@@ -123,6 +123,7 @@ div.seatCharts-legend{
   top: 2.2rem;
   height: 1.25rem;
   z-index: 20;
+  background-color: #131313;
 }
 
 ul.seatCharts-legendList {
