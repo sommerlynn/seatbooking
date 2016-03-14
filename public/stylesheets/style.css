@@ -209,6 +209,7 @@ div.card-time-header{
   float: left;
   text-align: center;
   font-size: 0.5rem;
+  color: #FFCEA6;
 }
 
 div.card-time-status{
@@ -217,4 +218,5 @@ div.card-time-status{
   text-align: center;
   font-size: 0.5rem;
   line-height: 1.25rem;
+  color: #FFCEA6;
 }
