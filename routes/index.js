@@ -223,11 +223,11 @@ router.post('/seatStatus', function(req, res){
         '<div class="card-content-inner">'+row+column+'号 (第'+req.body.row+'排'+'第'+req.body.column+'列)</div>'+
             /*'<div class="card-content-inner">'+index+':00 -'+(index+2)+':00</div>'+*/
         '</div>'+
-        '<div class="card-content" style="border: 0 0 .1rem .1rem">'+
-        '<div class="card-table-cell">8:00</div><div class="card-table-cell">10:00</div><div class="card-table-cell">14:00</div><div class="card-table-cell">16:00</div><div class="card-table-cell">19:00</div>'+
-        '<div class="card-table-cell">~</div><div class="card-table-cell">~</div><div class="card-table-cell">~</div><div class="card-table-cell">~</div><div class="card-table-cell">~</div>'+
-        '<div class="card-table-cell">10:00</div><div class="card-table-cell">12:00</div><div class="card-table-cell">16:00</div><div class="card-table-cell">18:00</div><div class="card-table-cell">21:00</div>'+
-        '<div class="card-table-cell">空闲</div><div class="card-table-cell">空闲</div><div class="card-table-cell">空闲</div><div class="card-table-cell">空闲</div><div class="card-table-cell">空闲</div>'+
+        '<div class="card-time">'+
+        '<div class="card-time-header">8:00</div><div class="card-time-header">10:00</div><div class="card-time-header">14:00</div><div class="card-time-header">16:00</div><div class="card-time-header">19:00</div>'+
+        '<div class="card-time-header">~</div><div class="card-time-header">~</div><div class="card-time-header">~</div><div class="card-time-header">~</div><div class="card-time-header">~</div>'+
+        '<div class="card-time-header">10:00</div><div class="card-time-header">12:00</div><div class="card-time-header">16:00</div><div class="card-time-header">18:00</div><div class="card-time-header>21:00</div>'+
+        '<div class="card-time-status">空闲</div><div class="card-time-status">空闲</div><div class="card-time-status">空闲</div><div class="card-time-status">空闲</div><div class="card-time-status">空闲</div>'+
         '</div>'+
         '<div class="card-footer" id="today-card-footer">'+'仅限本人使用 点击领取'+'</div>'+
         '</li>';
