@@ -187,4 +187,6 @@ span.seatCharts-seat-legend.booked-seat-teaching16{
 div.card-table-cell{
   width: 20%;
   float: left;
+  text-align: center;
+  font-size: 0.75rem;
 }
