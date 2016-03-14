@@ -184,9 +184,37 @@ span.seatCharts-seat-legend.booked-seat-teaching16{
   background: url('../images/teaching16.png') no-repeat;
 }
 
-div.card-table-cell{
+div.card-time:before{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: auto;
+  top: auto;
+  height: 1px;
+  width: 100%;
+  background-color: #e1e1e1;
+  display: block;
+  z-index: 15;
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+}
+
+div.card-time{
+  position: relative;
+}
+
+div.card-time-header{
   width: 20%;
   float: left;
   text-align: center;
   font-size: 0.5rem;
+}
+
+div.card-time-status{
+  width: 20%;
+  float: left;
+  text-align: center;
+  font-size: 0.5rem;
+  line-height: 1.25rem;
 }
