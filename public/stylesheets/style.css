@@ -117,11 +117,12 @@ span.seatCharts-seat.booked-seat-teaching{
 
 div.seatCharts-legend{
   margin: 0px auto;
+  padding: 0.3125rem 0;
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  height: 1.25rem;
+  height: 1.875rem;
   z-index: 20;
   background-color: #1D2025;
 }
