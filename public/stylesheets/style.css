@@ -116,7 +116,12 @@ span.seatCharts-seat.booked-seat-teaching{
 }
 
 div.seatCharts-legend{
-  margin: 5px auto;
+  margin: 0px auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 2.2rem;
+  z-index: 20;
 }
 
 ul.seatCharts-legendList {
