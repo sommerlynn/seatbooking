@@ -50,8 +50,6 @@ router.get('/seatmap/:cid', function(req, res) {
                'aaa_aaaaagaaa_aaa',
                'aaa_aataaaaaa_aaa',
                'aaa_aaaaaaaaa_aaa'];*/
-
-              day = new Date();
           }else{
               for(var rindex = 0; rindex < rowCount; rindex++){
                   var cstr = '';
