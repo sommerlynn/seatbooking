@@ -4,8 +4,7 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth'),
-    qs = require('');
+    OAuth = require('wechat-oauth');
 
 /* GET home page. */
 router.get('/', function(req, res) {
