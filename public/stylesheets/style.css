@@ -270,7 +270,7 @@ div.nav-day{
   line-height: 1.875rem;
   float: left;
   text-align: center;
-  background-color: #040101;
+  background-color: #3C2525;
 }
 
 div.nav-day-active{
@@ -278,7 +278,6 @@ div.nav-day-active{
   line-height: 1.875rem;
   float: left;
   text-align: center;
-  background-color: #040101;
   background-color: #040101;
 }
 
