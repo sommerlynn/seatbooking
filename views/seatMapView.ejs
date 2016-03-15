@@ -87,7 +87,7 @@
                 <li class="card">
                     <div class="card-header">
                         <div style="width: 50%">座位券</div>
-                        <div style="width: 50%">'+today.toLocaleDateString()+'</div>
+                        <div style="width: 50%">2016/03/15</div>
                     </div>
                     <div class="card-content">
                         <div class="card-content-inner">图书馆五层南区</div>
@@ -232,7 +232,6 @@
                              */
                             //$counter.text(sc.find('selected').length+1);
                             //$total.text(recalculateTotal(sc)+this.data().price);
-                            $.showPreloader('正在查询座位预约情况');
 
                             sc.find('selected').status('available');
                             var selectedSeatID = this.node()[0].id;
@@ -241,7 +240,7 @@
                             selectedSeatRowID = selectedSeatInfo[0];
                             selectedSeatColumnID = selectedSeatInfo[1];
 
-                            $('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
+                            $('#selectedSeatInfo').text(selectedSeatCode+'号 ['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
                             $.openPanel();
 
                             return 'selected';
