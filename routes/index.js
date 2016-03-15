@@ -4,7 +4,8 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth');
+    OAuth = require('wechat-oauth'),
+    qs = require('');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -29,29 +30,41 @@ router.get('/seatmap/:cid', function(req, res) {
           var map = new Array();
           var rowCount = classroom['row_count'];
           var columnCount = classroom['column_count'];
-
-          for(var rindex = 0; rindex < rowCount; rindex++){
-              var cstr = '';
-              for (var cindex = 0; cindex < columnCount; cindex++){
-                  cstr = cstr+'a';
-              }
-              map[rindex] = cstr;
-          }
-
-          /*var map = ['aaa_aaaaaaaaa_aaa',
-              'aaa_aaaaaabaa_aaa',
-              'aaa_aaaabaaaa_aaa',
-              'aaa_aaaaaagaa_aga',
-              'aaa_aaataaaaa_aaa',
-              'aaa_ataaaaaaa_aaa',
-              'aaa_aaaaagaaa_aaa',
-              'aaa_aataaaaaa_aaa',
-              'aaa_aaaaaaaaa_aaa'];*/
-
           var today = new Date(),
               nextDay = new Date(today.getTime()+24*60*60*1000);
+          if(req.query.t == 'today' || req.query.t == ''){
+              for(var rindex = 0; rindex < rowCount; rindex++){
+                  var cstr = '';
+                  for (var cindex = 0; cindex < columnCount; cindex++){
+                      cstr = cstr+'a';
+                  }
+                  map[rindex] = cstr;
+              }
 
-          res.render('seatMapView',{ title:classroom['full_name'], map: map, cid: req.params.cid}
+              /*var map = ['aaa_aaaaaaaaa_aaa',
+               'aaa_aaaaaabaa_aaa',
+               'aaa_aaaabaaaa_aaa',
+               'aaa_aaaaaagaa_aga',
+               'aaa_aaataaaaa_aaa',
+               'aaa_ataaaaaaa_aaa',
+               'aaa_aaaaagaaa_aaa',
+               'aaa_aataaaaaa_aaa',
+               'aaa_aaaaaaaaa_aaa'];*/
+
+              day = new Date();
+          }else{
+              for(var rindex = 0; rindex < rowCount; rindex++){
+                  var cstr = '';
+                  for (var cindex = 0; cindex < columnCount; cindex++){
+                      cstr = cstr+'a';
+                  }
+                  map[rindex] = cstr;
+              }
+
+          }
+
+
+          res.render('seatMapView',{ title:classroom['full_name'], map: map, cid: req.params.cid, today: today, nextDay:nextDay}
           );
       }
   });

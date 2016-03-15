@@ -51,8 +51,8 @@
     </div>
 
     <div class="nav-day-switch">
-        <div class="nav-day-active"><a href="?t=t">今天 2016/3/15</a></div>
-        <div class="nav-day"><a href="?t=m">明天 2016/3/16</a></div>
+        <div class="nav-day-active"><a href="?t=today">今天 <%= today.toLocaleString()%></a></div>
+        <div class="nav-day"><a href="?t=tomorrow">明天 <%= nextDay.toLocaleString()%></a></div>
     </div>
 
     <!-- 工具栏 -->
@@ -87,7 +87,11 @@
                 <li class="card">
                     <div class="card-header">
                         <div style="width: 50%">座位券</div>
-                        <div style="width: 50%">2016/03/15</div>
+                        <% if (req.query.t == 'tomorrow') {%>
+                        <div style="width: 50%"><%= nextDay.toLocaleString()%></div>
+                        <%} else {%>
+                        <div style="width: 50%"><%= today.toLocaleString()%></div>
+                        <%}%>
                     </div>
                     <div class="card-content">
                         <div class="card-content-inner"><%= title%></div>
