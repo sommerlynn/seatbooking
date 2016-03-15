@@ -32,7 +32,7 @@ router.get('/seatmap/:cid', function(req, res) {
           var columnCount = classroom['column_count'];
           var today = new Date(),
               nextDay = new Date(today.getTime()+24*60*60*1000);
-          if(req.query.t == 'today' || req.query.t == ''){
+
               for(var rindex = 0; rindex < rowCount; rindex++){
                   var cstr = '';
                   for (var cindex = 0; cindex < columnCount; cindex++){
@@ -50,16 +50,7 @@ router.get('/seatmap/:cid', function(req, res) {
                'aaa_aaaaagaaa_aaa',
                'aaa_aataaaaaa_aaa',
                'aaa_aaaaaaaaa_aaa'];*/
-          }else{
-              for(var rindex = 0; rindex < rowCount; rindex++){
-                  var cstr = '';
-                  for (var cindex = 0; cindex < columnCount; cindex++){
-                      cstr = cstr+'a';
-                  }
-                  map[rindex] = cstr;
-              }
 
-          }
 
 
           res.render('seatMapView',{ title:classroom['full_name'], map: map, cid: req.params.cid, today: today, nextDay:nextDay}
