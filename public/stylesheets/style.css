@@ -237,3 +237,16 @@ div.seatCharts-legend:after{
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
 }
+
+div.nav-day{
+  margin: 0px auto;
+  padding: 0.3125rem 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2.5rem;
+  z-index: 20;
+  background-color: #1D2025;
+}
+
