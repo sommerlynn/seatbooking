@@ -302,10 +302,21 @@ div.time-header{
   float: left;
   line-height: 1rem;
   text-align: center;
+  background-color: #1D2025;
+}
+
+div.time-spliter{
+  width: 20%;
+  float: left;
+  line-height: 0.3125rem;
+  text-align: center;
+  background-color: #1D2025;
 }
 
 div.time-status{
   width: 20%;
   float: left;
   line-height: 1rem;
+  text-align: center;
+  background-color: #1D2025;
 }
