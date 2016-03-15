@@ -292,17 +292,19 @@ div.time{
   left: 0;
   right: 0;
   bottom: 2.5rem;
-  height: 1.875rem;
   z-index: 20;
   background-color: #1D2025;
+  font-size: 0.625rem;
 }
 
 div.time-header{
   width: 20%;
   float: left;
+  line-height: 1rem;
 }
 
 div.time-status{
   width: 20%;
   float: left;
+  line-height: 1rem;
 }
