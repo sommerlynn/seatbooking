@@ -301,6 +301,7 @@ div.time-header{
   width: 20%;
   float: left;
   line-height: 1rem;
+  text-align: center;
 }
 
 div.time-status{
