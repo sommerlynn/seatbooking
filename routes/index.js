@@ -48,7 +48,8 @@ router.get('/seatmap/:cid', function(req, res) {
               'aaa_aataaaaaa_aaa',
               'aaa_aaaaaaaaa_aaa'];*/
 
-
+          var today = new Date(),
+              nextDay = new Date(today.getTime()+24*60*60*1000);
 
           res.render('seatMapView',{ title:classroom['full_name'], map: map, cid: req.params.cid}
           );
