@@ -292,10 +292,10 @@ div.time{
   left: 0;
   right: auto;
   top:1.875rem;
-  width: 6.125rem;
+  width: 5rem;
   bottom: 4.375rem;
   z-index: 20;
-  background-color: #1D2025;
+  background-color: #0A0A0A;
   font-size: 0.625rem;
 }
 
