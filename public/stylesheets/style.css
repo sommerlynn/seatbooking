@@ -221,3 +221,19 @@ div.card-time-status{
   line-height: 1.25rem;
   color: #FFCEA6;
 }
+
+div.seatCharts-legend:after{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: auto;
+  top: auto;
+  height: 1px;
+  width: 100%;
+  background-color: #B37C78;
+  display: block;
+  z-index: 15;
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+}
