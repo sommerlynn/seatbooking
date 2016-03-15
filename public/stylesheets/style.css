@@ -254,7 +254,7 @@ div.nav-day-switch:before{
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: 0;
   right: auto;
   top: auto;
   height: 1px;
@@ -271,5 +271,10 @@ div.nav-day{
   line-height: 1.875rem;
   float: left;
   text-align: center;
+}
+
+div.nav-day A{
+  width: 50%;
+  line-height: 1.875rem;
 }
 
