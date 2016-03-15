@@ -296,7 +296,6 @@ div.time{
   bottom: 2.5rem;
   z-index: 20;
   background-color: #1D2025;
-  font-size: 0.625rem;
   border-right: 1px solid #33475F;
 }
 
@@ -317,6 +316,6 @@ div.time-spliter{
 div.time-status{
   line-height: 1rem;
   text-align: center;
-  background-color: #0A0A0A;
+  background-color: #1D2025;
   color: #104C56;
 }
