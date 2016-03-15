@@ -291,6 +291,7 @@ div.time{
   position: absolute;
   left: 0;
   right: auto;
+  top:1.875rem;
   width: 6.125rem;
   bottom: 4.375rem;
   z-index: 20;
@@ -299,7 +300,6 @@ div.time{
 }
 
 div.time-header{
-  width: 20%;
   line-height: 1rem;
   text-align: center;
   background-color: #0A0A0A;
@@ -307,7 +307,6 @@ div.time-header{
 }
 
 div.time-spliter{
-  width: 20%;
   line-height: 0.3125rem;
   text-align: center;
   background-color: #0A0A0A;
@@ -315,7 +314,6 @@ div.time-spliter{
 }
 
 div.time-status{
-  width: 20%;
   line-height: 1rem;
   text-align: center;
   background-color: #0A0A0A;
