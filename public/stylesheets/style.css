@@ -302,7 +302,8 @@ div.time-header{
   float: left;
   line-height: 1rem;
   text-align: center;
-  background-color: #1D2025;
+  background-color: #0A0A0A;
+  color: #104C56;
 }
 
 div.time-spliter{
@@ -310,7 +311,8 @@ div.time-spliter{
   float: left;
   line-height: 0.3125rem;
   text-align: center;
-  background-color: #1D2025;
+  background-color: #0A0A0A;
+  color: #104C56;
 }
 
 div.time-status{
@@ -318,5 +320,6 @@ div.time-status{
   float: left;
   line-height: 1rem;
   text-align: center;
-  background-color: #1D2025;
+  background-color: #0A0A0A;
+  color: #104C56;
 }
