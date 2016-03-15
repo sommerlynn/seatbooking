@@ -189,12 +189,11 @@ div.card-time:before{
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0;
   right: auto;
-  top: auto;
+  top: 0;
   height: 1px;
   width: 100%;
-  background-color: #e1e1e1;
+  background-color: #924A4A;
   display: block;
   z-index: 15;
   -webkit-transform-origin: 50% 100%;
@@ -203,6 +202,7 @@ div.card-time:before{
 
 div.card-time{
   position: relative;
+  padding: 0.625rem 0;
 }
 
 div.card-time-header{
