@@ -1,7 +1,7 @@
 body {
   padding: 0px;
   margin: 0px auto;
-  font: 0.75em 华文中宋;
+  font: 0.75em 宋体;
   background: #1D2025;  
 }
 
@@ -250,8 +250,25 @@ div.nav-day-switch{
   background-color: #1D2025;
 }
 
+div.nav-day-switch:before{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: auto;
+  top: auto;
+  height: 1px;
+  width: 100%;
+  background-color: #33475F;
+  display: block;
+  z-index: 15;
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+}
+
 div.nav-day{
   width: 50%;
+  line-height: 1.875rem;
   float: left;
   text-align: center;
 }
