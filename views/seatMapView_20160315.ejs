@@ -2,32 +2,32 @@
 <style>
     .card {
         background-color: #A61000;
-        color: #ffffff;
+        color:#ffffff;
     }
 
-    .card-header {
+    .card-header{
         font-size: 0.6rem;
     }
 
-    .card-content-inner {
+    .card-content-inner{
         padding: 0.35rem;
         text-align: center;
     }
 
-    .bar {
+    .bar{
         background-color: #1D2025;
     }
 
-    .bar:after {
+    .bar:after{
         height: 0;
         background-color: #1D2025;
     }
 
-    .bar-tab:before {
+    .bar-tab:before{
         background-color: #33475F;
     }
 
-    .card-footer {
+    .card-footer{
         color: #4C3517;
         background-color: #EFD4D4;
     }
@@ -83,51 +83,17 @@
 <div class="panel panel-right panel-reveal" style="background-color: #1D2025">
     <div class="content-block">
         <div class="list-block cards-list">
-            <ul id="seat_tickets">
-                <li class="card">
-                    <div class="card-header">
-                        <div style="width: 50%">座位券</div>
-                        <div style="width: 50%">'+today.toLocaleDateString()+'</div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-content-inner">图书馆五层南区</div>
-                        <div class="card-content-inner"><span id="selectedSeatInfo"></span></div>
-                    </div>
-                    <div class="card-time">
-                        <div class="card-time-header">8:00</div>
-                        <div class="card-time-header">10:00</div>
-                        <div class="card-time-header">14:00</div>
-                        <div class="card-time-header">16:00</div>
-                        <div class="card-time-header">19:00</div>
-                        <div class="card-time-header">~</div>
-                        <div class="card-time-header">~</div>
-                        <div class="card-time-header">~</div>
-                        <div class="card-time-header">~</div>
-                        <div class="card-time-header">~</div>
-                        <div class="card-time-header">10:00</div>
-                        <div class="card-time-header">12:00</div>
-                        <div class="card-time-header">16:00</div>
-                        <div class="card-time-header">18:00</div>
-                        <div class="card-time-header">21:00</div>
-                        <div class="card-time-status">空闲</div>
-                        <div class="card-time-status">空闲</div>
-                        <div class="card-time-status">空闲</div>
-                        <div class="card-time-status">空闲</div>
-                        <div class="card-time-status">空闲</div>
-                    </div>
-                    <div class="card-footer" id="today-card-footer">仅限本人使用 点击领取</div>
-                </li>
-            </ul>
+            <ul id="seat_tickets"></ul>
         </div>
         <p>使用规则:</p>
         <p>
-            1、最迟在预约入座时间之后半小时内入座并签到；否则系统自动释放座位供其他同学使用。
+           1、最迟在预约入座时间之后半小时内入座并签到；否则系统自动释放座位供其他同学使用。
         </p>
         <p>
-            2、离开超过一小时，请设置暂离，以方便其他同学临时使用。
+           2、离开超过一小时，请设置暂离，以方便其他同学临时使用。
         </p>
         <p>
-            3、使用结束，请释放座位供他人使用。
+           3、使用结束，请释放座位供他人使用。
         </p>
     </div>
 </div>
@@ -140,7 +106,7 @@
 <script>
     $.config = {
         autoInit: true,
-        router: false
+        router:false
     }
 </script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
@@ -149,8 +115,8 @@
 <script type="text/javascript" src="/scripts/jquery.seat-charts.js"></script>
 <script>
     var firstSeatLabel = 1,
-            selectedSeatRowID = 0,
-            selectedSeatColumnID = 0;
+        selectedSeatRowID = 0,
+        selectedSeatColumnID = 0;
 
     $(document).ready(function () {
         var //$cart = $('#selected-seats'),
@@ -190,21 +156,21 @@
                         left: false,
                         // 2015-12-26 CHEN PU: 重写座位编号算法为行号+列号
                         getLabel: function (character, row, column) {
-                            if (row < 10) {
-                                row = '0' + row;
+                            if(row < 10){
+                                row = '0'+row;
                             }
-                            else {
-                                row = row + '';
+                            else{
+                                row = row+'';
                             }
-                            if (column < 10) {
-                                column = '0' + column;
+                            if(column < 10){
+                                column = '0'+column;
                             }
-                            else {
-                                column = column + '';
+                            else{
+                                column = column+'';
                             }
 
                             //return firstSeatLabel++;
-                            return row + column;
+                            return row+column;
                         },
                     },
                     /*legend: {
@@ -241,9 +207,20 @@
                             selectedSeatRowID = selectedSeatInfo[0];
                             selectedSeatColumnID = selectedSeatInfo[1];
 
-                            $('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
-                            $.openPanel();
+                            $.post('/seatStatus', {classroom:'<%= cid %>', row:selectedSeatRowID, column:selectedSeatColumnID}, function(response){
+                                $.hidePreloader();
 
+                                $('.card').remove();
+
+                                $('#seat_tickets').append(response);
+
+                                $('#today-card-footer').tap(function(){
+                                    $.alert('选座');
+                                });
+
+                                $.openPanel();
+                                //$('#selectedSeatInfo').text('您选择了'+selectedSeatCode+'号座位['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
+                            });
                             return 'selected';
                         } else if (this.status() == 'selected') {
                             //update the counter
@@ -284,26 +261,21 @@
     });
 
 
-    $("#orderLnk").tap(function () {
-        if (selectedSeatRowID > 0 &&
-                selectedSeatColumnID > 0 &&
-                $('#picker')[0].value) {
+    $("#orderLnk").tap(function(){
+        if(selectedSeatRowID > 0 &&
+           selectedSeatColumnID > 0 &&
+           $('#picker')[0].value){
             $.showPreloader('提交预约申请...');
-            $.post('/order', {
-                classroom: '<%= cid %>',
-                row: selectedSeatRowID,
-                column: selectedSeatColumnID,
-                time: $('#picker')[0].value
-            }, function (response) {
+            $.post('/order', {classroom:'<%= cid %>', row:selectedSeatRowID, column:selectedSeatColumnID, time:$('#picker')[0].value}, function(response){
                 $.hidePreloader();
                 alert(response);
             });
 
-        } else if (selectedSeatRowID == 0 ||
-                selectedSeatColumnID == 0) {
+        }else if(selectedSeatRowID == 0 ||
+                selectedSeatColumnID == 0){
             $.alert('请用手指触摸选择您想预约的座位');
         }
-        else if (!$('#picker')[0].value) {
+        else if(!$('#picker')[0].value){
             $.alert('请选择您计划的预约时间');
         }
 
@@ -312,13 +284,13 @@
 </script>
 
 <script>
-    $("#buildingTab").tap(function () {
+    $("#buildingTab").tap(function(){
         window.location.assign("http://www.julyangel.cn/building2");
     });
-    $("#skyTab").tap(function () {
+    $("#skyTab").tap(function(){
         window.location.assign("http://www.julyangel.cn/index");
     });
-    $("#meTab").tap(function () {
+    $("#meTab").tap(function(){
         window.location.assign("http://www.julyangel.cn/me2");
     });
 </script>
