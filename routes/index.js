@@ -231,15 +231,6 @@ router.post('/seatStatus', function(req, res){
         '</div>'+
         '<div class="card-footer" id="today-card-footer">'+'仅限本人使用 点击领取'+'</div>'+
         '</li>';
-   response += '<li class="card">'+
-        '<div class="card-header"><div style="width: 50%;">座位券</div><div style="width: 50%">'+nextDay.toLocaleDateString()+'</div></div>'+
-        '<div class="card-content">'+
-        '<div class="card-content-inner">'+'图书馆五层南区'+'</div>'+
-        '<div class="card-content-inner">'+row+column+'号 (第'+req.body.row+'排'+'第'+req.body.column+'列)</div>'+
-            /*'<div class="card-content-inner">'+index+':00 -'+(index+2)+':00</div>'+*/
-        '</div>'+
-        '<div class="card-footer" id="tomorrow-card-footer">'+'仅限本人使用 点击领取'+'</div>'+
-        '</li>';
    res.send(response);
 });
 
