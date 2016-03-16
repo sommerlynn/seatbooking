@@ -286,7 +286,7 @@ div.nav-day A{
 }
 
 div.left{
-  margin: 0.9375rem auto;
+  padding: 0.9375rem auto;
   position: absolute;
   left: 0;
   right: auto;
@@ -299,9 +299,7 @@ div.left{
 
 div.time:after{
   content: '';
-  position: absolute;
   left: 0;
-  bottom: 0;
   right: auto;
   height: 1px;
   width: 100%;
