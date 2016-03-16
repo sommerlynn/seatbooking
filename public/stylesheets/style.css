@@ -295,26 +295,26 @@ div.time{
   width: 5rem;
   bottom: 2.5rem;
   z-index: 20;
-  background-color: #1D2025;
+  background-color: #E7EEE6;
 }
 
 div.time-header{
   line-height: 1rem;
   text-align: center;
-  background-color: #1D2025;
+  background-color: #E7EEE6;
   color: #104C56;
 }
 
 div.time-spliter{
   line-height: 0.3125rem;
   text-align: center;
-  background-color: #1D2025;
+  background-color: #E7EEE6;
   color: #104C56;
 }
 
 div.time-status{
   line-height: 1rem;
   text-align: center;
-  background-color: #1D2025;
+  background-color: #E7EEE6;
   color: #104C56;
 }
