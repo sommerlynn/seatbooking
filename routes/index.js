@@ -52,7 +52,7 @@ router.get('/seatmap/:cid', function(req, res) {
 
 
 
-          res.render('seatMapView',{ title:classroom['full_name'], map: map, cid: req.params.cid, today:today, nextDay:nextDay}
+          res.render('seatMapView',{ title:classroom['full_name'], map: map, cid: req.params.cid, today:today, nextDay:nextDay, type:req.query.t}
           );
       }
   });
