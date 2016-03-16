@@ -286,7 +286,7 @@ div.nav-day A{
 }
 
 div.left{
-  padding: 0.9375rem auto;
+  padding: 0.9375rem;
   position: absolute;
   left: 0;
   right: auto;
