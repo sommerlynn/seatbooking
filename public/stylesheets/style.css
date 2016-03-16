@@ -349,3 +349,12 @@ div.time-title-date:after{
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
 }
+
+div.date-caption{
+  text-align: center;
+  margin: 0.625rem;
+}
+
+div.date-item{
+  text-align: center;
+}

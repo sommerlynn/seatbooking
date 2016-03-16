@@ -76,6 +76,11 @@
             <div class="time-header">19:00-21:00</div>
             <div class="time-status">空闲</div>
         </div>
+        <div class="date">
+            <div class="date-caption">可选日期</div>
+            <div class="date-item"><a href="?t=today">今天 <%= today.toLocaleDateString()%></a></div>
+            <div class="date-item"><a href="?t=tomorrow">明天 <%= nextDay.toLocaleDateString()%></a></div>
+        </div>
     </div>
 
 
