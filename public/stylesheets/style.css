@@ -255,7 +255,6 @@ div.nav-day-switch:before{
   left: 0;
   top: 0;
   right: auto;
-  top: auto;
   height: 1px;
   width: 100%;
   background-color: #33475F;
@@ -296,6 +295,21 @@ div.time{
   bottom: 2.5rem;
   z-index: 20;
   background-color: #E7EEE6;
+}
+
+div.time:after{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: auto;
+  height: 1px;
+  width: 100%;
+  background-color: #33475F;
+  display: block;
+  z-index: 15;
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
 }
 
 div.time-header{
