@@ -64,7 +64,12 @@
 
     <div class="left">
         <div class="time">
-            <div class="time-title-date">2016/3/16</div>
+            <% if (req.query.t == 'tomorrow') {%>
+                <div class="time-title-date"><%= nextDay.toLocaleDateString()%></div>
+            <%} else {%>
+                <div class="time-title-date"><%= today.toLocaleDateString()%></div>
+            <%}%>
+
             <div class="time-header">08:00-10:00</div>
             <div class="time-status">空闲</div>
             <div class="time-header">10:00-12:00</div>
@@ -78,8 +83,14 @@
         </div>
         <div class="date">
             <div class="date-caption">可选日期</div>
+            <% if (req.query.t == 'tomorrow') {%>
+            <div class="date-item"><a href="?t=today">今天 <%= today.toLocaleDateString()%></a></div>
+            <div class="date-item-active"><a href="?t=tomorrow">明天 <%= nextDay.toLocaleDateString()%></a></div>
+            <%} else {%>
             <div class="date-item-active"><a href="?t=today">今天 <%= today.toLocaleDateString()%></a></div>
             <div class="date-item"><a href="?t=tomorrow">明天 <%= nextDay.toLocaleDateString()%></a></div>
+            <%}%>
+
         </div>
     </div>
 
