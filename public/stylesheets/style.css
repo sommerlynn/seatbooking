@@ -124,7 +124,7 @@ div.seatCharts-legend{
   top: 0;
   height: 1.875rem;
   z-index: 20;
-  background-color: #1D2025;
+  background-color: #FFFFFF;
 }
 
 ul.seatCharts-legendList {
@@ -162,7 +162,7 @@ span.seatCharts-seat-legend {
 }
 
 span.seatCharts-legendDescription{
-  color: white;
+  color: #000000;
   font-size: 0.75em;
   height: 16px;
   line-height: 16px;
@@ -296,7 +296,6 @@ div.time{
   bottom: 2.5rem;
   z-index: 20;
   background-color: #1D2025;
-  border-right: 1px solid #33475F;
 }
 
 div.time-header{
