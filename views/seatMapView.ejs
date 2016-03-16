@@ -126,7 +126,11 @@
                 <li class="card">
                     <div class="card-header">
                         <div style="width: 50%">座位券</div>
+                        <% if (type == 'tomorrow') {%>
+                        <div style="width: 50%"><%= nextDay.toLocaleDateString() %></div>
+                        <%} else {%>
                         <div style="width: 50%"><%= today.toLocaleDateString() %></div>
+                        <%}%>
                     </div>
                     <div class="card-content">
                         <div class="card-content-inner"><%= title%></div>
