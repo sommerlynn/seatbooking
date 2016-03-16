@@ -333,7 +333,11 @@ div.time-title-caption{
   font-weight: bold;
 }
 
-div.time-title-caption:after{
+div.time-title-date{
+  text-align: center;
+}
+
+div.time-title-date:after{
   content: '';
   left: 0;
   right: auto;
@@ -344,8 +348,4 @@ div.time-title-caption:after{
   z-index: 15;
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
-}
-
-div.time-title-date{
-  text-align: center;
 }
