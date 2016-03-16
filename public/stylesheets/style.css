@@ -313,28 +313,39 @@ div.time:after{
 div.time-header{
   line-height: 1rem;
   text-align: center;
-  background-color: #E7EEE6;
   color: #104C56;
 }
 
 div.time-spliter{
   line-height: 0.3125rem;
   text-align: center;
-  background-color: #E7EEE6;
   color: #104C56;
 }
 
 div.time-status{
   line-height: 1rem;
   text-align: center;
-  background-color: #E7EEE6;
   color: #104C56;
 }
 
 div.time-title-caption{
+  text-align: center;
+  font-weight: bold;
+}
 
+div.time-title-caption:after{
+  content: '';
+  left: 0;
+  right: auto;
+  height: 1px;
+  width: 100%;
+  background-color: #33475F;
+  display: block;
+  z-index: 15;
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
 }
 
 div.time-title-date{
-
+  text-align: center;
 }
