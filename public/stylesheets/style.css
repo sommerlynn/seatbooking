@@ -375,3 +375,7 @@ div.date-item{
   background-color: #7A9665;
   margin: 0.625rem 0;
 }
+
+div.date-item A{
+  color: #FFFFFF;
+}
