@@ -16,11 +16,12 @@
     .card {
         background-color: #F5F5F5;
         color: #000000;
-        height: 7.5rem;
     }
 
     .card-footer{
         height: 2.75rem;
+        position: absolute;
+        bottom: 0;
     }
 
     .card-header {
@@ -34,7 +35,7 @@
 
     .card-footer {
         color: #4C3517;
-        background-color: #EFD4D4;
+        background-color: #FFFFFF;
     }
 
     div.card-time:before{
@@ -112,32 +113,23 @@
                 <ul>
                     <% for ( var index = 0; index < classroomList.length; index++) { %>
                     <li class="card">
-                        <div class="card-time">
-                            <div class="card-time-header">8:00</div>
-                            <div class="card-time-header">10:00</div>
-                            <div class="card-time-header">14:00</div>
-                            <div class="card-time-header">16:00</div>
-                            <div class="card-time-header">19:00</div>
-                            <div class="card-time-header">~</div>
-                            <div class="card-time-header">~</div>
-                            <div class="card-time-header">~</div>
-                            <div class="card-time-header">~</div>
-                            <div class="card-time-header">~</div>
-                            <div class="card-time-header">10:00</div>
-                            <div class="card-time-header">12:00</div>
-                            <div class="card-time-header">16:00</div>
-                            <div class="card-time-header">18:00</div>
-                            <div class="card-time-header">21:00</div>
-                            <div class="card-time-status">空闲</div>
-                            <div class="card-time-status">空闲</div>
-                            <div class="card-time-status">空闲</div>
-                            <div class="card-time-status">空闲</div>
-                            <div class="card-time-status">空闲</div>
-                        </div>
-                        <div class="card-footer"><a class=""
+                        <div class="card-header"><a class=""
                                                     href="/seatmap/<%= classroomList[index].classroom_id %>"
                                                     external><%= classroomList[index].area_name %><%= classroomList[index].classroom_name %></a>
                         </div>
+                        <div class="card-time">
+                            <div class="card-time-header">08:00 ~ 10:00</div>
+                            <div class="card-time-header">10:00 ~ 12:00</div>
+                            <div class="card-time-header">14:00 ~ 16:00</div>
+                            <div class="card-time-header">16:00 ~ 18:00</div>
+                            <div class="card-time-header">19:00 ~ 21:00</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                        </div>
+                        <div class="card-footer"></div>
                     </li>
                     <% } %>
                 </ul>
