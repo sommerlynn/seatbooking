@@ -69,13 +69,8 @@
             <div class="list-block cards-list">
                 <ul>
                     <% for ( var index = 0; index < classroomList.length; index++) { %>
-                    <li>
-                        <a class="item-link item-content" href="/seatmap/<%=classroomList[index].classroom_id%>" external>
-                            <div class="item-inner">
-                                <div class="item-title"><%= classroomList[index].area_name %><%= classroomList[index].classroom_name %></div>
-                                <div class="item-title"><%= classroomList[index].row_count * classroomList[index].column_count %></div>
-                            </div>
-                        </a>
+                    <li class="card">
+                        <div class="card-header"><%= classroomList[index].area_name %><%= classroomList[index].classroom_name %></div>
                     </li>
                     <% } %>
                 </ul>
