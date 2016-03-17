@@ -16,10 +16,11 @@
     .card {
         background-color: #F5F5F5;
         color: #000000;
+        height: 7.5rem;
     }
 
-    .card-footer, .card-header{
-        min-height: 1rem;
+    .card-footer{
+        height: 2.75rem;
     }
 
     .card-header {
@@ -111,10 +112,6 @@
                 <ul>
                     <% for ( var index = 0; index < classroomList.length; index++) { %>
                     <li class="card">
-                        <div class="card-header"><a class=""
-                                                    href="/seatmap/<%= classroomList[index].classroom_id %>"
-                                                    external><%= classroomList[index].area_name %><%= classroomList[index].classroom_name %></a>
-                        </div>
                         <div class="card-time">
                             <div class="card-time-header">8:00</div>
                             <div class="card-time-header">10:00</div>
@@ -136,6 +133,10 @@
                             <div class="card-time-status">空闲</div>
                             <div class="card-time-status">空闲</div>
                             <div class="card-time-status">空闲</div>
+                        </div>
+                        <div class="card-footer"><a class=""
+                                                    href="/seatmap/<%= classroomList[index].classroom_id %>"
+                                                    external><%= classroomList[index].area_name %><%= classroomList[index].classroom_name %></a>
                         </div>
                     </li>
                     <% } %>
