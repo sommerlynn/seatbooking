@@ -109,7 +109,7 @@ router.get('/buildingClassroom', function(req, res){
                 res.render('errorView', {message: '服务器故障', error: err});
             }
             else {
-                res.render('buildingView', {title: '七玥天使-自习室导航', classroomList: classroomList});
+                res.render('buildingClassroomView', {title: '七玥校园', classroomList: classroomList});
             }
         });
     }else {
