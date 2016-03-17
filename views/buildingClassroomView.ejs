@@ -32,15 +32,15 @@
         background-color: #EFD4D4;
     }
 
-    .content{
+    .content {
         background-color: #E7E9ED;
     }
 
-    .content-block{
+    .content-block {
         padding: 0;
     }
 
-    .item-content{
+    .item-content {
         background-color: #FFFFFF;
         margin: 0 1rem 0 1rem;
     }
@@ -70,7 +70,32 @@
                 <ul>
                     <% for ( var index = 0; index < classroomList.length; index++) { %>
                     <li class="card">
-                        <div class="card-header"><a class="item-link item-content" href="/seatmap/<%=classroomList[index].classroom_id%>" external><%= classroomList[index].area_name %><%= classroomList[index].classroom_name %></a></div>
+                        <div class="card-header"><a class="item-link item-content"
+                                                    href="/seatmap/<%= classroomList[index].classroom_id %>"
+                                                    external><%= classroomList[index].area_name %><%= classroomList[index].classroom_name %></a>
+                        </div>
+                        <div class="card-time">
+                            <div class="card-time-header">8:00</div>
+                            <div class="card-time-header">10:00</div>
+                            <div class="card-time-header">14:00</div>
+                            <div class="card-time-header">16:00</div>
+                            <div class="card-time-header">19:00</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">10:00</div>
+                            <div class="card-time-header">12:00</div>
+                            <div class="card-time-header">16:00</div>
+                            <div class="card-time-header">18:00</div>
+                            <div class="card-time-header">21:00</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                        </div>
                     </li>
                     <% } %>
                 </ul>
