@@ -12,6 +12,25 @@
     .bar-tab:before {
         background-color: #33475F;
     }
+
+    .card {
+        background-color: #A61000;
+        color: #ffffff;
+    }
+
+    .card-header {
+        font-size: 0.6rem;
+    }
+
+    .card-content-inner {
+        padding: 0.35rem;
+        text-align: center;
+    }
+
+    .card-footer {
+        color: #4C3517;
+        background-color: #EFD4D4;
+    }
 </style>
 <div class="page">
     <!--<header class="bar bar-nav theme-dark">
@@ -33,15 +52,16 @@
         </a>
     </nav>
     <div class="content">
-        <div class="content-block-title">图书馆</div>
-        <div class="list-block">
-            <ul>
-                <% for ( var index = 0; index < classroomList.length; index++) { %>
-                <li class="card">
-                    <div class="card-header"><%= classroomList[index].classroom_name %></div>
-                </li>
-                <% } %>
-            </ul>
+        <div class="content-block">
+            <div class="list-block cards-list">
+                <ul>
+                    <% for ( var index = 0; index < classroomList.length; index++) { %>
+                    <li class="card">
+                        <div class="card-header"><%= classroomList[index].classroom_name %></div>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -49,20 +69,20 @@
 <script>
     $.config = {
         autoInit: true,
-        router:false
+        router: false
     }
 </script>
 <script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
 
 <script>
-    $("#buildingTab").tap(function(){
+    $("#buildingTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/building2");
     });
-    $("#skyTab").tap(function(){
+    $("#skyTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/index");
     });
-    $("#meTab").tap(function(){
+    $("#meTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/me2");
     });
 </script>
