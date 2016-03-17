@@ -63,22 +63,11 @@
         <div class="content-block">
             <div class="list-block cards-list">
                 <ul>
-                    <li>
-                        <a class="item-link item-content" href="/seatmap/" external>
-                            <div class="item-inner">
-                                <div class="item-title">图书馆主馆</div>
-                                <div class="item-title"></div>
-                            </div>
-                        </a>
+                    <% for ( var index = 0; index < classroomList.length; index++) { %>
+                    <li class="card">
+                        <div class="card-header"><%= classroomList[index].classroom_name %></div>
                     </li>
-                    <li>
-                        <a class="item-link item-content" href="/seatmap/" external>
-                            <div class="item-inner">
-                                <div class="item-title">图书馆分馆</div>
-                                <div class="item-title"></div>
-                            </div>
-                        </a>
-                    </li>
+                    <% } %>
                 </ul>
             </div>
         </div>
