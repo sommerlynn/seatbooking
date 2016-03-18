@@ -169,19 +169,19 @@ span.seatCharts-legendDescription{
   margin: 0px 0px 0px 2px;
 }
 
-span.seatCharts-seat-legend.available16 {
+span.available16 {
   background-image: url('../images/blankseat16.png');
 }
 
-span.seatCharts-seat-legend.booked-seat-girl16{
+span.booked-seat-girl16{
   background: url('../images/girl16.png') no-repeat;
 }
 
-span.seatCharts-seat-legend.booked-seat-boy16{
+span.booked-seat-boy16{
   background: url('../images/boy16.png') no-repeat;
 }
 
-span.seatCharts-seat-legend.booked-seat-teaching16{
+span.booked-seat-teaching16{
   background: url('../images/teaching16.png') no-repeat;
 }
 
