@@ -194,7 +194,7 @@
                         <div class="card-time-status">空闲</div>
                         <div class="card-time-status">空闲</div>
                     </div>
-                    <div class="card-footer" id="today-card-footer">仅限本人使用 点击领取</div>
+                    <div class="card-footer" id="order-operation">仅限本人使用 点击领取</div>
                 </li>
             </ul>
         </div>
@@ -362,16 +362,15 @@
     });
 
 
-    $("#orderLnk").tap(function () {
+    $("#order-operation").tap(function () {
         if (selectedSeatRowID > 0 &&
-                selectedSeatColumnID > 0 &&
-                $('#picker')[0].value) {
+                selectedSeatColumnID > 0) {
             $.showPreloader('提交预约申请...');
             $.post('/order', {
                 classroom: '<%= cid %>',
                 row: selectedSeatRowID,
                 column: selectedSeatColumnID,
-                time: $('#picker')[0].value
+                type: '<%= type%>'
             }, function (response) {
                 $.hidePreloader();
                 alert(response);
