@@ -266,14 +266,17 @@ router.post('/order', function(req, res){
         //var today = new Date();
         //var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
 
-        var orderTime;
+        var startTime;
+        var today = new Date();
         if(req.body.type == 'tomorrow'){
-            orderTime = new Date((new Date()).getTime()+24*60*60*1000);
+            var nextDay = new Date(today.getTime()+24*60*60*1000);
+            startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
         }else{
-            orderTime = new Date();
+            startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         }
+        var endTime = new Date(startTime.getTime()+24*60*60*1000);
 
-        models.userModel.order(req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column, orderTime, function(err){
+        models.userModel.order(req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column, startTime, endTime, function(err){
             if(err) {
                 res.send('错误' + err);
             }else{
