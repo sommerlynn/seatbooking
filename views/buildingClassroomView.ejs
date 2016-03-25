@@ -13,166 +13,51 @@
         background-color: #33475F;
     }
 
-    .card {
-        background-color: #F5F5F5;
-        color: #000000;
-    }
-
-    .card-header {
-        font-size: 0.6rem;
-        background-color: #FFFFFF;
-    }
-
-    .card-content-inner {
-        padding: 0.35rem;
-        text-align: center;
-    }
-
-    .card-footer {
-        color: #4C3517;
-        background-color: #FFFFFF;
-    }
-
-    div.card-time:before{
-        content: '';
-        position: absolute;
-        left: 0;
-        right: auto;
-        top: 0;
-        height: 0;
-        width: 100%;
-        background-color: #924A4A;
-        display: block;
-        z-index: 15;
-        -webkit-transform-origin: 50% 100%;
-        transform-origin: 50% 100%;
-    }
-
-    div.card-time{
-        position: relative;
-        padding: 0.625rem 0;
-        margin: 0 auto;
-    }
-
-    div.card-time-header{
-        width: 20%;
-        float: left;
-        text-align: center;
-        font-size: 0.75rem;
-    }
-
-    div.card-time-spliter{
-        width: 20%;
-        float: left;
-        text-align: center;
-        height: 0.3125rem;
-        line-height: 0.3125rem;
-        margin: 0.3125rem 0;
-    }
-
-    div.card-time-status{
-        width: 20%;
-        float: left;
-        text-align: center;
-        font-size: 0.7rem;
-        line-height: 1.25rem;
-    }
-
     .content {
         background-color: #E7E9ED;
     }
 
     .content-block {
-        padding: 0 0.625rem;
+        padding: 0;
         margin: 0;
     }
 
-    .item-content {
-        background-color: #FFFFFF;
-        margin: 0 1rem 0 1rem;
-    }
-
-    .list-block{
+    .classroom-list {
         margin: 0;
+        padding: 0;
     }
 
-    .list-block ul ul{
-        padding-left: 0;
-    }
-
-    .list-block ul{
-        margin:0 auto;
-    }
-
-    .seat-status{
-        padding: 0.3125rem 0;
-
-        z-index: 20;
-        background-color: #FFFFFF;
-
+    .classroom-list ul {
         list-style: none;
         padding: 0;
-        text-align: center;
     }
 
-    .status-item{
-        line-height: 16px;
-        display: inline-block;
+    .classroom-list ul li {
+        display: block;
+        width: 100%;
+        height: 5rem;
     }
 
-    .status-icon{
-        height: 16px;
-        width: 16px;
-        margin: 0px;
+    .classroom-title {
+        line-height: 1.25rem;
+        font-family: 华文中宋;
+    }
+
+    .classroom-time-status {
+        width: 75%;
         float: left;
-        text-align: center;
-        outline: none;
-        font-size: 0.75em;
-        line-height:16px;
-        color: blue;
-
-        color: white;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        cursor: default;
-        margin: 0px auto;
-        padding: 0px;
+        font-size: 0.75rem;
     }
 
-    .status-description{
-        color: #000000;
-        font-size: 0.75em;
-        height: 16px;
-        line-height: 16px;
-        margin: 0px 0px 0px 2px;
+    .classroom-right{
+        width: 25%;
+        float: left;
     }
 
-    .seat-operation{
-        padding: 0.3125rem 0;
-
-        right:0;
-
-        z-index: 20;
-        background-color: #FFFFFF;
-
-        list-style: none;
-        padding: 0;
-        text-align: center;
+    .status-row{
+        line-height: 1.25rem;
     }
 
-    .operation-select{
-        display: inline-block;
-        padding: 0.1875rem 0.3125rem;
-        width: 3.75rem;
-        border: 0.0625rem solid #A00000;
-        color: #A00000;
-    }
-
-    .classroom-title{
-        font-size: 0.875rem;
-        font-weight: bold;
-    }
 </style>
 <div class="page">
     <!--<header class="bar bar-nav theme-dark">
@@ -195,50 +80,26 @@
     </nav>
     <div class="content">
         <div class="content-block">
-            <div class="list-block cards-list">
+            <div class="classroom-list">
                 <ul>
                     <% for ( var index = 0; index < classroomList.length; index++) { %>
-                    <li class="card">
-                        <div class="card-header">
-                            <span class="classroom-title"><%= classroomList[index].area_name %>  <%= classroomList[index].classroom_name %></span>
-                        </div>
-                        <div class="card-time">
-                            <div class="card-time-header">8:00</div>
-                            <div class="card-time-header">10:00</div>
-                            <div class="card-time-header">14:00</div>
-                            <div class="card-time-header">16:00</div>
-                            <div class="card-time-header">19:00</div>
-                            <div class="card-time-spliter">-</div>
-                            <div class="card-time-spliter">-</div>
-                            <div class="card-time-spliter">-</div>
-                            <div class="card-time-spliter">-</div>
-                            <div class="card-time-spliter">-</div>
-                            <div class="card-time-header">10:00</div>
-                            <div class="card-time-header">12:00</div>
-                            <div class="card-time-header">16:00</div>
-                            <div class="card-time-header">18:00</div>
-                            <div class="card-time-header">21:00</div>
-                            <div class="card-time-status">空闲</div>
-                            <div class="card-time-status">空闲</div>
-                            <div class="card-time-status">空闲</div>
-                            <div class="card-time-status">空闲</div>
-                            <div class="card-time-status">空闲</div>
-                        </div>
-                        <div class="card-footer">
-                            <ul class="seat-status">
-                                <li class="status-item"><span
-                                            class="status-icon available16 normal-seat"></span><span
-                                            class="status-description">空座 20</span></li>
-                                <li class="status-item"><span
-                                            class="status-icon booked-seat-boy16 booked-seat-boy"></span><span
-                                            class="status-description">男生 16</span></li>
-                                <li class="status-item"><span
-                                            class="status-icon booked-seat-girl16 booked-seat-girl"></span><span
-                                            class="status-description">女生 23</span></li>
-                            </ul>
-                            <ul class="seat-operation" id="<%= classroomList[index].classroom_id%>">
-                                <li class="operation-select">选座</li>
-                            </ul>
+                    <li>
+                        <div class="">
+                            <div class="classroom-title">
+                                <div class="classroom-name"><%= classroomList[index].area_name %> <%= classroomList[index].classroom_name %></div>
+                            </div>
+
+                            <div class="classroom-time-status">
+                                <div class="status-row"><span>08:00-10:00</span><span>空闲</span>
+                                    <span>10:00-12:00</span><span>空闲</span></div>
+                                <div><span>14:00-16:00</span><span>空闲</span>
+                                    <span>16:00-18:00</span><span>空闲</span></div>
+                                <div><span>19:00-21:00</span><span>空闲</span></div>
+                            </div>
+
+                            <div class="classroom-right">
+
+                            </div>
                         </div>
                     </li>
                     <% } %>
@@ -267,8 +128,8 @@
     $("#meTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/me2");
     });
-    $(".seat-operation").tap(function(){
-        window.location.assign("http://www.julyangel.cn/seatMap/"+this.getAttribute('id'));
+    $(".seat-operation").tap(function () {
+        window.location.assign("http://www.julyangel.cn/seatMap/" + this.getAttribute('id'));
     });
 </script>
 <% include ../views/footer.html %>
