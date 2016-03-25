@@ -13,79 +13,6 @@
         background-color: #33475F;
     }
 
-    .list-block .item-content{
-        padding: 0;
-    }
-
-    .list-block .item-link .item-inner{
-        background-image: none;
-    }
-
-    .card {
-        background-color: #F5F5F5;
-        color: #000000;
-    }
-
-    .card-header {
-        font-size: 0.6rem;
-        background-color: #FFFFFF;
-    }
-
-    .card-content-inner {
-        padding: 0.35rem;
-        text-align: center;
-    }
-
-    .card-footer {
-        color: #4C3517;
-        background-color: #FFFFFF;
-    }
-
-    div.card-time:before{
-        content: '';
-        position: absolute;
-        left: 0;
-        right: auto;
-        top: 0;
-        height: 0;
-        width: 100%;
-        background-color: #924A4A;
-        display: block;
-        z-index: 15;
-        -webkit-transform-origin: 50% 100%;
-        transform-origin: 50% 100%;
-    }
-
-    div.card-time{
-        position: relative;
-        padding: 0.625rem 0;
-        margin: 0 auto;
-    }
-
-    div.card-time-header{
-        width: 20%;
-        float: left;
-        text-align: center;
-        font-size: 0.75rem;
-    }
-
-    div.card-time-spliter{
-        width: 20%;
-        float: left;
-        text-align: center;
-        height: 0.3125rem;
-        line-height: 0.3125rem;
-        margin: 0.3125rem 0;
-    }
-
-    div.card-time-status{
-        width: 20%;
-        float: left;
-        text-align: center;
-        font-size: 0.7rem;
-        line-height: 1.25rem;
-    }
-
     .content {
         background-color: #E7E9ED;
     }
@@ -119,75 +46,7 @@
         font-family: 华文中宋;
     }
 
-    .seat-status{
-        padding: 0.3125rem 0;
 
-        z-index: 20;
-        background-color: #FFFFFF;
-
-        list-style: none;
-        padding: 0;
-        text-align: center;
-    }
-
-    .status-item{
-        line-height: 16px;
-        display: inline-block;
-    }
-
-    .status-icon{
-        height: 16px;
-        width: 16px;
-        margin: 0px;
-        float: left;
-        text-align: center;
-        outline: none;
-        font-size: 0.75em;
-        line-height:16px;
-        color: blue;
-
-        color: white;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        cursor: default;
-        margin: 0px auto;
-        padding: 0px;
-    }
-
-    .status-description{
-        color: #000000;
-        font-size: 0.75em;
-        height: 16px;
-        line-height: 16px;
-        margin: 0px 0px 0px 2px;
-    }
-
-    .seat-operation{
-        padding: 0.3125rem 0;
-
-        right:0;
-
-        z-index: 20;
-        background-color: #FFFFFF;
-
-        list-style: none;
-        padding: 0;
-        text-align: center;
-    }
-
-    .operation-select{
-        display: inline-block;
-        padding: 0.1875rem 0.3125rem;
-        width: 3.75rem;
-        border: 0.0625rem solid #A00000;
-        color: #A00000;
-    }
-
-    .classroom-title{
-        font-size: 0.875rem;
-        font-weight: bold;
-    }
 </style>
 <div class="page">
     <!--<header class="bar bar-nav theme-dark">
@@ -210,18 +69,18 @@
     </nav>
     <div class="content">
         <div class="content-block">
-            <div class="list-block">
+            <div class="classroom-list">
                 <ul>
                     <% for ( var index = 0; index < classroomList.length; index++) { %>
                     <li>
-                        <div class="item-link item-content">
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title"><%= classroomList[index].area_name %>  <%= classroomList[index].classroom_name %></div>
+                        <div class="">
+                            <div class="">
+                                <div class="">
+                                    <div class=""><%= classroomList[index].area_name %>  <%= classroomList[index].classroom_name %></div>
                                 </div>
                             </div>
 
-                            <div class="item-text">
+                            <div class="">
                                 <span>8:00-10:00</span><span>空闲</span>
                                 <span>10:00-12:00</span><span>空闲</span>
                                 <span>14:00-16:00</span><span>空闲</span>
