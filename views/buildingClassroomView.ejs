@@ -39,8 +39,6 @@
     }
 
     .classroom-title {
-        width: 25%;
-        float: left;
         font-family: 华文中宋;
     }
 
@@ -48,6 +46,11 @@
         width: 75%;
         float: left;
         font-size: 0.75rem;
+    }
+
+    .classroom-right{
+        width: 25%;
+        float: left;
     }
 
     .status-row{
@@ -82,8 +85,7 @@
                     <li>
                         <div class="">
                             <div class="classroom-title">
-                                <div class="classroom-area"><%= classroomList[index].area_name %></div>
-                                <div class="classroom-no"><%= classroomList[index].classroom_name %></div>
+                                <div class="classroom-name"><%= classroomList[index].area_name %> <%= classroomList[index].classroom_name %></div>
                             </div>
 
                             <div class="classroom-time-status">
@@ -92,6 +94,10 @@
                                 <div><span>14:00-16:00</span><span>空闲</span>
                                     <span>16:00-18:00</span><span>空闲</span></div>
                                 <div><span>19:00-21:00</span><span>空闲</span></div>
+                            </div>
+
+                            <div class="classroom-right">
+
                             </div>
                         </div>
                     </li>
