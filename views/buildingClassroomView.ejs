@@ -22,29 +22,29 @@
         margin: 0;
     }
 
-    .classroom-list{
+    .classroom-list {
         margin: 0;
         padding: 0;
     }
 
-    .classroom-list ul{
+    .classroom-list ul {
         list-style: none;
         padding: 0;
     }
 
-    .classroom-list ul li{
+    .classroom-list ul li {
         display: block;
         width: 100%;
         height: 120px;
     }
 
-    .classroom-title{
+    .classroom-title {
         width: 25%;
         float: left;
         font-family: 华文中宋;
     }
 
-    .classroom-time-status{
+    .classroom-time-status {
         width: 75%;
         float: left;
         font-size: 0.75rem;
@@ -83,11 +83,11 @@
                             </div>
 
                             <div class="classroom-time-status">
-                                <span>08:00-10:00</span><span>空闲</span>
-                                <span>10:00-12:00</span><span>空闲</span>
-                                <span>14:00-16:00</span><span>空闲</span>
-                                <span>16:00-18:00</span><span>空闲</span>
-                                <span>19:00-21:00</span><span>空闲</span>
+                                <div><span>08:00-10:00</span><span>空闲</span>
+                                    <span>10:00-12:00</span><span>空闲</span></div>
+                                <div><span>14:00-16:00</span><span>空闲</span>
+                                    <span>16:00-18:00</span><span>空闲</span></div>
+                                <div><span>19:00-21:00</span><span>空闲</span></div>
                             </div>
                         </div>
                     </li>
@@ -117,8 +117,8 @@
     $("#meTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/me2");
     });
-    $(".seat-operation").tap(function(){
-        window.location.assign("http://www.julyangel.cn/seatMap/"+this.getAttribute('id'));
+    $(".seat-operation").tap(function () {
+        window.location.assign("http://www.julyangel.cn/seatMap/" + this.getAttribute('id'));
     });
 </script>
 <% include footer.html %>
