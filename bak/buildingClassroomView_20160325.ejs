@@ -1,4 +1,4 @@
-<% include header.html %>
+<% include ../views/header.html %>
 <style>
     .bar {
         background-color: #FFFFFF;
@@ -195,16 +195,50 @@
     </nav>
     <div class="content">
         <div class="content-block">
-            <div class="list-block media-list">
+            <div class="list-block cards-list">
                 <ul>
                     <% for ( var index = 0; index < classroomList.length; index++) { %>
-                    <li>
-                        <div class="item-link item-content">
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title"><%= classroomList[index].area_name %>  <%= classroomList[index].classroom_name %></div>
-                                </div>
-                            </div>
+                    <li class="card">
+                        <div class="card-header">
+                            <span class="classroom-title"><%= classroomList[index].area_name %>  <%= classroomList[index].classroom_name %></span>
+                        </div>
+                        <div class="card-time">
+                            <div class="card-time-header">8:00</div>
+                            <div class="card-time-header">10:00</div>
+                            <div class="card-time-header">14:00</div>
+                            <div class="card-time-header">16:00</div>
+                            <div class="card-time-header">19:00</div>
+                            <div class="card-time-spliter">-</div>
+                            <div class="card-time-spliter">-</div>
+                            <div class="card-time-spliter">-</div>
+                            <div class="card-time-spliter">-</div>
+                            <div class="card-time-spliter">-</div>
+                            <div class="card-time-header">10:00</div>
+                            <div class="card-time-header">12:00</div>
+                            <div class="card-time-header">16:00</div>
+                            <div class="card-time-header">18:00</div>
+                            <div class="card-time-header">21:00</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                        </div>
+                        <div class="card-footer">
+                            <ul class="seat-status">
+                                <li class="status-item"><span
+                                            class="status-icon available16 normal-seat"></span><span
+                                            class="status-description">空座 20</span></li>
+                                <li class="status-item"><span
+                                            class="status-icon booked-seat-boy16 booked-seat-boy"></span><span
+                                            class="status-description">男生 16</span></li>
+                                <li class="status-item"><span
+                                            class="status-icon booked-seat-girl16 booked-seat-girl"></span><span
+                                            class="status-description">女生 23</span></li>
+                            </ul>
+                            <ul class="seat-operation" id="<%= classroomList[index].classroom_id%>">
+                                <li class="operation-select">选座</li>
+                            </ul>
                         </div>
                     </li>
                     <% } %>
@@ -237,4 +271,4 @@
         window.location.assign("http://www.julyangel.cn/seatMap/"+this.getAttribute('id'));
     });
 </script>
-<% include footer.html %>
+<% include ../views/footer.html %>
