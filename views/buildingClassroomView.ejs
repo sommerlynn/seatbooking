@@ -55,6 +55,16 @@
         list-style: none;
     }
 
+    .classroom-title{
+        width: 20%;
+        float: left;
+    }
+
+    .classroom-time-status{
+        width: 80%;
+        float: left;
+    }
+
     .time-status-list{
         font-size: 6px;
     }
@@ -87,14 +97,13 @@
                     <% for ( var index = 0; index < classroomList.length; index++) { %>
                     <li>
                         <div class="">
-                            <div class="">
-                                <div class="">
-                                    <div class=""><%= classroomList[index].area_name %>  <%= classroomList[index].classroom_name %></div>
-                                </div>
+                            <div class="classroom-title">
+                                <div class="classroom-area"><%= classroomList[index].area_name %></div>
+                                <div class="classroom-no"><%= classroomList[index].classroom_name %></div>
                             </div>
 
-                            <div class="time-status-list">
-                                <span>8:00-10:00</span><span>空闲</span>
+                            <div class="classroom-time-status">
+                                <span>08:00-10:00</span><span>空闲</span>
                                 <span>10:00-12:00</span><span>空闲</span>
                                 <span>14:00-16:00</span><span>空闲</span>
                                 <span>16:00-18:00</span><span>空闲</span>
