@@ -1,0 +1,135 @@
+<% include ../views/header.html %>
+<style>
+    .bar {
+        background-color: #FFFFFF;
+    }
+
+    .bar:after {
+        height: 0;
+        background-color: #1D2025;
+    }
+
+    .bar-tab:before {
+        background-color: #33475F;
+    }
+
+    .content {
+        background-color: #E7E9ED;
+    }
+
+    .content-block {
+        padding: 0;
+        margin: 0;
+    }
+
+    .classroom-list {
+        margin: 0;
+        padding: 0;
+    }
+
+    .classroom-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .classroom-list ul li {
+        display: block;
+        width: 100%;
+        height: 5rem;
+    }
+
+    .classroom-title {
+        line-height: 1.25rem;
+        font-family: 华文中宋;
+    }
+
+    .classroom-time-status {
+        width: 75%;
+        float: left;
+        font-size: 0.75rem;
+    }
+
+    .classroom-right{
+        width: 25%;
+        float: left;
+    }
+
+    .status-row{
+        line-height: 1.25rem;
+    }
+
+</style>
+<div class="page">
+    <!--<header class="bar bar-nav theme-dark">
+        <h1 class="title">教室导航</h1>
+    </header>-->
+    <!-- 工具栏 -->
+    <nav class="bar bar-tab">
+        <a class="tab-item active" id="buildingTab" href="http://www.julyangel.cn/building2" external>
+            <span class="icon icon-home"></span>
+            <span class="tab-label">预约座位</span>
+        </a>
+        <a class="tab-item" id="skyTab" href="http://www.julyangel.cn/index" external>
+            <span class="icon icon-settings"></span>
+            <span class="tab-label">七玥星空</span>
+        </a>
+        <a class="tab-item" id="meTab" href="http://www.julyangel.cn/me2" external>
+            <span class="icon icon-star"></span>
+            <span class="tab-label">我的</span>
+        </a>
+    </nav>
+    <div class="content">
+        <div class="content-block">
+            <div class="classroom-list">
+                <ul>
+                    <% for ( var index = 0; index < classroomList.length; index++) { %>
+                    <li>
+                        <div class="">
+                            <div class="classroom-title">
+                                <div class="classroom-name"><%= classroomList[index].area_name %> <%= classroomList[index].classroom_name %></div>
+                            </div>
+
+                            <div class="classroom-time-status">
+                                <div class="status-row"><span>08:00-10:00</span><span>空闲</span>
+                                    <span>10:00-12:00</span><span>空闲</span></div>
+                                <div><span>14:00-16:00</span><span>空闲</span>
+                                    <span>16:00-18:00</span><span>空闲</span></div>
+                                <div><span>19:00-21:00</span><span>空闲</span></div>
+                            </div>
+
+                            <div class="classroom-right">
+
+                            </div>
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='/scripts/zepto.js' charset='utf-8'></script>
+<script>
+    $.config = {
+        autoInit: true,
+        router: false
+    }
+</script>
+<script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
+
+<script>
+    $("#buildingTab").tap(function () {
+        window.location.assign("http://www.julyangel.cn/building2");
+    });
+    $("#skyTab").tap(function () {
+        window.location.assign("http://www.julyangel.cn/index");
+    });
+    $("#meTab").tap(function () {
+        window.location.assign("http://www.julyangel.cn/me2");
+    });
+    $(".seat-operation").tap(function () {
+        window.location.assign("http://www.julyangel.cn/seatMap/" + this.getAttribute('id'));
+    });
+</script>
+<% include ../views/footer.html %>
