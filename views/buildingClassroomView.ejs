@@ -64,10 +64,6 @@
         transform-origin: 50% 100%;
     }
 
-    .classroom-time-status {
-        font-size: 0.75rem;
-    }
-
     .classroom-left{
         width: 75%;
         float: left;
@@ -78,14 +74,10 @@
         float: left;
     }
 
-    .status-header{
+    .status-row-cell{
         width: 20%;
         float: left;
         text-align: center;
-    }
-
-    .status-row{
-        line-height: 1.25rem;
     }
 
     .status-icon{
@@ -108,11 +100,50 @@
         padding: 0px;
     }
 
+    .classroom-time-status {
+        font-size: 0.75rem;
+        margin: 0px auto;
+        padding: 0.3125rem 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 6rem;
+        z-index: 20;
+        background-color: #FFFFFF;
+    }
 </style>
 <div class="page">
     <!--<header class="bar bar-nav theme-dark">
         <h1 class="title">教室导航</h1>
     </header>-->
+
+    <div class="classroom-time-status">
+        <div class="status-row-cell">08:00</div>
+        <div class="status-row-cell">10:00</div>
+        <div class="status-row-cell">14:00</div>
+        <div class="status-row-cell">16:00</div>
+        <div class="status-row-cell">19:00</div>
+
+        <div class="status-row-cell">-</div>
+        <div class="status-row-cell">-</div>
+        <div class="status-row-cell">-</div>
+        <div class="status-row-cell">-</div>
+        <div class="status-row-cell">-</div>
+
+        <div class="status-row-cell">10:00</div>
+        <div class="status-row-cell">12:00</div>
+        <div class="status-row-cell">16:00</div>
+        <div class="status-row-cell">18:00</div>
+        <div class="status-row-cell">21:00</div>
+
+        <div class="status-row-cell">空闲</div>
+        <div class="status-row-cell">空闲</div>
+        <div class="status-row-cell">空闲</div>
+        <div class="status-row-cell">空闲</div>
+        <div class="status-row-cell">空闲</div>
+    </div>
+
     <!-- 工具栏 -->
     <nav class="bar bar-tab">
         <a class="tab-item active" id="buildingTab" href="http://www.julyangel.cn/building2" external>
@@ -137,32 +168,6 @@
                         <div class="classroom-left">
                             <div class="classroom-title">
                                 <div class="classroom-name"><%= classroomList[index].area_name %> <%= classroomList[index].classroom_name %></div>
-                            </div>
-
-                            <div class="classroom-time-status">
-                                <div class="status-header">08:00</div>
-                                <div class="status-header">10:00</div>
-                                <div class="status-header">14:00</div>
-                                <div class="status-header">16:00</div>
-                                <div class="status-header">19:00</div>
-
-                                <div class="status-header">-</div>
-                                <div class="status-header">-</div>
-                                <div class="status-header">-</div>
-                                <div class="status-header">-</div>
-                                <div class="status-header">-</div>
-
-                                <div class="status-header">10:00</div>
-                                <div class="status-header">12:00</div>
-                                <div class="status-header">16:00</div>
-                                <div class="status-header">18:00</div>
-                                <div class="status-header">21:00</div>
-
-                                <div class="status-header">空闲</div>
-                                <div class="status-header">空闲</div>
-                                <div class="status-header">空闲</div>
-                                <div class="status-header">空闲</div>
-                                <div class="status-header">空闲</div>
                             </div>
                         </div>
                         <div class="classroom-right">
