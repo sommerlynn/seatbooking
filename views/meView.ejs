@@ -69,47 +69,44 @@
             </ul>
         </div>
         <div class="content-block">
-            <div class="classroom-list">
-                <ul>
+            <div class="list-block cards-list">
+                <ul id="seat_tickets">
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
 
-                    <div class="list-block cards-list">
-                        <ul id="seat_tickets">
-                            <li class="card">
-                                <div class="card-header">
-                                    <div style="width: 50%">座位券</div>
-                                    <div style="width: 50%">2016-03-31</div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-content-inner"><%= userSeatOrders[index].full_name %></div>
-                                    <div class="card-content-inner"><span id="selectedSeatInfo"></span></div>
-                                </div>
-                                <div class="card-time">
-                                    <div class="card-time-header">8:00</div>
-                                    <div class="card-time-header">10:00</div>
-                                    <div class="card-time-header">14:00</div>
-                                    <div class="card-time-header">16:00</div>
-                                    <div class="card-time-header">19:00</div>
-                                    <div class="card-time-header">~</div>
-                                    <div class="card-time-header">~</div>
-                                    <div class="card-time-header">~</div>
-                                    <div class="card-time-header">~</div>
-                                    <div class="card-time-header">~</div>
-                                    <div class="card-time-header">10:00</div>
-                                    <div class="card-time-header">12:00</div>
-                                    <div class="card-time-header">16:00</div>
-                                    <div class="card-time-header">18:00</div>
-                                    <div class="card-time-header">21:00</div>
-                                    <div class="card-time-status">空闲</div>
-                                    <div class="card-time-status">空闲</div>
-                                    <div class="card-time-status">空闲</div>
-                                    <div class="card-time-status">空闲</div>
-                                    <div class="card-time-status">空闲</div>
-                                </div>
-                                <div class="card-footer" id="order-operation">当天有效 仅限本人</div>
-                            </li>
-                        </ul>
-                    </div>
+                    <li class="card">
+                        <div class="card-header">
+                            <div style="width: 50%">座位券</div>
+                            <div style="width: 50%">2016-03-31</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-content-inner"><%= userSeatOrders[index].full_name %></div>
+                            <div class="card-content-inner"><span id="selectedSeatInfo"></span></div>
+                        </div>
+                        <div class="card-time">
+                            <div class="card-time-header">8:00</div>
+                            <div class="card-time-header">10:00</div>
+                            <div class="card-time-header">14:00</div>
+                            <div class="card-time-header">16:00</div>
+                            <div class="card-time-header">19:00</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">10:00</div>
+                            <div class="card-time-header">12:00</div>
+                            <div class="card-time-header">16:00</div>
+                            <div class="card-time-header">18:00</div>
+                            <div class="card-time-header">21:00</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                        </div>
+                        <div class="card-footer" id="order-operation">当天有效 仅限本人</div>
+                    </li>
+
                     <% } %>
                 </ul>
             </div>
