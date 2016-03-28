@@ -15,6 +15,8 @@
 
     .content {
         background-color: #E7E9ED;
+        position: absolute;
+        top: 2.8rem;
     }
 
     .content-block {
@@ -74,10 +76,28 @@
         float: left;
     }
 
+    .classroom-time-status {
+        font-size: 0.75rem;
+        margin: 0px auto;
+        padding: 0.3125rem 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 6rem;
+        z-index: 20;
+        background-color: #FFFFFF;
+    }
+
     .status-row-cell{
         width: 20%;
         float: left;
         text-align: center;
+        line-height: 1.25rem;
+    }
+
+    .status-row-spliter{
+        line-height: 0.3rem;
     }
 
     .status-icon{
@@ -99,19 +119,6 @@
         margin: 0px auto;
         padding: 0px;
     }
-
-    .classroom-time-status {
-        font-size: 0.75rem;
-        margin: 0px auto;
-        padding: 0.3125rem 0;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        height: 6rem;
-        z-index: 20;
-        background-color: #FFFFFF;
-    }
 </style>
 <div class="page">
     <!--<header class="bar bar-nav theme-dark">
@@ -125,11 +132,11 @@
         <div class="status-row-cell">16:00</div>
         <div class="status-row-cell">19:00</div>
 
-        <div class="status-row-cell">-</div>
-        <div class="status-row-cell">-</div>
-        <div class="status-row-cell">-</div>
-        <div class="status-row-cell">-</div>
-        <div class="status-row-cell">-</div>
+        <div class="status-row-spliter">-</div>
+        <div class="status-row-spliter">-</div>
+        <div class="status-row-spliter">-</div>
+        <div class="status-row-spliter">-</div>
+        <div class="status-row-spliter">-</div>
 
         <div class="status-row-cell">10:00</div>
         <div class="status-row-cell">12:00</div>
@@ -137,11 +144,11 @@
         <div class="status-row-cell">18:00</div>
         <div class="status-row-cell">21:00</div>
 
+        <!--<div class="status-row-cell">空闲</div>
         <div class="status-row-cell">空闲</div>
         <div class="status-row-cell">空闲</div>
         <div class="status-row-cell">空闲</div>
-        <div class="status-row-cell">空闲</div>
-        <div class="status-row-cell">空闲</div>
+        <div class="status-row-cell">空闲</div>-->
     </div>
 
     <!-- 工具栏 -->
