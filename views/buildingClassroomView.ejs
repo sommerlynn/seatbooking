@@ -51,7 +51,7 @@
     }
 
 
-    .classroom-time-status {
+    .status-nav {
         font-size: 0.75rem;
         margin: 0px auto;
         padding: 0;
@@ -144,13 +144,18 @@
         height: 0px;
     }
 
+    .classroom-time-status{
+        margin: 0px auto;
+        padding: 0;
+    }
+
 </style>
 <div class="page">
     <!--<header class="bar bar-nav theme-dark">
         <h1 class="title">教室导航</h1>
     </header>-->
 
-    <div class="classroom-time-status">
+    <div class="status-nav">
         <div class="status-row-cell">08:00</div>
         <div class="status-row-cell">10:00</div>
         <div class="status-row-cell">14:00</div>
@@ -199,6 +204,13 @@
                     <li>
                         <div class="classroom-title">
                             <div class="classroom-name"><%= classroomList[index].area_name %> <%= classroomList[index].classroom_name %></div>
+                        </div>
+                        <div class="classroom-time-status">
+                            <div class="status-row-cell">08:00</div>
+                            <div class="status-row-cell">10:00</div>
+                            <div class="status-row-cell">14:00</div>
+                            <div class="status-row-cell">16:00</div>
+                            <div class="status-row-cell">19:00</div>
                         </div>
                         <div class="card-footer">
                             <ul class="seat-status">
