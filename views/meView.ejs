@@ -6,6 +6,11 @@
         color: #FFFFFF;
     }
 
+    .content-block{
+        margin: 0;
+        padding: 0;
+    }
+
     .item-text {
         padding: 0.5rem 0 0 0;
     }
@@ -33,6 +38,61 @@
 
     .bar-tab:before {
         background-color: #33475F;
+    }
+
+    .card {
+        background-color: #A61000;
+        color: #ffffff;
+    }
+
+    .card-header {
+        font-size: 0.6rem;
+    }
+
+    .card-content-inner {
+        padding: 0.35rem;
+        text-align: center;
+    }
+
+    .card-footer {
+        color: #4C3517;
+        background-color: #EFD4D4;
+    }
+    div.card-time:before{
+        content: '';
+        position: absolute;
+        left: 0;
+        right: auto;
+        top: 0;
+        height: 1px;
+        width: 100%;
+        background-color: #924A4A;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+    div.card-time{
+        position: relative;
+        padding: 0.625rem 0;
+    }
+
+    div.card-time-header{
+        width: 20%;
+        float: left;
+        text-align: center;
+        font-size: 0.5rem;
+        color: #FFCEA6;
+    }
+
+    div.card-time-status{
+        width: 20%;
+        float: left;
+        text-align: center;
+        font-size: 0.5rem;
+        line-height: 1.25rem;
+        color: #FFCEA6;
     }
 </style>
 <div class="page">
