@@ -32,6 +32,7 @@
     .classroom-list ul {
         list-style: none;
         padding: 0;
+        margin: 0;
     }
 
     .classroom-list ul li {
@@ -53,12 +54,11 @@
     .classroom-time-status {
         font-size: 0.75rem;
         margin: 0px auto;
-        padding: 0.3125rem 0;
+        padding: 0;
         position: absolute;
         left: 0;
         right: 0;
         top: 0;
-        z-index: 20;
         background-color: #FFFFFF;
     }
 
@@ -138,6 +138,10 @@
         width: 3.75rem;
         border: 0.0625rem solid #A00000;
         color: #A00000;
+    }
+
+    .card-footer:before{
+        height: 0px;
     }
 
 </style>
