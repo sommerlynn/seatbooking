@@ -160,7 +160,13 @@ router.get('/medebug', function(req, res){
         headimgurl:'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0'
     };
 
-    res.render('meView',{title:'我的信息', userInfo:userInfo});
+    models.userModel.getSeatOrderSheet('oF4F0sxpbSEw5PETECnqB93JS1uc', function(err, userSeatOrders){
+        if(err){
+            res.send('错误' + err);
+        }else{
+            res.render('meView',{title:'我的信息', userInfo:userInfo, userSeatOrders:userSeatOrders});
+        }
+    });
 });
 
 router.get('/callbackbuilding',function(req, res){
