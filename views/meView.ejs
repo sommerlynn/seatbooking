@@ -1,24 +1,24 @@
 <% include header.html %>
 <style>
-    .item-subtitle span{
+    .item-subtitle span {
         padding: 0 1.25rem 0 0;
         font-size: 1rem;
-        color:#FFFFFF;
-    }
-    
-    .item-text{
-        padding: 0.5rem 0 0 0;
-    }
-
-    .item-text span{
         color: #FFFFFF;
     }
 
-    .list-block{
+    .item-text {
+        padding: 0.5rem 0 0 0;
+    }
+
+    .item-text span {
+        color: #FFFFFF;
+    }
+
+    .list-block {
         margin: 0;
     }
 
-    .list-block ul:before{
+    .list-block ul:before {
         height: 0;
     }
 
@@ -55,45 +55,64 @@
             <ul>
                 <li style="background: url('../images/headerbg.jpg') no-repeat; background-size: 100%; padding: 1.25rem">
                     <a href="#" class="item-link item-content" style="background-color: rgba(0,0,0,0.4)">
-                        <div class="item-media"><img src="<%= userInfo.headimgurl.replace('/0', '/64')%>"/></div>
+                        <div class="item-media"><img src="<%= userInfo.headimgurl.replace('/0', '/64') %>"/></div>
                         <div class="item-inner">
                             <div class="item-title-row">
                                 <div class="item-title"></div>
                             </div>
                             <div class="item-subtitle">
-                                <span><%= userInfo.nickname%></span><span><%= userInfo.province%></span></div>
-                            <div class="item-text"><span><%= userInfo.city%></span></div>
+                                <span><%= userInfo.nickname %></span><span><%= userInfo.province %></span></div>
+                            <div class="item-text"><span><%= userInfo.city %></span></div>
                         </div>
                     </a>
                 </li>
             </ul>
         </div>
-        <div class="list-block">
-            <ul>
-                <li class="item-content">
-                    <div class="item-media"><i class="icon icon-home"></i></div>
-                    <div class="item-inner">
-                        <div class="item-title">个人信息</div>
-                        <div class="item-after"></div>
+        <div class="content-block">
+            <div class="classroom-list">
+                <ul>
+                    <% for(var index = 0; index < userSeatOrders.length; index++){ %>
+
+                    <div class="list-block cards-list">
+                        <ul id="seat_tickets">
+                            <li class="card">
+                                <div class="card-header">
+                                    <div style="width: 50%">座位券</div>
+                                    <div style="width: 50%">2016-03-31</div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-content-inner"><%= userSeatOrders[index].full_name %></div>
+                                    <div class="card-content-inner"><span id="selectedSeatInfo"></span></div>
+                                </div>
+                                <div class="card-time">
+                                    <div class="card-time-header">8:00</div>
+                                    <div class="card-time-header">10:00</div>
+                                    <div class="card-time-header">14:00</div>
+                                    <div class="card-time-header">16:00</div>
+                                    <div class="card-time-header">19:00</div>
+                                    <div class="card-time-header">~</div>
+                                    <div class="card-time-header">~</div>
+                                    <div class="card-time-header">~</div>
+                                    <div class="card-time-header">~</div>
+                                    <div class="card-time-header">~</div>
+                                    <div class="card-time-header">10:00</div>
+                                    <div class="card-time-header">12:00</div>
+                                    <div class="card-time-header">16:00</div>
+                                    <div class="card-time-header">18:00</div>
+                                    <div class="card-time-header">21:00</div>
+                                    <div class="card-time-status">空闲</div>
+                                    <div class="card-time-status">空闲</div>
+                                    <div class="card-time-status">空闲</div>
+                                    <div class="card-time-status">空闲</div>
+                                    <div class="card-time-status">空闲</div>
+                                </div>
+                                <div class="card-footer" id="order-operation">当天有效 仅限本人</div>
+                            </li>
+                        </ul>
                     </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-media"><i class="icon icon-home"></i></div>
-                    <div class="item-inner">
-                        <div class="item-title">我的座位</div>
-                        <div class="item-after"></div>
-                    </div>
-                </li>
-                <% for(var index = 0; index < userSeatOrders.length; index++){%>
-                <li class="item-content">
-                    <div class="item-media"><i class="icon icon-home"></i></div>
-                    <div class="item-inner">
-                        <div class="item-title"><%= userSeatOrders[index].full_name%></div>
-                        <div class="item-after"></div>
-                    </div>
-                </li>
-                <% }%>
-            </ul>
+                    <% } %>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -101,20 +120,20 @@
 <script>
     $.config = {
         autoInit: true,
-        router:false
+        router: false
     }
 </script>
 <script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
 
 <script>
-    $("#buildingTab").tap(function(){
+    $("#buildingTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/building2");
     });
-    $("#skyTab").tap(function(){
+    $("#skyTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/index");
     });
-    $("#meTab").tap(function(){
+    $("#meTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/me2");
     });
 </script>
