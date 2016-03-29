@@ -95,6 +95,14 @@
         line-height: 1.25rem;
         color: #000000;
     }
+
+    div.building-info{
+        font-weight: bold;
+    }
+
+    div.selected-seat-info{
+        margin: 0 0.325rem;
+    }
 </style>
 <div class="page">
     <nav class="bar bar-tab">
@@ -140,7 +148,9 @@
                             <div style="width: 70%; text-align: right">2016-03-31[当天有效 仅限本人]</div>
                         </div>
                         <div class="card-content">
-                            <div class="card-content-inner"><%= userSeatOrders[index].full_name %><span id="selectedSeatInfo">0302 (第三排第三列)</span></div>
+                            <div class="card-content-inner">
+                                <span class="building-info"><%= userSeatOrders[index].full_name %></span>
+                                <span class="selected-seat-info" id="selectedSeatInfo">0302 (第三排第三列)</span></div>
                         </div>
                         <div class="card-time">
                             <div class="card-time-header">8:00</div>
