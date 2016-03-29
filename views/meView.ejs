@@ -179,7 +179,7 @@
                         <div class="card-content">
                             <div class="card-content-inner">
                                 <span class="building-info"><%= userSeatOrders[index].full_name %></span>
-                                <span class="selected-seat-info" id="selectedSeatInfo"><% getSeatLable(userSeatOrders[index].row_no, userSeatOrders[index].column_no)%> (第三排第三列)</span></div>
+                                <span class="selected-seat-info" id="selectedSeatInfo">(第<%=userSeatOrders[index].row_no%>排第<%=userSeatOrders[index].column_no%>列)</span></div>
                         </div>
                         <div class="card-time">
                             <div class="card-time-header">8:00</div>
