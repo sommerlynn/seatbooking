@@ -104,9 +104,11 @@
         margin: 0 0.325rem;
     }
 
-    div.date-info{
-        text-align: right;
+    span.date-info{
         color: #C41E04;
+    }
+    span.comment-info{
+        margin: 0 0 0 0.325rem;
     }
 </style>
 <div class="page">
@@ -150,12 +152,15 @@
                     <li class="card">
                         <div class="card-header">
                             <div style="width: 30%">座位券</div>
-                            <div style="width: 70%;" class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %>[当天有效 本人使用]</div>
+                            <div style="width: 70%;">
+                                <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
+                                <span class="comment-info">[当天有效 本人使用]</span>
+                            </div>
                         </div>
                         <div class="card-content">
                             <div class="card-content-inner">
                                 <span class="building-info"><%= userSeatOrders[index].full_name %></span>
-                                <span class="selected-seat-info" id="selectedSeatInfo">0302 (第三排第三列)</span></div>
+                                <span class="selected-seat-info" id="selectedSeatInfo"><%= getSeatLable(userSeatOrders[index].row_no, userSeatOrders[index].column_no)%> (第三排第三列)</span></div>
                         </div>
                         <div class="card-time">
                             <div class="card-time-header">8:00</div>
@@ -193,6 +198,24 @@
     $.config = {
         autoInit: true,
         router: false
+    }
+
+    function getSeatLable(row, column) {
+        if (row < 10) {
+            row = '0' + row;
+        }
+        else {
+            row = row + '';
+        }
+        if (column < 10) {
+            column = '0' + column;
+        }
+        else {
+            column = column + '';
+        }
+
+        //return firstSeatLabel++;
+        return row + column;
     }
 </script>
 <script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
