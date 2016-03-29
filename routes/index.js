@@ -32,28 +32,46 @@ router.get('/seatmap/:cid', function(req, res) {
           var today = new Date(),
               nextDay = new Date(today.getTime()+24*60*60*1000);
 
-              for(var rindex = 0; rindex < rowCount; rindex++){
-                  var cstr = '';
-                  for (var cindex = 0; cindex < columnCount; cindex++){
-                      cstr = cstr+'g';
+          models.classroomModel.getOrder(req.params.cid, today, function (err, orders) {
+              if (err){
+                  res.render('errorView', {message:'服务器故障', error: err});
+              }else{
+                  for(var rindex = 0; rindex < rowCount; rindex++){
+                      var cstr = '';
+                      for (var cindex = 0; cindex < columnCount; cindex++){
+                          var cstr_temp = 'a';
+                          for(var oindex = 0; oindex < columnCount; oindex++){
+                              if (orders[oindex].row_no == rindex+1 &&
+                                  orders[oindex].column_no == cindex+1){
+                                  if(order[oindex].sex = 1){
+                                      cstr_temp = 'b';
+                                  }
+                                  else{
+                                      cstr_temp = 'g';
+                                  }
+                              }
+                          }
+
+                          cstr = cstr_temp;
+                      }
+                      map[rindex] = cstr;
                   }
-                  map[rindex] = cstr;
+
+                  /*var map = ['aaa_aaaaaaaaa_aaa',
+                   'aaa_aaaaaabaa_aaa',
+                   'aaa_aaaabaaaa_aaa',
+                   'aaa_aaaaaagaa_aga',
+                   'aaa_aaataaaaa_aaa',
+                   'aaa_ataaaaaaa_aaa',
+                   'aaa_aaaaagaaa_aaa',
+                   'aaa_aataaaaaa_aaa',
+                   'aaa_aaaaaaaaa_aaa'];*/
+
+                  res.render('seatMapView',{ title:classroom['full_name'],
+                      map: map, cid: req.params.cid, today:today,
+                      nextDay:nextDay, type:req.query.t});
               }
-
-              /*var map = ['aaa_aaaaaaaaa_aaa',
-               'aaa_aaaaaabaa_aaa',
-               'aaa_aaaabaaaa_aaa',
-               'aaa_aaaaaagaa_aga',
-               'aaa_aaataaaaa_aaa',
-               'aaa_ataaaaaaa_aaa',
-               'aaa_aaaaagaaa_aaa',
-               'aaa_aataaaaaa_aaa',
-               'aaa_aaaaaaaaa_aaa'];*/
-
-
-
-          res.render('seatMapView',{ title:classroom['full_name'], map: map, cid: req.params.cid, today:today, nextDay:nextDay, type:req.query.t}
-          );
+          });
       }
   });
 });
