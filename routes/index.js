@@ -23,7 +23,7 @@ router.get('/seatmap/:cid', function(req, res) {
 
   models.classroomModel.getByID(req.params.cid, function(err, classroom){
       if(err){
-          res.render('errorView', {message:'服务器故障', error: err});
+          res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
       }
       else {
           var map = new Array();
@@ -34,25 +34,27 @@ router.get('/seatmap/:cid', function(req, res) {
 
           models.classroomModel.getOrder(req.params.cid, today, function (err, orders) {
               if (err){
-                  res.render('errorView', {message:'服务器故障', error: err});
+                  res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
               }else{
                   for(var rindex = 0; rindex < rowCount; rindex++){
                       var cstr = '';
                       for (var cindex = 0; cindex < columnCount; cindex++){
                           var cstr_temp = 'a';
-                          for(var oindex = 0; oindex < columnCount; oindex++){
+                          for(var oindex = 0; oindex < orders.length; oindex++){
                               if (orders[oindex].row_no == rindex+1 &&
                                   orders[oindex].column_no == cindex+1){
-                                  if(order[oindex].sex = 1){
+                                  if(orders[oindex].sex == 1){
                                       cstr_temp = 'b';
+                                      break;
                                   }
                                   else{
                                       cstr_temp = 'g';
+                                      break;
                                   }
                               }
                           }
 
-                          cstr = cstr_temp;
+                          cstr = cstr+cstr_temp;
                       }
                       map[rindex] = cstr;
                   }
@@ -84,7 +86,7 @@ router.get('/building', function(req, res){
     if(req.session.userInfo) {
         models.classroomModel.getAll(1, function (err, classroomList) {
             if (err) {
-                res.render('errorView', {message: '服务器故障', error: err});
+                res.render('errorView', {title:'服务器故障', message: '服务器故障', error: err});
             }
             else {
                 res.render('buildingView', {title: '七玥天使-自习室导航', classroomList: classroomList});
@@ -101,7 +103,7 @@ router.get('/building2', function(req, res){
     if(req.session.userInfo) {
         models.classroomModel.getAll(1, function (err, classroomList) {
             if (err) {
-                res.render('errorView', {message: '服务器故障', error: err});
+                res.render('errorView', {title:'服务器故障', message: '服务器故障', error: err});
             }
             else {
                 res.render('buildingView', {title: '七玥天使-自习室导航', classroomList: classroomList});
@@ -124,7 +126,7 @@ router.get('/buildingClassroom', function(req, res){
     if(req.session.userInfo) {
         models.classroomModel.getAll(1, function (err, classroomList) {
             if (err) {
-                res.render('errorView', {message: '服务器故障', error: err});
+                res.render('errorView', {title:'服务器故障', message: '服务器故障', error: err});
             }
             else {
                 res.render('buildingClassroomView', {title: '七玥校园', classroomList: classroomList});
