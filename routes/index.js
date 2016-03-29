@@ -35,7 +35,7 @@ router.get('/seatmap/:cid', function(req, res) {
               for(var rindex = 0; rindex < rowCount; rindex++){
                   var cstr = '';
                   for (var cindex = 0; cindex < columnCount; cindex++){
-                      cstr = cstr+'a';
+                      cstr = cstr+'g';
                   }
                   map[rindex] = cstr;
               }
