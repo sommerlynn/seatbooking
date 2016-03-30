@@ -18,7 +18,7 @@ classroom.getByID = function(classroomID, callback){
 };
 
 classroom.getByAreaID = function (areaID, callback) {
-  var selectQuery = "select * from area_classroom where area_id = ?",
+  var selectQuery = "select * from area_classroom where area_id = ? order by classroom_name",
       params = [areaID];
   db.executeQuery(selectQuery, params, callback);
 };
