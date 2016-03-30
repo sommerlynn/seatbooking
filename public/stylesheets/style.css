@@ -361,3 +361,7 @@ div.time-selector{
   bottom: 0;
   width: 100%;
 }
+
+div.time{
+  margin: 0.625rem;
+}
