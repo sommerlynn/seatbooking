@@ -355,3 +355,8 @@ div.date-item-active A{
 div.date-item A{
   color: #FFFFFF;
 }
+
+div.time-selector{
+  position: absolute;
+  bottom: 0;
+}

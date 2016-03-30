@@ -18,7 +18,8 @@
         color: #4C3517;
         background-color: #EFD4D4;
     }
-    div.card-time:before{
+
+    div.card-time:before {
         content: '';
         position: absolute;
         left: 0;
@@ -33,12 +34,12 @@
         transform-origin: 50% 100%;
     }
 
-    div.card-time{
+    div.card-time {
         position: relative;
         padding: 0.625rem 0;
     }
 
-    div.card-time-header{
+    div.card-time-header {
         width: 20%;
         float: left;
         text-align: center;
@@ -46,7 +47,7 @@
         color: #FFCEA6;
     }
 
-    div.card-time-status{
+    div.card-time-status {
         width: 20%;
         float: left;
         text-align: center;
@@ -68,11 +69,11 @@
         background-color: #33475F;
     }
 
-    .content{
+    .content {
         background-color: #7A9665;
         top: 1.875rem;
         bottom: 2.5rem;
-        left:5rem
+        left: 5rem
     }
 </style>
 <div class="page">
@@ -100,14 +101,6 @@
 
     <div class="left">
         <div class="time">
-            <% if (type == 'tomorrow') {%>
-            <div class="date-item"><a href="?t=today">今天 <%= today.getMonth()+1 %>月<%= today.getDate() %>日</a></div>
-            <div class="date-item-active"><a href="?t=tomorrow">明天 <%= nextDay.getMonth()+1 %>月<%= nextDay.getDate() %>日</a></div>
-            <%} else {%>
-            <div class="date-item-active"><a href="?t=today">今天 <%= today.getMonth()+1 %>月<%= today.getDate() %>日</a></div>
-            <div class="date-item"><a href="?t=tomorrow">明天 <%= nextDay.getMonth()+1 %>月<%= nextDay.getDate() %>日</a></div>
-            <%}%>
-
             <div class="time-header">08:00-10:00</div>
             <div class="time-status">空闲</div>
             <div class="time-header">10:00-12:00</div>
@@ -118,6 +111,20 @@
             <div class="time-status">空闲</div>
             <div class="time-header">19:00-21:00</div>
             <div class="time-status">空闲</div>
+
+            <div class="time-selector">
+                <% if (type == 'tomorrow') { %>
+                <div class="date-item"><a href="?t=today">今天 <%= today.getMonth() + 1 %>月<%= today.getDate() %>日</a>
+                </div>
+                <div class="date-item-active"><a href="?t=tomorrow">明天 <%= nextDay.getMonth() + 1 %>
+                        月<%= nextDay.getDate() %>日</a></div>
+                <% } else { %>
+                <div class="date-item-active"><a href="?t=today">今天 <%= today.getMonth() + 1 %>月<%= today.getDate() %>
+                        日</a></div>
+                <div class="date-item"><a href="?t=tomorrow">明天 <%= nextDay.getMonth() + 1 %>月<%= nextDay.getDate() %>
+                        日</a></div>
+                <% } %>
+            </div>
         </div>
     </div>
 
@@ -154,14 +161,14 @@
                 <li class="card">
                     <div class="card-header">
                         <div style="width: 50%">座位券</div>
-                        <% if (type == 'tomorrow') {%>
+                        <% if (type == 'tomorrow') { %>
                         <div style="width: 50%"><%= nextDay.toLocaleDateString() %></div>
-                        <%} else {%>
+                        <% } else { %>
                         <div style="width: 50%"><%= today.toLocaleDateString() %></div>
-                        <%}%>
+                        <% } %>
                     </div>
                     <div class="card-content">
-                        <div class="card-content-inner"><%= title%></div>
+                        <div class="card-content-inner"><%= title %></div>
                         <div class="card-content-inner"><span id="selectedSeatInfo"></span></div>
                     </div>
                     <div class="card-time">
@@ -311,7 +318,7 @@
                             selectedSeatRowID = selectedSeatInfo[0];
                             selectedSeatColumnID = selectedSeatInfo[1];
 
-                            $('#selectedSeatInfo').text(selectedSeatCode+'号 ['+'第'+selectedSeatRowID+'排，第'+selectedSeatColumnID+'列]');
+                            $('#selectedSeatInfo').text(selectedSeatCode + '号 [' + '第' + selectedSeatRowID + '排，第' + selectedSeatColumnID + '列]');
                             $.openPanel();
 
                             return 'selected';
