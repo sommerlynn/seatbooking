@@ -100,13 +100,12 @@
 
     <div class="left">
         <div class="time">
-            <div class="date-caption">可选日期</div>
             <% if (type == 'tomorrow') {%>
             <div class="date-item"><a href="?t=today">今天 <%= today.getMonth()+1 %>月<%= today.getDate() %>日</a></div>
             <div class="date-item-active"><a href="?t=tomorrow">明天 <%= nextDay.getMonth()+1 %>月<%= nextDay.getDate() %>日</a></div>
             <%} else {%>
-            <div class="date-item-active"><a href="?t=today">今天 <%= today.getMonth()+1 %>月<%= today.getDate()+1 %>日</a></div>
-            <div class="date-item"><a href="?t=tomorrow">明天 <%= nextDay.getMonth()+1 %>月<%= nextDay.getDate()+1 %>日</a></div>
+            <div class="date-item-active"><a href="?t=today">今天 <%= today.getMonth()+1 %>月<%= today.getDate() %>日</a></div>
+            <div class="date-item"><a href="?t=tomorrow">明天 <%= nextDay.getMonth()+1 %>月<%= nextDay.getDate() %>日</a></div>
             <%}%>
 
             <div class="time-header">08:00-10:00</div>
