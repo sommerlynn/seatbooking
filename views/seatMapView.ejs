@@ -373,6 +373,7 @@
             }, function (response) {
                 $.hidePreloader();
                 alert(response);
+                window.location.reload();
             });
 
         } else if (selectedSeatRowID == 0 ||
