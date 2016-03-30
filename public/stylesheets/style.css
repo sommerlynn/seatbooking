@@ -264,7 +264,7 @@ div.time:after{
   content: '';
   left: 0;
   right: auto;
-  height: 1px;
+  height: 0px;
   width: 100%;
   background-color: #33475F;
   display: block;
@@ -337,7 +337,7 @@ div.date-item-active{
   font-size: 0.65rem;
   line-height: 1.875rem;
   background-color: #7A9665;
-  margin: 0.625rem 0;
+  margin: 0rem 0;
 }
 
 div.date-item{
@@ -345,7 +345,7 @@ div.date-item{
   font-size: 0.65rem;
   line-height: 1.875rem;
   background-color: #8D9A84;
-  margin: 0.625rem 0;
+  margin: 0rem 0;
 }
 
 div.date-item-active A{
