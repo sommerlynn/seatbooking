@@ -29,13 +29,13 @@ classroom.getOrder = function (classroomID, orderDate, callback) {
   db.executeQuery(selectQuery, params, callback);
 };
 
-classroom.getToday = function(classrromID, callback){
+classroom.getToday = function(classroomID, callback){
   var selectQuery = "select * from classroom_today_order_detail_view where classroom_id = ?",
       params = [classroomID];
   db.getObject(selectQuery, params, callback);
 };
 
-classroom.getNextday = function(classrromID, callback){
+classroom.getNextday = function(classroomID, callback){
   var selectQuery = "select * from classroom_nextday_order_detail_view where classroom_id = ?",
       params = [classroomID];
   db.getObject(selectQuery, params, callback);
