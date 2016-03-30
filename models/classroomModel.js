@@ -17,6 +17,12 @@ classroom.getByID = function(classroomID, callback){
   db.getObject(selectQuery, params, callback);
 };
 
+classroom.getByAreaID = function (areaID, callback) {
+  var selectQuery = "select * from area_classroom where area_id = ?",
+      params = [areaID];
+  db.executeQuery(selectQuery, params, callback);
+};
+
 classroom.getOrder = function (classroomID, orderDate, callback) {
   var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ?",
       params = [orderDate, orderDate, classroomID];

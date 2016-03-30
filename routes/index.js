@@ -122,9 +122,9 @@ router.get('/building2', function(req, res){
  * Get buildings of a school
  * 获取教学楼列表
  * */
-router.get('/buildingClassroom', function(req, res){
+router.get('/buildingClassroom/:areaId', function(req, res){
     if(req.session.userInfo) {
-        models.classroomModel.getAll(1, function (err, classroomList) {
+        models.classroomModel.getByAreaID(req.params.areaId, function (err, classroomList) {
             if (err) {
                 res.render('errorView', {title:'服务器故障', message: '服务器故障', error: err});
             }
