@@ -20,62 +20,130 @@ router.get('/index', function(req, res) {
 * 获取一个教室的座位图
 * */
 router.get('/seatmap/:cid', function(req, res) {
+  var today = new Date(),
+      nextDay = new Date(today.getTime()+24*60*60*1000);
+  if(req.query.t == 'tomorrow'){
+      models.classroomModel.getNextday(req.params.cid, function(err, classroom){
+          if(err){
+              res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
+          }
+          else {
+              var map = new Array();
+              var rowCount = classroom['row_count'];
+              var columnCount = classroom['column_count'];
 
-  models.classroomModel.getByID(req.params.cid, function(err, classroom){
-      if(err){
-          res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
-      }
-      else {
-          var map = new Array();
-          var rowCount = classroom['row_count'];
-          var columnCount = classroom['column_count'];
-          var today = new Date(),
-              nextDay = new Date(today.getTime()+24*60*60*1000);
 
-          models.classroomModel.getOrder(req.params.cid, today, function (err, orders) {
-              if (err){
-                  res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
-              }else{
-                  for(var rindex = 0; rindex < rowCount; rindex++){
-                      var cstr = '';
-                      for (var cindex = 0; cindex < columnCount; cindex++){
-                          var cstr_temp = 'a';
-                          for(var oindex = 0; oindex < orders.length; oindex++){
-                              if (orders[oindex].row_no == rindex+1 &&
-                                  orders[oindex].column_no == cindex+1){
-                                  if(orders[oindex].sex == 1){
-                                      cstr_temp = 'b';
-                                      break;
-                                  }
-                                  else{
-                                      cstr_temp = 'g';
-                                      break;
+              models.classroomModel.getOrder(req.params.cid, nextDay, function (err, orders) {
+                  if (err){
+                      res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
+                  }else{
+                      for(var rindex = 0; rindex < rowCount; rindex++){
+                          var cstr = '';
+                          for (var cindex = 0; cindex < columnCount; cindex++){
+                              var cstr_temp = 'a';
+                              for(var oindex = 0; oindex < orders.length; oindex++){
+                                  if (orders[oindex].row_no == rindex+1 &&
+                                      orders[oindex].column_no == cindex+1){
+                                      if(orders[oindex].sex == 1){
+                                          cstr_temp = 'b';
+                                          break;
+                                      }
+                                      else{
+                                          cstr_temp = 'g';
+                                          break;
+                                      }
                                   }
                               }
+
+                              cstr = cstr+cstr_temp;
                           }
-
-                          cstr = cstr+cstr_temp;
+                          map[rindex] = cstr;
                       }
-                      map[rindex] = cstr;
+
+                      /*var map = ['aaa_aaaaaaaaa_aaa',
+                       'aaa_aaaaaabaa_aaa',
+                       'aaa_aaaabaaaa_aaa',
+                       'aaa_aaaaaagaa_aga',
+                       'aaa_aaataaaaa_aaa',
+                       'aaa_ataaaaaaa_aaa',
+                       'aaa_aaaaagaaa_aaa',
+                       'aaa_aataaaaaa_aaa',
+                       'aaa_aaaaaaaaa_aaa'];*/
+
+                      res.render('seatMapView',{
+                          title:classroom['full_name'],
+                          classroom:classroom,
+                          map: map,
+                          cid: req.params.cid,
+                          today:today,
+                          nextDay:nextDay,
+                          type:req.query.t});
                   }
+              });
+          }
+      });
+  }else{
+      models.classroomModel.getToday(req.params.cid, function(err, classroom){
+          if(err){
+              res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
+          }
+          else {
+              var map = new Array();
+              var rowCount = classroom['row_count'];
+              var columnCount = classroom['column_count'];
 
-                  /*var map = ['aaa_aaaaaaaaa_aaa',
-                   'aaa_aaaaaabaa_aaa',
-                   'aaa_aaaabaaaa_aaa',
-                   'aaa_aaaaaagaa_aga',
-                   'aaa_aaataaaaa_aaa',
-                   'aaa_ataaaaaaa_aaa',
-                   'aaa_aaaaagaaa_aaa',
-                   'aaa_aataaaaaa_aaa',
-                   'aaa_aaaaaaaaa_aaa'];*/
 
-                  res.render('seatMapView',{ title:classroom['full_name'],
-                      map: map, cid: req.params.cid, today:today,
-                      nextDay:nextDay, type:req.query.t});
-              }
-          });
-      }
-  });
+              models.classroomModel.getOrder(req.params.cid, today, function (err, orders) {
+                  if (err){
+                      res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
+                  }else{
+                      for(var rindex = 0; rindex < rowCount; rindex++){
+                          var cstr = '';
+                          for (var cindex = 0; cindex < columnCount; cindex++){
+                              var cstr_temp = 'a';
+                              for(var oindex = 0; oindex < orders.length; oindex++){
+                                  if (orders[oindex].row_no == rindex+1 &&
+                                      orders[oindex].column_no == cindex+1){
+                                      if(orders[oindex].sex == 1){
+                                          cstr_temp = 'b';
+                                          break;
+                                      }
+                                      else{
+                                          cstr_temp = 'g';
+                                          break;
+                                      }
+                                  }
+                              }
+
+                              cstr = cstr+cstr_temp;
+                          }
+                          map[rindex] = cstr;
+                      }
+
+                      /*var map = ['aaa_aaaaaaaaa_aaa',
+                       'aaa_aaaaaabaa_aaa',
+                       'aaa_aaaabaaaa_aaa',
+                       'aaa_aaaaaagaa_aga',
+                       'aaa_aaataaaaa_aaa',
+                       'aaa_ataaaaaaa_aaa',
+                       'aaa_aaaaagaaa_aaa',
+                       'aaa_aataaaaaa_aaa',
+                       'aaa_aaaaaaaaa_aaa'];*/
+
+                      res.render('seatMapView',{
+                          title:classroom['full_name'],
+                          classroom:classroom,
+                          map: map,
+                          cid: req.params.cid,
+                          today:today,
+                          nextDay:nextDay,
+                          type:req.query.t});
+                  }
+              });
+          }
+      });
+  }
+
 });
 
 /*
