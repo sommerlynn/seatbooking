@@ -8,9 +8,8 @@
 }
 
 .icon-building:before{
-  content: "\xe603";
+  content: "&#xe603";
 }
-
 
 body {
   padding: 0px;
