@@ -81,16 +81,16 @@
         <ul class="seatCharts-legendList">
             <li class="seatCharts-legendItem"><span
                         class="seatCharts-seat-legend seatCharts-cell-legend available16 normal-seat"></span><span
-                        class="seatCharts-legendDescription">空座</span></li>
+                        class="seatCharts-legendDescription">空座 <%= classroom['empty_seat_count']%></span></li>
             <li class="seatCharts-legendItem"><span
                         class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-boy16 booked-seat-boy"></span><span
-                        class="seatCharts-legendDescription">已订（男生）</span></li>
+                        class="seatCharts-legendDescription">男生 <%= classroom['boy_order_count']%></span></li>
             <li class="seatCharts-legendItem"><span
                         class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-girl16 booked-seat-girl"></span><span
-                        class="seatCharts-legendDescription">已订（女生）</span></li>
-            <li class="seatCharts-legendItem"><span
+                        class="seatCharts-legendDescription">女生 <%= classroom['girl_order_count']%></span></li>
+            <!--<li class="seatCharts-legendItem"><span
                         class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-teaching16 booked-seat-teaching"></span><span
-                        class="seatCharts-legendDescription">有课</span></li>
+                        class="seatCharts-legendDescription">有课</span></li>-->
         </ul>
     </div>
 
@@ -373,6 +373,7 @@
             }, function (response) {
                 $.hidePreloader();
                 alert(response);
+                window.location.reload();
             });
 
         } else if (selectedSeatRowID == 0 ||

@@ -18,7 +18,7 @@ classroom.getByID = function(classroomID, callback){
 };
 
 classroom.getByAreaID = function (areaID, callback) {
-  var selectQuery = "select * from area_classroom where area_id = ? order by classroom_name",
+  var selectQuery = "select * from classroom_today_order_detail_view where area_id = ? order by classroom_name",
       params = [areaID];
   db.executeQuery(selectQuery, params, callback);
 };
@@ -27,6 +27,18 @@ classroom.getOrder = function (classroomID, orderDate, callback) {
   var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ?",
       params = [orderDate, orderDate, classroomID];
   db.executeQuery(selectQuery, params, callback);
+};
+
+classroom.getToday = function(classroomID, callback){
+  var selectQuery = "select * from classroom_today_order_detail_view where classroom_id = ?",
+      params = [classroomID];
+  db.getObject(selectQuery, params, callback);
+};
+
+classroom.getNextday = function(classroomID, callback){
+  var selectQuery = "select * from classroom_nextday_order_detail_view where classroom_id = ?",
+      params = [classroomID];
+  db.getObject(selectQuery, params, callback);
 };
 
 module.exports = classroom;
