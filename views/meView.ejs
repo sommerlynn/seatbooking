@@ -198,18 +198,18 @@
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
 
                     <li class="card">
-                        <div class="left">
-                            <div><span class="building-info"><%= userSeatOrders[index].full_name %></span>
-                                </div>
-                            <div>
-                                <span class="selected-seat-info" id="selectedSeatInfo">第<%=userSeatOrders[index].row_no%>排第<%=userSeatOrders[index].column_no%>列</span>
-                            </div>
-                        </div>
                         <div class="right">
-                            <ul style="width: 50%" class="seat-operation" id="<%= userSeatOrders[index].classroom_id %>">
+                            <ul class="seat-operation" id="<%= userSeatOrders[index].classroom_id %>">
                                 <li class="operation-select">释放</li>
                                 <li class="operation-select">暂离</li>
                             </ul>
+                        </div>
+                        <div class="left">
+                            <div><span class="building-info"><%= userSeatOrders[index].full_name %></span>
+                            </div>
+                            <div>
+                                <span class="selected-seat-info" id="selectedSeatInfo">第<%=userSeatOrders[index].row_no%>排第<%=userSeatOrders[index].column_no%>列</span>
+                            </div>
                         </div>
                     </li>
 
