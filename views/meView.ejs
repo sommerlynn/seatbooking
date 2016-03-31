@@ -98,13 +98,14 @@
     }
 
     .building-info {
-        line-height:1.25rem;
+        line-height: 1.25rem;
         padding: 0.25rem 0.75rem;
     }
 
     .selected-seat-info {
         line-height: 1.25rem;
         padding: 0.25rem 0.75rem;
+        font-size: 0.75rem;
     }
 
     span.date-info {
@@ -209,6 +210,10 @@
                                 <span class="selected-seat-info"
                                       id="selectedSeatInfo">第<%= userSeatOrders[index].row_no %>
                                     排第<%= userSeatOrders[index].column_no %>列</span>
+                            </div>
+                            <div>
+                                <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
+                                <span class="comment-info">[当天有效 本人使用]</span>
                             </div>
                         </div>
                         <div class="right_part">
