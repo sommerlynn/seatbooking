@@ -8,7 +8,7 @@ var user = {},
 user.newOrder = function(openid, classroomID, row, column, startTime, endTime, callback){
     //检查该用户是否已有此教室的活动订阅
     var selectQuery = "select 1 from user_seat_order_view where openid = ? "+
-                      "and classroomID = ? and startTime = ?",
+                      "and classroom_id = ? and start_time = ?",
         selectParams = [openid, classroomID, startTime];
 
     db.executeQuery(selectQuery, selectParams, function (err, results) {
