@@ -14,7 +14,7 @@ user.newOrder = function(openid, classroomID, row, column, startTime, endTime, c
     db.executeQuery(selectQuery, selectParams, function (err, results) {
        if(err){
             callback(err);
-       }else if(results[0] > 0){
+       }else if(results.length > 0){
            callback('你已该教室订了其它座位，一人一天在同一教室只能订一个座位。');
        }
        else{
