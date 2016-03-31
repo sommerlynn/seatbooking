@@ -132,14 +132,12 @@
     }
 
     .left_part{
-        width: 70%;
-        float: left;
-        line-height: 1rem;
+        position: absolute;
+        right: 2rem;
     }
 
     .right_part{
-        width: 30%;
-        float: left;
+        width: 2rem;
     }
 </style>
 <script>
@@ -200,18 +198,18 @@
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
 
                     <li class="card">
+                        <div class="right_part">
+                            <ul class="seat-operation" id="<%= userSeatOrders[index].classroom_id %>">
+                                <li class="operation-select">释放</li>
+                                <li class="operation-select">暂离</li>
+                            </ul>
+                        </div>
                         <div class="left_part">
                             <div><span class="building-info"><%= userSeatOrders[index].full_name %></span>
                             </div>
                             <div>
                                 <span class="selected-seat-info" id="selectedSeatInfo">第<%=userSeatOrders[index].row_no%>排第<%=userSeatOrders[index].column_no%>列</span>
                             </div>
-                        </div>
-                        <div class="right_part">
-                            <ul class="seat-operation" id="<%= userSeatOrders[index].classroom_id %>">
-                                <li class="operation-select">释放</li>
-                                <li class="operation-select">暂离</li>
-                            </ul>
                         </div>
                     </li>
 
