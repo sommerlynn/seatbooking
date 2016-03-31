@@ -15,7 +15,7 @@ user.newOrder = function(openid, classroomID, row, column, startTime, endTime, c
        if(err){
             callback(err);
        }else if(results.length > 0){
-           callback('你已该教室订了其它座位，一人一天在同一教室只能订一个座位。');
+           callback('你已在该教室订了其它座位，一人一天在同一教室只能订一个座位，请遵守《座位使用文明公约》。');
        }
        else{
            var insertQuery = "insert into user_seat_order (user_id, classroom_id, row_no, column_no, start_time, end_time) values "+

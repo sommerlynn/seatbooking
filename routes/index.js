@@ -372,7 +372,7 @@ router.post('/order', function(req, res){
 
         models.userModel.newOrder(req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column, startTime, endTime, function(err){
             if(err) {
-                res.send('错误' + err);
+                res.send(err);
             }else{
                 res.send('已成功预定');
             }
