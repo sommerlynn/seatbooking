@@ -110,6 +110,26 @@
     span.comment-info{
         margin: 0 0 0 0.325rem;
     }
+
+    .seat-operation{
+        padding: 0.3125rem 0;
+
+        right:0;
+
+        z-index: 20;
+
+        list-style: none;
+        padding: 0;
+        text-align: center;
+    }
+
+    .operation-select{
+        display: inline-block;
+        padding: 0.1875rem 0.3125rem;
+        width: 3.75rem;
+        border: 0.0625rem solid #A00000;
+        color: #A00000;
+    }
 </style>
 <script>
     function getSeatLable(row, column) {
@@ -203,7 +223,12 @@
                             <div class="card-time-status">空闲</div>
                             <div class="card-time-status">空闲</div>
                         </div>-->
-                        <div class="card-footer" id="order-operation"></div>
+                        <div class="card-footer" id="order-operation">
+                            <ul class="seat-operation" id="<%= userSeatOrders[index].classroom_id %>">
+                                <li class="operation-select">释放</li>
+                                <li class="operation-select">暂离</li>
+                            </ul>
+                        </div>
                     </li>
 
                     <% } %>
