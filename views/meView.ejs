@@ -6,7 +6,7 @@
         color: #FFFFFF;
     }
 
-    .content-block{
+    .content-block {
         margin: 0;
         padding: 0;
     }
@@ -59,7 +59,8 @@
         background-color: #FFFFFF;
         text-align: right;
     }
-    div.card-time:before{
+
+    div.card-time:before {
         content: '';
         position: absolute;
         left: 0;
@@ -74,12 +75,12 @@
         transform-origin: 50% 100%;
     }
 
-    div.card-time{
+    div.card-time {
         position: relative;
         padding: 0.5rem 0;
     }
 
-    div.card-time-header{
+    div.card-time-header {
         width: 20%;
         float: left;
         text-align: center;
@@ -87,7 +88,7 @@
         color: #000000;
     }
 
-    div.card-time-status{
+    div.card-time-status {
         width: 20%;
         float: left;
         text-align: center;
@@ -96,34 +97,23 @@
         color: #000000;
     }
 
-    .building-info{
+    .building-info {
         font-weight: bold;
     }
 
-    .selected-seat-info{
+    .selected-seat-info {
         margin: 0 0.325rem;
     }
 
-    span.date-info{
+    span.date-info {
         color: #C41E04;
     }
-    span.comment-info{
+
+    span.comment-info {
         margin: 0 0 0 0.325rem;
     }
 
-    .seat-operation{
-        padding: 0.3125rem 0;
-
-        right:0;
-
-        z-index: 20;
-
-        list-style: none;
-        padding: 0;
-        text-align: center;
-    }
-
-    .operation-select{
+    .operation-select {
         display: inline-block;
         padding: 0.1875rem 0.3125rem;
         width: 3.75rem;
@@ -131,22 +121,18 @@
         color: #A00000;
     }
 
-    .list-block ul ul{
-        padding: 0.3125rem 0;
-    }
-
-    .left_part{
+    .left_part {
         width: 70%;
         float: left;
         line-height: 1rem;
     }
 
-    .right_part{
+    .right_part {
         width: 30%;
         float: left;
     }
 
-    .card{
+    .card {
         height: 3rem;
     }
 </style>
@@ -213,14 +199,14 @@
                             <div><span class="building-info"><%= userSeatOrders[index].full_name %></span>
                             </div>
                             <div>
-                                <span class="selected-seat-info" id="selectedSeatInfo">第<%=userSeatOrders[index].row_no%>排第<%=userSeatOrders[index].column_no%>列</span>
+                                <span class="selected-seat-info"
+                                      id="selectedSeatInfo">第<%= userSeatOrders[index].row_no %>
+                                    排第<%= userSeatOrders[index].column_no %>列</span>
                             </div>
                         </div>
                         <div class="right_part">
-                            <ul class="seat-operation" id="<%= userSeatOrders[index].classroom_id %>">
-                                <li class="operation-select">释放</li>
-                                <li class="operation-select">暂离</li>
-                            </ul>
+                            <div class="operation-select">释放</div>
+                            <div class="operation-select">暂离</div>
                         </div>
                     </li>
 
