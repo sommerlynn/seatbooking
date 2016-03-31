@@ -19,6 +19,14 @@
   content: "\e603";
 }
 
+.icon-star:before{
+  content: "\e604";
+}
+
+.icon-me:before{
+  content: "\e605";
+}
+
 body {
   padding: 0px;
   margin: 0px auto;
