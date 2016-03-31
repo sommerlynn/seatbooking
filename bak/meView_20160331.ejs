@@ -1,4 +1,4 @@
-<% include header.html %>
+<% include ../views/header.html %>
 <style>
     .item-subtitle span {
         padding: 0 1.25rem 0 0;
@@ -130,15 +130,6 @@
         border: 0.0625rem solid #A00000;
         color: #A00000;
     }
-
-    .left{
-        position: absolute;
-        right: 2rem;
-    }
-
-    .right{
-        width: 2rem;
-    }
 </style>
 <script>
     function getSeatLable(row, column) {
@@ -198,14 +189,45 @@
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
 
                     <li class="card">
-                        <div class="left">
-                            <div><span class="building-info"><%= userSeatOrders[index].full_name %></span>
-                                </div>
-                            <div>
-                                <span class="selected-seat-info" id="selectedSeatInfo">第<%=userSeatOrders[index].row_no%>排第<%=userSeatOrders[index].column_no%>列</span>
+                        <!--<div class="card-header">
+                            <div style="width: 20%">座位券</div>
+                            <div style="width: 80%; text-align: right">
+                                <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
+                                <span class="comment-info">[当天有效 本人使用]</span>
                             </div>
+                        </div>-->
+                        <div class="card-content">
+                            <div class="card-content-inner">
+                                <span class="building-info"><%= userSeatOrders[index].full_name %></span>
+                                <span class="selected-seat-info" id="selectedSeatInfo">第<%=userSeatOrders[index].row_no%>排第<%=userSeatOrders[index].column_no%>列</span></div>
                         </div>
-                        <div class="right">
+                        <!--<div class="card-time">
+                            <div class="card-time-header">8:00</div>
+                            <div class="card-time-header">10:00</div>
+                            <div class="card-time-header">14:00</div>
+                            <div class="card-time-header">16:00</div>
+                            <div class="card-time-header">19:00</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">~</div>
+                            <div class="card-time-header">10:00</div>
+                            <div class="card-time-header">12:00</div>
+                            <div class="card-time-header">16:00</div>
+                            <div class="card-time-header">18:00</div>
+                            <div class="card-time-header">21:00</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                            <div class="card-time-status">空闲</div>
+                        </div>-->
+                        <div class="card-footer" id="order-operation">
+                            <div style="width: 50%">
+                                <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
+                                <span class="comment-info">[当天有效 本人使用]</span>
+                            </div>
                             <ul style="width: 50%" class="seat-operation" id="<%= userSeatOrders[index].classroom_id %>">
                                 <li class="operation-select">释放</li>
                                 <li class="operation-select">暂离</li>
@@ -241,4 +263,4 @@
         window.location.assign("http://www.julyangel.cn/me2");
     });
 </script>
-<% include footer.html %>
+<% include ../views/footer.html %>
