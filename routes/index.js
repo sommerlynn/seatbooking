@@ -37,8 +37,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                   if (err){
                       res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
                   }else{
-                      var teststr = 'aaaa_aa;aa_a__';
-                      var testArr = teststr.split(';');
+                      var teststr = 'aaaaeaa;aaeaee';
                       for (var oindex = 0; oindex < orders.length; oindex++){
                           testArr[orders[oindex].row_no-1][orders[oindex].column_no-1] = 'b';
                       }
