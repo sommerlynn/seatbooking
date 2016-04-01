@@ -146,7 +146,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                       res.render('librarySeatMapView',{
                           title:classroom['full_name'],
                           classroom:classroom,
-                          map: teststr,
+                          map: testArr,
                           cid: req.params.cid,
                           today:today,
                           nextDay:nextDay,
