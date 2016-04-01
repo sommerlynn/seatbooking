@@ -19,7 +19,7 @@ router.get('/index', function(req, res) {
 * Get seat map of a classroom
 * 获取一个教室的座位图
 * */
-router.get('/seatmap/:cid', function(req, res) {
+router.get('/librarySeatMap/:cid', function(req, res) {
   var today = new Date(),
       nextDay = new Date(today.getTime()+24*60*60*1000);
   if(req.query.t == 'tomorrow'){
@@ -70,7 +70,7 @@ router.get('/seatmap/:cid', function(req, res) {
                        'aaa_aataaaaaa_aaa',
                        'aaa_aaaaaaaaa_aaa'];*/
 
-                      res.render('seatMapView',{
+                      res.render('librarySeatMapView',{
                           title:classroom['full_name'],
                           classroom:classroom,
                           map: map,
