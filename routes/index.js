@@ -130,7 +130,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                        'aaa_aataaaaaa_aaa',
                        'aaa_aaaaaaaaa_aaa'];*/
 
-                      res.render('seatMapView',{
+                      res.render('librarySeatMapView',{
                           title:classroom['full_name'],
                           classroom:classroom,
                           map: map,
