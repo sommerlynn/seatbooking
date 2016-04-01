@@ -37,7 +37,15 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                   if (err){
                       res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
                   }else{
-                      for(var rindex = 0; rindex < rowCount; rindex++){
+                      var teststr = 'aaaa_aa;aa_a__';
+                      var testArr = teststr.split(';');
+                      for (var oindex = 0; oindex < orders.length; oindex++){
+                          testArr[orders[oindex].row_no-1][orders[oindex].column_no-1] = 'b';
+                      }
+
+
+
+                      /*for(var rindex = 0; rindex < rowCount; rindex++){
                           var cstr = '';
                           for (var cindex = 0; cindex < columnCount; cindex++){
                               var cstr_temp = 'a';
@@ -58,7 +66,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                               cstr = cstr+cstr_temp;
                           }
                           map[rindex] = cstr;
-                      }
+                      }*/
 
                       /*var map = ['aaa_aaaaaaaaa_aaa',
                        'aaa_aaaaaabaa_aaa',
@@ -73,7 +81,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                       res.render('librarySeatMapView',{
                           title:classroom['full_name'],
                           classroom:classroom,
-                          map: map,
+                          map: testArr,
                           cid: req.params.cid,
                           today:today,
                           nextDay:nextDay,
