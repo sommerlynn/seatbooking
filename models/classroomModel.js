@@ -51,7 +51,17 @@ classroom.buildSeatMap = function(classroom, callback){
       }
       seatmap = seatmap+';';
     }
-    callback(null);
+
+    var updateQuery = 'update classroom set seat_map = ? where classroom_id = ?',
+        params = [seatmap, classroom.classroom_id];
+    db.executeQuery(updateQuery, params, function(err, callback){
+      if(err){
+        callback(err);
+      }
+      else{
+        callback(null);
+      }
+    });
 };
 
 module.exports = classroom;
