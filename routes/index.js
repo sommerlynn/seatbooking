@@ -107,10 +107,11 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                       var teststr = 'aaaaeaa;aaeaeee';
                       var testArr = teststr.split(';');
                       for (var oindex = 0; oindex < orders.length; oindex++){
+                          var str = testArr[orders[oindex].row_no-1];
                           testArr[orders[oindex].row_no-1] =
-                              testArr[orders[oindex].row_no-1].substring(1, orders[oindex].column_no-1)
+                              str.substring(0, orders[oindex].column_no-1)
                               +'b'
-                              +testArr[orders[oindex].row_no-1].substring(orders[oindex].column_no+1, orders[oindex].length - orders[oindex].column_no +1);
+                              +str.substring(orders[oindex].column_no+1, orders[oindex].column_no +1);
                       }
 
                       /*for(var rindex = 0; rindex < rowCount; rindex++){
