@@ -289,6 +289,7 @@ router.get('/callbackbuilding',function(req, res){
                     res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
                 }else{
                     var userInfo = result;
+                    req.session.clearCache();
                     req.session.userInfo = userInfo;
 
                     models.weixinMessageModel.addUserInfo(userInfo, function(err){
