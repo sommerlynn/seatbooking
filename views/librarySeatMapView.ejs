@@ -138,7 +138,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-content-inner"><%= title %></div>
-                        <!--<div class="card-content-inner"><span id="selectedSeatInfo"></span></div>-->
+                        <div class="card-content-inner"><span id="selectedSeatInfo"></span></div>
                     </div>
                     <div class="card-footer" id="order-operation">仅限本人使用 点击领取</div>
                 </li>
@@ -279,7 +279,8 @@
                             selectedSeatRowID = selectedSeatInfo[0];
                             selectedSeatColumnID = selectedSeatInfo[1];
 
-                            $('#selectedSeatInfo').text(selectedSeatCode + '号 [' + '第' + selectedSeatRowID + '排，第' + selectedSeatColumnID + '列]');
+                            //$('#selectedSeatInfo').text(selectedSeatCode + '号 [' + '第' + selectedSeatRowID + '排，第' + selectedSeatColumnID + '列]');
+                            $('#selectedSeatInfo').text(selectedSeatCode + '号');
                             $.openPanel();
 
                             return 'selected';
