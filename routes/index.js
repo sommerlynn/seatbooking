@@ -194,11 +194,13 @@ router.get('/building2', function(req, res){
                 res.render('buildingView', {title: '七玥天使-自习室导航', classroomList: classroomList});
             }
         });
-    }else {
-        var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-        var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
-        res.redirect(url);
     }
+
+    //else {
+    //    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+    //    var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
+    //    res.redirect(url);
+    //}
     /*var err = {status:'ok', stack:'ok 111'};
     res.render('errorView', {title:'预约座位', message:'building', error: err});*/
 });
@@ -289,7 +291,7 @@ router.get('/callbackbuilding',function(req, res){
                 }else{
                     var userInfo = result;
                     req.session.userInfo = userInfo;
-                    res.redirect("building");
+                    res.redirect("building2");
 
                     models.weixinMessageModel.addUserInfo(userInfo, function(err){
                         if(err) {
