@@ -290,12 +290,12 @@ router.get('/callbackbuilding',function(req, res){
                 }else{
                     var userInfo = result;
                     req.session.userInfo = userInfo;
-                    res.redirect("building2");
 
                     models.weixinMessageModel.addUserInfo(userInfo, function(err){
                         if(err) {
                             res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
                         }else{
+                            res.redirect("building2");
                         }
                     });
                 }
