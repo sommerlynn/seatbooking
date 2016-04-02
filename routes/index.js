@@ -195,12 +195,11 @@ router.get('/building2', function(req, res){
             }
         });
     }
-
-    //else {
-    //    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-    //    var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
-    //    res.redirect(url);
-    //}
+    else {
+        var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+        var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
+        res.redirect(url);
+    }
     /*var err = {status:'ok', stack:'ok 111'};
     res.render('errorView', {title:'预约座位', message:'building', error: err});*/
 });
@@ -280,14 +279,14 @@ router.get('/callbackbuilding',function(req, res){
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
     client.getAccessToken(req.query.code, function (err, result) {
         if(err){
-            res.send('错误' + err);
+            res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
         }
         else{
             //var accessToken = result.data.access_token;
             var openid = result.data.openid;
             client.getUser(openid, function (err, result) {
                 if(err){
-                    res.send('错误' + err);
+                    res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
                 }else{
                     var userInfo = result;
                     req.session.userInfo = userInfo;
@@ -295,7 +294,7 @@ router.get('/callbackbuilding',function(req, res){
 
                     models.weixinMessageModel.addUserInfo(userInfo, function(err){
                         if(err) {
-                            res.send('错误' + err);
+                            res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
                         }else{
                         }
                     });
