@@ -476,4 +476,22 @@ router.get('/loadclasstime', function(req, res, next){
     res.render('parseView', {title:'加载教室信息', msg:msg});
 });
 
+router.get('/fillSeatMap', function(req, res, next){
+    models.classroomModel.getAll(1, function(err, classrooms){
+        if(err){
+
+        }else{
+            async.eachSeries(classrooms, function(classroom){
+                    console.log(classroom['classroom_name']);
+                    models.classroomModel.buildSeatMap(classroom);
+                },
+                function(err){
+                    msg = err;
+                    console.log(err);
+                });
+        }
+    });
+
+});
+
 module.exports = router;

@@ -41,4 +41,16 @@ classroom.getNextday = function(classroomID, callback){
   db.getObject(selectQuery, params, callback);
 };
 
+classroom.buildSeatMap = function(classroom){
+    var row_count = classroom.row_count;
+    var column_count = classroom.column_count;
+    var seatmap = '';
+    for(var rindex = 0; rindex < row_count; rindex++){
+      for(var cindex = 0; cindex < column_count; cindex++){
+        seatmap = seatmap+'a';
+      }
+      seatmap = seatmap+';';
+    }
+};
+
 module.exports = classroom;
