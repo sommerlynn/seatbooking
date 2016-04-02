@@ -232,8 +232,12 @@
                                 column = column + '';
                             }
 
-                            //return firstSeatLabel++;
-                            return row + column;
+                            if(character == 'e'){
+                               return '';
+                            }else{
+                                //return firstSeatLabel++;
+                                return row + column;
+                            }
                         },
                     },
                     /*legend: {
