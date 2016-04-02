@@ -117,6 +117,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                               +order_seat_sex
                               +str.substring(orders[oindex].column_no, str.length);
                       }
+                      testArr.remove(testArr.length-1);
 
                       /*for(var rindex = 0; rindex < rowCount; rindex++){
                           var cstr = '';
