@@ -173,9 +173,11 @@
 <script type='text/javascript' src='/scripts/panels.js' charset='utf-8'></script>-->
 <script type="text/javascript" src="/scripts/jquery.seat-charts.js"></script>
 <script>
-    var firstSeatLabel = 1,
-            selectedSeatRowID = 0,
-            selectedSeatColumnID = 0;
+    var columnIndex = 1,
+        rowIndex = 1,
+        rowSeatIndex = 1,
+        selectedSeatRowID = 0,
+        selectedSeatColumnID = 0;
 
     $(document).ready(function () {
         var //$cart = $('#selected-seats'),
@@ -219,25 +221,29 @@
                         left: false,
                         // 2015-12-26 CHEN PU: 重写座位编号算法为行号+列号
                         getLabel: function (character, row, column) {
+                            if(row != rowIndex){
+                                rowIndex = row;
+                                rowSeatIndex = 1;
+                            }
                             if (row < 10) {
                                 row = '0' + row;
                             }
                             else {
                                 row = row + '';
                             }
-                            if (column < 10) {
-                                column = '0' + column;
-                            }
-                            else {
-                                column = column + '';
-                            }
 
                             if(character == 'e'){
-                               return '';
-                            }else{
-                                //return firstSeatLabel++;
-                                return row + column;
+                                rowSeatIndex = rowSeatIndex+1;
                             }
+
+                            if (rowSeatIndex < 10) {
+                                column = '0' + rowSeatIndex;
+                            }
+                            else {
+                                column = rowSeatIndex + '';
+                            }
+
+                            return row + column;
                         },
                     },
                     /*legend: {
