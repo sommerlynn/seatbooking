@@ -23,7 +23,12 @@ classroom.getByAreaID = function (areaID, callback) {
   db.executeQuery(selectQuery, params, callback);
 };
 
-classroom.getOrder = function (classroomID, orderDate, callback) {
+classroom.getOrder = function (classroomID, dayType, callback) {
+  var orderDate = new Date();
+  if(dayType == 'tomorrow'){
+      orderDate = new Date(orderDate.getTime()+24*60*60*1000);
+  }
+
   var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ?",
       params = [orderDate, orderDate, classroomID];
   db.executeQuery(selectQuery, params, callback);
@@ -39,6 +44,14 @@ classroom.getNextday = function(classroomID, callback){
   var selectQuery = "select * from classroom_nextday_order_detail_view where classroom_id = ?",
       params = [classroomID];
   db.getObject(selectQuery, params, callback);
+};
+
+classroom.getOrderByDayType = function(classroomID, dayType, callback){
+  if(dayType == 'tomorrow'){
+      classroom.getNextday(classroomID, callback);
+  }else{
+      classroom.getToday(classroomID, callback);
+  }
 };
 
 classroom.buildSeatMap = function(classroom, callback){

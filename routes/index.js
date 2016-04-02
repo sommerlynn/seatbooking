@@ -20,151 +20,56 @@ router.get('/index', function(req, res) {
 * 获取一个教室的座位图
 * */
 router.get('/librarySeatMap/:cid', function(req, res) {
-  var today = new Date(),
-      nextDay = new Date(today.getTime()+24*60*60*1000);
-  if(req.query.t == 'tomorrow'){
-      models.classroomModel.getNextday(req.params.cid, function(err, classroom){
-          if(err){
-              res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
-          }
-          else {
-              var map = new Array();
-              var rowCount = classroom['row_count'];
-              var columnCount = classroom['column_count'];
 
-
-              models.classroomModel.getOrder(req.params.cid, nextDay, function (err, orders) {
-                  if (err){
-                      res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
-                  }else{
-                      var teststr = 'aaaaeaa;aaeaee';
-                      for (var oindex = 0; oindex < orders.length; oindex++){
-                          testArr[orders[oindex].row_no-1][orders[oindex].column_no-1] = 'b';
+  models.classroomModel.getOrderByDayType(req.params.cid, req.query.t, function(err, classroom){
+      if(err){
+          res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
+      }
+      else {
+          models.classroomModel.getOrder(req.params.cid, req.query.t, function (err, orders) {
+              if (err){
+                  res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
+              }else{
+                  var seatMapStr = classroom['seat_map'];
+                  var seatMapArr = seatMapStr.split(';');
+                  for (var orderIndex = 0; orderIndex < orders.length; orderIndex++){
+                      var str = seatMapArr[orders[orderIndex].row_no-1];
+                      var order_seat_sex = 'g';
+                      if(orders[orderIndex].sex == 1){
+                          order_seat_sex = 'b';
                       }
-
-
-
-                      /*for(var rindex = 0; rindex < rowCount; rindex++){
-                          var cstr = '';
-                          for (var cindex = 0; cindex < columnCount; cindex++){
-                              var cstr_temp = 'a';
-                              for(var oindex = 0; oindex < orders.length; oindex++){
-                                  if (orders[oindex].row_no == rindex+1 &&
-                                      orders[oindex].column_no == cindex+1){
-                                      if(orders[oindex].sex == 1){
-                                          cstr_temp = 'b';
-                                          break;
-                                      }
-                                      else{
-                                          cstr_temp = 'g';
-                                          break;
-                                      }
-                                  }
-                              }
-
-                              cstr = cstr+cstr_temp;
-                          }
-                          map[rindex] = cstr;
-                      }*/
-
-                      /*var map = ['aaa_aaaaaaaaa_aaa',
-                       'aaa_aaaaaabaa_aaa',
-                       'aaa_aaaabaaaa_aaa',
-                       'aaa_aaaaaagaa_aga',
-                       'aaa_aaataaaaa_aaa',
-                       'aaa_ataaaaaaa_aaa',
-                       'aaa_aaaaagaaa_aaa',
-                       'aaa_aataaaaaa_aaa',
-                       'aaa_aaaaaaaaa_aaa'];*/
-
-                      res.render('librarySeatMapView',{
-                          title:classroom['full_name'],
-                          classroom:classroom,
-                          map: testArr,
-                          cid: req.params.cid,
-                          today:today,
-                          nextDay:nextDay,
-                          type:req.query.t});
+                      seatMapStr[orders[orderIndex].row_no-1] =
+                          str.substring(0, orders[orderIndex].column_no-1)
+                          +order_seat_sex
+                          +str.substring(orders[orderIndex].column_no, str.length);
                   }
-              });
-          }
-      });
-  }else{
-      models.classroomModel.getToday(req.params.cid, function(err, classroom){
-          if(err){
-              res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
-          }
-          else {
-              var map = new Array();
-              var rowCount = classroom['row_count'];
-              var columnCount = classroom['column_count'];
+                  seatMapArr.pop();
 
+                  /*var map = ['aaa_aaaaaaaaa_aaa',
+                   'aaa_aaaaaabaa_aaa',
+                   'aaa_aaaabaaaa_aaa',
+                   'aaa_aaaaaagaa_aga',
+                   'aaa_aaataaaaa_aaa',
+                   'aaa_ataaaaaaa_aaa',
+                   'aaa_aaaaagaaa_aaa',
+                   'aaa_aataaaaaa_aaa',
+                   'aaa_aaaaaaaaa_aaa'];*/
 
-              models.classroomModel.getOrder(req.params.cid, today, function (err, orders) {
-                  if (err){
-                      res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
-                  }else{
-                      var teststr = classroom['seat_map'];
-                      var testArr = teststr.split(';');
-                      for (var oindex = 0; oindex < orders.length; oindex++){
-                          var str = testArr[orders[oindex].row_no-1];
-                          var order_seat_sex = 'g';
-                          if(orders[oindex].sex == 1){
-                              order_seat_sex = 'b';
-                          }
-                          testArr[orders[oindex].row_no-1] =
-                              str.substring(0, orders[oindex].column_no-1)
-                              +order_seat_sex
-                              +str.substring(orders[oindex].column_no, str.length);
-                      }
-                      testArr.pop();
+                  var today = new Date(),
+                      nextDay = new Date(today.getTime()+24*60*60*1000);
 
-                      /*for(var rindex = 0; rindex < rowCount; rindex++){
-                          var cstr = '';
-                          for (var cindex = 0; cindex < columnCount; cindex++){
-                              var cstr_temp = 'a';
-                              for(var oindex = 0; oindex < orders.length; oindex++){
-                                  if (orders[oindex].row_no == rindex+1 &&
-                                      orders[oindex].column_no == cindex+1){
-                                      if(orders[oindex].sex == 1){
-                                          cstr_temp = 'b';
-                                          break;
-                                      }
-                                      else{
-                                          cstr_temp = 'g';
-                                          break;
-                                      }
-                                  }
-                              }
-
-                              cstr = cstr+cstr_temp;
-                          }
-                          map[rindex] = cstr;
-                      }*/
-
-                      /*var map = ['aaa_aaaaaaaaa_aaa',
-                       'aaa_aaaaaabaa_aaa',
-                       'aaa_aaaabaaaa_aaa',
-                       'aaa_aaaaaagaa_aga',
-                       'aaa_aaataaaaa_aaa',
-                       'aaa_ataaaaaaa_aaa',
-                       'aaa_aaaaagaaa_aaa',
-                       'aaa_aataaaaaa_aaa',
-                       'aaa_aaaaaaaaa_aaa'];*/
-
-                      res.render('librarySeatMapView',{
-                          title:classroom['full_name'],
-                          classroom:classroom,
-                          map: testArr,
-                          cid: req.params.cid,
-                          today:today,
-                          nextDay:nextDay,
-                          type:req.query.t});
-                  }
-              });
-          }
-      });
-  }
+                  res.render('librarySeatMapView',{
+                      title:classroom['full_name'],
+                      classroom:classroom,
+                      map: seatMapArr,
+                      cid: req.params.cid,
+                      today:today,
+                      nextDay:nextDay,
+                      type:req.query.t});
+              }
+          });
+      }
+  });
 
 });
 
