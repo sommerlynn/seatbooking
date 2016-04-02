@@ -41,7 +41,7 @@ classroom.getNextday = function(classroomID, callback){
   db.getObject(selectQuery, params, callback);
 };
 
-classroom.buildSeatMap = function(classroom){
+classroom.buildSeatMap = function(classroom, callback){
     var row_count = classroom.row_count;
     var column_count = classroom.column_count;
     var seatmap = '';
@@ -51,6 +51,7 @@ classroom.buildSeatMap = function(classroom){
       }
       seatmap = seatmap+';';
     }
+    callback(null);
 };
 
 module.exports = classroom;

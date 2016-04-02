@@ -481,9 +481,9 @@ router.get('/fillSeatMap', function(req, res, next){
         if(err){
 
         }else{
-            async.eachSeries(classrooms, function(classroom){
+            async.eachSeries(classrooms, function(classroom, callback){
                     console.log(classroom['classroom_name']);
-                    models.classroomModel.buildSeatMap(classroom);
+                    models.classroomModel.buildSeatMap(classroom, callback);
                 },
                 function(err){
                     msg = err;
