@@ -168,7 +168,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
 * 获取教学楼列表
 * */
 router.get('/building', function(req, res){
-    if(req.cookies['userInfo'] != null) {
+    if(req.session.userInfo) {
         models.classroomModel.getAll(1, function (err, classroomList) {
             if (err) {
                 res.render('errorView', {title:'服务器故障', message: '服务器故障', error: err});
@@ -185,7 +185,7 @@ router.get('/building', function(req, res){
 });
 
 router.get('/building2', function(req, res){
-    if(req.cookies['userInfo'] != null) {
+    if(req.session.userInfo) {
         models.classroomModel.getAll(1, function (err, classroomList) {
             if (err) {
                 res.render('errorView', {title:'服务器故障', message: '服务器故障', error: err});
@@ -209,7 +209,7 @@ router.get('/building2', function(req, res){
  * 获取教学楼列表
  * */
 router.get('/buildingClassroom/:areaId', function(req, res){
-    if(req.cookies['userInfo'] != null) {
+    if(req.session.userInfo) {
         models.classroomModel.getByAreaID(req.params.areaId, function (err, classroomList) {
             if (err) {
                 res.render('errorView', {title:'服务器故障', message: '服务器故障', error: err});
@@ -289,7 +289,7 @@ router.get('/callbackbuilding',function(req, res){
                     res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
                 }else{
                     var userInfo = result;
-                    req.cookies['userInfo'] = userInfo;
+                    req.session.userInfo = userInfo;
 
                     models.weixinMessageModel.addUserInfo(userInfo, function(err){
                         if(err) {
