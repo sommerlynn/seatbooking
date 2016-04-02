@@ -111,7 +111,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                           testArr[orders[oindex].row_no-1] =
                               str.substring(0, orders[oindex].column_no-1)
                               +'b'
-                              +str.substring(orders[oindex].column_no+1, orders[oindex].column_no +1);
+                              +str.substring(orders[oindex].column_no+1, str.length-1);
                       }
 
                       /*for(var rindex = 0; rindex < rowCount; rindex++){
