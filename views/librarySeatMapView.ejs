@@ -233,13 +233,11 @@
                             }
 
                             if(character != 'e'){
-                                rowSeatIndex = rowSeatIndex+1;
-
                                 if (rowSeatIndex < 10) {
-                                    column = '0' + rowSeatIndex;
+                                    column = '0' + rowSeatIndex++;
                                 }
                                 else {
-                                    column = rowSeatIndex + '';
+                                    column = rowSeatIndex++ + '';
                                 }
 
                                 return row + column;
