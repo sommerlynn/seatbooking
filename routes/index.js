@@ -109,7 +109,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                       for (var oindex = 0; oindex < orders.length; oindex++){
                           var str = testArr[orders[oindex].row_no-1];
                           testArr[orders[oindex].row_no-1] =
-                              str.substring(0, orders[oindex].column_no)
+                              str.substring(0, orders[oindex].column_no-1)
                               +'b'
                               +str.substring(orders[oindex].column_no+1, str.length-1);
                       }
