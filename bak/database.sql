@@ -89,11 +89,10 @@ CREATE VIEW classroom_nextday_girl_order_view AS
 
 ALTER VIEW classroom_today_order_detail_view AS
        SELECT area_classroom.*,
-       row_count*column_count AS seat_count,
        IFNULL(order_count, 0) AS order_count,
        IFNULL(boy_order_count, 0) AS boy_order_count,
        IFNULL(girl_order_count,0) AS girl_order_count,
-       (row_count*column_count - IFNULL(order_count, 0)) AS empty_seat_count
+       (seat_count - IFNULL(order_count, 0)) AS empty_seat_count
        FROM area_classroom
        LEFT JOIN classroom_today_order_view ON
        area_classroom.classroom_id = classroom_today_order_view.classroom_id
@@ -104,11 +103,10 @@ ALTER VIEW classroom_today_order_detail_view AS
 
 ALTER VIEW classroom_nextday_order_detail_view AS
        SELECT area_classroom.*,
-       row_count*column_count AS seat_count,
        IFNULL(order_count, 0) AS order_count,
        IFNULL(boy_order_count, 0) AS boy_order_count,
        IFNULL(girl_order_count,0) AS girl_order_count,
-       (row_count*column_count - IFNULL(order_count, 0)) AS empty_seat_count
+       (seat_count - IFNULL(order_count, 0)) AS empty_seat_count
        FROM area_classroom
        LEFT JOIN classroom_nextday_order_view ON
        area_classroom.classroom_id = classroom_nextday_order_view.classroom_id
