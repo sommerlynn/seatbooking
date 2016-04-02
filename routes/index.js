@@ -289,7 +289,7 @@ router.get('/callbackbuilding',function(req, res){
                 }else{
                     var userInfo = result;
                     req.session.userInfo = userInfo;
-                    res.redirect("building2");
+                    res.redirect("building");
 
                     models.weixinMessageModel.addUserInfo(userInfo, function(err){
                         if(err) {
