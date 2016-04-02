@@ -24,7 +24,7 @@ CREATE TABLE area_classroom
 SELECT classroom_id, classroom.area_id, area_name, classroom_name,
 CONCAT(area_name,' ',classroom_name) AS full_name,
 classroom.status AS classroom_status, building_area.status AS area_status,
-row_count, column_count, aisle
+row_count, column_count, seat_count, seat_map
 FROM classroom LEFT JOIN building_area ON classroom.area_id = building_area.area_id
 ORDER BY order_no, area_name, classroom_name
 

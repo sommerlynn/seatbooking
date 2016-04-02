@@ -54,7 +54,7 @@ classroom.buildSeatMap = function(classroom, callback){
 
     var updateQuery = 'update classroom set seat_map = ? where classroom_id = ?',
         params = [seatmap, classroom.classroom_id];
-    db.executeQuery(updateQuery, params, function(err, callback){
+    db.executeQuery(updateQuery, params, function(err, results){
       if(err){
         callback(err);
       }

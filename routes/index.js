@@ -104,7 +104,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
                   if (err){
                       res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
                   }else{
-                      var teststr = 'aaaaeaa;aaeaeee';
+                      var teststr = classroom['seat_map'];
                       var testArr = teststr.split(';');
                       for (var oindex = 0; oindex < orders.length; oindex++){
                           var str = testArr[orders[oindex].row_no-1];
@@ -481,9 +481,9 @@ router.get('/fillSeatMap', function(req, res, next){
         if(err){
 
         }else{
-            async.eachSeries(classrooms, function(classroom, callback){
-                    console.log(classroom['classroom_name']);
-                    models.classroomModel.buildSeatMap(classroom, callback);
+            async.eachSeries(classrooms, function(item, callback){
+                    console.log(item.classroom_name);
+                    models.classroomModel.buildSeatMap(item, callback);
                 },
                 function(err){
                     msg = err;
