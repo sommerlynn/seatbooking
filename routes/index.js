@@ -168,7 +168,7 @@ router.get('/librarySeatMap/:cid', function(req, res) {
 * 获取教学楼列表
 * */
 router.get('/building', function(req, res){
-    if(req.session.userInfo) {
+    if(req.cookies['userInfo'] != null) {
         models.classroomModel.getAll(1, function (err, classroomList) {
             if (err) {
                 res.render('errorView', {title:'服务器故障', message: '服务器故障', error: err});
@@ -185,7 +185,7 @@ router.get('/building', function(req, res){
 });
 
 router.get('/building2', function(req, res){
-    if(req.session.userInfo) {
+    if(req.cookies['userInfo'] != null) {
         models.classroomModel.getAll(1, function (err, classroomList) {
             if (err) {
                 res.render('errorView', {title:'服务器故障', message: '服务器故障', error: err});
@@ -209,7 +209,7 @@ router.get('/building2', function(req, res){
  * 获取教学楼列表
  * */
 router.get('/buildingClassroom/:areaId', function(req, res){
-    if(req.session.userInfo) {
+    if(req.cookies['userInfo'] != null) {
         models.classroomModel.getByAreaID(req.params.areaId, function (err, classroomList) {
             if (err) {
                 res.render('errorView', {title:'服务器故障', message: '服务器故障', error: err});
@@ -289,8 +289,7 @@ router.get('/callbackbuilding',function(req, res){
                     res.render('errorView', {title:'服务器故障', message:'服务器故障', error: err});
                 }else{
                     var userInfo = result;
-                    req.session.clearCache();
-                    req.session.userInfo = userInfo;
+                    req.cookies('userInfo', userInfo);
 
                     models.weixinMessageModel.addUserInfo(userInfo, function(err){
                         if(err) {
@@ -398,21 +397,6 @@ router.post('/order', function(req, res){
         });
     }
     else{
-        res.send('未取得用户信息');
-    }
-});
-
-router.get('/myseatorder', function(req, res){
-    if(req.session.userInfo){
-
-        models.userModel.getSeatOrderSheet(req.session.userInfo.openid, function(err, userSeatOrders){
-            if(err){
-                res.send('错误' + err);
-            }else{
-
-            }
-        });
-    }else{
         res.send('未取得用户信息');
     }
 });
