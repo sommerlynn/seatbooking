@@ -82,12 +82,11 @@
 </style>
 <div class="page">
     <div class="buttons-tab">
-        <a href="#tab1" class="tab-link active button">今天</a>
-        <a href="#tab2" class="tab-link button">明天</a>
+        <a href="#tab1" class="tab-link active button">今天 <%= today.getMonth() + 1 %>月<%= today.getDate() %></a>
+        <a href="#tab2" class="tab-link button">明天 <%= nextDay.getMonth() + 1 %>月<%= nextDay.getDate() %></a>
     </div>
     <div class="seatCharts-legend">
-
-        <!--<ul class="seatCharts-legendList">
+        <ul class="seatCharts-legendList">
             <li class="seatCharts-legendItem"><span
                         class="seatCharts-seat-legend seatCharts-cell-legend available16 normal-seat"></span><span
                         class="seatCharts-legendDescription">空座 <%= classroom['empty_seat_count']%></span></li>
@@ -97,13 +96,8 @@
             <li class="seatCharts-legendItem"><span
                         class="seatCharts-seat-legend seatCharts-cell-legend booked-seat-girl16 booked-seat-girl"></span><span
                         class="seatCharts-legendDescription">女生 <%= classroom['girl_order_count']%></span></li>
-        </ul>-->
+        </ul>
     </div>
-
-    <!--<div class="nav-day-switch">
-        <div class="nav-day-active"><a href="?t=today">今天 </a></div>
-        <div class="nav-day"><a href="?t=tomorrow">明天</a></div>
-    </div>-->
 
     <!-- 工具栏 -->
     <nav class="bar bar-tab">
