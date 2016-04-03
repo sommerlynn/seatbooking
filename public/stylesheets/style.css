@@ -7,10 +7,6 @@
   url('//at.alicdn.com/t/font_1459391082_6745138.svg#iconfont') format('svg'); /* iOS 4.1- */
 }
 
-body{
-  font-family: 华文中宋;
-}
-
 .icon {
   font-family: "iconfont" !important;
   font-style: normal;
@@ -34,7 +30,7 @@ body{
 body {
   padding: 0px;
   margin: 0px auto;
-  font: 0.75em 宋体;
+  font: 0.75rem 华文中宋;
   background: #1D2025;  
 }
 
