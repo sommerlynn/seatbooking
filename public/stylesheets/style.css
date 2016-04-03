@@ -85,7 +85,7 @@ span.seatCharts-cell {
 }
 
 span.seatCharts-seat {
-  color: white;
+  color: #000000;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
