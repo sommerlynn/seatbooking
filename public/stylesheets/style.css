@@ -7,6 +7,10 @@
   url('//at.alicdn.com/t/font_1459391082_6745138.svg#iconfont') format('svg'); /* iOS 4.1- */
 }
 
+body{
+  font-family: 华文中宋;
+}
+
 .icon {
   font-family: "iconfont" !important;
   font-style: normal;
@@ -152,9 +156,9 @@ div.seatCharts-legend{
   left: 0;
   right: 0;
   bottom: 2.5rem;
-  height: 1.875rem;
+  height: 1.5rem;
   z-index: 20;
-  background-color: #FFFFFF;
+  background-color: #FECCA8;
 }
 
 ul.seatCharts-legendList {
