@@ -82,8 +82,14 @@
 </style>
 <div class="page">
     <div class="buttons-tab">
-        <a href="#tab1" class="tab-link active button">今天 <%= today.getMonth() + 1 %>月<%= today.getDate() %></a>
-        <a href="#tab2" class="tab-link button">明天 <%= nextDay.getMonth() + 1 %>月<%= nextDay.getDate() %></a>
+        <% if (type == 'tomorrow') { %>
+        <a href="?t=today" class="tab-link button">今天 <%= today.toLocaleString() %></a>
+        <a href="?t=tomorrow" class="tab-link active button">明天 <%= nextDay.toLocaleString() %></a>
+        <% } else { %>
+        <a href="?t=today" class="tab-link active button">今天 <%= today.toLocaleString() %></a>
+        <a href="?t=tomorrow" class="tab-link button">明天 <%= nextDay.toLocaleString() %></a>
+
+        <% } %>
     </div>
 
     <!-- 工具栏 -->
