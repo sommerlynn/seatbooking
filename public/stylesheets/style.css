@@ -74,7 +74,7 @@ li.seatCharts-row{
 span.seatCharts-cell {
   height: 32px;
   width: 32px;
-  margin: 0px;
+  margin: 0 0.125rem 0 0;
   float: left;
   text-align: center;
   outline: none;
