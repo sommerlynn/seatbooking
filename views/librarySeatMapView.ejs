@@ -79,15 +79,23 @@
     .bar-tab~.content{
         bottom: 4rem;
     }
+
+    div.date-nav{
+        display: flex;
+    }
+
+    A.date-item{
+
+    }
 </style>
 <div class="page">
-    <div class="buttons-row">
+    <div class="date-nav">
         <% if (type == 'tomorrow') { %>
-        <a href="?t=today" class="button">今天 <%= today.toLocaleDateString() %></a>
-        <a href="?t=tomorrow" class="active button">明天 <%= nextDay.toLocaleDateString() %></a>
+        <a href="?t=today" class="date-item">今天 <%= today.toLocaleDateString() %></a>
+        <a href="?t=tomorrow" class="active date-item">明天 <%= nextDay.toLocaleDateString() %></a>
         <% } else { %>
-        <a href="?t=today" class="active button">今天 <%= today.toLocaleDateString() %></a>
-        <a href="?t=tomorrow" class="button">明天 <%= nextDay.toLocaleDateString() %></a>
+        <a href="?t=today" class="active date-item">今天 <%= today.toLocaleDateString() %></a>
+        <a href="?t=tomorrow" class="date-item">明天 <%= nextDay.toLocaleDateString() %></a>
 
         <% } %>
     </div>
