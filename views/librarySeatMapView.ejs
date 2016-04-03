@@ -83,11 +83,11 @@
 <div class="page">
     <div class="buttons-tab">
         <% if (type == 'tomorrow') { %>
-        <a href="?t=today" class="tab-link button">今天 <%= today.toLocaleString() %></a>
-        <a href="?t=tomorrow" class="tab-link active button">明天 <%= nextDay.toLocaleString() %></a>
+        <a href="?t=today" class="tab-link button">今天 <%= today.toLocaleDateString() %></a>
+        <a href="?t=tomorrow" class="tab-link active button">明天 <%= nextDay.toLocaleDateString() %></a>
         <% } else { %>
-        <a href="?t=today" class="tab-link active button">今天 <%= today.toLocaleString() %></a>
-        <a href="?t=tomorrow" class="tab-link button">明天 <%= nextDay.toLocaleString() %></a>
+        <a href="?t=today" class="tab-link active button">今天 <%= today.toLocaleDateString() %></a>
+        <a href="?t=tomorrow" class="tab-link button">明天 <%= nextDay.toLocaleDateString() %></a>
 
         <% } %>
     </div>
