@@ -262,11 +262,7 @@
     });*/
 
     $(document).on('click', '.operation-release', function () {
-        if($.confirm('亲~ 确认要把座位释放给其他小伙伴吗?') == '确定'){
-            $.alert('确定');
-        }else{
-            $.alert('取消');
-        }
+        $.alert($.confirm('亲~ 确认要把座位释放给其他小伙伴吗?'));
     });
 
     $(document).on('click', '.operation-leave', function () {
