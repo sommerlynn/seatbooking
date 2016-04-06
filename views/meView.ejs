@@ -252,7 +252,7 @@
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 
 <script>
-    $("#buildingTab").tap(function () {
+    /*$("#buildingTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/building2");
     });
     $("#skyTab").tap(function () {
@@ -260,14 +260,11 @@
     });
     $("#meTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/me2");
-    });
+    });*/
 
-    $('.operation-select .release').tap(function () {
+    $(document).on('tap', '.operation-select .release', function () {
         $.alert('release');
     });
 
-    $('.operation-select .leave').tap(function () {
-        $.alert('leave');
-    });
 </script>
 <% include footer.html %>
