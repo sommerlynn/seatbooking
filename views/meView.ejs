@@ -230,11 +230,10 @@
                             </div>
                         </div>
                         <div class="right_part">
-                            <div class="operation-select" id="release_<%= userSeatOrders[index].order_id%>">释放</div>
-                            <div class="operation-select" id="leave_<%= userSeatOrders[index].order_id%>">暂离</div>
+                            <div class="operation-select release" id="release_<%= userSeatOrders[index].order_id%>">释放</div>
+                            <div class="operation-select leave" id="leave_<%= userSeatOrders[index].order_id%>">暂离</div>
                         </div>
                     </li>
-
                     <% } %>
                 </ul>
             </div>
@@ -248,8 +247,13 @@
         router: false
     }
 
-    $
+    $('.release').tap(function () {
+        $.alert('release');
+    });
 
+    $('.leave').tap(function () {
+        $.alert('leave');
+    });
 </script>
 <script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
