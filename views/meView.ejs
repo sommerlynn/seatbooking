@@ -149,6 +149,11 @@
     .card {
         height: 4.5rem;
     }
+
+    .date-row{
+        line-height: 1rem;
+        height: 1rem;
+    }
 </style>
 <script>
     function getSeatLable(row, column) {
@@ -210,14 +215,15 @@
                     <li class="card">
 
                         <div class="left_part">
-                            <div><span class="building-info"><%= userSeatOrders[index].full_name %></span>
+                            <div class="date-row">
+                                <span class="building-info"><%= userSeatOrders[index].full_name %></span>
                             </div>
-                            <div>
+                            <div class="date-row">
                                 <span class="selected-seat-info"
                                       id="selectedSeatInfo">第<%= userSeatOrders[index].row_no %>
                                     排第<%= userSeatOrders[index].column_no %>列</span>
                             </div>
-                            <div>
+                            <div class="date-row">
                                 <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
                                 <span class="comment-info">[当天有效 本人使用]</span>
                             </div>
