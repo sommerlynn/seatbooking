@@ -45,4 +45,10 @@ user.getSeatOrderSheet = function(openid, callback) {
     db.executeQuery(selectQuery, params, callback);
 };
 
+user.releaseSeat = function (orderID, callback) {
+    var updateQuery = "update user_seat_order set status = 0 where order_id = ?",
+        params = [orderID];
+    db.executeQuery(updateQuery, params, callback);
+};
+
 module.exports = user;

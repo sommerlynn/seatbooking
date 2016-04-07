@@ -152,7 +152,7 @@
         height: 4.5rem;
     }
 
-    .date-row{
+    .date-row {
 
     }
 </style>
@@ -230,8 +230,8 @@
                             </div>
                         </div>
                         <div class="right_part">
-                            <div class="operation-release" id="release_<%= userSeatOrders[index].order_id%>">释放</div>
-                            <div class="operation-leave" id="leave_<%= userSeatOrders[index].order_id%>">暂离</div>
+                            <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">释放</div>
+                            <div class="operation-leave" id="leave_<%= userSeatOrders[index].order_id %>">暂离</div>
                         </div>
                     </li>
                     <% } %>
@@ -252,41 +252,47 @@
 </script>
 <script>
     /*$("#buildingTab").tap(function () {
-        window.location.assign("http://www.julyangel.cn/building2");
-    });
-    $("#skyTab").tap(function () {
-        window.location.assign("http://www.julyangel.cn/index");
-    });
-    $("#meTab").tap(function () {
-        window.location.assign("http://www.julyangel.cn/me2");
-    });*/
+     window.location.assign("http://www.julyangel.cn/building2");
+     });
+     $("#skyTab").tap(function () {
+     window.location.assign("http://www.julyangel.cn/index");
+     });
+     $("#meTab").tap(function () {
+     window.location.assign("http://www.julyangel.cn/me2");
+     });*/
 
     $(document).on('click', '.operation-release', function () {
         $.confirm('真是一个好孩纸 不用了就是应该如此 让给其他小伙伴来用 赞一个', '释放座位',
-        function () {
-            /*确定释放座位*/
+                function () {
+                    /*确定释放座位*/
+                    $.alert(this.id);
+                    /*$.showPreloader('正在释放座位，请稍候...');
 
-            $.alert('确定');
-        },
-        function () {
-            /*确定释放座位*/
+                    $.post('release',
+                            {},
+                            function (response) {
 
-            $.alert('取消');
-        });
+                            });*/
+                },
+                function () {
+                    /*确定释放座位*/
+
+                    $.alert('取消');
+                });
     });
 
     $(document).on('click', '.operation-leave', function () {
         $.confirm('暂离期间座位会为你保留两个小时 如果未能按时回座位 座位会被自动释放', '释放座位',
-        function () {
-            /*确定释放座位*/
+                function () {
+                    /*确定释放座位*/
 
-            $.alert('确定');
-        },
-        function () {
-            /*确定释放座位*/
+                    $.alert('确定');
+                },
+                function () {
+                    /*确定释放座位*/
 
-            $.alert('取消');
-        });
+                    $.alert('取消');
+                });
     });
 </script>
 <% include footer.html %>
