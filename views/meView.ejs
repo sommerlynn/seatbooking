@@ -262,10 +262,12 @@
      });*/
 
     $(document).on('click', '.operation-release', function () {
+        var order_arr = this.id.split('_');
+        var order_id = order_arr[1];
         $.confirm('真是一个好孩纸 不用了就是应该如此 让给其他小伙伴来用 赞一个', '释放座位',
                 function () {
                     /*确定释放座位*/
-                    $.alert(this.id);
+                    $.alert(order_id);
                     /*$.showPreloader('正在释放座位，请稍候...');
 
                     $.post('release',
