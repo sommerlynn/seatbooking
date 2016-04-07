@@ -270,7 +270,7 @@
                     $.showPreloader('释放座位中，请稍候...');
 
                     $.post('release',
-                            {orderID:order_id},
+                            {orderID: order_id},
                             function (response) {
                                 $.hidePreloader();
                                 $.alert(response);
@@ -285,11 +285,20 @@
     });
 
     $(document).on('click', '.operation-leave', function () {
-        $.confirm('暂离期间座位会为你保留两个小时 如果未能按时回座位 座位会被自动释放', '释放座位',
+        var order_arr = this.id.split('_');
+        var order_id = order_arr[1];
+        $.confirm('暂离期间座位会为你保留两个小时 如果未能按时回座位 座位会被自动释放', '暂离',
                 function () {
                     /*确定释放座位*/
+                    $.showPreloader('释放座位中，请稍候...');
 
-                    $.alert('确定');
+                    $.post('release',
+                            {orderID: order_id},
+                            function (response) {
+                                $.hidePreloader();
+                                $.alert(response);
+                                window.location.reload();
+                            });
                 },
                 function () {
                     /*确定释放座位*/
