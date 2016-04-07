@@ -261,12 +261,19 @@
         window.location.assign("http://www.julyangel.cn/me2");
     });*/
 
-    $(document).on('click', '.operation-release', function () {
-        if($.confirm('亲~ 确认要把座位释放给其他小伙伴吗?') == true){
-            $.alert('true');
-        }else{
-            $.alert('false');
+    $(document).on('tap', '.operation-release', function () {
+        $.confirm('亲~ 确认要把座位释放给其他小伙伴吗?', '释放座位',
+        function () {
+            /*确定释放座位*/
+
+            $.alert('确定');
+        },
+        function () {
+            /*确定释放座位*/
+
+            $.alert('取消');
         }
+        );
     });
 
     $(document).on('click', '.operation-leave', function () {
