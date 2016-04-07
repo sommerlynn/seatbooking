@@ -51,4 +51,10 @@ user.releaseSeat = function (orderID, callback) {
     db.executeQuery(updateQuery, params, callback);
 };
 
+user.leaveSeat = function (orderID, callback) {
+    var updateQuery = "update user_seat_order set status = 3 where order_id = ?",
+        params = [orderID];
+    db.executeQuery(updateQuery, params, callback);
+};
+
 module.exports = user;
