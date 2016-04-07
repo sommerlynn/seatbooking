@@ -139,6 +139,10 @@
         height: 4.5rem;
     }
 
+    .cancel{
+        background: url('../images/quxiao.png') no-repeat center;
+    }
+
     .right_part {
         width: 28%;
         float: left;
@@ -156,11 +160,6 @@
 
     }
 
-    .quxiao{
-        margin: 0 auto;
-        width: 100%;
-        background-image: url('../images/quxiao.png');
-    }
 </style>
 <script>
     function getSeatLable(row, column) {
@@ -221,7 +220,7 @@
 
                     <li class="card">
 
-                        <div class="left_part">
+                        <div class="left_part cancel">
                             <div class="date-row">
                                 <span class="building-info"><%= userSeatOrders[index].full_name %></span>
                             </div>
