@@ -298,7 +298,7 @@ router.post('/order', function(req, res){
         }
         var endTime = new Date(startTime.getTime()+24*60*60*1000);
 
-        models.userModel.newOrder(req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column, startTime, endTime, function(err){
+        models.userModel.newOrder(req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column, req.body.seatCode, startTime, endTime, function(err){
             if(err) {
                 res.send(err);
             }else{

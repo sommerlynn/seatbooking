@@ -207,7 +207,8 @@
         rowIndex = 1,
         rowSeatIndex = 1,
         selectedSeatRowID = 0,
-        selectedSeatColumnID = 0;
+        selectedSeatColumnID = 0,
+        selectedSeatCode='';
 
     $(document).ready(function () {
         var //$cart = $('#selected-seats'),
@@ -304,7 +305,7 @@
 
                             sc.find('selected').status('available');
                             var selectedSeatID = this.node()[0].id;
-                            var selectedSeatCode = this.node()[0].innerText;
+                            selectedSeatCode = this.node()[0].innerText;
                             var selectedSeatInfo = selectedSeatID.split('_');
                             selectedSeatRowID = selectedSeatInfo[0];
                             selectedSeatColumnID = selectedSeatInfo[1];
@@ -361,6 +362,7 @@
                 classroom: '<%= cid %>',
                 row: selectedSeatRowID,
                 column: selectedSeatColumnID,
+                seatCode:selectedSeatCode,
                 type: '<%= type %>'
             }, function (response) {
                 $.hidePreloader();
