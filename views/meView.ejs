@@ -267,14 +267,15 @@
         $.confirm('真是一个好孩纸 不用了就是应该如此 让给其他小伙伴来用 赞一个', '释放座位',
                 function () {
                     /*确定释放座位*/
-                    $.alert(order_id);
-                    /*$.showPreloader('正在释放座位，请稍候...');
+                    $.showPreloader('释放座位中，请稍候...');
 
                     $.post('release',
-                            {},
+                            {orderID:order_id},
                             function (response) {
-
-                            });*/
+                                $.hidePreloader();
+                                $.alert(response);
+                                window.location.reload();
+                            });
                 },
                 function () {
                     /*确定释放座位*/
