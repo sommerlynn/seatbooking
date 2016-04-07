@@ -409,9 +409,9 @@ router.get('/fillSeatMap', function (req, res, next) {
 router.post('/release', function (req, res, next) {
     models.userModel.releaseSeat(req.body.orderID, function (err, results) {
         if (err) {
-            
+            res.send('释放失败，请重试');
         } else {
-            
+            res.send('座位已经成功释放');
         }
     });
 });
