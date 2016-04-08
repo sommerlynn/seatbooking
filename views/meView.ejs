@@ -143,6 +143,10 @@
         background: url('../images/quxiao.png') no-repeat center;
     }
 
+    .zanli{
+        background: url('../images/zanli.png') no-repeat center;
+    }
+
     .right_part {
         width: 28%;
         float: left;
@@ -219,8 +223,15 @@
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
 
                     <li class="card">
-
-                        <div class="left_part cancel">
+                        <% if (userSeatOrders[index].status == 0) {%>
+                            <div class="left_part cancel">
+                        <%} else if(userSeatOrders[index].status == 1) {%>
+                            <div class="left_part">
+                        <%} else if(userSeatOrders[index].status == 2) {%>
+                            <div class="left_part">
+                        <%} else if(userSeatOrders[index].status == 3) {%>
+                            <div class="left_part zanli">
+                        <%}%>
                             <div class="date-row">
                                 <span class="building-info"><%= userSeatOrders[index].full_name %></span>
                             </div>
