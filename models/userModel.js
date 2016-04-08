@@ -46,14 +46,14 @@ user.getSeatOrderSheet = function(openid, callback) {
 };
 
 user.releaseSeat = function (orderID, callback) {
-    var updateQuery = "update user_seat_order set status = 0 where order_id = ?",
-        params = [orderID];
+    var updateQuery = "update user_seat_order set status = 0, leave_time = ? where order_id = ?",
+        params = [new Date(), orderID];
     db.executeQuery(updateQuery, params, callback);
 };
 
 user.leaveSeat = function (orderID, callback) {
-    var updateQuery = "update user_seat_order set status = 3 where order_id = ?",
-        params = [orderID];
+    var updateQuery = "update user_seat_order set status = 3, leave_time = ? where order_id = ?",
+        params = [new Date(), orderID];
     db.executeQuery(updateQuery, params, callback);
 };
 
