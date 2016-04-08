@@ -139,7 +139,7 @@ router.get('/buildingClassroom/:areaId', function (req, res) {
 
 router.get('/me', function (req, res) {
     if (req.session.userInfo) {
-        models.userModel.getSeatOrderSheet(req.session.userInfo.openid, function (err, userSeatOrders) {
+        models.userModel.getSeatActiveOrderSheet(req.session.userInfo.openid, function (err, userSeatOrders) {
             if (err) {
                 res.send('错误' + err);
             } else {
@@ -155,7 +155,7 @@ router.get('/me', function (req, res) {
 
 router.get('/me2', function (req, res) {
     if (req.session.userInfo) {
-        models.userModel.getSeatOrderSheet(req.session.userInfo.openid, function (err, userSeatOrders) {
+        models.userModel.getSeatActiveOrderSheet(req.session.userInfo.openid, function (err, userSeatOrders) {
             if (err) {
                 res.send('错误' + err);
             } else {
@@ -177,7 +177,7 @@ router.get('/medebug', function (req, res) {
         headimgurl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0'
     };
 
-    models.userModel.getSeatOrderSheet('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, userSeatOrders) {
+    models.userModel.getSeatActiveOrderSheet('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, userSeatOrders) {
         if (err) {
             res.send('错误' + err);
         } else {
