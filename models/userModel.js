@@ -39,9 +39,9 @@ user.getUser = function(){
 
 };
 
-user.getSeatOrderSheet = function(openid, callback) {
-    var selectQuery = "select * from user_seat_order_view where openid = ?",
-        params = [openid];
+user.getSeatActiveOrderSheet = function(openid, callback) {
+    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ?",
+        params = [openid, new Date()];
     db.executeQuery(selectQuery, params, callback);
 };
 
