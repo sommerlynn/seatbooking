@@ -137,6 +137,7 @@
         font-family: 华文中宋;
         border-right: 1px dashed #332331;
         height: 4.5rem;
+        background-color: #F7F7F8;
     }
 
     .cancel {
@@ -224,13 +225,13 @@
 
                     <li class="card">
                         <% if (userSeatOrders[index].status == 0) {%>
-                            <div class="left_part cancel">
+                            <div class="left_part">
                         <%} else if(userSeatOrders[index].status == 1) {%>
                             <div class="left_part">
                         <%} else if(userSeatOrders[index].status == 2) {%>
                             <div class="left_part">
                         <%} else if(userSeatOrders[index].status == 3) {%>
-                            <div class="left_part zanli">
+                            <div class="left_part">
                         <%}%>
                             <div class="date-row">
                                 <span class="building-info"><%= userSeatOrders[index].full_name %></span>
