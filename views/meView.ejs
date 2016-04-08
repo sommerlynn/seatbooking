@@ -252,7 +252,7 @@
                                 <%} else if(userSeatOrders[index].status == 2) {%>
                                     系统释放
                                 <%} else if(userSeatOrders[index].status == 3) {%>
-                                    暂离 <% userSeatOrders[index].leave_time.toLocaleTimeString()%>
+                                    暂离 <%= userSeatOrders[index].leave_time.toLocaleTimeString()%>
                                 <%}%>
                                 </span>
                             </div>

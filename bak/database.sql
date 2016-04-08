@@ -38,7 +38,7 @@ LEFT JOIN area_classroom on user_seat_order.classroom_id = area_classroom.classr
 
 ALTER VIEW user_seat_order_view AS
 SELECT order_id, user.user_id, area_classroom.classroom_id, row_no, column_no, seat_code,
-start_time, end_time, order_time, status, openid, nickname, sex, headimgurl,
+start_time, end_time, order_time, leave_time, status, openid, nickname, sex, headimgurl,
 full_name
 FROM user_seat_order LEFT JOIN user on user_seat_order.user_id = user.user_id
 LEFT JOIN area_classroom on user_seat_order.classroom_id = area_classroom.classroom_id
