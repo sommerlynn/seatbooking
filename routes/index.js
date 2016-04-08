@@ -417,7 +417,7 @@ router.post('/release', function (req, res, next) {
 });
 
 router.post('/leave', function (req, res, next) {
-    models.userModel.releaseSeat(req.body.orderID, function (err, results) {
+    models.userModel.leaveSeat(req.body.orderID, function (err, results) {
         if (err) {
             res.send('设置暂离失败，请重试');
         } else {
