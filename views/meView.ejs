@@ -113,6 +113,7 @@
         padding: 0.25rem 0.75rem;
         line-height: 1.25rem;
         font-size: 0.75em;
+        width: 20%;
     }
 
     span.comment-info {
@@ -144,7 +145,7 @@
         background: url('../images/quxiao.png') no-repeat center;
     }
 
-    .zanli{
+    .zanli {
         background: url('../images/zanli.png') no-repeat center;
     }
 
@@ -165,6 +166,12 @@
 
     }
 
+    .seat-status{
+        color: #880000;
+        font-size: .75rem;
+        width: 80%;
+        text-align: center;
+    }
 </style>
 <script>
     function getSeatLable(row, column) {
@@ -224,15 +231,7 @@
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
 
                     <li class="card">
-                        <% if (userSeatOrders[index].status == 0) {%>
-                            <div class="left_part">
-                        <%} else if(userSeatOrders[index].status == 1) {%>
-                            <div class="left_part">
-                        <%} else if(userSeatOrders[index].status == 2) {%>
-                            <div class="left_part">
-                        <%} else if(userSeatOrders[index].status == 3) {%>
-                            <div class="left_part">
-                        <%}%>
+                        <div class="left_part">
                             <div class="date-row">
                                 <span class="building-info"><%= userSeatOrders[index].full_name %></span>
                             </div>
@@ -240,6 +239,17 @@
                                 <span class="selected-seat-info"
                                       id="selectedSeatInfo">
                                      <%= userSeatOrders[index].seat_code %> 号</span>
+                                <span class="seat-status">
+                                <% if (userSeatOrders[index].status == 0) {%>
+                                    已取消
+                                <%} else if(userSeatOrders[index].status == 1) {%>
+                                    正常
+                                <%} else if(userSeatOrders[index].status == 2) {%>
+                                    系统释放
+                                <%} else if(userSeatOrders[index].status == 3) {%>
+                                    暂离
+                                <%}%>
+                                </span>
                             </div>
                             <div class="date-row">
                                 <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
