@@ -295,13 +295,13 @@
                                       id="selectedSeatInfo">
                                      <%= userSeatOrders[index].seat_code %> 号</span>
                                 <span class="seat-status">
-                                <% if (userSeatOrders[index].status == 0) {%>
+                                <% if (userSeatOrders[index].status == -1) {%>
                                     已取消
                                 <%} else if(userSeatOrders[index].status == 1) {%>
                                     正常
-                                <%} else if(userSeatOrders[index].status == 2) {%>
+                                <%} else if(userSeatOrders[index].status == -2) {%>
                                     系统释放
-                                <%} else if(userSeatOrders[index].status == 3) {%>
+                                <%} else if(userSeatOrders[index].status == 2) {%>
                                     <%= userSeatOrders[index].leave_time.toLocaleTimeString()%> 暂离
                                 <%}%>
                                 </span>
