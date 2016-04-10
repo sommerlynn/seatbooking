@@ -103,7 +103,7 @@
         ],
         onClose:function(){
             $.post('/class', function (response) {
-                $("#class-picker").picker("setValue", ['GJ1501']);
+                $("#class-picker").picker("setValue", ['GJ1502']);
             });
         }
     });
@@ -116,7 +116,8 @@
   </header>',
         cols: [
             {
-                textAlign: 'center'
+                textAlign: 'center',
+                values: ['GJ1501']
             }
         ]
     });
