@@ -430,7 +430,7 @@ router.get('/realInfo', function (req, res, next) {
     res.render('realInfoView', {title: '实名认证'});
 });
 
-router.get('/class/:departmentID', function (req, res, next) {
+router.get('/class', function (req, res, next) {
     res.send('GJ1501,GJ1502,GJ1503');
 });
 
