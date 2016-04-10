@@ -105,6 +105,7 @@
             $.post('/class', function (response) {
                 $("#class-picker").picker("setValue", ['GJ1502']);
                 $("#class-picker").picker("updateValue");
+                $("#class-picker").picker("initPickerCol");
             });
         }
     });
