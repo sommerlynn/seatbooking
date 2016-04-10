@@ -87,6 +87,8 @@
         router: false
     }
 
+    var arr;
+
     $("#department-picker").picker({
         toolbarTemplate: '<header class="bar bar-nav">\
   <button class="button button-link pull-left"></button>\
@@ -100,8 +102,8 @@
             }
         ],
         onClose:function(){
-            $.get('/class/:'+$("#department-picker").value, function (response) {
-                var arr = response.split(';');
+            $.get('/class', function (response) {
+                arr = response.split(';');
                 $("#class-picker").picker({
                     toolbarTemplate: '<header class="bar bar-nav">\
   <button class="button button-link pull-left"></button>\
