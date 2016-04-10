@@ -73,7 +73,7 @@
         <div class="content-block">
             <div class="row">
                 <div class="col-50"><a href="me" class="button button-big button-fill button-danger">取消</a></div>
-                <div class="col-50"><a href="#" class="button button-big button-fill button-success">提交</a></div>
+                <div class="col-50"><a href="#" class="button button-big button-fill button-success" id="submit-btn">提交</a></div>
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@
         router: false
     }
 
-    $(document).on('click', '.button button-big button-fill button-success', function () {
+    $(document).on('click', '#submit-btn', function () {
         $.post('/realInfo',
                {
                   name:$('#name-input').value,
