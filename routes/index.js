@@ -427,7 +427,7 @@ router.post('/leave', function (req, res, next) {
 });
 
 router.get('/realInfo', function (req, res, next) {
-    res.render('realInfoView', {title: '实名认证'});
+    res.render('realInfoView', {title: '实名认证', departments:['控制与计算机工程学院','国际教育学院']});
 });
 
 router.post('/class', function (req, res, next) {

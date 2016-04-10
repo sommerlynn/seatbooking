@@ -87,7 +87,6 @@
         router: false
     }
 
-    var arr;
 
     $("#department-picker").picker({
         toolbarTemplate: '<header class="bar bar-nav">\
@@ -98,7 +97,11 @@
         cols: [
             {
                 textAlign: 'center',
-                values: ['控制与计算机工程学院', '国际教育学院']
+                values: [
+                    <% for (var i = 0; i < departments.length; i++){ %>
+                    '<%= departments[i] %>',
+                    <% } %>
+                ]
             }
         ],
         onClose: function () {
