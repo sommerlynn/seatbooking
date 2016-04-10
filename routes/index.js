@@ -444,16 +444,22 @@ router.get('/realInfo', function (req, res, next) {
 * 提交用户实名信息
 * */
 router.post('/realInfo', function (req, res, next) {
-    models.userModel.fillRealInfo(req.body.name,
-        req.body.code,
-        req.body.department,
-        req.body.classs, function(err, result){
-        if(err){
-            res.send('亲，出错了额，请重试一下');
-        }else{
-            res.send('亲，你的实名信息已完成');
-        }
-    });
+    if (req.session.userInfo) {
+        models.userModel.fillRealInfo(req.body.name,
+            req.body.code,
+            req.body.department,
+            req.body.classs,
+            req.session.userInfo.openid,
+            function(err, result){
+                if(err){
+                    res.send('亲，出错了额，请重试一下');
+                }else{
+                    res.send('亲，你的实名信息已完成');
+                }
+            });
+    }else{
+        res.send('亲，出错了额，请重试一下');
+    }
 });
 
 router.post('/class', function (req, res, next) {
