@@ -3,7 +3,7 @@
 </style>
 <div class="page">
     <header class="bar bar-nav">
-        <h1 class='title'>表单</h1>
+        <h1 class='title'>实名认证</h1>
     </header>
     <nav class="bar bar-tab">
         <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building2" external>
@@ -52,7 +52,7 @@
                         <div class="item-inner">
                             <div class="item-title label">院系</div>
                             <div class="item-input">
-                                <input type="text" placeholder="院系">
+                                <input type="text" placeholder="院系" id="department-picker">
                             </div>
                         </div>
                     </div>
@@ -87,6 +87,18 @@
         router: false
     }
 
-
+    $("#department-picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left">按钮</button>\
+  <button class="button button-link pull-right close-picker">确定</button>\
+  <h1 class="title">标题</h1>\
+  </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: ['控制与计算机工程学院', '国际教育学院']
+            }
+        ]
+    });
 </script>
 <% include footer.html %>
