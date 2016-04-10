@@ -29,7 +29,7 @@ FROM classroom LEFT JOIN building_area ON classroom.area_id = building_area.area
 ORDER BY order_no, area_name, classroom_name
 
 
-CREATE VIEW user_seat_order_view AS
+ALTER VIEW user_seat_order_view AS
 SELECT order_id, user.user_id, area_classroom.classroom_id, row_no, column_no,
 start_time, end_time, order_time, status, openid, nickname, sex, headimgurl,
 full_name
@@ -44,47 +44,47 @@ FROM user_seat_order LEFT JOIN user on user_seat_order.user_id = user.user_id
 LEFT JOIN area_classroom on user_seat_order.classroom_id = area_classroom.classroom_id
 ORDER BY  start_time DESC
 
-CREATE VIEW classroom_today_order_view AS
+ALTER VIEW classroom_today_order_view AS
        SELECT classroom_id, start_time,
        COUNT(1) AS order_count
        FROM `user_seat_order_view`
-       WHERE end_time > NOW() AND start_time < NOW()
+       WHERE end_time > NOW() AND start_time < NOW() AND (status = 1 OR status = 3)
        GROUP BY classroom_id, start_time
 
-CREATE VIEW classroom_nextday_order_view AS
+ALTER VIEW classroom_nextday_order_view AS
           SELECT classroom_id, start_time,
           COUNT(1) AS order_count
           FROM `user_seat_order_view`
-          WHERE start_time > NOW()
+          WHERE start_time > NOW() AND (status = 1 OR status = 3)
           GROUP BY classroom_id, start_time
 
-CREATE VIEW classroom_today_boy_order_view AS
+ALTER VIEW classroom_today_boy_order_view AS
        SELECT classroom_id, start_time,
        COUNT(1) AS boy_order_count
        FROM `user_seat_order_view`
-       WHERE end_time > NOW() AND start_time < NOW() AND sex = 1
+       WHERE end_time > NOW() AND start_time < NOW() AND sex = 1 AND (status = 1 OR status = 3)
        GROUP BY classroom_id, start_time
 
 
-CREATE VIEW classroom_nextday_boy_order_view AS
+ALTER VIEW classroom_nextday_boy_order_view AS
        SELECT classroom_id, start_time,
        COUNT(1) AS boy_order_count
        FROM `user_seat_order_view`
-       WHERE start_time > NOW() AND sex = 1
+       WHERE start_time > NOW() AND sex = 1 AND (status = 1 OR status = 3)
        GROUP BY classroom_id, start_time
 
-CREATE VIEW classroom_today_girl_order_view AS
+ALTER VIEW classroom_today_girl_order_view AS
        SELECT classroom_id, start_time,
        COUNT(1) AS girl_order_count
        FROM `user_seat_order_view`
-       WHERE end_time > NOW() AND start_time < NOW() AND sex <> 1
+       WHERE end_time > NOW() AND start_time < NOW() AND sex <> 1 AND (status = 1 OR status = 3)
        GROUP BY classroom_id, start_time
 
-CREATE VIEW classroom_nextday_girl_order_view AS
+ALTER VIEW classroom_nextday_girl_order_view AS
        SELECT classroom_id, start_time,
        COUNT(1) AS girl_order_count
        FROM `user_seat_order_view`
-       WHERE start_time > NOW() AND sex <> 1
+       WHERE start_time > NOW() AND sex <> 1 AND (status = 1 OR status = 3)
        GROUP BY classroom_id, start_time
 
 ALTER VIEW classroom_today_order_detail_view AS
