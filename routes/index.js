@@ -453,7 +453,7 @@ router.post('/realInfo', function (req, res, next) {
             req.session.userInfo.openid,
             function(err, result){
                 if(err){
-                    res.send('亲，出错了额，请重试一下');
+                    res.send(err);
                 }else{
                     res.send(result);
                 }
