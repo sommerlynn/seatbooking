@@ -103,6 +103,9 @@
         ],
         onClose:function(){
             $.post('/class', function (response) {
+                var arr = response.split(',');
+
+
                 $("#class-picker").picker({
                     toolbarTemplate: '<header class="bar bar-nav">\
   <button class="button button-link pull-left"></button>\
@@ -112,7 +115,7 @@
                     cols: [
                         {
                             textAlign: 'center',
-                            values: [response]
+                            values: arr
                         }
                     ]
                 });
