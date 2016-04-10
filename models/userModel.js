@@ -57,7 +57,7 @@ user.leaveSeat = function (orderID, callback) {
     db.executeQuery(updateQuery, params, callback);
 };
 
-user.fillRealInfo = function (openid, realName, userCode, departmentName, className, callback) {
+user.fillRealInfo = function (realName, userCode, departmentName, className, openid, callback) {
     var updateQuery = "update user set real_name = ?, user_code = ?, "+
                       "department_id = (select department_id from department where department_name = ?),"+
                       "class_id = (select class_id from class where class_name = ?) "+
