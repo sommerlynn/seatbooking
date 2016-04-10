@@ -440,6 +440,13 @@ router.get('/realInfo', function (req, res, next) {
     });
 });
 
+/*
+* 提交用户实名信息
+* */
+router.post('/realInfo', function (req, res, next) {
+    res.send(req.body.name);
+});
+
 router.post('/class', function (req, res, next) {
     models.departmentClassModel.getClass(req.body.department, function (err, classs) {
         var classStr = '';

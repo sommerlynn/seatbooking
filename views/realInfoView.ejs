@@ -30,7 +30,7 @@
                         <div class="item-inner">
                             <div class="item-title label">姓名</div>
                             <div class="item-input">
-                                <input type="text" placeholder="真实姓名">
+                                <input type="text" placeholder="真实姓名" id="name-input">
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <div class="item-inner">
                             <div class="item-title label">学号</div>
                             <div class="item-input">
-                                <input type="text" placeholder="学号">
+                                <input type="text" placeholder="学号" id="code-input">
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
         </div>
         <div class="content-block">
             <div class="row">
-                <div class="col-50"><a href="#" class="button button-big button-fill button-danger">取消</a></div>
+                <div class="col-50"><a href="me" class="button button-big button-fill button-danger">取消</a></div>
                 <div class="col-50"><a href="#" class="button button-big button-fill button-success">提交</a></div>
             </div>
         </div>
@@ -87,13 +87,25 @@
         router: false
     }
 
+    $(document).on('click', '.button button-big button-fill button-success', function () {
+        $.post('/realInfo',
+               {
+                  name:$('#name-input').value,
+                  code:$('#code-input').value,
+                  department:$('#department-picker')[0].value,
+                  classs:$('#class-picker')[0].value
+               },
+               function (response) {
+                    alert(response);
+               });
+    });
 
     $("#department-picker").picker({
         toolbarTemplate: '<header class="bar bar-nav">\
-  <button class="button button-link pull-left"></button>\
-  <button class="button button-link pull-right close-picker">确定</button>\
-  <h1 class="title">亲，请选择你所在的学院</h1>\
-  </header>',
+                          <button class="button button-link pull-left"></button>\
+                          <button class="button button-link pull-right close-picker">确定</button>\
+                          <h1 class="title">亲，请选择你所在的学院</h1>\
+                          </header>',
         cols: [
             {
                 textAlign: 'center',
