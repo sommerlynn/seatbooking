@@ -145,6 +145,14 @@ span.seatCharts-seat.booked-seat-teaching{
   background: url('../images/teaching.png') no-repeat;
 }
 
+span.seatCharts-seat.windows-seat{
+  background: url('../images/blankseatwithwindows.png') no-repeat;
+}
+
+span.seatCharts-seat.power-seat{
+  background: url('../images/blankseatwithwindows.png') no-repeat;
+}
+
 div.seatCharts-legend{
   margin: 0px auto;
   padding: 0.3125rem 0;
