@@ -48,21 +48,21 @@ ALTER VIEW classroom_today_order_view AS
        SELECT classroom_id, start_time,
        COUNT(1) AS order_count
        FROM `user_seat_order_view`
-       WHERE end_time > NOW() AND start_time < NOW() AND (status = 1 OR status = 3)
+       WHERE end_time > NOW() AND start_time < NOW() AND status > 0
        GROUP BY classroom_id, start_time
 
 ALTER VIEW classroom_nextday_order_view AS
           SELECT classroom_id, start_time,
           COUNT(1) AS order_count
           FROM `user_seat_order_view`
-          WHERE start_time > NOW() AND (status = 1 OR status = 3)
+          WHERE start_time > NOW() AND status > 0
           GROUP BY classroom_id, start_time
 
 ALTER VIEW classroom_today_boy_order_view AS
        SELECT classroom_id, start_time,
        COUNT(1) AS boy_order_count
        FROM `user_seat_order_view`
-       WHERE end_time > NOW() AND start_time < NOW() AND sex = 1 AND (status = 1 OR status = 3)
+       WHERE end_time > NOW() AND start_time < NOW() AND sex = 1 AND status > 0
        GROUP BY classroom_id, start_time
 
 
@@ -70,21 +70,21 @@ ALTER VIEW classroom_nextday_boy_order_view AS
        SELECT classroom_id, start_time,
        COUNT(1) AS boy_order_count
        FROM `user_seat_order_view`
-       WHERE start_time > NOW() AND sex = 1 AND (status = 1 OR status = 3)
+       WHERE start_time > NOW() AND sex = 1 AND status > 0
        GROUP BY classroom_id, start_time
 
 ALTER VIEW classroom_today_girl_order_view AS
        SELECT classroom_id, start_time,
        COUNT(1) AS girl_order_count
        FROM `user_seat_order_view`
-       WHERE end_time > NOW() AND start_time < NOW() AND sex <> 1 AND (status = 1 OR status = 3)
+       WHERE end_time > NOW() AND start_time < NOW() AND sex <> 1 AND status > 0
        GROUP BY classroom_id, start_time
 
 ALTER VIEW classroom_nextday_girl_order_view AS
        SELECT classroom_id, start_time,
        COUNT(1) AS girl_order_count
        FROM `user_seat_order_view`
-       WHERE start_time > NOW() AND sex <> 1 AND (status = 1 OR status = 3)
+       WHERE start_time > NOW() AND sex <> 1 AND status > 0
        GROUP BY classroom_id, start_time
 
 ALTER VIEW classroom_today_order_detail_view AS

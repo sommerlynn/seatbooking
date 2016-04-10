@@ -29,7 +29,7 @@ classroom.getOrder = function (classroomID, dayType, callback) {
       orderDate = new Date(orderDate.getTime()+24*60*60*1000);
   }
 
-  var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ? and (status =1 or status = 3)",
+  var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ? and status > 0",
       params = [orderDate, orderDate, classroomID];
   db.executeQuery(selectQuery, params, callback);
 };
@@ -41,7 +41,7 @@ classroom.getActiveOrder = function (classroomID, dayType, callback) {
         orderDate = new Date(orderDate.getTime()+24*60*60*1000);
     }
 
-    var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ? and (status =1 or status = 3)",
+    var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ? and status > 0",
         params = [orderDate, orderDate, classroomID];
     db.executeQuery(selectQuery, params, callback);
 };
