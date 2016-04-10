@@ -431,7 +431,7 @@ router.get('/realInfo', function (req, res, next) {
 });
 
 router.post('/class', function (req, res, next) {
-    res.send(['GJ1501','GJ1502','GJ1503']);
+    res.send('GJ1501,GJ1502,GJ1503');
 });
 
 module.exports = router;
