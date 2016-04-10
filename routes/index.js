@@ -427,11 +427,26 @@ router.post('/leave', function (req, res, next) {
 });
 
 router.get('/realInfo', function (req, res, next) {
-    res.render('realInfoView', {title: '实名认证', departments:['控制与计算机工程学院','国际教育学院']});
+    models.departmentClassModel.getActiveDepartments(function(err, departments){
+       if(err){
+           res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+       } else{
+           res.render('realInfoView', {title: '实名认证', departments:departments});
+       }
+    });
 });
 
 router.post('/class', function (req, res, next) {
-    res.send('GJ1501,GJ1502,GJ1503');
+    models.departmentClassModel.getClass(req.body.department, function (err, classs) {
+        var classStr = '';
+        for(var index = 0; index < classs.length; index++){
+            classStr += classs[index];
+            if(index < classs.length -1){
+                classStr += ',';
+            }
+        }        
+        res.send(classStr);
+    });
 });
 
 module.exports = router;

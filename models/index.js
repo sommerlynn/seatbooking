@@ -7,7 +7,8 @@ models = {
     classroomModel : require('./classroomModel'),
     parseModel: require('./parseModel'),
     userModel:require('./userModel'),
-    weixinMessageModel:require('./weixinMessageModel')
+    weixinMessageModel:require('./weixinMessageModel'),
+    departmentClassModel:require('./departmentClassModel')
 };
 
 module.exports = models;
