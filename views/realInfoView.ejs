@@ -100,21 +100,20 @@
             }
         ],
         onClose:function(){
-            $("#class-picker").picker("setValue", ["GJ1501", "GJ1502", "GJ1503"]);
-        }
-    });
-
-    $("#class-picker").picker({
-        toolbarTemplate: '<header class="bar bar-nav">\
+            $("#class-picker").picker({
+                toolbarTemplate: '<header class="bar bar-nav">\
   <button class="button button-link pull-left"></button>\
   <button class="button button-link pull-right close-picker">确定</button>\
   <h1 class="title">亲，请选择你所在的班级</h1>\
   </header>',
-        cols: [
-            {
-                textAlign: 'center'
-            }
-        ]
+                cols: [
+                    {
+                        textAlign: 'center',
+                        value:['GJ1501','GJ1502','GJ1503']
+                    }
+                ]
+            });
+        }
     });
 </script>
 <% include footer.html %>
