@@ -101,25 +101,28 @@
                 values: ['控制与计算机工程学院', '国际教育学院']
             }
         ],
-        onClose:function(){
-            $.post('/class', function (response) {
-                var arr = response.split(',');
+        onClose: function () {
+            $.post('/class',
+                    {
+                        department: $('#department-picker')[0].value
+                    },
+                    function (response) {
+                        var classArray = response.split(',');
 
-
-                $("#class-picker").picker({
-                    toolbarTemplate: '<header class="bar bar-nav">\
-  <button class="button button-link pull-left"></button>\
-  <button class="button button-link pull-right close-picker">确定</button>\
-  <h1 class="title">亲，请选择你所在的班级</h1>\
-  </header>',
-                    cols: [
-                        {
-                            textAlign: 'center',
-                            values: arr
-                        }
-                    ]
-                });
-            });
+                        $("#class-picker").picker({
+                            toolbarTemplate: '<header class="bar bar-nav">\
+                                              <button class="button button-link pull-left"></button>\
+                                              <button class="button button-link pull-right close-picker">确定</button>\
+                                              <h1 class="title">亲，请选择你所在的班级</h1>\
+                                              </header>',
+                            cols: [
+                                {
+                                    textAlign: 'center',
+                                    values: classArray
+                                }
+                            ]
+                        });
+                    });
         }
     });
 
