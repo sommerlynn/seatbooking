@@ -445,7 +445,8 @@ router.get('/realInfo', function (req, res, next) {
 * */
 router.post('/realInfo', function (req, res, next) {
     if (req.session.userInfo) {
-        models.userModel.fillRealInfo(req.body.name,
+        models.userModel.fillRealInfo(
+            req.body.name,
             req.body.code,
             req.body.department,
             req.body.classs,
@@ -454,7 +455,7 @@ router.post('/realInfo', function (req, res, next) {
                 if(err){
                     res.send('亲，出错了额，请重试一下');
                 }else{
-                    res.send(req.session.userInfo.openid);
+                    res.send(result);
                 }
             });
     }else{

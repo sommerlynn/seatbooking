@@ -61,7 +61,7 @@ user.fillRealInfo = function (openid, realName, userCode, departmentName, classN
     var updateQuery = "update user set real_name = ?, user_code = ?, "+
                       "department_id = (select department_id from department where department_name = ?),"+
                       "class_id = (select class_id from class where class_name = ?) "+
-                      "where openid = '?'",
+                      "where openid = ?",
         params = [realName, userCode, departmentName, className, openid];
     db.executeQuery(updateQuery, params, callback);
 };
