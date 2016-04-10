@@ -431,7 +431,11 @@ router.get('/realInfo', function (req, res, next) {
        if(err){
            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
        } else{
-           res.render('realInfoView', {title: '实名认证', departments:departments});
+           var departmentNameArr = new Array();
+           for (var index = 0; index < departments.length; index++){
+               departmentNameArr[index] = departments[index].department_name;
+           }
+           res.render('realInfoView', {title: '实名认证', departments:departmentNameArr});
        }
     });
 });
@@ -440,11 +444,11 @@ router.post('/class', function (req, res, next) {
     models.departmentClassModel.getClass(req.body.department, function (err, classs) {
         var classStr = '';
         for(var index = 0; index < classs.length; index++){
-            classStr += classs[index];
+            classStr += classs[index].class_name;
             if(index < classs.length -1){
                 classStr += ',';
             }
-        }        
+        }
         res.send(classStr);
     });
 });
