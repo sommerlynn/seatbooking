@@ -88,15 +88,17 @@
     }
 
     $(document).on('click', '#submit-btn', function () {
+        $.showPreloader('亲,我们正在提交你的信息,请稍候...');
         $.post('/realInfo',
                {
-                  name:$('#name-input').value,
-                  code:$('#code-input').value,
+                  name:$('#name-input')[0].value,
+                  code:$('#code-input')[0].value,
                   department:$('#department-picker')[0].value,
                   classs:$('#class-picker')[0].value
                },
                function (response) {
-                    alert(response);
+                   $.hidePreloader();
+                   alert(response);
                });
     });
 
