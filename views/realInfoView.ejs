@@ -103,7 +103,7 @@
         ],
         onClose:function(){
             $.get('/class', function (response) {
-                arr = response.split(';');
+                arr = response.split(',');
                 $("#class-picker").picker({
                     toolbarTemplate: '<header class="bar bar-nav">\
   <button class="button button-link pull-left"></button>\
@@ -115,8 +115,8 @@
                             textAlign: 'center',
                             values:
                             [
-                            <% for (var i = 0; i < arr.length; i++){ %>
-                            '<%= arr[i] %>',
+                            <% for (var i = 0; i < response.split(',').length; i++){ %>
+                            '<%= response.split(',')[i] %>',
                             <% } %>
                             ]
                         }
