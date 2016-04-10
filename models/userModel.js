@@ -40,7 +40,7 @@ user.getUser = function(){
 };
 
 user.getSeatActiveOrderSheet = function(openid, callback) {
-    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? order by start_time",
+    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and (status = 1 OR status = 3) order by start_time",
         params = [openid, new Date()];
     db.executeQuery(selectQuery, params, callback);
 };
