@@ -34,14 +34,26 @@ classroom.getOrder = function (classroomID, dayType, callback) {
   db.executeQuery(selectQuery, params, callback);
 };
 
+
+classroom.getActiveOrder = function (classroomID, dayType, callback) {
+    var orderDate = new Date();
+    if(dayType == 'tomorrow'){
+        orderDate = new Date(orderDate.getTime()+24*60*60*1000);
+    }
+
+    var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ? and (status =1 or status = 3)",
+        params = [orderDate, orderDate, classroomID];
+    db.executeQuery(selectQuery, params, callback);
+};
+
 classroom.getToday = function(classroomID, callback){
-  var selectQuery = "select * from classroom_today_order_detail_view where classroom_id = ?",
+  var selectQuery = "select * from classroom_today_order_detail_view where classroom_id = ? and (status =1 or status = 3)",
       params = [classroomID];
   db.getObject(selectQuery, params, callback);
 };
 
 classroom.getNextday = function(classroomID, callback){
-  var selectQuery = "select * from classroom_nextday_order_detail_view where classroom_id = ?",
+  var selectQuery = "select * from classroom_nextday_order_detail_view where classroom_id = ? and (status =1 or status = 3)",
       params = [classroomID];
   db.getObject(selectQuery, params, callback);
 };
