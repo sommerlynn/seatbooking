@@ -13,7 +13,7 @@ departmentClass.getActiveDepartments = function(callback){
 
 departmentClass.getClass = function (departmentName, callback) {
     var selectQuery = "select * from class where department_id = "+
-                      "(select department_id from departments where department_name = ?)",
+                      "(select department_id from department where department_name = ?)",
         params = [departmentName];
     db.executeQuery(selectQuery, params, callback);
 };
