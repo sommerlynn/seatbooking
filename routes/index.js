@@ -454,7 +454,7 @@ router.post('/realInfo', function (req, res, next) {
                 if(err){
                     res.send('亲，出错了额，请重试一下');
                 }else{
-                    res.send('亲，你的实名信息已完成');
+                    res.send(req.session.userInfo.openid);
                 }
             });
     }else{
