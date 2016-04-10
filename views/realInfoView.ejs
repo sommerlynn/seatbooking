@@ -103,25 +103,23 @@
         ],
         onClose:function(){
             $.post('/class', function (response) {
-                $("#class-picker").picker("setValue", ['GJ1502']);
-                $("#class-picker").picker("updateValue");
-                $("#class-picker").picker("initPickerCol");
-            });
-        }
-    });
-
-    $("#class-picker").picker({
-        toolbarTemplate: '<header class="bar bar-nav">\
+                $("#class-picker").picker({
+                    toolbarTemplate: '<header class="bar bar-nav">\
   <button class="button button-link pull-left"></button>\
   <button class="button button-link pull-right close-picker">确定</button>\
   <h1 class="title">亲，请选择你所在的班级</h1>\
   </header>',
-        cols: [
-            {
-                textAlign: 'center',
-                values: ['GJ1501']
-            }
-        ]
+                    cols: [
+                        {
+                            textAlign: 'center',
+                            values: [response]
+                        }
+                    ]
+                });
+            });
+        }
     });
+
+
 </script>
 <% include footer.html %>
