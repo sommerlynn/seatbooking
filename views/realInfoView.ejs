@@ -103,25 +103,7 @@
         ],
         onClose:function(){
             $.get('/class', function (response) {
-                arr = response.split(',');
-                $("#class-picker").picker({
-                    toolbarTemplate: '<header class="bar bar-nav">\
-  <button class="button button-link pull-left"></button>\
-  <button class="button button-link pull-right close-picker">确定</button>\
-  <h1 class="title">亲，请选择你所在的班级</h1>\
-  </header>',
-                    cols: [
-                        {
-                            textAlign: 'center',
-                            values:
-                            [
-                            <% for (var i = 0; i < response.split(',').length; i++){ %>
-                            '<%= response.split(',')[i] %>',
-                            <% } %>
-                            ]
-                        }
-                    ]
-                });
+                alert(response);
             });
         }
     });
