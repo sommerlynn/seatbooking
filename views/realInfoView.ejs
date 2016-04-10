@@ -103,7 +103,7 @@
         ],
         onClose:function(){
             $.post('/class', function (response) {
-                $("#class-picker").picker("setValue", response);
+                $("#class-picker").picker("setValue", ['GJ1501']);
             });
         }
     });
