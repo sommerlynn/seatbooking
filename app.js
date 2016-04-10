@@ -74,6 +74,7 @@ if (app.get('env') === 'development') {
     log(err);
     res.status(err.status || 500);
     res.render('errorView', {
+      title:'系统异常',
       message: err.message,
       error: err
     });
