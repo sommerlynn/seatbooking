@@ -220,6 +220,13 @@
 
     .item-real-info{
     }
+
+    span.start-date-info, span.end-date-info {
+        color: #C41E04;
+        padding: 0.25rem 0.75rem;
+        line-height: 1.25rem;
+        font-size: 0.75em;
+    }
 </style>
 <script>
     function getSeatLable(row, column) {
@@ -348,7 +355,8 @@
                     <li class="card">
                         <div class="left_part">
                             <div class="date-row">
-                                <%= leaveApplications[index].start_time.toLocaleDateString()%>
+                                <span class="start-date-info">开始时间: <%= leaveApplications[index].start_time.toLocaleString()%></span>
+                                <span class="end-date-info">截止时间: <%= leaveApplications[index].end_time.toLocaleString()%></span>
                             </div>
                         </div>
                         <div class="right_part">
