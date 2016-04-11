@@ -68,7 +68,7 @@ user.fillRealInfo = function (realName, userCode, departmentName, className, ope
 
 user.applyLeave = function(leaveReason, startTime, endTime, openid, callback){
     var insertQuery = "insert into leave_application (applier_id, start_time, end_time, application_reason, status) "+
-                      "values ((select user_id from user where openid = ?), ?, ?, ?)",
+                      "values ((select user_id from user where openid = ?), ?, ?, ?, 0)",
         params = [openid, startTime, endTime, leaveReason];
     db.executeQuery(insertQuery, params, callback);
 };
