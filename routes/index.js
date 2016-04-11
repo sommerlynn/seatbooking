@@ -191,7 +191,17 @@ router.get('/medebug', function (req, res) {
         if (err) {
             res.send('错误' + err);
         } else {
-            res.render('meView', {title: '我的信息', userInfo: userInfo, userSeatOrders: userSeatOrders});
+
+            models.userModel.getLeaveApplication('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, leaveApplications){
+                if (err) {
+                    res.send('错误' + err);
+                }else{
+                    res.render('meView', {title: '我的信息',
+                        userInfo: req.session.userInfo,
+                        userSeatOrders: userSeatOrders,
+                        leaveApplications:leaveApplications});
+                }
+            });
         }
     });
 });
