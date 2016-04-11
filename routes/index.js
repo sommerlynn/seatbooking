@@ -480,4 +480,24 @@ router.get('/applyLeave', function (req, res, next) {
     res.render('applyLeaveView', {title: '实名认证'});
 });
 
+router.post('/applyLeave', function (req, res, next) {
+    if (req.session.userInfo) {
+        models.userModel.applyLeave(
+            req.body.leaveReason,
+            req.body.startTime,
+            req.body.endTime,
+            req.session.userInfo.openid,
+            function (err, results) {
+                if(err){
+                    res.send('亲，出错了额，请重试一下' +err.message);
+                }else{
+                    res.send('亲，您的申请已提交' );
+                }
+            }
+        );
+    }else{
+        res.send('亲，出错了额，请重试一下');
+    }
+});
+
 module.exports = router;

@@ -60,6 +60,12 @@
                     </div>
                 </li>
             </ul>
+            <div class="content-block">
+                <div class="row">
+                    <div class="col-50"><a href="me" class="button button-big button-fill button-danger">取消</a></div>
+                    <div class="col-50"><a href="#" class="button button-big button-fill button-success" id="submit-btn">提交</a></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -84,6 +90,20 @@
                               <button class="button button-link pull-right close-picker">确定</button>\
                               <h1 class="title">选择请假的截止时间</h1>\
                               </header>'
+        });
+
+        $(document).on('click', '#submit-btn', function () {
+            $.showPreloader('亲,我们正在提交请求,请稍候...');
+            $.post('/realInfo',
+                    {
+                        leaveReason:$('#application-reason-input')[0].value,
+                        startTime:$('#start-time-picker')[0].value,
+                        endTime:$('#end-time-picker')[0].value
+                    },
+                    function (response) {
+                        $.hidePreloader();
+                        alert(response);
+                    });
         });
     </script>
 </div>
