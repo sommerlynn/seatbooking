@@ -367,7 +367,16 @@
                                 <span class="end-date-info">截止时间: <%= leaveApplications[index].end_time.toLocaleString()%></span>
                             </div>
                             <div class="date-row">
-                                <span class="leave-reason">请假事由: <%= leaveApplications[index].application_reason%></span>
+                                <span class="leave-reason">当前状态:
+                                    <% switch(leaveApplications[index].status) {%>
+                                    <% case 0: %>
+                                        已提交待审核
+                                        <% break;%>
+                                    <% case 1: %>
+                                        已提交待审核
+                                        <% break;%>
+                                    <%}%>
+                                </span>
                             </div>
                         </div>
                         <div class="right_part">
