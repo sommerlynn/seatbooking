@@ -73,7 +73,7 @@ user.applyLeave = function(leaveReason, startTime, endTime, openid, callback){
     db.executeQuery(insertQuery, params, callback);
 };
 
-user.getLeaveApplication = function (openid) {
+user.getLeaveApplication = function (openid, callback) {
     var selectQuery = "select * from active_leave_application_view where openid = ?",
         params = [openid];
     db.executeQuery(selectQuery, params, callback);
