@@ -159,7 +159,17 @@ router.get('/me2', function (req, res) {
             if (err) {
                 res.send('错误' + err);
             } else {
-                res.render('meView', {title: '我的信息', userInfo: req.session.userInfo, userSeatOrders: userSeatOrders});
+
+                models.userModel.getLeaveApplication(req.session.userInfo.openid, function (err, leaveApplications){
+                    if (err) {
+                        res.send('错误' + err);
+                    }else{
+                        res.render('meView', {title: '我的信息', 
+                            userInfo: req.session.userInfo, 
+                            userSeatOrders: userSeatOrders,
+                            leaveApplications:leaveApplications});
+                    }
+                });
             }
         });
     } else {
