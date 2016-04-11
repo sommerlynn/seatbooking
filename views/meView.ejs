@@ -116,7 +116,7 @@
     }
 
     span.date-info {
-        color: #C41E04;
+        color: #A00000;
         padding: 0.25rem 0.75rem;
         line-height: 1.25rem;
         font-size: 0.75em;
@@ -236,7 +236,8 @@
         font-size: 0.75em;
     }
 
-    span.leave-reason{
+    span.leave-status{
+        color: #A00000;
         padding: 0.25rem 0.75rem;
         line-height: 1.25rem;
         font-size: 0.75em;
@@ -375,7 +376,7 @@
                                 <span class="end-date-info">截止时间: <%= leaveApplications[index].end_time.toLocaleString()%></span>
                             </div>
                             <div class="date-row">
-                                <span class="leave-reason">当前状态:
+                                <span class="leave-status">当前状态:
                                     <%if(leaveApplications[index].status == 0){%>
                                         已提交待审核
                                     <%}%>
