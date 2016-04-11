@@ -143,7 +143,18 @@ router.get('/me', function (req, res) {
             if (err) {
                 res.send('错误' + err);
             } else {
-                res.render('meView', {title: '我的信息', userInfo: req.session.userInfo, userSeatOrders: userSeatOrders});
+                models.userModel.getLeaveApplication(req.session.userInfo.openid, function (err, leaveApplications) {
+                    if (err) {
+                        res.send('错误' + err);
+                    } else {
+                        res.render('meView', {
+                            title: '我的信息',
+                            userInfo: req.session.userInfo,
+                            userSeatOrders: userSeatOrders,
+                            leaveApplications: leaveApplications
+                        });
+                    }
+                });
             }
         });
     } else {
@@ -160,14 +171,16 @@ router.get('/me2', function (req, res) {
                 res.send('错误' + err);
             } else {
 
-                models.userModel.getLeaveApplication(req.session.userInfo.openid, function (err, leaveApplications){
+                models.userModel.getLeaveApplication(req.session.userInfo.openid, function (err, leaveApplications) {
                     if (err) {
                         res.send('错误' + err);
-                    }else{
-                        res.render('meView', {title: '我的信息', 
-                            userInfo: req.session.userInfo, 
+                    } else {
+                        res.render('meView', {
+                            title: '我的信息',
+                            userInfo: req.session.userInfo,
                             userSeatOrders: userSeatOrders,
-                            leaveApplications:leaveApplications});
+                            leaveApplications: leaveApplications
+                        });
                     }
                 });
             }
@@ -192,14 +205,16 @@ router.get('/medebug', function (req, res) {
             res.send('错误' + err);
         } else {
 
-            models.userModel.getLeaveApplication('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, leaveApplications){
+            models.userModel.getLeaveApplication('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, leaveApplications) {
                 if (err) {
                     res.send('错误' + err);
-                }else{
-                    res.render('meView', {title: '我的信息',
+                } else {
+                    res.render('meView', {
+                        title: '我的信息',
                         userInfo: req.session.userInfo,
                         userSeatOrders: userSeatOrders,
-                        leaveApplications:leaveApplications});
+                        leaveApplications: leaveApplications
+                    });
                 }
             });
         }
@@ -288,7 +303,7 @@ router.post('/seatStatus', function (req, res) {
         '<div class="card-content">' +
         '<div class="card-content-inner">' + '图书馆五层南区' + '</div>' +
         '<div class="card-content-inner">' + row + column + '号 (第' + req.body.row + '排' + '第' + req.body.column + '列)</div>' +
-        /*'<div class="card-content-inner">'+index+':00 -'+(index+2)+':00</div>'+*/
+            /*'<div class="card-content-inner">'+index+':00 -'+(index+2)+':00</div>'+*/
         '</div>' +
         '<div class="card-time">' +
         '<div class="card-time-header">8:00</div><div class="card-time-header">10:00</div><div class="card-time-header">14:00</div><div class="card-time-header">16:00</div><div class="card-time-header">19:00</div>' +
@@ -447,22 +462,22 @@ router.post('/leave', function (req, res, next) {
 });
 
 router.get('/realInfo', function (req, res, next) {
-    models.departmentClassModel.getActiveDepartments(function(err, departments){
-       if(err){
-           res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-       } else{
-           var departmentNameArr = new Array();
-           for (var index = 0; index < departments.length; index++){
-               departmentNameArr[index] = departments[index].department_name;
-           }
-           res.render('realInfoView', {title: '实名认证', departments:departmentNameArr});
-       }
+    models.departmentClassModel.getActiveDepartments(function (err, departments) {
+        if (err) {
+            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+        } else {
+            var departmentNameArr = new Array();
+            for (var index = 0; index < departments.length; index++) {
+                departmentNameArr[index] = departments[index].department_name;
+            }
+            res.render('realInfoView', {title: '实名认证', departments: departmentNameArr});
+        }
     });
 });
 
 /*
-* 提交用户实名信息
-* */
+ * 提交用户实名信息
+ * */
 router.post('/realInfo', function (req, res, next) {
     if (req.session.userInfo) {
         models.userModel.fillRealInfo(
@@ -471,14 +486,14 @@ router.post('/realInfo', function (req, res, next) {
             req.body.department,
             req.body.classs,
             req.session.userInfo.openid,
-            function(err, result){
-                if(err){
-                    res.send('亲，出错了额，请重试一下' +err.message);
-                }else{
-                    res.send('亲，您的信息已认证' );
+            function (err, result) {
+                if (err) {
+                    res.send('亲，出错了额，请重试一下' + err.message);
+                } else {
+                    res.send('亲，您的信息已认证');
                 }
             });
-    }else{
+    } else {
         res.send('亲，出错了额，请重试一下');
     }
 });
@@ -486,9 +501,9 @@ router.post('/realInfo', function (req, res, next) {
 router.post('/class', function (req, res, next) {
     models.departmentClassModel.getClass(req.body.department, function (err, classs) {
         var classStr = '';
-        for(var index = 0; index < classs.length; index++){
+        for (var index = 0; index < classs.length; index++) {
             classStr += classs[index].class_name;
-            if(index < classs.length -1){
+            if (index < classs.length - 1) {
                 classStr += ',';
             }
         }
@@ -508,14 +523,14 @@ router.post('/applyLeave', function (req, res, next) {
             req.body.endTime,
             req.session.userInfo.openid,
             function (err, results) {
-                if(err){
-                    res.send('亲，出错了额，请重试一下' +err.message);
-                }else{
-                    res.send('亲，您的申请已提交' );
+                if (err) {
+                    res.send('亲，出错了额，请重试一下' + err.message);
+                } else {
+                    res.send('亲，您的申请已提交');
                 }
             }
         );
-    }else{
+    } else {
         res.send('亲，出错了额，请重试一下');
     }
 });
