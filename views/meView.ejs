@@ -136,7 +136,7 @@
         margin-bottom: 0.55rem;
     }
 
-    .operation-modify-leave, .operation-finish-leave {
+    .operation-modify-leave, .operation-finish-leave, .operation-cancel-leave {
         display: inline-block;
         padding: 0.1875rem 0.3125rem;
         width: 3.75rem;
@@ -379,13 +379,19 @@
                                 <span class="leave-status">当前状态:
                                     <%if(leaveApplications[index].status == 0){%>
                                         已提交待审核
-                                    <%}%>
+                                    <%} %>
                                 </span>
                             </div>
                         </div>
                         <div class="right_part">
-                            <div class="operation-modify-leave" id="release_<%= leaveApplications[index].application_id %>">修改</div>
-                            <div class="operation-finish-leave" id="leave_<%= leaveApplications[index].application_id %>">销假</div>
+                            <%  if(leaveApplications[index].status == 0)    {   %>
+                                <div class="operation-modify-leave" id="release_<%= leaveApplications[index].application_id %>">修改</div>
+                                <div class="operation-cancel-leave" id="release_<%= leaveApplications[index].application_id %>">撤回</div>
+                            <%  }   %>
+                            <%  if(leaveApplications[index].status == 1)    {   %>
+                                <div class="operation-finish-leave" id="leave_<%= leaveApplications[index].application_id %>">销假</div>
+                            <%  }   %>
+
                         </div>
                     </li>
 
