@@ -94,7 +94,7 @@
 
         $(document).on('click', '#submit-btn', function () {
             $.showPreloader('亲,我们正在提交请求,请稍候...');
-            $.post('/realInfo',
+            $.post('/applyLeave',
                     {
                         leaveReason:$('#application-reason-input')[0].value,
                         startTime:$('#start-time-picker')[0].value,
@@ -102,7 +102,7 @@
                     },
                     function (response) {
                         $.hidePreloader();
-                        alert(response);
+                        $.alert(response);
                     });
         });
     </script>
