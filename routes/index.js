@@ -476,4 +476,8 @@ router.post('/class', function (req, res, next) {
     });
 });
 
+router.get('/applyLeave', function (req, res, next) {
+    res.render('applyLeaveView', {title: '实名认证'});
+});
+
 module.exports = router;
