@@ -54,7 +54,7 @@ router.get('/oAuthGetInfo', function (req, res) {
 
                     models.weixinMessageModel.addUserInfo(userInfo, function (err) {
                         if (err) {
-                            res.render('errorView', {openid:openid, title: '服务器故障', message: '服务器故障', error: err});
+                            res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                         } else {
                             res.redirect(req.query.from + '/' + openid);
                         }
@@ -74,7 +74,7 @@ router.get('/oAuthGetInfo', function (req, res) {
 router.get('/building/:openid', function (req, res) {
     models.classroomModel.getAll(1, function (err, classroomList) {
         if (err) {
-            res.render('errorView', {openid:req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
+            res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
         }
         else {
             res.render('buildingView',
@@ -94,7 +94,7 @@ router.get('/building/:openid', function (req, res) {
 router.get('/buildingClassroom/:areaId/:openid', function (req, res) {
     models.classroomModel.getByAreaID(req.params.areaId, function (err, classroomList) {
         if (err) {
-            res.render('errorView', {openid:req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
+            res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
         }
         else {
             res.render('buildingClassroomView',
@@ -120,7 +120,7 @@ router.get('/librarySeatMap/:cid/:openid', function (req, res) {
         else {
             models.classroomModel.getOrder(req.params.cid, req.query.t, function (err, orders) {
                 if (err) {
-                    res.render('errorView', {openid:req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
+                    res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
                 } else {
                     var seatMapStr = classroom['seat_map'];
                     var seatMapArr = seatMapStr.split(';');
@@ -212,12 +212,17 @@ router.get('/me/:openid', function (req, res) {
         } else {
             models.userModel.getLeaveApplication(req.params.openid, function (err, leaveApplications) {
                 if (err) {
-                    res.render('errorView', {openid:req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
+                    res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
                 } else {
 
                     models.userModel.getUser(req.params.openid, function (err, userInfo) {
                         if (err) {
-                            res.render('errorView', {openid:req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
+                            res.render('errorView', {
+                                openid: req.params.openid,
+                                title: '服务器故障',
+                                message: '服务器故障',
+                                error: err
+                            });
                         } else {
                             res.render('meView', {
                                 openid: req.params.openid,
@@ -249,7 +254,7 @@ router.get('/medebug', function (req, res) {
 
             models.userModel.getLeaveApplication('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, leaveApplications) {
                 if (err) {
-                    res.render('errorView', {openid:req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
+                    res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
                 } else {
                     res.render('meView', {
                         title: '我的信息',
@@ -298,7 +303,7 @@ router.post('/leave', function (req, res) {
 router.get('/realInfo/:openid', function (req, res) {
     models.departmentClassModel.getActiveDepartments(function (err, departments) {
         if (err) {
-            res.render('errorView', {openid:req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
+            res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
         } else {
             var departmentNameArr = new Array();
             for (var index = 0; index < departments.length; index++) {
@@ -306,7 +311,7 @@ router.get('/realInfo/:openid', function (req, res) {
             }
             res.render('realInfoView',
                 {
-                    openid:req.params.openid,
+                    openid: req.params.openid,
                     title: '实名认证',
                     departments: departmentNameArr
                 });
@@ -319,23 +324,19 @@ router.get('/realInfo/:openid', function (req, res) {
  * 2016-04-11 CHEN PU 新建
  * */
 router.post('/realInfo', function (req, res) {
-    if (req.session.userInfo) {
-        models.userModel.fillRealInfo(
-            req.body.name,
-            req.body.code,
-            req.body.department,
-            req.body.classs,
-            req.body.openid,
-            function (err, result) {
-                if (err) {
-                    res.send('亲，出错了额，请重试一下' + err.message);
-                } else {
-                    res.send('亲，您的信息已认证');
-                }
-            });
-    } else {
-        res.send('亲，出错了额，请重试一下');
-    }
+    models.userModel.fillRealInfo(
+        req.body.name,
+        req.body.code,
+        req.body.department,
+        req.body.classs,
+        req.body.openid,
+        function (err, result) {
+            if (err) {
+                res.send('亲，出错了额，请重试一下' + err.message);
+            } else {
+                res.send('亲，您的信息已认证');
+            }
+        });
 });
 
 /*
