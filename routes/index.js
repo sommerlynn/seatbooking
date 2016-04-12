@@ -200,7 +200,7 @@ router.post('/order', function (req, res) {
  * 2016-04-05 CHEN PU 新建
  * 2016-04-12 CHEN PU 调整代码,用querystring传递openid
  * */
-router.get('/me', function (req, res) {
+router.get('/me/:openid', function (req, res) {
     models.userModel.getSeatActiveOrderSheet(req.params.openid, function (err, userSeatOrders) {
         if (err) {
             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
