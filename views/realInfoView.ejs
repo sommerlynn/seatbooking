@@ -91,6 +91,7 @@
         $.showPreloader('亲,我们正在提交你的信息,请稍候...');
         $.post('/realInfo',
                {
+                  openid:'<%=openid%>',
                   name:$('#name-input')[0].value,
                   code:$('#code-input')[0].value,
                   department:$('#department-picker')[0].value,
