@@ -35,8 +35,10 @@ user.newOrder = function(openid, classroomID, row, column, seatCode, startTime, 
 
 };
 
-user.getUser = function(){
-
+user.getUser = function(openid, callback){
+     var selectQuery = "select * from user_info_view where openid = ?",
+         params = [openid];
+    db.executeQuery(selectQuery, params, callback);
 };
 
 user.getSeatActiveOrderSheet = function(openid, callback) {

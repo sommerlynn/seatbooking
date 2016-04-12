@@ -123,7 +123,20 @@ ALTER VIEW active_leave_application_view AS
         WHERE end_time > NOW()
 
 
+ALTER VIEW class_manager_user_view AS
+        SELECT class_manager.class_id AS manager_class_id, user.*
+        FROM class_manager LEFT JOIN user
+        ON class_manager.user_id = user.user_id
 
+ALTER VIEW class_manager_user_count_view AS
+        SELECT user_id, IFNULL(COUNT(1),0) AS count
+        FROM class_manager GROUP BY user_id
+
+
+ALTER VIEW user_info_view AS
+        SELECT user.*, IFNULL(class_manager_user_count_view.count,0) AS manage_class_count
+        FROM user LEFT JOIN class_manager_user_count_view
+        ON user.user_id = class_manager_user_count_view.user_id
 
 // 获取各教室今天的订座状态
 SELECT area_classroom.*,

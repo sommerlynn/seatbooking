@@ -9,23 +9,23 @@ A seat booking system for campus
  https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxeec4313f49704ee2&secret=36012f4bbf7488518922ca5ae73aef8e
 
  2、创建菜单
- https://api.weixin.qq.com/cgi-bin/menu/create?access_token=wnXUiI9oMAdLrRXYQE7iTDz43eebypoSrSAwKWDf4VqhkHzXR0Wt0H6X6b91W60bgpYOTz3KbM8z6YezB0qQlgZLsGlhs30TFFPlK4r6SMELOAdACAHKW
+ https://api.weixin.qq.com/cgi-bin/menu/create?access_token=5rxnMQDfWgXFCdGatGU1-kspbZHqNjT3a8sgUQgYP6zJ9f4XB4SDnZfMkWHJgC7wSdwgOtuk_je6YZgOoHF0MgkY-GrlPa1IUqCY-RKzkV9ugt-1AvV_vy0TQYbpF-hlGGUjAIAZZN
  {
        "button":[
        {
             "type":"view",
             "name":"预约座位",
-            "url":"http://www.julyangel.cn/building"
+            "url":"http://www.julyangel.cn/oAuth/building"
        },
        {
             "type":"view",
             "name":"七玥星空",
-            "url":"http://www.julyangel.cn/"
+            "url":"http://www.julyangel.cn/oAuth/index"
        },
        {
             "type":"view",
             "name":"我的",
-            "url":"http://www.julyangel.cn/me"
+            "url":"http://www.julyangel.cn/oAuth/me"
        }
        ]
    }

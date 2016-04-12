@@ -136,7 +136,8 @@
         margin-bottom: 0.55rem;
     }
 
-    .operation-modify-leave, .operation-finish-leave, .operation-cancel-leave {
+    .operation-modify-leave, .operation-finish-leave,
+    .operation-cancel-leave, .operation-detail-leave {
         display: inline-block;
         padding: 0.1875rem 0.3125rem;
         width: 3.75rem;
@@ -264,7 +265,7 @@
 </script>
 <div class="page">
     <nav class="bar bar-tab">
-        <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building2" external>
+        <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building" external>
             <span class="icon icon-building"></span>
             <span class="tab-label">预约座位</span>
         </a>
@@ -272,7 +273,7 @@
             <span class="icon icon-star"></span>
             <span class="tab-label">七玥星空</span>
         </a>
-        <a class="tab-item active" id="meTab" href="http://www.julyangel.cn/me2" external>
+        <a class="tab-item active" id="meTab" href="http://www.julyangel.cn/me" external>
             <span class="icon icon-me"></span>
             <span class="tab-label">我的</span>
         </a>
@@ -315,7 +316,7 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title">我的座位</div>
-                            <div class="item-real-info"><a href="building2">预约座位 ></a></div>
+                            <div class="item-real-info"><a href="building">预约座位 ></a></div>
                         </div>
                     </div>
 
@@ -389,9 +390,9 @@
                                 <div class="operation-cancel-leave" id="release_<%= leaveApplications[index].application_id %>">撤回</div>
                             <%  }   %>
                             <%  if(leaveApplications[index].status == 1)    {   %>
+                                <div class="operation-detail-leave" id="release_<%= leaveApplications[index].application_id %>">详情</div>
                                 <div class="operation-finish-leave" id="leave_<%= leaveApplications[index].application_id %>">销假</div>
                             <%  }   %>
-
                         </div>
                     </li>
 

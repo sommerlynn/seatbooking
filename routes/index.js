@@ -15,6 +15,90 @@ router.get('/index', function (req, res) {
     res.render('indexView', {title: '七玥星空'});
 });
 
+/************************************************************************用户信息*/
+
+/*
+ * 获取用户信息
+ * 2016-04-12 CHEN PU 获取用户信息 第一步
+ * */
+router.get('/oAuth/:from', function (req, res) {
+    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+    var url = client.getAuthorizeURL('http://www.julyangel.cn/oAuthGetInfo/' + req.params.from, '123', 'snsapi_userinfo');
+    res.redirect(url);
+});
+
+/*
+ * 获取用户信息 CHEN PU 获取用户信息 第二步
+ * */
+router.get('oAuthGetInfo/:from', function (req, res) {
+    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+    client.getAccessToken(req.query.code, function (err, result) {
+        if (err) {
+            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+        }
+        else {
+            //var accessToken = result.data.access_token;
+            var openid = result.data.openid;
+            client.getUser(openid, function (err, result) {
+                if (err) {
+                    res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+                } else {
+                    var userInfo = result;
+
+                    //req.cookies.setAttribute('1','1');
+                    //req.session.userInfo = userInfo;
+
+                    models.weixinMessageModel.addUserInfo(userInfo, function (err) {
+                        if (err) {
+                            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+                        } else {
+                            res.redirect(req.params.from+'?openid='+openid);
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+/************************************************************************订座*/
+
+/*
+ * Get buildings of a school
+ * 获取教学楼列表
+ * */
+router.get('/building', function (req, res) {
+    models.classroomModel.getAll(1, function (err, classroomList) {
+        if (err) {
+            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+        }
+        else {
+            res.render('buildingView', {title: '七玥天使-自习室导航', classroomList: classroomList});
+        }
+    });
+});
+
+/*
+ * Get buildings of a school
+ * 获取教学楼列表
+ * */
+router.get('/buildingClassroom/:areaId', function (req, res) {
+    if (req.session.userInfo) {
+        models.classroomModel.getByAreaID(req.params.areaId, function (err, classroomList) {
+            if (err) {
+                res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+            }
+            else {
+                res.render('buildingClassroomView', {title: '七玥校园', classroomList: classroomList});
+            }
+        });
+    } else {
+        var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+        var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
+        res.redirect(url);
+    }
+});
+
 /*
  * Get seat map of a classroom
  * 获取一个教室的座位图
@@ -75,247 +159,9 @@ router.get('/librarySeatMap/:cid', function (req, res) {
 });
 
 /*
- * Get buildings of a school
- * 获取教学楼列表
+ * 提交订座申请
+ * 2016-04-08 CHEN PU 新建
  * */
-router.get('/building', function (req, res) {
-    if (req.session.userInfo) {
-        models.classroomModel.getAll(1, function (err, classroomList) {
-            if (err) {
-                res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-            }
-            else {
-                res.render('buildingView', {title: '七玥天使-自习室导航', classroomList: classroomList});
-            }
-        });
-    } else {
-        var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-        var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
-        res.redirect(url);
-    }
-});
-
-router.get('/building2', function (req, res) {
-    if (req.session.userInfo) {
-        models.classroomModel.getAll(1, function (err, classroomList) {
-            if (err) {
-                res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-            }
-            else {
-                res.render('buildingView', {title: '七玥天使-自习室导航', classroomList: classroomList});
-            }
-        });
-    }
-    else {
-        var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-        var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
-        res.redirect(url);
-    }
-    /*var err = {status:'ok', stack:'ok 111'};
-     res.render('errorView', {title:'预约座位', message:'building', error: err});*/
-});
-
-/*
- * Get buildings of a school
- * 获取教学楼列表
- * */
-router.get('/buildingClassroom/:areaId', function (req, res) {
-    if (req.session.userInfo) {
-        models.classroomModel.getByAreaID(req.params.areaId, function (err, classroomList) {
-            if (err) {
-                res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-            }
-            else {
-                res.render('buildingClassroomView', {title: '七玥校园', classroomList: classroomList});
-            }
-        });
-    } else {
-        var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-        var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
-        res.redirect(url);
-    }
-});
-
-
-router.get('/me', function (req, res) {
-    if (req.session.userInfo) {
-        models.userModel.getSeatActiveOrderSheet(req.session.userInfo.openid, function (err, userSeatOrders) {
-            if (err) {
-                res.send('错误' + err);
-            } else {
-                models.userModel.getLeaveApplication(req.session.userInfo.openid, function (err, leaveApplications) {
-                    if (err) {
-                        res.send('错误' + err);
-                    } else {
-                        res.render('meView', {
-                            title: '我的信息',
-                            userInfo: req.session.userInfo,
-                            userSeatOrders: userSeatOrders,
-                            leaveApplications: leaveApplications
-                        });
-                    }
-                });
-            }
-        });
-    } else {
-        var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-        var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackme', '123', 'snsapi_userinfo');
-        res.redirect(url);
-    }
-});
-
-router.get('/me2', function (req, res) {
-    if (req.session.userInfo) {
-        models.userModel.getSeatActiveOrderSheet(req.session.userInfo.openid, function (err, userSeatOrders) {
-            if (err) {
-                res.send('错误' + err);
-            } else {
-
-                models.userModel.getLeaveApplication(req.session.userInfo.openid, function (err, leaveApplications) {
-                    if (err) {
-                        res.send('错误' + err);
-                    } else {
-                        res.render('meView', {
-                            title: '我的信息',
-                            userInfo: req.session.userInfo,
-                            userSeatOrders: userSeatOrders,
-                            leaveApplications: leaveApplications
-                        });
-                    }
-                });
-            }
-        });
-    } else {
-        var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-        var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackme', '123', 'snsapi_userinfo');
-        res.redirect(url);
-    }
-});
-
-router.get('/medebug', function (req, res) {
-    var userInfo = {
-        nickname: '璞',
-        province: '北京',
-        city: '昌平',
-        headimgurl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0'
-    };
-
-    models.userModel.getSeatActiveOrderSheet('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, userSeatOrders) {
-        if (err) {
-            res.send('错误' + err);
-        } else {
-
-            models.userModel.getLeaveApplication('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, leaveApplications) {
-                if (err) {
-                    res.send('错误' + err);
-                } else {
-                    res.render('meView', {
-                        title: '我的信息',
-                        userInfo: req.session.userInfo,
-                        userSeatOrders: userSeatOrders,
-                        leaveApplications: leaveApplications
-                    });
-                }
-            });
-        }
-    });
-});
-
-router.get('/callbackbuilding', function (req, res) {
-    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-    client.getAccessToken(req.query.code, function (err, result) {
-        if (err) {
-            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-        }
-        else {
-            //var accessToken = result.data.access_token;
-            var openid = result.data.openid;
-            client.getUser(openid, function (err, result) {
-                if (err) {
-                    res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-                } else {
-                    var userInfo = result;
-                    req.session.userInfo = userInfo;
-
-                    models.weixinMessageModel.addUserInfo(userInfo, function (err) {
-                        if (err) {
-                            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-                        } else {
-                            res.redirect("building2");
-                        }
-                    });
-                }
-            });
-        }
-    });
-});
-
-router.get('/callbackme', function (req, res) {
-    var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-    client.getAccessToken(req.query.code, function (err, result) {
-        //var accessToken = result.data.access_token;
-        if (err) {
-            res.send('错误' + err);
-        } else {
-            var openid = result.data.openid;
-            client.getUser(openid, function (err, result) {
-                if (err) {
-                    res.send('错误' + err);
-                } else {
-                    var userInfo = result;
-                    req.session.userInfo = userInfo;
-                    res.redirect("me2");
-                    models.weixinMessageModel.addUserInfo(userInfo, function (err) {
-                        if (err) {
-                            res.send('错误' + err);
-                        } else {
-                        }
-                    });
-                }
-            });
-        }
-    });
-});
-
-router.post('/seatStatus', function (req, res) {
-    //req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column
-    var response = '';
-    var row = req.body.row,
-        column = req.body.column;
-    if (row < 10) {
-        row = '0' + row;
-    }
-    else {
-        row = row + '';
-    }
-    if (column < 10) {
-        column = '0' + column;
-    }
-    else {
-        column = column + '';
-    }
-
-    var today = new Date(),
-        nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-
-    response += '<li class="card">' +
-        '<div class="card-header"><div style="width: 50%">座位券</div><div style="width: 50%">' + today.toLocaleDateString() + '</div></div>' +
-        '<div class="card-content">' +
-        '<div class="card-content-inner">' + '图书馆五层南区' + '</div>' +
-        '<div class="card-content-inner">' + row + column + '号 (第' + req.body.row + '排' + '第' + req.body.column + '列)</div>' +
-            /*'<div class="card-content-inner">'+index+':00 -'+(index+2)+':00</div>'+*/
-        '</div>' +
-        '<div class="card-time">' +
-        '<div class="card-time-header">8:00</div><div class="card-time-header">10:00</div><div class="card-time-header">14:00</div><div class="card-time-header">16:00</div><div class="card-time-header">19:00</div>' +
-        '<div class="card-time-header">~</div><div class="card-time-header">~</div><div class="card-time-header">~</div><div class="card-time-header">~</div><div class="card-time-header">~</div>' +
-        '<div class="card-time-header">10:00</div><div class="card-time-header">12:00</div><div class="card-time-header">16:00</div><div class="card-time-header">18:00</div><div class="card-time-header">21:00</div>' +
-        '<div class="card-time-status">空闲</div><div class="card-time-status">空闲</div><div class="card-time-status">空闲</div><div class="card-time-status">空闲</div><div class="card-time-status">空闲</div>' +
-        '</div>' +
-        '<div class="card-footer" id="today-card-footer">' + '仅限本人使用 点击领取' + '</div>' +
-        '</li>';
-    res.send(response);
-});
-
 router.post('/order', function (req, res) {
     if (req.session.userInfo) {
         //var dateArr = req.body.time.split(' ');
@@ -347,101 +193,75 @@ router.post('/order', function (req, res) {
     }
 });
 
-router.get('/loadcourse', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
-    var data = dataFromFile[0]['data'];
-    var msg = '执行完毕';
+/************************************************************************我的*/
 
-    async.forEachSeries(data, function (item, callback) {
-        var courseInfo = {
-            'course_name': item[0],
-            'course_xkkh': item[3],
-            'teacher_name': item[2],
-            'teacher_code': item[1]
-        }
-        models.parseModel.addCourse(courseInfo, callback);
-    }, function (err) {
-        msg = err;
-    });
-    res.render('parseView', {title: '解析数据', msg: msg});
-});
-
-// 0 课程名
-// 1 教工号
-// 2 教师姓名
-// 3 选课课号
-// 4 教室类型 多媒体 普通教室 操场 电工实验室 电机实验室 .....
-// 5 上课时间
-// 6 上课地点
-
-router.get('/loadbuilding', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
-    var datas = dataFromFile[0]['data'];
-    var msg;
-
-    async.eachSeries(datas, function (item, callback) {
-        console.log(item);
-        models.parseModel.parseBuildingArea(item, callback);
-    }, function (err) {
-        msg = err;
-        console.log(err);
-    });
-
-    res.render('parseView', {title: '加载教学楼信息', msg: msg});
-});
-
-
-router.get('/loadclassroom', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
-    var datas = dataFromFile[0]['data'];
-    var msg;
-
-    async.eachSeries(datas, function (item, callback) {
-        console.log(item);
-        models.parseModel.parseClassRoom(item, callback);
-    }, function (err) {
-        msg = err;
-        console.log(err);
-    });
-
-    res.render('parseView', {title: '加载教室信息', msg: msg});
-});
-
-router.get('/loadclasstime', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
-    var datas = dataFromFile[0]['data'];
-    var msg;
-    async.eachSeries(datas, function (item, callback) {
-            //console.log(item);
-            models.parseModel.parseClassTime(item, callback);
-        },
-        function (err) {
-            msg = err;
-            console.log(err);
-        });
-    res.render('parseView', {title: '加载教室信息', msg: msg});
-});
-
-/*根据行、列数计算教室的默认标准地图数据*/
-router.get('/fillSeatMap', function (req, res, next) {
-    models.classroomModel.getAll(1, function (err, classrooms) {
+/*
+ * 我的页面
+ * 2016-04-05 CHEN PU 新建
+ * 2016-04-12 CHEN PU 调整代码,用querystring传递openid
+ * */
+router.get('/me', function (req, res) {
+    models.userModel.getSeatActiveOrderSheet(req.query.openid, function (err, userSeatOrders) {
         if (err) {
-
+            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
         } else {
-            async.eachSeries(classrooms, function (item, callback) {
-                    console.log(item.classroom_name);
-                    models.classroomModel.buildSeatMap(item, callback);
-                },
-                function (err) {
-                    msg = err;
-                    console.log(err);
-                });
+            models.userModel.getLeaveApplication(req.query.openid, function (err, leaveApplications) {
+                if (err) {
+                    res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+                } else {
+                    
+                    models.userModel.getUser(req.query.openid, function(err, userInfo){
+                        if(err){
+                            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+                        }else{
+                            res.render('meView', {
+                                title: '我的信息',
+                                userInfo: userInfo[0],
+                                userSeatOrders: userSeatOrders,
+                                leaveApplications: leaveApplications
+                            });
+                        }
+                    });
+                }
+            });
         }
     });
-
 });
 
-router.post('/release', function (req, res, next) {
+router.get('/medebug', function (req, res) {
+    var userInfo = {
+        nickname: '璞',
+        province: '北京',
+        city: '昌平',
+        headimgurl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0'
+    };
+
+    models.userModel.getSeatActiveOrderSheet('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, userSeatOrders) {
+        if (err) {
+            res.send('错误' + err);
+        } else {
+
+            models.userModel.getLeaveApplication('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, leaveApplications) {
+                if (err) {
+                    res.send('错误' + err);
+                } else {
+                    res.render('meView', {
+                        title: '我的信息',
+                        userInfo: req.session.userInfo,
+                        userSeatOrders: userSeatOrders,
+                        leaveApplications: leaveApplications
+                    });
+                }
+            });
+        }
+    });
+});
+
+/*
+ * 释放座位
+ * 2016-04-08 CHEN PU 新建
+ * */
+router.post('/release', function (req, res) {
     models.userModel.releaseSeat(req.body.orderID, function (err, results) {
         if (err) {
             res.send('释放失败，请重试');
@@ -451,7 +271,11 @@ router.post('/release', function (req, res, next) {
     });
 });
 
-router.post('/leave', function (req, res, next) {
+/*
+ * 暂离座位
+ * 2016-04-08 CHEN PU 新建
+ **/
+router.post('/leave', function (req, res) {
     models.userModel.leaveSeat(req.body.orderID, function (err, results) {
         if (err) {
             res.send('设置暂离失败，请重试');
@@ -461,7 +285,11 @@ router.post('/leave', function (req, res, next) {
     });
 });
 
-router.get('/realInfo', function (req, res, next) {
+/*
+ * 实名认证页面
+ * 2016-04-11 CHEN PU 新建
+ * */
+router.get('/realInfo', function (req, res) {
     models.departmentClassModel.getActiveDepartments(function (err, departments) {
         if (err) {
             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
@@ -477,8 +305,9 @@ router.get('/realInfo', function (req, res, next) {
 
 /*
  * 提交用户实名信息
+ * 2016-04-11 CHEN PU 新建
  * */
-router.post('/realInfo', function (req, res, next) {
+router.post('/realInfo', function (req, res) {
     if (req.session.userInfo) {
         models.userModel.fillRealInfo(
             req.body.name,
@@ -498,7 +327,11 @@ router.post('/realInfo', function (req, res, next) {
     }
 });
 
-router.post('/class', function (req, res, next) {
+/*
+ * 实名认证页面上获取对应学院的下属班级列表
+ * 2016-04-11 CHEN PU 新建
+ * */
+router.post('/class', function (req, res) {
     models.departmentClassModel.getClass(req.body.department, function (err, classs) {
         var classStr = '';
         for (var index = 0; index < classs.length; index++) {
@@ -511,11 +344,21 @@ router.post('/class', function (req, res, next) {
     });
 });
 
-router.get('/applyLeave', function (req, res, next) {
+
+/*************************************************************************请假*/
+/*
+ * 填写请假申请表单的页面
+ * 2016-04-11 CHEN PU   新建
+ * */
+router.get('/applyLeave', function (req, res) {
     res.render('applyLeaveView', {title: '请假申请'});
 });
 
-router.post('/applyLeave', function (req, res, next) {
+/*
+ * 提交请假申请信息
+ * 2016-04-11 CHEN PU   新建
+ * */
+router.post('/applyLeave', function (req, res) {
     if (req.session.userInfo) {
         models.userModel.applyLeave(
             req.body.leaveReason,
@@ -534,5 +377,6 @@ router.post('/applyLeave', function (req, res, next) {
         res.send('亲，出错了额，请重试一下');
     }
 });
+
 
 module.exports = router;
