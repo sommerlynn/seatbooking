@@ -74,6 +74,7 @@ if (app.get('env') === 'development') {
     log(err);
     res.status(err.status || 500);
     res.render('errorView', {
+      openid:'oF4F0sxpbSEw5PETECnqB93JS1uc',
       title:'系统异常',
       message: err.message,
       error: err
@@ -86,6 +87,7 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('errorView', {
+    openid:'oF4F0sxpbSEw5PETECnqB93JS1uc',
     title:'系统异常',
     message: err.message,
     error: {}
