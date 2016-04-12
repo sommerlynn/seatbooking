@@ -304,7 +304,12 @@ router.get('/realInfo/:openid', function (req, res) {
             for (var index = 0; index < departments.length; index++) {
                 departmentNameArr[index] = departments[index].department_name;
             }
-            res.render('realInfoView', {title: '实名认证', departments: departmentNameArr});
+            res.render('realInfoView',
+                {
+                    openid:req.params.openid,
+                    title: '实名认证',
+                    departments: departmentNameArr
+                });
         }
     });
 });
