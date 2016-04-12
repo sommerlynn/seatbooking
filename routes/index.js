@@ -30,7 +30,7 @@ router.get('/oAuth/:from', function (req, res) {
 /*
  * 获取用户信息 CHEN PU 获取用户信息 第二步
  * */
-router.get('/oAuthGetInfo', function (req, res) {
+router.get('/oAuthGetInfo/:from', function (req, res) {
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
     client.getAccessToken(req.query.code, function (err, result) {
         if (err) {
@@ -52,7 +52,7 @@ router.get('/oAuthGetInfo', function (req, res) {
                         if (err) {
                             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                         } else {
-                            res.redirect(req.query.from+'?openid='+openid);
+                            res.redirect(req.params.from+'/'+openid);
                         }
                     });
                 }
@@ -201,16 +201,16 @@ router.post('/order', function (req, res) {
  * 2016-04-12 CHEN PU 调整代码,用querystring传递openid
  * */
 router.get('/me', function (req, res) {
-    models.userModel.getSeatActiveOrderSheet(req.query.openid, function (err, userSeatOrders) {
+    models.userModel.getSeatActiveOrderSheet(req.params.openid, function (err, userSeatOrders) {
         if (err) {
             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
         } else {
-            models.userModel.getLeaveApplication(req.query.openid, function (err, leaveApplications) {
+            models.userModel.getLeaveApplication(req.params.openid, function (err, leaveApplications) {
                 if (err) {
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                 } else {
                     
-                    models.userModel.getUser(req.query.openid, function(err, userInfo){
+                    models.userModel.getUser(req.params.openid, function(err, userInfo){
                         if(err){
                             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                         }else{
