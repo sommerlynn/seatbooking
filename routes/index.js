@@ -23,14 +23,14 @@ router.get('/index', function (req, res) {
  * */
 router.get('/oAuth/:from', function (req, res) {
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-    var url = client.getAuthorizeURL('http://www.julyangel.cn/oAuthGetInfo/' + req.params.from, '123', 'snsapi_userinfo');
+    var url = client.getAuthorizeURL('http://www.julyangel.cn/oAuthGetInfo?from=' + req.params.from, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
 /*
  * 获取用户信息 CHEN PU 获取用户信息 第二步
  * */
-router.get('oAuthGetInfo/:from', function (req, res) {
+router.get('oAuthGetInfo', function (req, res) {
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
     client.getAccessToken(req.query.code, function (err, result) {
         if (err) {
@@ -52,7 +52,7 @@ router.get('oAuthGetInfo/:from', function (req, res) {
                         if (err) {
                             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                         } else {
-                            res.redirect(req.params.from+'?openid='+openid);
+                            res.redirect(req.query.from+'?openid='+openid);
                         }
                     });
                 }
