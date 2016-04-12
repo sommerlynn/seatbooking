@@ -11,8 +11,12 @@ router.get('/', function (req, res) {
     res.render('indexView', {title: '七玥星空'});
 });
 
-router.get('/index', function (req, res) {
-    res.render('indexView', {title: '七玥星空'});
+router.get('/index/:openid', function (req, res) {
+    res.render('indexView',
+        {
+            openid:req.params.openid,
+            title: '七玥星空'
+        });
 });
 
 /************************************************************************用户信息*/
@@ -67,13 +71,18 @@ router.get('/oAuthGetInfo', function (req, res) {
  * Get buildings of a school
  * 获取教学楼列表
  * */
-router.get('/building', function (req, res) {
+router.get('/building/:openid', function (req, res) {
     models.classroomModel.getAll(1, function (err, classroomList) {
         if (err) {
             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
         }
         else {
-            res.render('buildingView', {title: '七玥天使-自习室导航', classroomList: classroomList});
+            res.render('buildingView',
+                {
+                    openid:req.params.openid,
+                    title: '七玥天使-自习室导航',
+                    classroomList: classroomList
+                });
         }
     });
 });
