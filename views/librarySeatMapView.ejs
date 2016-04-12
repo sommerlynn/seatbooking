@@ -117,15 +117,15 @@
 
     <!-- 工具栏 -->
     <nav class="bar bar-tab">
-        <a class="tab-item active" id="buildingTab" href="http://www.julyangel.cn/building" external>
+        <a class="tab-item active" id="buildingTab" href="http://www.julyangel.cn/building/<%=openid%>" external>
             <span class="icon icon-building"></span>
             <span class="tab-label">预约座位</span>
         </a>
-        <a class="tab-item" id="skyTab" href="http://www.julyangel.cn/index" external>
+        <a class="tab-item" id="skyTab" href="http://www.julyangel.cn/index/<%=openid%>" external>
             <span class="icon icon-star"></span>
             <span class="tab-label">七玥星空</span>
         </a>
-        <a class="tab-item" id="meTab" href="http://www.julyangel.cn/me" external>
+        <a class="tab-item" id="meTab" href="http://www.julyangel.cn/me/<%=openid%>" external>
             <span class="icon icon-me"></span>
             <span class="tab-label">我的</span>
         </a>
@@ -193,9 +193,9 @@
     </div>
 </div>
 
-<!--<script type='text/javascript' src='/scripts/zepto.js' charset='utf-8'></script>-->
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/ajax.js' charset='utf-8'></script>
 <script>
@@ -204,9 +204,6 @@
         router: false
     }
 </script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<!--<script type='text/javascript' src='/scripts/sm.js' charset='utf-8'></script>
-<script type='text/javascript' src='/scripts/panels.js' charset='utf-8'></script>-->
 <script type="text/javascript" src="/scripts/jquery.seat-charts.js?v=20160410"></script>
 <script>
     var columnIndex = 1,
@@ -369,6 +366,7 @@
                 selectedSeatColumnID > 0) {
             $.showPreloader('提交预约申请...');
             $.post('/order', {
+                openid:'<%=openid%>'
                 classroom: '<%= cid %>',
                 row: selectedSeatRowID,
                 column: selectedSeatColumnID,
@@ -392,7 +390,7 @@
 
 </script>
 
-<script>
+<!--<script>
     $("#buildingTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/building");
     });
@@ -402,7 +400,7 @@
     $("#meTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/me");
     });
-</script>
+</script>-->
 
 <% include footer.html %>
 

@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
 router.get('/index/:openid', function (req, res) {
     res.render('indexView',
         {
-            openid:req.params.openid,
+            openid: req.params.openid,
             title: '七玥星空'
         });
 });
@@ -56,7 +56,7 @@ router.get('/oAuthGetInfo', function (req, res) {
                         if (err) {
                             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                         } else {
-                            res.redirect(req.query.from+'/'+openid);
+                            res.redirect(req.query.from + '/' + openid);
                         }
                     });
                 }
@@ -79,7 +79,7 @@ router.get('/building/:openid', function (req, res) {
         else {
             res.render('buildingView',
                 {
-                    openid:req.params.openid,
+                    openid: req.params.openid,
                     title: '七玥天使-自习室导航',
                     classroomList: classroomList
                 });
@@ -91,28 +91,27 @@ router.get('/building/:openid', function (req, res) {
  * Get buildings of a school
  * 获取教学楼列表
  * */
-router.get('/buildingClassroom/:areaId', function (req, res) {
-    if (req.session.userInfo) {
-        models.classroomModel.getByAreaID(req.params.areaId, function (err, classroomList) {
-            if (err) {
-                res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-            }
-            else {
-                res.render('buildingClassroomView', {title: '七玥校园', classroomList: classroomList});
-            }
-        });
-    } else {
-        var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-        var url = client.getAuthorizeURL('http://www.julyangel.cn/callbackbuilding', '123', 'snsapi_userinfo');
-        res.redirect(url);
-    }
+router.get('/buildingClassroom/:areaId/:openid', function (req, res) {
+    models.classroomModel.getByAreaID(req.params.areaId, function (err, classroomList) {
+        if (err) {
+            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+        }
+        else {
+            res.render('buildingClassroomView',
+                {
+                    openid:req.params.openid,
+                    title: '七玥校园',
+                    classroomList: classroomList
+                });
+        }
+    });
 });
 
 /*
  * Get seat map of a classroom
  * 获取一个教室的座位图
  * */
-router.get('/librarySeatMap/:cid', function (req, res) {
+router.get('/librarySeatMap/:cid/:openid', function (req, res) {
 
     models.classroomModel.getOrderByDayType(req.params.cid, req.query.t, function (err, classroom) {
         if (err) {
@@ -152,6 +151,7 @@ router.get('/librarySeatMap/:cid', function (req, res) {
                         nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
 
                     res.render('librarySeatMapView', {
+                        openid:req.params.openid,
                         title: classroom['full_name'],
                         classroom: classroom,
                         map: seatMapArr,
@@ -218,13 +218,13 @@ router.get('/me/:openid', function (req, res) {
                 if (err) {
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                 } else {
-                    
-                    models.userModel.getUser(req.params.openid, function(err, userInfo){
-                        if(err){
+
+                    models.userModel.getUser(req.params.openid, function (err, userInfo) {
+                        if (err) {
                             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-                        }else{
+                        } else {
                             res.render('meView', {
-                                openid:req.params.openid,
+                                openid: req.params.openid,
                                 title: '我的信息',
                                 userInfo: userInfo[0],
                                 userSeatOrders: userSeatOrders,
