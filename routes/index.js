@@ -99,7 +99,7 @@ router.get('/buildingClassroom/:areaId/:openid', function (req, res) {
         else {
             res.render('buildingClassroomView',
                 {
-                    openid:req.params.openid,
+                    openid: req.params.openid,
                     title: '七玥校园',
                     classroomList: classroomList
                 });
@@ -151,7 +151,7 @@ router.get('/librarySeatMap/:cid/:openid', function (req, res) {
                         nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
 
                     res.render('librarySeatMapView', {
-                        openid:req.params.openid,
+                        openid: req.params.openid,
                         title: classroom['full_name'],
                         classroom: classroom,
                         map: seatMapArr,
@@ -172,34 +172,30 @@ router.get('/librarySeatMap/:cid/:openid', function (req, res) {
  * 2016-04-08 CHEN PU 新建
  * */
 router.post('/order', function (req, res) {
-    if (req.session.userInfo) {
-        //var dateArr = req.body.time.split(' ');
-        //var hour = dateArr[0].substr(0, dateArr[0].length-1);
-        //var minute = dateArr[1].substr(0, dateArr[1].length-1);
-        //var today = new Date();
-        //var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
+    //var dateArr = req.body.time.split(' ');
+    //var hour = dateArr[0].substr(0, dateArr[0].length-1);
+    //var minute = dateArr[1].substr(0, dateArr[1].length-1);
+    //var today = new Date();
+    //var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
 
-        var startTime;
-        var today = new Date();
-        if (req.body.type == 'tomorrow') {
-            var nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-            startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
+    var startTime;
+    var today = new Date();
+    if (req.body.type == 'tomorrow') {
+        var nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
+    } else {
+        startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    }
+    var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
+
+    models.userModel.newOrder(req.body.openid, req.body.classroom, req.body.row, req.body.column, req.body.seatCode, startTime, endTime, function (err) {
+        if (err) {
+            res.send(err);
         } else {
-            startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            res.send('已成功预定');
         }
-        var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
+    });
 
-        models.userModel.newOrder(req.session.userInfo.openid, req.body.classroom, req.body.row, req.body.column, req.body.seatCode, startTime, endTime, function (err) {
-            if (err) {
-                res.send(err);
-            } else {
-                res.send('已成功预定');
-            }
-        });
-    }
-    else {
-        res.send('未取得用户信息');
-    }
 });
 
 /************************************************************************我的*/
