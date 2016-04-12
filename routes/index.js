@@ -362,8 +362,8 @@ router.post('/class', function (req, res) {
  * 填写请假申请表单的页面
  * 2016-04-11 CHEN PU   新建
  * */
-router.get('/applyLeave', function (req, res) {
-    res.render('applyLeaveView', {title: '请假申请'});
+router.get('/applyLeave/:openid', function (req, res) {
+    res.render('applyLeaveView', {openid:req.params.openid, title: '请假申请'});
 });
 
 /*
@@ -376,7 +376,7 @@ router.post('/applyLeave', function (req, res) {
             req.body.leaveReason,
             req.body.startTime,
             req.body.endTime,
-            req.session.userInfo.openid,
+            req.body.openid,
             function (err, results) {
                 if (err) {
                     res.send('亲，出错了额，请重试一下' + err.message);
