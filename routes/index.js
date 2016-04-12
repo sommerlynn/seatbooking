@@ -30,7 +30,7 @@ router.get('/oAuth/:from', function (req, res) {
 /*
  * 获取用户信息 CHEN PU 获取用户信息 第二步
  * */
-router.get('oAuthGetInfo', function (req, res) {
+router.get('/oAuthGetInfo', function (req, res) {
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
     client.getAccessToken(req.query.code, function (err, result) {
         if (err) {
