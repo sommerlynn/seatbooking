@@ -96,7 +96,7 @@ router.get('/medebug', function (req, res) {
  * 释放座位
  * 2016-04-08 CHEN PU 新建
  * */
-router.post('/release', function (req, res) {
+router.post('/me/release', function (req, res) {
     models.userModel.releaseSeat(req.body.orderID, function (err, results) {
         if (err) {
             res.send('释放失败，请重试');

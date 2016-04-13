@@ -312,7 +312,7 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title">实名信息</div>
-                            <div class="item-real-info"><a href="/me/realInfo/<%=openid%>">实名认证 ></a></div>
+                            <div class="item-real-info"><a href="realInfo/<%=openid%>">实名认证 ></a></div>
                         </div>
                     </div>
 
@@ -368,7 +368,7 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title">我的假条</div>
-                            <div class="item-real-info"><a href="/applyLeave/<%=openid%>">我要请假 ></a></div>
+                            <div class="item-real-info"><a href="applyLeave/<%=openid%>">我要请假 ></a></div>
                         </div>
                     </div>
 
@@ -413,7 +413,7 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title">待审假条</div>
-                            <div class="item-real-info"><a href="/applyLeave/<%=openid%>">已审假条 ></a></div>
+                            <div class="item-real-info"><a href="applyLeave/<%=openid%>">已审假条 ></a></div>
                         </div>
                     </div>
                     <% } %>
@@ -479,7 +479,7 @@
                     /*确定释放座位*/
                     $.showPreloader('释放座位中，请稍候...');
 
-                    $.post('/release',
+                    $.post('release',
                             {orderID: order_id},
                             function (response) {
                                 $.hidePreloader();
@@ -497,7 +497,7 @@
                     /*确定释放座位*/
                     $.showPreloader('设置暂离中，请稍候...');
 
-                    $.post('/leave',
+                    $.post('leave',
                             {orderID: order_id},
                             function (response) {
                                 $.hidePreloader();
@@ -515,7 +515,7 @@
                     /*确定释放座位*/
                     $.showPreloader('批准申请中，请稍候...');
 
-                    $.post('/approveLeave',
+                    $.post('approveLeave',
                             {
                                 applicationID: application_id,
                                 openid:'<%=openid%>'
