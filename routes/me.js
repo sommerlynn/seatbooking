@@ -51,7 +51,7 @@ router.get('/me/:openid', function (req, res) {
                                         userInfo: userInfo[0],
                                         userSeatOrders: userSeatOrders,
                                         leaveApplications: leaveApplications,
-                                        waitForApprovedLeaveApplications:waitForApprovedLeaveApplications
+                                        waitForApprovedLeaveApplications: waitForApprovedLeaveApplications
                                     });
                                 }
                             });
@@ -130,9 +130,9 @@ router.post('/me/approveLeave', function (req, res) {
         req.body.openid,
         req.body.applicationID,
         function (err, result) {
-            if(err){
+            if (err) {
                 res.send('内部错误，请重试或联系系统管理员');
-            }else{
+            } else {
                 res.send('已成功批准');
             }
         });
@@ -207,7 +207,7 @@ router.post('/me/realInfo/class', function (req, res) {
  * 2016-04-11 CHEN PU   新建
  * */
 router.get('/me/applyLeave/:openid', function (req, res) {
-    res.render('./me/applyLeaveView', {openid:req.params.openid, title: '请假申请'});
+    res.render('./me/applyLeaveView', {openid: req.params.openid, title: '请假申请'});
 });
 
 /*
@@ -215,25 +215,22 @@ router.get('/me/applyLeave/:openid', function (req, res) {
  * 2016-04-11 CHEN PU   新建
  * */
 router.post('/me/applyLeave/submitApplication', function (req, res) {
-    if (req.session.userInfo) {
-        models.userModel.applyLeave(
-            req.body.openid,
-            req.body.leaveReason,
-            req.body.startTime,
-            req.body.endTime,            
-            req.body.mobile,
-            req.body.address,
-            function (err, results) {
-                if (err) {
-                    res.send('亲，出错了额，请重试一下' + err.message);
-                } else {
-                    res.send('亲，您的申请已提交');
-                }
+    models.userModel.applyLeave(
+        req.body.openid,
+        req.body.leaveReason,
+        req.body.startTime,
+        req.body.endTime,
+        req.body.mobile,
+        req.body.address,
+        function (err, results) {
+            if (err) {
+                res.send('亲，出错了额，请重试一下' + err.message);
+            } else {
+                res.send('亲，您的申请已提交');
             }
-        );
-    } else {
-        res.send('亲，出错了额，请重试一下');
-    }
+        }
+    );
+
 });
 
 module.exports = router;
