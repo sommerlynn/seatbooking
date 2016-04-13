@@ -17,16 +17,32 @@ var express = require('express'),
  * 2016-04-12 CHEN PU 调整代码,用querystring传递openid
  * */
 router.get('/me/:openid', function (req, res) {
-    if(req.query.ip != req.ip){
-        res.redirect('http://www.julyangel.cn/oAuth/1/me');
-    }else{
+    if (req.query.ip != req.ip) {
+        models.userModel.getUser(req.params.openid, function (err, userInfo) {
+            if (err) {
+                res.render('errorView', {
+                    openid: req.params.openid,
+                    title: '服务器故障',
+                    message: '服务器故障',
+                    error: err
+                });
+            } else {
+                res.redirect('http://www.julyangel.cn/oAuth/'+userInfo.school_id+'/me');
+            }
+        });
+    } else {
         models.userModel.getSeatActiveOrderSheet(req.params.openid, function (err, userSeatOrders) {
             if (err) {
                 res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
             } else {
                 models.userModel.getLeaveApplication(req.params.openid, function (err, leaveApplications) {
                     if (err) {
-                        res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
+                        res.render('errorView', {
+                            openid: req.params.openid,
+                            title: '服务器故障',
+                            message: '服务器故障',
+                            error: err
+                        });
                     } else {
 
                         models.userModel.getUser(req.params.openid, function (err, userInfo) {
