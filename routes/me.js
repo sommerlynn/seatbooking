@@ -18,7 +18,7 @@ var express = require('express'),
  * */
 router.get('/me/:openid', function (req, res) {
     if(req.query.ip != req.ip){
-        res.render('errorView', {title: '服务器故障', message: '非正常访问', error: {}});
+        res.render('errorView', {openid:req.params.openid, title: '服务器故障', message: '非正常访问', error: {}});
     }else{
         models.userModel.getSeatActiveOrderSheet(req.params.openid, function (err, userSeatOrders) {
             if (err) {
