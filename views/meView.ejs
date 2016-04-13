@@ -409,6 +409,39 @@
                         </div>
                     </div>
                     <% } %>
+
+                    <% for(var index = 0; index < waitForApprovedLeaveApplications.length; index++){ %>
+
+                    <li class="card">
+                        <div class="left_part">
+                            <div class="date-row">
+                                <span class="start-date-info">开始时间: <%= waitForApprovedLeaveApplications[index].start_time.toLocaleString()%></span>
+                            </div>
+                            <div class="date-row">
+                                <span class="end-date-info">截止时间: <%= waitForApprovedLeaveApplications[index].end_time.toLocaleString()%></span>
+                            </div>
+                            <div class="date-row">
+                                <span class="leave-status">当前状态:
+                                    <%if(waitForApprovedLeaveApplications[index].status == 0){%>
+                                    已提交待审核
+                                    <%} %>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="right_part">
+                            <%  if(waitForApprovedLeaveApplications[index].status == 0)    {   %>
+                            <div class="operation-modify-leave" id="release_<%= waitForApprovedLeaveApplications[index].application_id %>">修改</div>
+                            <div class="operation-cancel-leave" id="release_<%= waitForApprovedLeaveApplications[index].application_id %>">撤回</div>
+                            <%  }   %>
+                            <%  if(waitForApprovedLeaveApplications[index].status == 1)    {   %>
+                            <div class="operation-detail-leave" id="release_<%= waitForApprovedLeaveApplications[index].application_id %>">详情</div>
+                            <div class="operation-finish-leave" id="leave_<%= waitForApprovedLeaveApplications[index].application_id %>">销假</div>
+                            <%  }   %>
+                        </div>
+                    </li>
+
+                    <% } %>
+
                 </ul>
             </div>
         </div>

@@ -224,12 +224,25 @@ router.get('/me/:openid', function (req, res) {
                                 error: err
                             });
                         } else {
-                            res.render('meView', {
-                                openid: req.params.openid,
-                                title: '我的信息',
-                                userInfo: userInfo[0],
-                                userSeatOrders: userSeatOrders,
-                                leaveApplications: leaveApplications
+
+                            models.userModel.getLeaveApplicationWaitForApproving(req.params.openid, function (err, waitForApprovedLeaveApplications) {
+                                if (err) {
+                                    res.render('errorView', {
+                                        openid: req.params.openid,
+                                        title: '服务器故障',
+                                        message: '服务器故障',
+                                        error: err
+                                    });
+                                } else {
+                                    res.render('meView', {
+                                        openid: req.params.openid,
+                                        title: '我的信息',
+                                        userInfo: userInfo[0],
+                                        userSeatOrders: userSeatOrders,
+                                        leaveApplications: leaveApplications,
+                                        waitForApprovedLeaveApplications:waitForApprovedLeaveApplications
+                                    });
+                                }
                             });
                         }
                     });
