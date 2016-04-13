@@ -25,7 +25,7 @@ weixinMessage.addUserInfo = function(schoolID, userInfo, callback){
             callback(err);
         }
         else if(userId > 0){
-            var updateQuery = "update user set schoolID = ?, nickname = ?, sex = ?, city = ?, country = ?, province = ?, headimgurl = ? where openid = ?",
+            var updateQuery = "update user set school_id = ?, nickname = ?, sex = ?, city = ?, country = ?, province = ?, headimgurl = ? where openid = ?",
                 updateParams = [schoolID, userInfo.nickname, userInfo.sex, userInfo.province,
                     userInfo.city, userInfo.country, userInfo.headimgurl, userInfo.openid];
 
@@ -38,7 +38,7 @@ weixinMessage.addUserInfo = function(schoolID, userInfo, callback){
                 }
             });
         }else{
-            var insertQuery = "insert into user (schoolID, openid, nickname, sex, city, country, province, headimgurl) "+
+            var insertQuery = "insert into user (school_id, openid, nickname, sex, city, country, province, headimgurl) "+
                     "values (?,?,?,?,?,?,?,?)",
                 insertParams = [schoolID, userInfo.openid, userInfo.nickname, userInfo.sex, userInfo.province,
                     userInfo.city, userInfo.country, userInfo.headimgurl];
