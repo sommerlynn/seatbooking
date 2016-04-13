@@ -426,12 +426,18 @@
                             </div>
                             <div class="date-row">
                                 <span class="end-date-info">申请人: <%= waitForApprovedLeaveApplications[index].real_name%></span>
+                                <span class="leave-status">申请事由:
+                                    <%= waitForApprovedLeaveApplications[index].application_reason.length > 10?
+                                        waitForApprovedLeaveApplications[index].application_reason.substr(0,10)+'...':
+                                        waitForApprovedLeaveApplications[index].application_reason
+                                    %>
+                                </span>
                             </div>
-                            <div class="date-row">
+                            <!--<div class="date-row">
                                 <span class="leave-status">申请事由:
                                     <%= waitForApprovedLeaveApplications[index].application_reason%>
                                 </span>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="right_part">
                             <div class="detail-approve-leave" id="approve_<%= waitForApprovedLeaveApplications[index].application_id %>">详情</div>
