@@ -58,6 +58,9 @@ app.use(session({
 var index = require('./routes/index');
 app.use('/', index);
 
+var me = require('./routes/me');
+app.use('/me', me);
+
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
   var err = new Error('Not Found');
