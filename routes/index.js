@@ -317,7 +317,8 @@ router.post('/leave', function (req, res) {
 router.post('/approveLeave', function (req, res) {
     models.userModel.approveLeaveApplication(
         req.body.openid,
-        req.body.applicationID, function (err, result) {
+        req.body.applicationID,
+        function (err, result) {
             if(err){
                 res.send('内部错误，请重试或联系系统管理员');
             }else{

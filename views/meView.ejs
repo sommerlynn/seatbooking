@@ -477,7 +477,7 @@
                     /*确定释放座位*/
                     $.showPreloader('释放座位中，请稍候...');
 
-                    $.post('release',
+                    $.post('/release',
                             {orderID: order_id},
                             function (response) {
                                 $.hidePreloader();
@@ -495,7 +495,7 @@
                     /*确定释放座位*/
                     $.showPreloader('设置暂离中，请稍候...');
 
-                    $.post('leave',
+                    $.post('/leave',
                             {orderID: order_id},
                             function (response) {
                                 $.hidePreloader();
@@ -513,7 +513,7 @@
                     /*确定释放座位*/
                     $.showPreloader('批准申请中，请稍候...');
 
-                    $.post('approveLeave',
+                    $.post('/approveLeave',
                             {
                                 applicationID: application_id,
                                 openid:'<%=openid%>'
