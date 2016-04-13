@@ -138,17 +138,13 @@
 
     .operation-modify-leave, .operation-finish-leave,
     .operation-cancel-leave, .operation-detail-leave,
-    .operation-approve-leave, .operation-reject-leave{
+    .detail-approve-leave{
         display: inline-block;
         padding: 0.1875rem 0.3125rem;
         width: 3.75rem;
         border: 0.0625rem solid #DCC6C6;
         color: #A00000;
         margin-bottom: 0.55rem;
-    }
-
-    .operation-approve-leave, .operation-reject-leave{
-        margin-bottom: 1.5rem;
     }
 
     .left_part {
@@ -420,8 +416,8 @@
 
                     <% for(var index = 0; index < waitForApprovedLeaveApplications.length; index++){ %>
 
-                    <li class="card" style="height: 6rem">
-                        <div class="left_part" style="height: 6rem">
+                    <li class="card">
+                        <div class="left_part">
                             <div class="date-row">
                                 <span class="start-date-info">开始时间: <%= waitForApprovedLeaveApplications[index].start_time.toLocaleString()%></span>
                             </div>
@@ -437,9 +433,8 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="right_part" style="height: 6rem">
-                            <div class="operation-approve-leave" id="approve_<%= waitForApprovedLeaveApplications[index].application_id %>">批准</div>
-                            <div class="operation-reject-leave" id="reject_<%= waitForApprovedLeaveApplications[index].application_id %>">驳回</div>
+                        <div class="right_part">
+                            <div class="detail-approve-leave" id="approve_<%= waitForApprovedLeaveApplications[index].application_id %>">详情</div>
                         </div>
                     </li>
 

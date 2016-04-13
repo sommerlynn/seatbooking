@@ -207,20 +207,22 @@ router.post('/me/realInfo/class', function (req, res) {
  * 2016-04-11 CHEN PU   新建
  * */
 router.get('/me/applyLeave/:openid', function (req, res) {
-    res.render('applyLeaveView', {openid:req.params.openid, title: '请假申请'});
+    res.render('./me/applyLeaveView', {openid:req.params.openid, title: '请假申请'});
 });
 
 /*
  * 提交请假申请信息
  * 2016-04-11 CHEN PU   新建
  * */
-router.post('/me/applyLeave', function (req, res) {
+router.post('/me/applyLeave/submitApplication', function (req, res) {
     if (req.session.userInfo) {
         models.userModel.applyLeave(
+            req.body.openid,
             req.body.leaveReason,
             req.body.startTime,
-            req.body.endTime,
-            req.body.openid,
+            req.body.endTime,            
+            req.body.mobile,
+            req.body.address,
             function (err, results) {
                 if (err) {
                     res.send('亲，出错了额，请重试一下' + err.message);

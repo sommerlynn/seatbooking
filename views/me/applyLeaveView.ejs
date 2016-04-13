@@ -59,6 +59,30 @@
                         </div>
                     </div>
                 </li>
+
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">联系电话</div>
+                            <div class="item-input">
+                                <input type="text" placeholder="请填写请假期间可联系到本人的电话号码" id="mobile-input">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">所往何处</div>
+                            <div class="item-input">
+                                <textarea type="text" placeholder="请填写请假期间去处的详细地址" id="address-input"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </ul>
             <div class="content-block">
                 <div class="row">
@@ -94,12 +118,14 @@
 
         $(document).on('click', '#submit-btn', function () {
             $.showPreloader('亲,我们正在提交请求,请稍候...');
-            $.post('/applyLeave',
+            $.post('submitApplication',
                     {
                         openid:'<%=openid%>',
                         leaveReason:$('#application-reason-input')[0].value,
                         startTime:$('#start-time-picker')[0].value,
-                        endTime:$('#end-time-picker')[0].value
+                        endTime:$('#end-time-picker')[0].value,
+                        mobile:$('#mobile-input')[0].value,
+                        address:$('#address-input')[0].value,
                     },
                     function (response) {
                         $.hidePreloader();
