@@ -18,7 +18,7 @@ var express = require('express'),
  * */
 router.get('/me/:openid', function (req, res) {
     if(req.query.ip != req.ip){
-        res.render('errorView', {openid:req.params.openid, title: '服务器故障', message: '非正常访问', error: {}});
+        req.redirect('http://www.julyangel.cn/oAuth/1/me');
     }else{
         models.userModel.getSeatActiveOrderSheet(req.params.openid, function (err, userSeatOrders) {
             if (err) {
