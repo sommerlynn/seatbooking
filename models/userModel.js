@@ -83,7 +83,7 @@ user.getLeaveApplication = function (openid, callback) {
 
 user.getLeaveApplicationWaitForApproving = function (openid, callback) {
     var selectQuery = "select * from active_leave_application_view where class_id in "+
-                      "(select class_id from class_manager_user_view where openid = ?)",
+                      "(select class_id from class_manager_user_view where openid = ?) and status = 0",
         params = [openid];
     db.executeQuery(selectQuery, params, callback);
 };
