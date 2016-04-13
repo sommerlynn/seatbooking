@@ -89,7 +89,7 @@
 
     $(document).on('click', '#submit-btn', function () {
         $.showPreloader('亲,我们正在提交你的信息,请稍候...');
-        $.post('/realInfo',
+        $.post('submitInfo',
                {
                   openid:'<%=openid%>',
                   name:$('#name-input')[0].value,

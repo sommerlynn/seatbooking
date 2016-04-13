@@ -167,7 +167,7 @@ router.get('/me/realInfo/:openid', function (req, res) {
  * 提交用户实名信息
  * 2016-04-11 CHEN PU 新建
  * */
-router.post('/me/realInfo', function (req, res) {
+router.post('/me/realInfo/submitInfo', function (req, res) {
     models.userModel.fillRealInfo(
         req.body.name,
         req.body.code,
