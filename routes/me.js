@@ -143,6 +143,7 @@ router.get('/me/realInfo/:openid', function (req, res) {
             }
             res.render('./me/realInfoView',
                 {
+                    ip:req.query.ip,
                     openid: req.params.openid,
                     title: '实名认证',
                     departments: departmentNameArr
@@ -195,7 +196,13 @@ router.post('/me/realInfo/class', function (req, res) {
  * 2016-04-11 CHEN PU   新建
  * */
 router.get('/me/applyLeave/:openid', function (req, res) {
-    res.render('./me/applyLeaveView', {openid: req.params.openid, title: '请假申请'});
+    res.render('./me/applyLeaveView',
+        {
+            ip:req.query.ip,
+            openid: req.params.openid,
+            title: '请假申请'
+        }
+    );
 });
 
 /*
