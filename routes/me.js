@@ -153,7 +153,7 @@ router.get('/me/realInfo/:openid', function (req, res) {
             for (var index = 0; index < departments.length; index++) {
                 departmentNameArr[index] = departments[index].department_name;
             }
-            res.render('/me/realInfoView',
+            res.render('./me/realInfoView',
                 {
                     openid: req.params.openid,
                     title: '实名认证',
