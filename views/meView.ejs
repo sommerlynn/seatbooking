@@ -429,7 +429,7 @@
                                 <span class="end-date-info">截止时间: <%= waitForApprovedLeaveApplications[index].end_time.toLocaleString()%></span>
                             </div>
                             <div class="date-row">
-                                <span class="end-date-info">申请人: <%= waitForApprovedLeaveApplications[index].real_name%></span>
+                                <span class="end-date-info">申请人: <%= waitForApprovedLeaveApplications[index].applier_real_name%></span>
                                 <span class="leave-status">申请事由:
                                     <%= waitForApprovedLeaveApplications[index].application_reason.length > 10?
                                         waitForApprovedLeaveApplications[index].application_reason.substr(0,10)+'...':

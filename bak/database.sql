@@ -116,10 +116,16 @@ ALTER VIEW classroom_nextday_order_detail_view AS
        area_classroom.classroom_id = classroom_nextday_girl_order_view.classroom_id
 
 ALTER VIEW active_leave_application_view AS
-        SELECT leave_application.*, user.*
-        FROM leave_application LEFT JOIN user
-        ON (leave_application.applier_id = user.user_id OR
-        leave_application.approve_by = user.user_id)
+        SELECT
+            leave_application.*,
+            user1.openid applier_openid,
+            user1.real_name applier_real_name,
+            user2.openid approv_by_openid,
+            user2.real_name approve_by_name
+        FROM leave_application LEFT JOIN user user1
+        ON (leave_application.applier_id = user1.user_id)
+        LEFT JOIN user user2
+        ON (leave_application.approve_by = user2.user_id)
         WHERE end_time > NOW()
 
 
