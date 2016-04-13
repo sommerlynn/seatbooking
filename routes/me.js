@@ -187,7 +187,7 @@ router.post('/me/realInfo', function (req, res) {
  * 实名认证页面上获取对应学院的下属班级列表
  * 2016-04-11 CHEN PU 新建
  * */
-router.post('/me/class', function (req, res) {
+router.post('/me/realInfo/class', function (req, res) {
     models.departmentClassModel.getClass(req.body.department, function (err, classs) {
         var classStr = '';
         for (var index = 0; index < classs.length; index++) {

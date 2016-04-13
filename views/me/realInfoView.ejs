@@ -121,7 +121,7 @@
         ],
         onClose: function () {
             $.showPreloader('获取班级列表...');
-            $.post('/class',
+            $.post('class',
                     {
                         department: $('#department-picker')[0].value
                     },
