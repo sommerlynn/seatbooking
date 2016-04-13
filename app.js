@@ -59,7 +59,7 @@ var index = require('./routes/index');
 app.use('/', index);
 
 var me = require('./routes/me');
-app.use('/me', me);
+app.use('/', me);
 
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
