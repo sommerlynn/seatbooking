@@ -385,8 +385,10 @@
                             <div class="date-row">
                                 <span class="leave-status">当前状态:
                                     <%if(leaveApplications[index].status == 0){%>
-                                        已提交待审核
-                                    <%} %>
+                                        待审核
+                                    <%} else if(leaveApplications[index].status == 1){%>
+                                        已批准
+                                    <%}%>
                                 </span>
                             </div>
                         </div>
