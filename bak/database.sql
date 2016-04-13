@@ -120,6 +120,7 @@ ALTER VIEW active_leave_application_view AS
             leave_application.*,
             user1.openid applier_openid,
             user1.real_name applier_real_name,
+            user1.class_id applier_class_id,
             user2.openid approv_by_openid,
             user2.real_name approve_by_name
         FROM leave_application LEFT JOIN user user1
