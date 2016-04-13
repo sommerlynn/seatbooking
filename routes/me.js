@@ -17,50 +17,54 @@ var express = require('express'),
  * 2016-04-12 CHEN PU 调整代码,用querystring传递openid
  * */
 router.get('/me/:openid', function (req, res) {
-    models.userModel.getSeatActiveOrderSheet(req.params.openid, function (err, userSeatOrders) {
-        if (err) {
-            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-        } else {
-            models.userModel.getLeaveApplication(req.params.openid, function (err, leaveApplications) {
-                if (err) {
-                    res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
-                } else {
+    if(req.query.ip != req.ip){
+        res.render('errorView', {title: '服务器故障', message: '非正常访问', error: {}});
+    }else{
+        models.userModel.getSeatActiveOrderSheet(req.params.openid, function (err, userSeatOrders) {
+            if (err) {
+                res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+            } else {
+                models.userModel.getLeaveApplication(req.params.openid, function (err, leaveApplications) {
+                    if (err) {
+                        res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
+                    } else {
 
-                    models.userModel.getUser(req.params.openid, function (err, userInfo) {
-                        if (err) {
-                            res.render('errorView', {
-                                openid: req.params.openid,
-                                title: '服务器故障',
-                                message: '服务器故障',
-                                error: err
-                            });
-                        } else {
+                        models.userModel.getUser(req.params.openid, function (err, userInfo) {
+                            if (err) {
+                                res.render('errorView', {
+                                    openid: req.params.openid,
+                                    title: '服务器故障',
+                                    message: '服务器故障',
+                                    error: err
+                                });
+                            } else {
 
-                            models.userModel.getLeaveApplicationWaitForApproving(req.params.openid, function (err, waitForApprovedLeaveApplications) {
-                                if (err) {
-                                    res.render('errorView', {
-                                        openid: req.params.openid,
-                                        title: '服务器故障',
-                                        message: '服务器故障',
-                                        error: err
-                                    });
-                                } else {
-                                    res.render('meView', {
-                                        openid: req.params.openid,
-                                        title: '我的信息',
-                                        userInfo: userInfo[0],
-                                        userSeatOrders: userSeatOrders,
-                                        leaveApplications: leaveApplications,
-                                        waitForApprovedLeaveApplications: waitForApprovedLeaveApplications
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
+                                models.userModel.getLeaveApplicationWaitForApproving(req.params.openid, function (err, waitForApprovedLeaveApplications) {
+                                    if (err) {
+                                        res.render('errorView', {
+                                            openid: req.params.openid,
+                                            title: '服务器故障',
+                                            message: '服务器故障',
+                                            error: err
+                                        });
+                                    } else {
+                                        res.render('meView', {
+                                            openid: req.params.openid,
+                                            title: '我的信息',
+                                            userInfo: userInfo[0],
+                                            userSeatOrders: userSeatOrders,
+                                            leaveApplications: leaveApplications,
+                                            waitForApprovedLeaveApplications: waitForApprovedLeaveApplications
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 });
 
 router.get('/medebug', function (req, res) {
