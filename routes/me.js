@@ -59,7 +59,7 @@ router.get('/me/:openid', function (req, res) {
                                             error: err
                                         });
                                     } else {
-                                        res.render('meView', {
+                                        res.render('./me/meView', {
                                             ip: req.ip,
                                             openid: req.params.openid,
                                             title: '我的信息',
