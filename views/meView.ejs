@@ -157,13 +157,6 @@
         background-color: #F7F7F8;
     }
 
-    .cancel {
-        background: url('../images/quxiao.png') no-repeat center;
-    }
-
-    .zanli {
-        background: url('../images/zanli.png') no-repeat center;
-    }
 
     .right_part {
         width: 28%;
@@ -172,6 +165,14 @@
         text-align: center;
         background-color: #FFEC88;
         height: 4.5rem;
+    }
+
+    .cancel {
+        background: url('../images/quxiao.png') no-repeat center;
+    }
+
+    .zanli {
+        background: url('../images/zanli.png') no-repeat center;
     }
 
     .card {
@@ -412,8 +413,8 @@
 
                     <% for(var index = 0; index < waitForApprovedLeaveApplications.length; index++){ %>
 
-                    <li class="card">
-                        <div class="left_part">
+                    <li class="card" style="height: 6rem">
+                        <div class="left_part" style="height: 6rem">
                             <div class="date-row">
                                 <span class="start-date-info">开始时间: <%= waitForApprovedLeaveApplications[index].start_time.toLocaleString()%></span>
                             </div>
@@ -429,7 +430,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="right_part">
+                        <div class="right_part" style="height: 6rem">
                             <div class="operation-approve-leave" id="release_<%= waitForApprovedLeaveApplications[index].application_id %>">批准</div>
                             <div class="operation-reject-leave" id="release_<%= waitForApprovedLeaveApplications[index].application_id %>">驳回</div>
                         </div>
