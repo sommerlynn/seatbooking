@@ -253,15 +253,15 @@
 
 <div class="page">
     <nav class="bar bar-tab">
-        <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building/<%=openid%>" external>
+        <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building/<%=openid%>?ip=<%=ip%>" external>
             <span class="icon icon-building"></span>
             <span class="tab-label">预约座位</span>
         </a>
-        <a class="tab-item" id="skyTab" href="http://www.julyangel.cn/index/<%=openid%>" external>
+        <a class="tab-item" id="skyTab" href="http://www.julyangel.cn/index/<%=openid%>?ip=<%=ip%>" external>
             <span class="icon icon-star"></span>
             <span class="tab-label">七玥星空</span>
         </a>
-        <a class="tab-item active" id="meTab" href="http://www.julyangel.cn/me/<%=openid%>" external>
+        <a class="tab-item active" id="meTab" href="http://www.julyangel.cn/me/<%=openid%>?ip=<%=ip%>" external>
             <span class="icon icon-me"></span>
             <span class="tab-label">我的</span>
         </a>
@@ -294,7 +294,7 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title">实名信息</div>
-                            <div class="item-real-info"><a href="realInfo/<%=openid%>">实名认证 ></a></div>
+                            <div class="item-real-info"><a href="realInfo/<%=openid%>?ip=<%=ip%>">实名认证 ></a></div>
                         </div>
                     </div>
 
@@ -304,7 +304,7 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title">我的座位</div>
-                            <div class="item-real-info"><a href="/building/<%=openid%>">预约座位 ></a></div>
+                            <div class="item-real-info"><a href="/building/<%=openid%>?ip=<%=ip%>">预约座位 ></a></div>
                         </div>
                     </div>
 
@@ -350,7 +350,7 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title">我的假条</div>
-                            <div class="item-real-info"><a href="applyLeave/<%=openid%>">我要请假 ></a></div>
+                            <div class="item-real-info"><a href="applyLeave/<%=openid%>?ip=<%=ip%>">我要请假 ></a></div>
                         </div>
                     </div>
 
@@ -395,7 +395,7 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title">待审假条</div>
-                            <div class="item-real-info"><a href="applyLeave/<%=openid%>">已审假条 ></a></div>
+                            <div class="item-real-info"><a href="applyLeave/<%=openid%>?ip=<%=ip%>">已审假条 ></a></div>
                         </div>
                     </div>
                     <% } %>

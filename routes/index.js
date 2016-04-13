@@ -12,11 +12,26 @@ router.get('/', function (req, res) {
 });
 
 router.get('/index/:openid', function (req, res) {
-    res.render('indexView',
-        {
-            openid: req.params.openid,
-            title: '七玥星空'
-        });
+    models.userModel.getUser(req.params.openid, function (err, userInfo) {
+        if (err) {
+            res.render('errorView', {
+                openid: req.params.openid,
+                title: '服务器故障',
+                message: '服务器故障',
+                error: err
+            });
+        } else {
+            if (req.query.ip != req.ip) {
+                res.redirect('http://www.julyangel.cn/oAuth/' + userInfo.school_id + '/me');
+            }else{
+                res.render('indexView',
+                    {
+                        openid: req.params.openid,
+                        title: '七玥星空'
+                    });
+            }
+        }
+    });
 });
 
 /************************************************************************用户信息*/
@@ -27,7 +42,7 @@ router.get('/index/:openid', function (req, res) {
  * */
 router.get('/oAuth/:schoolID/:from', function (req, res) {
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-    var url = client.getAuthorizeURL('http://www.julyangel.cn/oAuthGetInfo?from=' + req.params.from+'&schoolID='+req.params.schoolID+'&ip='+req.ip, '123', 'snsapi_userinfo');
+    var url = client.getAuthorizeURL('http://www.julyangel.cn/oAuthGetInfo?from=' + req.params.from + '&schoolID=' + req.params.schoolID + '&ip=' + req.ip, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
@@ -56,7 +71,7 @@ router.get('/oAuthGetInfo', function (req, res) {
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                         } else {
-                            res.redirect(req.query.from + '/' + openid+'?ip='+req.query.ip);
+                            res.redirect(req.query.from + '/' + openid + '?ip=' + req.query.ip);
                         }
                     });
                 }
@@ -72,19 +87,42 @@ router.get('/oAuthGetInfo', function (req, res) {
  * 获取教学楼列表
  * */
 router.get('/building/:openid', function (req, res) {
-    models.classroomModel.getAll(1, function (err, classroomList) {
+
+    models.userModel.getUser(req.params.openid, function (err, userInfo) {
         if (err) {
-            res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
-        }
-        else {
-            res.render('buildingView',
-                {
-                    openid: req.params.openid,
-                    title: '七玥天使-自习室导航',
-                    classroomList: classroomList
+            res.render('errorView', {
+                openid: req.params.openid,
+                title: '服务器故障',
+                message: '服务器故障',
+                error: err
+            });
+        } else {
+            if (req.query.ip != req.ip) {
+                res.redirect('http://www.julyangel.cn/oAuth/' + userInfo.school_id + '/building');
+            } else {
+                models.classroomModel.getAll(userInfo.school_id, function (err, classroomList) {
+                    if (err) {
+                        res.render('errorView', {
+                            openid: req.params.openid,
+                            title: '服务器故障',
+                            message: '服务器故障',
+                            error: err
+                        });
+                    }
+                    else {
+                        res.render('buildingView',
+                            {
+                                ip:req.query.ip,
+                                openid: req.params.openid,
+                                title: '七玥天使-自习室导航',
+                                classroomList: classroomList
+                            });
+                    }
                 });
+            }
         }
     });
+
 });
 
 /*

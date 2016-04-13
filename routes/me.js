@@ -17,35 +17,31 @@ var express = require('express'),
  * 2016-04-12 CHEN PU 调整代码,用querystring传递openid
  * */
 router.get('/me/:openid', function (req, res) {
-    if (req.query.ip != req.ip) {
-        models.userModel.getUser(req.params.openid, function (err, userInfo) {
-            if (err) {
-                res.render('errorView', {
-                    openid: req.params.openid,
-                    title: '服务器故障',
-                    message: '服务器故障',
-                    error: err
-                });
-            } else {
-                res.redirect('http://www.julyangel.cn/oAuth/'+userInfo.school_id+'/me');
-            }
-        });
-    } else {
-        models.userModel.getSeatActiveOrderSheet(req.params.openid, function (err, userSeatOrders) {
-            if (err) {
-                res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
-            } else {
-                models.userModel.getLeaveApplication(req.params.openid, function (err, leaveApplications) {
-                    if (err) {
-                        res.render('errorView', {
-                            openid: req.params.openid,
-                            title: '服务器故障',
-                            message: '服务器故障',
-                            error: err
-                        });
-                    } else {
+    /*var userInfo = {
+     nickname: '璞',
+     province: '北京',
+     city: '昌平',
+     headimgurl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0'
+     };*/
 
-                        models.userModel.getUser(req.params.openid, function (err, userInfo) {
+    models.userModel.getUser(req.params.openid, function (err, userInfo) {
+        if (err) {
+            res.render('errorView', {
+                openid: req.params.openid,
+                title: '服务器故障',
+                message: '服务器故障',
+                error: err
+            });
+        } else {
+            if (req.query.ip != req.ip) {
+                res.redirect('http://www.julyangel.cn/oAuth/' + userInfo.school_id + '/me');
+            }
+            else {
+                models.userModel.getSeatActiveOrderSheet(req.params.openid, function (err, userSeatOrders) {
+                    if (err) {
+                        res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+                    } else {
+                        models.userModel.getLeaveApplication(req.params.openid, function (err, leaveApplications) {
                             if (err) {
                                 res.render('errorView', {
                                     openid: req.params.openid,
@@ -54,7 +50,6 @@ router.get('/me/:openid', function (req, res) {
                                     error: err
                                 });
                             } else {
-
                                 models.userModel.getLeaveApplicationWaitForApproving(req.params.openid, function (err, waitForApprovedLeaveApplications) {
                                     if (err) {
                                         res.render('errorView', {
@@ -65,6 +60,7 @@ router.get('/me/:openid', function (req, res) {
                                         });
                                     } else {
                                         res.render('meView', {
+                                            ip: req.ip,
                                             openid: req.params.openid,
                                             title: '我的信息',
                                             userInfo: userInfo[0],
@@ -79,37 +75,9 @@ router.get('/me/:openid', function (req, res) {
                     }
                 });
             }
-        });
-    }
-});
-
-router.get('/medebug', function (req, res) {
-    var userInfo = {
-        nickname: '璞',
-        province: '北京',
-        city: '昌平',
-        headimgurl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0'
-    };
-
-    models.userModel.getSeatActiveOrderSheet('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, userSeatOrders) {
-        if (err) {
-            res.send('错误' + err);
-        } else {
-
-            models.userModel.getLeaveApplication('oF4F0sxpbSEw5PETECnqB93JS1uc', function (err, leaveApplications) {
-                if (err) {
-                    res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
-                } else {
-                    res.render('meView', {
-                        title: '我的信息',
-                        userInfo: req.session.userInfo,
-                        userSeatOrders: userSeatOrders,
-                        leaveApplications: leaveApplications
-                    });
-                }
-            });
         }
     });
+
 });
 
 /*
