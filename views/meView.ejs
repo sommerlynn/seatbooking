@@ -392,12 +392,12 @@
                         </div>
                         <div class="right_part">
                             <%  if(leaveApplications[index].status == 0)    {   %>
-                                <div class="operation-modify-leave" id="release_<%= leaveApplications[index].application_id %>">修改</div>
-                                <div class="operation-cancel-leave" id="release_<%= leaveApplications[index].application_id %>">撤回</div>
+                                <div class="operation-modify-leave" id="modify_<%= leaveApplications[index].application_id %>">修改</div>
+                                <div class="operation-cancel-leave" id="cancel_<%= leaveApplications[index].application_id %>">撤回</div>
                             <%  }   %>
                             <%  if(leaveApplications[index].status == 1)    {   %>
-                                <div class="operation-detail-leave" id="release_<%= leaveApplications[index].application_id %>">详情</div>
-                                <div class="operation-finish-leave" id="leave_<%= leaveApplications[index].application_id %>">销假</div>
+                                <div class="operation-detail-leave" id="detail_<%= leaveApplications[index].application_id %>">详情</div>
+                                <div class="operation-finish-leave" id="finish_<%= leaveApplications[index].application_id %>">销假</div>
                             <%  }   %>
                         </div>
                     </li>
@@ -436,8 +436,8 @@
                             </div>
                         </div>
                         <div class="right_part" style="height: 6rem">
-                            <div class="operation-approve-leave" id="release_<%= waitForApprovedLeaveApplications[index].application_id %>">批准</div>
-                            <div class="operation-reject-leave" id="release_<%= waitForApprovedLeaveApplications[index].application_id %>">驳回</div>
+                            <div class="operation-approve-leave" id="approve_<%= waitForApprovedLeaveApplications[index].application_id %>">批准</div>
+                            <div class="operation-reject-leave" id="reject_<%= waitForApprovedLeaveApplications[index].application_id %>">驳回</div>
                         </div>
                     </li>
 
@@ -497,6 +497,27 @@
 
                     $.post('leave',
                             {orderID: order_id},
+                            function (response) {
+                                $.hidePreloader();
+                                $.alert(response);
+                                window.location.reload();
+                            });
+                });
+    });
+
+    $(document).on('click', '.operation-approve-leave', function () {
+        var application_arr = this.id.split('_');
+        var application_id = application_arr[1];
+        $.confirm('您确认要批准该请假申请吗?', '批准请假',
+                function () {
+                    /*确定释放座位*/
+                    $.showPreloader('批准申请中，请稍候...');
+
+                    $.post('approveLeave',
+                            {
+                                applicationID: application_id,
+                                openid:'<%=openid%>'
+                            },
                             function (response) {
                                 $.hidePreloader();
                                 $.alert(response);

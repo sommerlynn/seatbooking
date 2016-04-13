@@ -88,4 +88,11 @@ user.getLeaveApplicationWaitForApproving = function (openid, callback) {
     db.executeQuery(selectQuery, params, callback);
 };
 
+user.approveLeaveApplication = function (openid, applicationID, callback){
+    var updateQuery = "update leave_application set status = 1, approve_time = NOW(), approve_by = "+
+                      "(select user_id from user where openid = ?) where application_id = ?",
+        params = [openid, applicationID];
+    db.executeQuery(updateQuery, params, callback);
+};
+
 module.exports = user;

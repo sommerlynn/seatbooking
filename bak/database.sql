@@ -119,7 +119,7 @@ ALTER VIEW active_leave_application_view AS
         SELECT leave_application.*, user.*
         FROM leave_application LEFT JOIN user
         ON (leave_application.applier_id = user.user_id OR
-        leave_application.approver_id = user.user_id)
+        leave_application.approve_by = user.user_id)
         WHERE end_time > NOW()
 
 
