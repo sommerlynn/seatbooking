@@ -250,25 +250,7 @@
         font-size: 0.75em;
     }
 </style>
-<script>
-    function getSeatLable(row, column) {
-        if (row < 10) {
-            row = '0' + row;
-        }
-        else {
-            row = row + '';
-        }
-        if (column < 10) {
-            column = '0' + column;
-        }
-        else {
-            column = column + '';
-        }
 
-        //return firstSeatLabel++;
-        return row + column;
-    }
-</script>
 <div class="page">
     <nav class="bar bar-tab">
         <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building/<%=openid%>" external>

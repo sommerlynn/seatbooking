@@ -17,7 +17,7 @@ weixinMessage.logUserLocation = function(openid, lat, lng, callback){
     });
 };
 
-weixinMessage.addUserInfo = function(userInfo, callback){
+weixinMessage.addUserInfo = function(schoolID, userInfo, callback){
     var selectQuery = "select user_id from user where openid = ?",
         selectParams = [userInfo.openid];
     db.getId(selectQuery, selectParams, function(err, userId){
@@ -25,8 +25,8 @@ weixinMessage.addUserInfo = function(userInfo, callback){
             callback(err);
         }
         else if(userId > 0){
-            var updateQuery = "update user set nickname = ?, sex = ?, city = ?, country = ?, province = ?, headimgurl = ? where openid = ?",
-                updateParams = [userInfo.nickname, userInfo.sex, userInfo.province,
+            var updateQuery = "update user set schoolID = ?, nickname = ?, sex = ?, city = ?, country = ?, province = ?, headimgurl = ? where openid = ?",
+                updateParams = [schoolID, userInfo.nickname, userInfo.sex, userInfo.province,
                     userInfo.city, userInfo.country, userInfo.headimgurl, userInfo.openid];
 
             db.executeQuery(updateQuery, updateParams, function(err, results){
@@ -38,9 +38,9 @@ weixinMessage.addUserInfo = function(userInfo, callback){
                 }
             });
         }else{
-            var insertQuery = "insert into user (openid, nickname, sex, city, country, province, headimgurl) "+
-                    "values (?,?,?,?,?,?,?)",
-                insertParams = [userInfo.openid, userInfo.nickname, userInfo.sex, userInfo.province,
+            var insertQuery = "insert into user (schoolID, openid, nickname, sex, city, country, province, headimgurl) "+
+                    "values (?,?,?,?,?,?,?,?)",
+                insertParams = [schoolID, userInfo.openid, userInfo.nickname, userInfo.sex, userInfo.province,
                     userInfo.city, userInfo.country, userInfo.headimgurl];
             db.insertQuery(insertQuery, insertParams, function(err, id){
                 if(err){

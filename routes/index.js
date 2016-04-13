@@ -25,9 +25,9 @@ router.get('/index/:openid', function (req, res) {
  * 获取用户信息
  * 2016-04-12 CHEN PU 获取用户信息 第一步
  * */
-router.get('/oAuth/:from', function (req, res) {
+router.get('/oAuth/:schoolID/:from', function (req, res) {
     var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-    var url = client.getAuthorizeURL('http://www.julyangel.cn/oAuthGetInfo?from=' + req.params.from, '123', 'snsapi_userinfo');
+    var url = client.getAuthorizeURL('http://www.julyangel.cn/oAuthGetInfo?from=' + req.params.from+'&schoolID='+req.params.schoolID, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
@@ -52,7 +52,7 @@ router.get('/oAuthGetInfo', function (req, res) {
                     //req.cookies.setAttribute('1','1');
                     //req.session.userInfo = userInfo;
 
-                    models.weixinMessageModel.addUserInfo(userInfo, function (err) {
+                    models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                         } else {
