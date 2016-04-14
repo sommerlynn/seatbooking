@@ -274,28 +274,6 @@
         font-size: .65rem;
         color: #666;
     }
-
-    .left_part .status {
-        position: absolute;
-        overflow: hidden;
-        width: 1rem;
-        height: 1rem;
-        z-index: 1;
-    }
-
-    .left_part .status:after {
-        content: "待审核";
-        font-size: .24rem;
-        background: #06c1ae;
-        color: #fff;
-        padding: .05rem;
-        position: absolute;
-        width: 1.3rem;
-        text-align: center;
-        -webkit-transform: rotateZ(-45deg);
-        left: -.35rem;
-        top: .2rem;
-    }
 </style>
 
 <div class="page">
@@ -505,7 +483,6 @@
 
                     <li class="card">
                         <div class="left_part">
-                            <span class="status"></span>
                             <div class="date-row">
                                 <span class="start-date-info">开始时间: <%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %></span>
                             </div>
