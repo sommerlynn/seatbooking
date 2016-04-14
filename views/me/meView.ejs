@@ -282,6 +282,20 @@
         height: 1rem;
         z-index: 1;
     }
+
+    .card .status:after {
+        content: "待审核";
+        font-size: .24rem;
+        background: #06c1ae;
+        color: #fff;
+        padding: .05rem;
+        position: absolute;
+        width: 1.3rem;
+        text-align: center;
+        -webkit-transform: rotateZ(-45deg);
+        left: -.35rem;
+        top: .2rem;
+    }
 </style>
 
 <div class="page">
@@ -490,7 +504,7 @@
                     <% for(var index = 0; index < waitForApprovedLeaveApplications.length; index++){ %>
 
                     <li class="card">
-                        <span class="status">待审核</span>
+                        <span class="status"></span>
                         <div class="left_part">
                             <div class="date-row">
                                 <span class="start-date-info">开始时间: <%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %></span>
