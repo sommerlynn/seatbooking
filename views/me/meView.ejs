@@ -245,8 +245,15 @@
     span.leave-status {
         color: #A00000;
         margin: 0.25rem 0.75rem;
-        padding: .25rem;
+        padding: .25rem .5rem;
         background-color: #E6DEB3;
+        line-height: 1.25rem;
+        font-size: 0.75em;
+    }
+
+    span.leave-reason{
+        color: #A00000;
+        margin: 0.25rem 0.75rem;
         line-height: 1.25rem;
         font-size: 0.75em;
     }
@@ -497,18 +504,13 @@
                             </div>
                             <div class="date-row">
                                 <span class="end-date-info">申请人: <%= waitForApprovedLeaveApplications[index].applier_real_name %></span>
-                                <span class="leave-status">申请事由:
+                                <span class="leave-reason">申请事由:
                                     <%= waitForApprovedLeaveApplications[index].application_reason.length > 10 ?
                                     waitForApprovedLeaveApplications[index].application_reason.substr(0, 10) + '...' :
                                             waitForApprovedLeaveApplications[index].application_reason
                                     %>
                                 </span>
                             </div>
-                            <!--<div class="date-row">
-                                <span class="leave-status">申请事由:
-                                    <%= waitForApprovedLeaveApplications[index].application_reason %>
-                                </span>
-                            </div>-->
                         </div>
                         <div class="right_part">
                             <div class="detail-approve-leave"
