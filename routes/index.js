@@ -22,7 +22,7 @@ router.get('/index/:openid', function (req, res) {
             });
         } else {
             if (req.query.ip != req.ip) {
-                res.redirect('http://www.julyangel.cn/oAuth/' + userInfo.school_id + '/me');
+                res.redirect('http://www.julyangel.cn/oAuth/' + userInfo.school_id + '/index');
             }else{
                 res.render('indexView',
                     {

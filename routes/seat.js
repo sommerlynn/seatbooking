@@ -11,36 +11,6 @@ var express = require('express'),
     OAuth = require('wechat-oauth');
 
 /*
- * 释放座位
- * 2016-04-08 CHEN PU 新建
- * */
-router.post('/me/release', function (req, res) {
-    models.userModel.releaseSeat(req.body.orderID, function (err, results) {
-        if (err) {
-            res.send('释放失败，请重试');
-        } else {
-            res.send('座位已经成功释放');
-        }
-    });
-});
-
-/*
- * 暂离座位
- * 2016-04-08 CHEN PU 新建
- **/
-router.post('/me/leave', function (req, res) {
-    models.userModel.leaveSeat(req.body.orderID, function (err, results) {
-        if (err) {
-            res.send('设置暂离失败，请重试');
-        } else {
-            res.send('设置暂离成功');
-        }
-    });
-});
-
-/************************************************************************订座*/
-
-/*
  * Get buildings of a school
  * 获取教学楼列表
  * */
@@ -192,6 +162,34 @@ router.post('/order', function (req, res) {
         }
     });
 
+});
+
+/*
+ * 释放座位
+ * 2016-04-08 CHEN PU 新建
+ * */
+router.post('/me/release', function (req, res) {
+    models.userModel.releaseSeat(req.body.orderID, function (err, results) {
+        if (err) {
+            res.send('释放失败，请重试');
+        } else {
+            res.send('座位已经成功释放');
+        }
+    });
+});
+
+/*
+ * 暂离座位
+ * 2016-04-08 CHEN PU 新建
+ **/
+router.post('/me/leave', function (req, res) {
+    models.userModel.leaveSeat(req.body.orderID, function (err, results) {
+        if (err) {
+            res.send('设置暂离失败，请重试');
+        } else {
+            res.send('设置暂离成功');
+        }
+    });
 });
 
 module.exports = router;
