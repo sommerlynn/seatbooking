@@ -275,7 +275,7 @@
         color: #666;
     }
 
-    .card .status {
+    .left_part .status {
         position: absolute;
         overflow: hidden;
         width: 1rem;
@@ -283,7 +283,7 @@
         z-index: 1;
     }
 
-    .card .status:after {
+    .left_part .status:after {
         content: "待审核";
         font-size: .24rem;
         background: #06c1ae;
@@ -504,8 +504,8 @@
                     <% for(var index = 0; index < waitForApprovedLeaveApplications.length; index++){ %>
 
                     <li class="card">
-                        <span class="status"></span>
                         <div class="left_part">
+                            <span class="status"></span>
                             <div class="date-row">
                                 <span class="start-date-info">开始时间: <%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %></span>
                             </div>
