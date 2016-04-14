@@ -37,7 +37,7 @@ router.post('/me/approveLeave', function (req, res) {
  * 2016-04-11 CHEN PU   新建
  * */
 router.get('/me/leaveSheet/:openid', function (req, res) {
-    res.render('./me/leaveSheetView',
+    res.render('./leave/leaveSheetView',
         {
             ip:req.query.ip,
             openid: req.params.openid,

@@ -24,7 +24,7 @@ router.get('/me/verifySheet/:openid', function (req, res) {
             for (var index = 0; index < departments.length; index++) {
                 departmentNameArr[index] = departments[index].department_name;
             }
-            res.render('./me/verifySheetView',
+            res.render('./verify/verifySheetView',
                 {
                     ip:req.query.ip,
                     openid: req.params.openid,
