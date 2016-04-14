@@ -68,7 +68,7 @@ router.get('/building/:openid', function (req, res) {
                         });
                     }
                     else {
-                        res.render('buildingView',
+                        res.render('./seat/buildingView',
                             {
                                 ip:req.query.ip,
                                 openid: req.params.openid,
@@ -93,7 +93,7 @@ router.get('/buildingClassroom/:areaId/:openid', function (req, res) {
             res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
         }
         else {
-            res.render('buildingClassroomView',
+            res.render('./seat/buildingClassroomView',
                 {
                     openid: req.params.openid,
                     title: '七玥校园',
@@ -146,7 +146,7 @@ router.get('/librarySeatMap/:cid/:openid', function (req, res) {
                     var today = new Date(),
                         nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
 
-                    res.render('librarySeatMapView', {
+                    res.render('./seat/librarySeatMapView', {
                         openid: req.params.openid,
                         title: classroom['full_name'],
                         classroom: classroom,
