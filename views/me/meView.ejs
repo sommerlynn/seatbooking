@@ -435,13 +435,17 @@
                                 <span class="end-date-info">截止时间: <%= leaveApplications[index].end_time.toLocaleString() %></span>
                             </div>
                             <div class="date-row">
-                                <span class="leave-status">当前状态:
-                                    <% if(leaveApplications[index].status == 0){ %>
-                                    待审核
-                                    <% } else if(leaveApplications[index].status == 1){ %>
-                                    已批准
-                                    <% } %>
+
+                                <% if(leaveApplications[index].status == 0){ %>
+                                <span class="leave-status" style="background-color: #E6DEB3">
+                                        待审核
                                 </span>
+                                <% } else if(leaveApplications[index].status == 1){ %>
+                                <span class="leave-status" style="background-color: #E6DEB3">
+                                    已批准
+                                </span>
+                                <% } %>
+
                             </div>
                         </div>
                         <div class="right_part">
