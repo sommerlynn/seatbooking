@@ -132,7 +132,7 @@ router.post('/me/approveLeave', function (req, res) {
  * 实名认证页面
  * 2016-04-11 CHEN PU 新建
  * */
-router.get('/me/realInfo/:openid', function (req, res) {
+router.get('/me/verifySheet/:openid', function (req, res) {
     models.departmentClassModel.getActiveDepartments(function (err, departments) {
         if (err) {
             res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
@@ -141,7 +141,7 @@ router.get('/me/realInfo/:openid', function (req, res) {
             for (var index = 0; index < departments.length; index++) {
                 departmentNameArr[index] = departments[index].department_name;
             }
-            res.render('./me/realInfoView',
+            res.render('./me/verifySheetView',
                 {
                     ip:req.query.ip,
                     openid: req.params.openid,
@@ -156,7 +156,7 @@ router.get('/me/realInfo/:openid', function (req, res) {
  * 提交用户实名信息
  * 2016-04-11 CHEN PU 新建
  * */
-router.post('/me/realInfo/submitInfo', function (req, res) {
+router.post('/me/verifySheet/submitInfo', function (req, res) {
     models.userModel.fillRealInfo(
         req.body.name,
         req.body.code,
@@ -176,7 +176,7 @@ router.post('/me/realInfo/submitInfo', function (req, res) {
  * 实名认证页面上获取对应学院的下属班级列表
  * 2016-04-11 CHEN PU 新建
  * */
-router.post('/me/realInfo/class', function (req, res) {
+router.post('/me/verifySheet/class', function (req, res) {
     models.departmentClassModel.getClass(req.body.department, function (err, classs) {
         var classStr = '';
         for (var index = 0; index < classs.length; index++) {
@@ -195,8 +195,8 @@ router.post('/me/realInfo/class', function (req, res) {
  * 填写请假申请表单的页面
  * 2016-04-11 CHEN PU   新建
  * */
-router.get('/me/applyLeave/:openid', function (req, res) {
-    res.render('./me/applyLeaveView',
+router.get('/me/leaveSheet/:openid', function (req, res) {
+    res.render('./me/leaveSheetView',
         {
             ip:req.query.ip,
             openid: req.params.openid,
@@ -209,7 +209,7 @@ router.get('/me/applyLeave/:openid', function (req, res) {
  * 提交请假申请信息
  * 2016-04-11 CHEN PU   新建
  * */
-router.post('/me/applyLeave/submitApplication', function (req, res) {
+router.post('/me/leaveSheet/submitApplication', function (req, res) {
     models.userModel.applyLeave(
         req.body.openid,
         req.body.leaveReason,
