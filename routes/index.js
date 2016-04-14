@@ -6,34 +6,6 @@ var express = require('express'),
     models = require('../models'),
     OAuth = require('wechat-oauth');
 
-/* GET home page. */
-router.get('/', function (req, res) {
-    res.render('indexView', {title: '七玥星空'});
-});
-
-router.get('/index/:openid', function (req, res) {
-    models.userModel.getUser(req.params.openid, function (err, userInfo) {
-        if (err) {
-            res.render('errorView', {
-                openid: req.params.openid,
-                title: '服务器故障',
-                message: '服务器故障',
-                error: err
-            });
-        } else {
-            if (req.query.ip != req.ip) {
-                res.redirect('http://www.julyangel.cn/oAuth/' + userInfo.school_id + '/index');
-            }else{
-                res.render('indexView',
-                    {
-                        openid: req.params.openid,
-                        title: '七玥星空'
-                    });
-            }
-        }
-    });
-});
-
 /************************************************************************用户信息*/
 
 /*
@@ -80,6 +52,35 @@ router.get('/oAuthGetInfo', function (req, res) {
     });
 });
 
+
+/* GET home page. */
+router.get('/', function (req, res) {
+    res.render('indexView', {title: '七玥星空'});
+});
+
+router.get('/index/:openid', function (req, res) {
+    models.userModel.getUser(req.params.openid, function (err, userInfo) {
+        if (err) {
+            res.render('errorView', {
+                openid: req.params.openid,
+                title: '服务器故障',
+                message: '服务器故障',
+                error: err
+            });
+        } else {
+            if (req.query.ip != req.ip) {
+                res.redirect('http://www.julyangel.cn/oAuth/' + userInfo.school_id + '/index');
+            }else{
+                res.render('indexView',
+                    {
+                        ip:req.params.ip,
+                        openid: req.params.openid,
+                        title: '七玥星空'
+                    });
+            }
+        }
+    });
+});
 
 /************************************************************************我的*/
 
