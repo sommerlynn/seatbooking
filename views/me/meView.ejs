@@ -363,7 +363,6 @@
                         </div>
                     </div>-->
 
-                    <% if (userSeatOrders.length > 0) {%>
                     <div class="content-block-title">
                         <div class="item-media">
                             <i class="icon icon-my-seat"></i>
@@ -373,6 +372,8 @@
                             <div class="item-real-info"><a href="/building/<%= openid %>?ip=<%= ip %>">历史座位 ></a></div>
                         </div>
                     </div>
+
+                    <% if (userSeatOrders.length > 0) {%>
 
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
 
@@ -411,7 +412,6 @@
 
                     <%}%>
 
-                    <% if (leaveApplications.length > 0) {%>
                     <div class="content-block-title">
                         <div class="item-media">
                             <i class="icon icon-leave-application"></i>
@@ -421,6 +421,8 @@
                             <div class="item-real-info"><a href="leaveSheet/<%= openid %>?ip=<%= ip %>">历史假条 ></a></div>
                         </div>
                     </div>
+
+                    <% if (leaveApplications.length > 0) {%>
 
                     <% for(var index = 0; index < leaveApplications.length; index++){ %>
 
