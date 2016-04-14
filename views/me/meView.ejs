@@ -248,6 +248,33 @@
         line-height: 1.25rem;
         font-size: 0.75em;
     }
+
+    .icon-list .icon{
+        display: inline-block;
+        box-sizing: border-box;
+        width: 25%;
+        text-align: center;
+    }
+
+    .icon-list .icon-circle {
+        display: block;
+        margin: auto;
+        margin-bottom: .14rem;
+        font-family: cate_icon;
+        width: .8rem;
+        height: .8rem;
+        border-radius: 10rem;
+        text-align: center;
+        line-height: .8rem;
+        font-size: .4rem;
+        color: #fff;
+    }
+
+    .icon-list .icon-desc {
+        text-align: center;
+        font-size: .24rem;
+        color: #666;
+    }
 </style>
 
 <div class="page">
@@ -290,9 +317,9 @@
                 <div class="swiper-slide">
                     <ul class="icon-list">
                         <li class="icon">
-                            <a>
-                                <span class="icon icon-building"></span>
-                                <span class="">座位预约</span>
+                            <a style="display: block">
+                                <span class="icon icon-circle icon-building"></span>
+                                <span class="icon-desc">座位预约</span>
                             </a>
                         </li>
                     </ul>
