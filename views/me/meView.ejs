@@ -316,20 +316,29 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <ul class="icon-list" style="padding: 1rem 0;">
+                        <% if(userInfo.real_name == null) {%>
+                        <li class="icon">
+                            <a style="display: block" href="verifySheet/<%= openid %>?ip=<%= ip %>">
+                                <span class="icon icon-circle icon-me"></span>
+                                <span class="icon-desc">实名认证</span>
+                            </a>
+                        </li>
+                        <%} else{%>
                         <li class="icon">
                             <a style="display: block">
+                                <span class="icon icon-circle icon-me"></span>
+                                <span class="icon-desc">身份信息</span>
+                            </a>
+                        </li>
+                        <%}%>
+                        <li class="icon">
+                            <a style="display: block" href="/building/<%= openid %>?ip=<%= ip %>">
                                 <span class="icon icon-circle icon-building"></span>
                                 <span class="icon-desc">查座选座</span>
                             </a>
                         </li>
                         <li class="icon">
-                            <a style="display: block">
-                                <span class="icon icon-circle icon-me"></span>
-                                <span class="icon-desc">实名认证</span>
-                            </a>
-                        </li>
-                        <li class="icon">
-                            <a style="display: block">
+                            <a style="display: block" href="leaveSheet/<%= openid %>?ip=<%= ip %>">
                                 <span class="icon icon-circle icon-leave-application"></span>
                                 <span class="icon-desc">请假申请</span>
                             </a>
@@ -344,7 +353,7 @@
 
             <div class="list-block cards-list">
                 <ul id="seat_tickets">
-                    <div class="content-block-title">
+                    <!--<div class="content-block-title">
                         <div class="item-media">
                             <i class="icon icon-me"></i>
                         </div>
@@ -353,8 +362,9 @@
                             <div class="item-real-info"><a href="verifySheet/<%= openid %>?ip=<%= ip %>">实名认证 ></a>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
+                    <% if (userSeatOrders.length > 0) {%>
                     <div class="content-block-title">
                         <div class="item-media">
                             <i class="icon icon-my-seat"></i>
@@ -400,6 +410,9 @@
                     </li>
                     <% } %>
 
+                    <%}%>
+
+                    <% if (leaveApplications.length > 0) {%>
                     <div class="content-block-title">
                         <div class="item-media">
                             <i class="icon icon-leave-application"></i>
@@ -452,6 +465,8 @@
 
                     <% } %>
 
+                    <%}%>
+
                     <% if(userInfo.manage_class_count > 0) { %>
                     <div class="content-block-title">
                         <div class="item-media">
@@ -462,7 +477,6 @@
                             <div class="item-real-info"><a href="leaveSheet/<%= openid %>?ip=<%= ip %>">已审假条 ></a></div>
                         </div>
                     </div>
-                    <% } %>
 
                     <% for(var index = 0; index < waitForApprovedLeaveApplications.length; index++){ %>
 
@@ -497,7 +511,7 @@
                     </li>
 
                     <% } %>
-
+                    <% } %>
                 </ul>
             </div>
         </div>
