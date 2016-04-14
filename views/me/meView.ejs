@@ -106,7 +106,7 @@
         font-weight: bold;
     }
 
-    .seat-status{
+    .seat-status {
         line-height: 1.25rem;
         color: #A00000;
         font-size: .75em;
@@ -138,7 +138,7 @@
 
     .operation-modify-leave, .operation-finish-leave,
     .operation-cancel-leave, .operation-detail-leave,
-    .detail-approve-leave{
+    .detail-approve-leave {
         display: inline-block;
         padding: 0.1875rem 0.3125rem;
         width: 3.75rem;
@@ -147,7 +147,7 @@
         margin-bottom: 0.55rem;
     }
 
-    .detail-approve-leave{
+    .detail-approve-leave {
         margin-top: 1rem;
     }
 
@@ -161,7 +161,6 @@
         height: 4.5rem;
         background-color: #F7F7F8;
     }
-
 
     .right_part {
         width: 28%;
@@ -191,17 +190,17 @@
 
     }
 
-    .content-block-title{
+    .content-block-title {
         margin: 0;
         padding: .85rem;
         background-color: #FFFFFF;
-        color:#A00000;
+        color: #A00000;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
     }
 
-    .content-block-title:after{
+    .content-block-title:after {
         content: '';
         position: absolute;
         left: 0;
@@ -217,24 +216,24 @@
         transform-origin: 50% 100%;
     }
 
-    .content-block-title+.card{
+    .content-block-title + .card {
         margin-top: 0;
     }
 
-    .list-block .item-media{
+    .list-block .item-media {
         padding: 0;
     }
 
-    .list-block .item-inner{
+    .list-block .item-inner {
         padding: 0;
         min-height: 0;
     }
 
-    .list-block .item-inner:after{
+    .list-block .item-inner:after {
         height: 0px;
     }
 
-    .item-real-info{
+    .item-real-info {
     }
 
     span.start-date-info, span.end-date-info {
@@ -243,7 +242,7 @@
         font-size: 0.75em;
     }
 
-    span.leave-status{
+    span.leave-status {
         color: #A00000;
         padding: 0.25rem 0.75rem;
         line-height: 1.25rem;
@@ -253,15 +252,16 @@
 
 <div class="page">
     <nav class="bar bar-tab">
-        <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building/<%=openid%>?ip=<%=ip%>" external>
+        <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building/<%= openid %>?ip=<%= ip %>"
+           external>
             <span class="icon icon-building"></span>
             <span class="tab-label">预约座位</span>
         </a>
-        <a class="tab-item" id="skyTab" href="http://www.julyangel.cn/index/<%=openid%>?ip=<%=ip%>" external>
+        <a class="tab-item" id="skyTab" href="http://www.julyangel.cn/index/<%= openid %>?ip=<%= ip %>" external>
             <span class="icon icon-star"></span>
             <span class="tab-label">七玥星空</span>
         </a>
-        <a class="tab-item active" id="meTab" href="http://www.julyangel.cn/me/<%=openid%>?ip=<%=ip%>" external>
+        <a class="tab-item active" id="meTab" href="http://www.julyangel.cn/me/<%= openid %>?ip=<%= ip %>" external>
             <span class="icon icon-me"></span>
             <span class="tab-label">我的</span>
         </a>
@@ -284,6 +284,23 @@
                 </li>
             </ul>
         </div>
+
+        <div class="swiper-container" data-space-between='10'>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <ul class="icon-list">
+                        <li class="icon">
+                            <a>
+                                <span class="icon icon-building"></span>
+                                <span class="">座位预约</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
         <div class="content-block">
 
             <div class="list-block cards-list">
@@ -294,7 +311,8 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title">实名信息</div>
-                            <div class="item-real-info"><a href="verifySheet/<%=openid%>?ip=<%=ip%>">实名认证 ></a></div>
+                            <div class="item-real-info"><a href="verifySheet/<%= openid %>?ip=<%= ip %>">实名认证 ></a>
+                            </div>
                         </div>
                     </div>
 
@@ -304,7 +322,7 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title">我的座位</div>
-                            <div class="item-real-info"><a href="/building/<%=openid%>?ip=<%=ip%>">预约座位 ></a></div>
+                            <div class="item-real-info"><a href="/building/<%= openid %>?ip=<%= ip %>">预约座位 ></a></div>
                         </div>
                     </div>
 
@@ -320,15 +338,15 @@
                                       id="selectedSeatInfo">
                                      <%= userSeatOrders[index].seat_code %> 号</span>
                                 <span class="seat-status">
-                                <% if (userSeatOrders[index].status == -1) {%>
+                                    <% if (userSeatOrders[index].status == -1) { %>
                                     已取消
-                                <%} else if(userSeatOrders[index].status == 1) {%>
+                                    <% } else if(userSeatOrders[index].status == 1) { %>
                                     正常
-                                <%} else if(userSeatOrders[index].status == -2) {%>
+                                    <% } else if(userSeatOrders[index].status == -2) { %>
                                     系统释放
-                                <%} else if(userSeatOrders[index].status == 2) {%>
-                                    <%= userSeatOrders[index].leave_time.toLocaleTimeString()%> 暂离
-                                <%}%>
+                                    <% } else if(userSeatOrders[index].status == 2) { %>
+                                    <%= userSeatOrders[index].leave_time.toLocaleTimeString() %> 暂离
+                                    <% } %>
                                 </span>
                             </div>
                             <div class="date-row">
@@ -343,14 +361,13 @@
                     </li>
                     <% } %>
 
-
                     <div class="content-block-title">
                         <div class="item-media">
                             <i class="icon icon-leave-application"></i>
                         </div>
                         <div class="item-inner">
                             <div class="item-title">我的假条</div>
-                            <div class="item-real-info"><a href="leaveSheet/<%=openid%>?ip=<%=ip%>">我要请假 ></a></div>
+                            <div class="item-real-info"><a href="leaveSheet/<%= openid %>?ip=<%= ip %>">我要请假 ></a></div>
                         </div>
                     </div>
 
@@ -359,43 +376,51 @@
                     <li class="card">
                         <div class="left_part">
                             <div class="date-row">
-                                <span class="start-date-info">开始时间: <%= leaveApplications[index].start_time.toLocaleString()%></span>
+                                <span class="start-date-info">开始时间: <%= leaveApplications[index].start_time.toLocaleString() %></span>
                             </div>
                             <div class="date-row">
-                                <span class="end-date-info">截止时间: <%= leaveApplications[index].end_time.toLocaleString()%></span>
+                                <span class="end-date-info">截止时间: <%= leaveApplications[index].end_time.toLocaleString() %></span>
                             </div>
                             <div class="date-row">
                                 <span class="leave-status">当前状态:
-                                    <%if(leaveApplications[index].status == 0){%>
-                                        待审核
-                                    <%} else if(leaveApplications[index].status == 1){%>
-                                        已批准
-                                    <%}%>
+                                    <% if(leaveApplications[index].status == 0){ %>
+                                    待审核
+                                    <% } else if(leaveApplications[index].status == 1){ %>
+                                    已批准
+                                    <% } %>
                                 </span>
                             </div>
                         </div>
                         <div class="right_part">
-                            <%  if(leaveApplications[index].status == 0)    {   %>
-                                <div class="operation-modify-leave" id="modify_<%= leaveApplications[index].application_id %>">修改</div>
-                                <div class="operation-cancel-leave" id="cancel_<%= leaveApplications[index].application_id %>">撤回</div>
-                            <%  }   %>
-                            <%  if(leaveApplications[index].status == 1)    {   %>
-                                <div class="operation-detail-leave" id="detail_<%= leaveApplications[index].application_id %>">详情</div>
-                                <div class="operation-finish-leave" id="finish_<%= leaveApplications[index].application_id %>">销假</div>
-                            <%  }   %>
+                            <% if(leaveApplications[index].status == 0)    { %>
+                            <div class="operation-modify-leave"
+                                 id="modify_<%= leaveApplications[index].application_id %>">修改
+                            </div>
+                            <div class="operation-cancel-leave"
+                                 id="cancel_<%= leaveApplications[index].application_id %>">撤回
+                            </div>
+                            <% } %>
+                            <% if(leaveApplications[index].status == 1)    { %>
+                            <div class="operation-detail-leave"
+                                 id="detail_<%= leaveApplications[index].application_id %>">详情
+                            </div>
+                            <div class="operation-finish-leave"
+                                 id="finish_<%= leaveApplications[index].application_id %>">销假
+                            </div>
+                            <% } %>
                         </div>
                     </li>
 
                     <% } %>
 
-                    <% if(userInfo.manage_class_count > 0) {%>
+                    <% if(userInfo.manage_class_count > 0) { %>
                     <div class="content-block-title">
                         <div class="item-media">
                             <i class="icon icon-leave-application"></i>
                         </div>
                         <div class="item-inner">
                             <div class="item-title">待审假条</div>
-                            <div class="item-real-info"><a href="leaveSheet/<%=openid%>?ip=<%=ip%>">已审假条 ></a></div>
+                            <div class="item-real-info"><a href="leaveSheet/<%= openid %>?ip=<%= ip %>">已审假条 ></a></div>
                         </div>
                     </div>
                     <% } %>
@@ -405,28 +430,30 @@
                     <li class="card">
                         <div class="left_part">
                             <div class="date-row">
-                                <span class="start-date-info">开始时间: <%= waitForApprovedLeaveApplications[index].start_time.toLocaleString()%></span>
+                                <span class="start-date-info">开始时间: <%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %></span>
                             </div>
                             <div class="date-row">
-                                <span class="end-date-info">截止时间: <%= waitForApprovedLeaveApplications[index].end_time.toLocaleString()%></span>
+                                <span class="end-date-info">截止时间: <%= waitForApprovedLeaveApplications[index].end_time.toLocaleString() %></span>
                             </div>
                             <div class="date-row">
-                                <span class="end-date-info">申请人: <%= waitForApprovedLeaveApplications[index].applier_real_name%></span>
+                                <span class="end-date-info">申请人: <%= waitForApprovedLeaveApplications[index].applier_real_name %></span>
                                 <span class="leave-status">申请事由:
-                                    <%= waitForApprovedLeaveApplications[index].application_reason.length > 10?
-                                        waitForApprovedLeaveApplications[index].application_reason.substr(0,10)+'...':
-                                        waitForApprovedLeaveApplications[index].application_reason
+                                    <%= waitForApprovedLeaveApplications[index].application_reason.length > 10 ?
+                                    waitForApprovedLeaveApplications[index].application_reason.substr(0, 10) + '...' :
+                                            waitForApprovedLeaveApplications[index].application_reason
                                     %>
                                 </span>
                             </div>
                             <!--<div class="date-row">
                                 <span class="leave-status">申请事由:
-                                    <%= waitForApprovedLeaveApplications[index].application_reason%>
+                                    <%= waitForApprovedLeaveApplications[index].application_reason %>
                                 </span>
                             </div>-->
                         </div>
                         <div class="right_part">
-                            <div class="detail-approve-leave" id="approve_<%= waitForApprovedLeaveApplications[index].application_id %>">详情</div>
+                            <div class="detail-approve-leave"
+                                 id="approve_<%= waitForApprovedLeaveApplications[index].application_id %>">详情
+                            </div>
                         </div>
                     </li>
 
@@ -505,7 +532,7 @@
                     $.post('approveLeave',
                             {
                                 applicationID: application_id,
-                                openid:'<%=openid%>'
+                                openid: '<%= openid %>'
                             },
                             function (response) {
                                 $.hidePreloader();
