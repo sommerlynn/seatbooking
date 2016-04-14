@@ -58,8 +58,14 @@ app.use(session({
 var index = require('./routes/index');
 app.use('/', index);
 
-var me = require('./routes/me');
-app.use('/', me);
+var leave = require('./routes/leave');
+app.use('/', leave);
+
+var seat = require('./routes/seat');
+app.use('/', seat);
+
+var verify = require('./routes/verify');
+app.use('/', verify);
 
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
