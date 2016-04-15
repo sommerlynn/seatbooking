@@ -514,11 +514,11 @@
                             </div>
                         </div>
                         <div class="card-footer" style="text-align: center; margin: 0 auto">
-                            <span class="operation-approve-leave"
-                                 id="detail_<%= waitForApprovedLeaveApplications[index].application_id %>">同意
-                            </span>
-                            <span class="operation-reject-leave"
+                            <span class="operation-reject-leave" style="float: left"
                                   id="detail_<%= waitForApprovedLeaveApplications[index].application_id %>">驳回
+                            </span>
+                            <span class="operation-approve-leave" style="float: right"
+                                 id="detail_<%= waitForApprovedLeaveApplications[index].application_id %>">同意
                             </span>
                         </div>
                     </li>
