@@ -620,5 +620,27 @@
                             });
                 });
     });
+
+    $(document).on('click', '.operation-reject-leave', function () {
+        var application_arr = this.id.split('_');
+        var application_id = application_arr[1];
+        $.prompt('请填写驳回该请假申请的原因?', '驳回请假',
+                function () {
+                    /*确定释放座位*/
+                    $.showPreloader('批准申请中，请稍候...');
+
+                    $.post('approveLeave',
+                            {
+                                applicationID: application_id,
+                                openid: '<%= openid %>'
+                            },
+                            function (response) {
+                                $.hidePreloader();
+                                $.alert(response);
+                                window.location.reload();
+                            });
+                });
+    });
+
 </script>
 <% include footer.html %>
