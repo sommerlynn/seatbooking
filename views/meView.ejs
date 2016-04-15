@@ -283,6 +283,10 @@
         font-size: .65rem;
         color: #666;
     }
+
+    span.leave-important{
+        text-decoration: underline;
+    }
 </style>
 
 <div class="page">
@@ -497,12 +501,12 @@
                     <li class="card" style="height: auto">
 
                         <div class="card-content">
-                            <div class="card-content-inner" style="text-align: justify; line-height: 1.5rem;"><b><%= waitForApprovedLeaveApplications[index].applier_real_name %></b>
+                            <div class="card-content-inner" style="text-align: justify; line-height: 1.5rem;"><span class="leave-important"><%= waitForApprovedLeaveApplications[index].applier_real_name %></span>
                                 [<%= waitForApprovedLeaveApplications[index].mobile %>]
-                                于 <b><%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %></b> 至
-                                <b><%= waitForApprovedLeaveApplications[index].end_time.toLocaleString() %></b>
-                                申请请假。请假<b>事由</b>：[<%= waitForApprovedLeaveApplications[index].application_reason %>
-                                ]。请假去往<b>地点</b>:[<%= waitForApprovedLeaveApplications[index].address %>]。
+                                于 <span class="leave-important"><%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %></span> 至
+                                <span class="leave-important"><%= waitForApprovedLeaveApplications[index].end_time.toLocaleString() %></span>
+                                申请请假。请假<span class="leave-important">事由</span>：[<%= waitForApprovedLeaveApplications[index].application_reason %>
+                                ]。请假去往<span class="leave-important">地点</span>:[<%= waitForApprovedLeaveApplications[index].address %>]。
                             </div>
                         </div>
                     </li>
