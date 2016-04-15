@@ -456,7 +456,6 @@
                                 <span class="end-date-info">截止时间: <%= leaveApplications[index].end_time.toLocaleString() %></span>
                             </div>
                             <div class="date-row">
-
                                 <% if(leaveApplications[index].status == 0){ %>
                                 <span class="leave-status" style="background-color: #E6DEB3">
                                         待审核
@@ -468,7 +467,7 @@
                                 <span class="leave-approve-by">
                                     <%= leaveApplications[index].approve_by_name %>
                                 </span>
-                                <% } else if(leaveApplication[index].status == -1){%>
+                                <% } else if(leaveApplications[index].status == -1){%>
                                 <span class="leave-status" style="background-color: #E6DEB3">
                                     不准
                                 </span>
