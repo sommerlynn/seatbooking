@@ -475,14 +475,14 @@
                                         待审核
                                 </span>
                                 <% } else if(leaveApplications[index].status == 1){ %>
-                                <span class="leave-status leave-approve" style="background-color: #E6DEB3">
+                                <span class="leave-status leave-approve">
                                     准假
                                 </span>
                                 <span class="leave-approve-by">
                                     审核: <%= leaveApplications[index].approve_by_name %>
                                 </span>
                                 <% } else if(leaveApplications[index].status == -1){%>
-                                <span class="leave-status leave-reject" style="background-color: #E6DEB3">
+                                <span class="leave-status leave-reject">
                                     不准
                                 </span>
                                 <span class="leave-approve-by">
