@@ -110,11 +110,11 @@ router.get('/me/:openid', function (req, res) {
                 res.redirect('http://www.julyangel.cn/oAuth/' + userInfo.school_id + '/me');
             }
             else {
-                models.userModel.getSeatActiveOrderSheet(req.params.openid, function (err, userSeatOrders) {
+                models.seatModel.getActive(req.params.openid, function (err, userSeatOrders) {
                     if (err) {
                         res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                     } else {
-                        models.userModel.getLeaveApplication(req.params.openid, function (err, leaveApplications) {
+                        models.leaveApplicationModel.getActive(req.params.openid, function (err, leaveApplications) {
                             if (err) {
                                 res.render('errorView', {
                                     openid: req.params.openid,
@@ -123,7 +123,7 @@ router.get('/me/:openid', function (req, res) {
                                     error: err
                                 });
                             } else {
-                                models.userModel.getLeaveApplicationWaitForApproving(req.params.openid, function (err, waitForApprovedLeaveApplications) {
+                                models.leaveApplicationModel.getForApproving(req.params.openid, function (err, waitForApprovedLeaveApplications) {
                                     if (err) {
                                         res.render('errorView', {
                                             openid: req.params.openid,

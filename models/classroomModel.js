@@ -34,7 +34,6 @@ classroom.getOrder = function (classroomID, dayType, callback) {
   db.executeQuery(selectQuery, params, callback);
 };
 
-
 classroom.getActiveOrder = function (classroomID, dayType, callback) {
     var orderDate = new Date();
     if(dayType == 'tomorrow'){

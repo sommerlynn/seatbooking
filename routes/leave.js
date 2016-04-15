@@ -29,7 +29,7 @@ router.get('/me/leaveSheet/:openid', function (req, res) {
  * 2016-04-11 CHEN PU   新建
  * */
 router.post('/me/leaveSheet/submitApplication', function (req, res) {
-    models.userModel.applyLeave(
+    models.leaveApplicationModel.apply(
         req.body.openid,
         req.body.leaveReason,
         req.body.startTime,
@@ -52,7 +52,7 @@ router.post('/me/leaveSheet/submitApplication', function (req, res) {
  *
  * */
 router.post('/me/approveLeave', function (req, res) {
-    models.userModel.approveLeaveApplication(
+    models.leaveApplicationModel.approve(
         req.body.openid,
         req.body.applicationID,
         function (err, result) {
@@ -62,6 +62,10 @@ router.post('/me/approveLeave', function (req, res) {
                 res.send('已成功批准');
             }
         });
+});
+
+router.post('/me/rejectLeave', function (req, res) {
+        
 });
 
 

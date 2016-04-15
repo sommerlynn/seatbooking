@@ -8,7 +8,9 @@ models = {
     parseModel: require('./parseModel'),
     userModel:require('./userModel'),
     weixinMessageModel:require('./weixinMessageModel'),
-    departmentClassModel:require('./departmentClassModel')
+    departmentClassModel:require('./departmentClassModel'),
+    leaveApplicationModel:require('./leaveApplicationModel'),
+    seatModel:require('./seatModel')
 };
 
 module.exports = models;

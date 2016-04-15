@@ -154,7 +154,7 @@ router.post('/order', function (req, res) {
     }
     var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
 
-    models.userModel.newOrder(req.body.openid, req.body.classroom, req.body.row, req.body.column, req.body.seatCode, startTime, endTime, function (err) {
+    models.seatModel.newOrder(req.body.openid, req.body.classroom, req.body.row, req.body.column, req.body.seatCode, startTime, endTime, function (err) {
         if (err) {
             res.send(err);
         } else {
@@ -169,7 +169,7 @@ router.post('/order', function (req, res) {
  * 2016-04-08 CHEN PU 新建
  * */
 router.post('/me/release', function (req, res) {
-    models.userModel.releaseSeat(req.body.orderID, function (err, results) {
+    models.seatModel.release(req.body.orderID, function (err, results) {
         if (err) {
             res.send('释放失败，请重试');
         } else {
@@ -183,7 +183,7 @@ router.post('/me/release', function (req, res) {
  * 2016-04-08 CHEN PU 新建
  **/
 router.post('/me/leave', function (req, res) {
-    models.userModel.leaveSeat(req.body.orderID, function (err, results) {
+    models.seatModel.leave(req.body.orderID, function (err, results) {
         if (err) {
             res.send('设置暂离失败，请重试');
         } else {
