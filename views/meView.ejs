@@ -298,6 +298,10 @@
         width: 30%;
         text-align: center;
     }
+
+    span.leave-approve-by{
+
+    }
 </style>
 
 <div class="page">
@@ -459,10 +463,19 @@
                                 </span>
                                 <% } else if(leaveApplications[index].status == 1){ %>
                                 <span class="leave-status" style="background-color: #E6DEB3">
-                                    已批准
+                                    准假
+                                </span>
+                                <span class="leave-approve-by">
+                                    <%= leaveApplications[index].approve_by_name %>
+                                </span>
+                                <% } else if(leaveApplication[index].status == -1){%>
+                                <span class="leave-status" style="background-color: #E6DEB3">
+                                    不准
+                                </span>
+                                <span class="leave-approve-by">
+                                    <%= leaveApplications[index].approve_by_name %>
                                 </span>
                                 <% } %>
-
                             </div>
                         </div>
                         <div class="right_part">
