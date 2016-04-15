@@ -497,12 +497,12 @@
                     <li class="card">
 
                         <div class="card-content">
-                            <div class="card-content-inner" style="text-align: justify"><%= waitForApprovedLeaveApplications[index].applier_real_name %>
-                                (<%= waitForApprovedLeaveApplications[index].mobile %>)
-                                于 <%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %> 至
-                                <%= waitForApprovedLeaveApplications[index].end_time.toLocaleString() %>
-                                申请请假。请假事由：[<%= waitForApprovedLeaveApplications[index].application_reason %>
-                                ]。请假去往地点:[<%= waitForApprovedLeaveApplications[index].address %>]。
+                            <div class="card-content-inner" style="text-align: justify"><b><%= waitForApprovedLeaveApplications[index].applier_real_name %></b>
+                                [<%= waitForApprovedLeaveApplications[index].mobile %>]
+                                于 <b><%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %></b> 至
+                                <b><%= waitForApprovedLeaveApplications[index].end_time.toLocaleString() %></b>
+                                申请请假。请假<b>事由</b>：[<%= waitForApprovedLeaveApplications[index].application_reason %>
+                                ]。请假去往<b>地点</b>:[<%= waitForApprovedLeaveApplications[index].address %>]。
                             </div>
                         </div>
                     </li>
