@@ -31,6 +31,11 @@ leaveApplication.approve = function (openid, applicationID, callback){
     db.executeQuery(updateQuery, params, callback);
 };
 
-leaveApplication.reject
+leaveApplication.reject = function (openid, applicationID, callback) {
+    var updateQuery = "update leave_application set status = -1, approve_time = NOW(), approve_by = "+
+            "(select user_id from user where openid = ?) where application_id = ?",
+        params = [openid, applicationID];
+    db.executeQuery(updateQuery, params, callback);
+};
 
 module.exports = leaveApplication;

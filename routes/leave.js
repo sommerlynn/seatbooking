@@ -65,7 +65,16 @@ router.post('/me/approveLeave', function (req, res) {
 });
 
 router.post('/me/rejectLeave', function (req, res) {
-        
+    models.leaveApplicationModel.reject(
+        req.body.openid,
+        req.body.applicationID,
+        function (err, result) {
+            if (err) {
+                res.send('内部错误，请重试或联系系统管理员');
+            } else {
+                res.send('已驳回该申请');
+            }
+        });
 });
 
 
