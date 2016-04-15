@@ -627,9 +627,9 @@
         $.prompt('请填写驳回该请假申请的原因?', '驳回请假',
                 function () {
                     /*确定释放座位*/
-                    $.showPreloader('批准申请中，请稍候...');
+                    $.showPreloader(' 驳回申请中，请稍候...');
 
-                    $.post('approveLeave',
+                    $.post('rejectLeave',
                             {
                                 applicationID: application_id,
                                 openid: '<%= openid %>'
