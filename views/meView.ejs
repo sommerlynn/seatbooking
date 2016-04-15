@@ -137,8 +137,7 @@
     }
 
     .operation-modify-leave, .operation-finish-leave,
-    .operation-cancel-leave, .operation-detail-leave
-     {
+    .operation-cancel-leave, .operation-detail-leave {
         display: inline-block;
         padding: 0.1875rem 0.3125rem;
         width: 3.75rem;
@@ -147,7 +146,7 @@
         margin-bottom: 0.55rem;
     }
 
-    .operation-approve-leave, .operation-reject-leave{
+    .operation-approve-leave, .operation-reject-leave {
         display: inline-block;
         padding: 0.1875rem 0.3125rem;
         width: 3.75rem;
@@ -289,8 +288,15 @@
         color: #666;
     }
 
-    span.leave-important{
+    span.leave-important {
         text-decoration: underline;
+    }
+
+    .approve-leave-operation-list .approve-leave-operation{
+        display: inline-block;
+        box-sizing: border-box;
+        width: 50%;
+        text-align: center;
     }
 </style>
 
@@ -505,21 +511,35 @@
 
                     <li class="card" style="height: auto; background-color: #F7F7F8">
                         <div class="card-content">
-                            <div class="card-content-inner" style="text-align: justify; line-height: 1.25rem;"><span class="leave-important"><%= waitForApprovedLeaveApplications[index].applier_real_name %></span>
+                            <div class="card-content-inner" style="text-align: justify; line-height: 1.25rem;"><span
+                                        class="leave-important"><%= waitForApprovedLeaveApplications[index].applier_real_name %></span>
                                 [<%= waitForApprovedLeaveApplications[index].mobile %>]
-                                于 <span class="leave-important"><%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %></span> 至
+                                于
+                                <span class="leave-important"><%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %></span>
+                                至
                                 <span class="leave-important"><%= waitForApprovedLeaveApplications[index].end_time.toLocaleString() %></span>
-                                申请请假。请假<span class="leave-important">事由</span>：[<%= waitForApprovedLeaveApplications[index].application_reason %>
-                                ]。请假去往<span class="leave-important">地点</span>:[<%= waitForApprovedLeaveApplications[index].address %>]。
+                                申请请假。请假<span
+                                        class="leave-important">事由</span>：[<%= waitForApprovedLeaveApplications[index].application_reason %>
+                                ]。请假去往<span
+                                        class="leave-important">地点</span>:[<%= waitForApprovedLeaveApplications[index].address %>
+                                ]。
                             </div>
                         </div>
                         <div class="card-footer" style="text-align: center; margin: 0 auto">
-                            <span class="operation-reject-leave" style="float: left"
-                                  id="detail_<%= waitForApprovedLeaveApplications[index].application_id %>">驳回
-                            </span>
-                            <span class="operation-approve-leave" style="float: right"
-                                 id="detail_<%= waitForApprovedLeaveApplications[index].application_id %>">同意
-                            </span>
+                            <ul class="approve-leave-operation-list">
+                                <li class="approve-leave-operation">
+                                    <span class="operation-reject-leave"
+                                          id="detail_<%= waitForApprovedLeaveApplications[index].application_id %>">驳回
+                                    </span>
+                                </li>
+                                <li class="approve-leave-operation">
+                                    <span class="operation-approve-leave"
+                                          id="detail_<%= waitForApprovedLeaveApplications[index].application_id %>">同意
+                                    </span>
+                                </li>
+                            </ul>
+
+
                         </div>
                     </li>
 
