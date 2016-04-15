@@ -137,8 +137,8 @@
     }
 
     .operation-modify-leave, .operation-finish-leave,
-    .operation-cancel-leave, .operation-detail-leave,
-    .detail-approve-leave {
+    .operation-cancel-leave, .operation-detail-leave
+     {
         display: inline-block;
         padding: 0.1875rem 0.3125rem;
         width: 3.75rem;
@@ -147,8 +147,12 @@
         margin-bottom: 0.55rem;
     }
 
-    .detail-approve-leave {
-        margin-top: 1rem;
+    .operation-approve-leave, .operation-reject-leave{
+        display: inline-block;
+        padding: 0.1875rem 0.3125rem;
+        width: 3.75rem;
+        border: 0.0625rem solid #DCC6C6;
+        color: #A00000;
     }
 
     .left_part {
@@ -500,7 +504,7 @@
 
                     <li class="card" style="height: auto; background-color: #F7F7F8">
                         <div class="card-content">
-                            <div class="card-content-inner" style="text-align: justify; line-height: 1.5rem;"><span class="leave-important"><%= waitForApprovedLeaveApplications[index].applier_real_name %></span>
+                            <div class="card-content-inner" style="text-align: justify; line-height: 1.25rem;"><span class="leave-important"><%= waitForApprovedLeaveApplications[index].applier_real_name %></span>
                                 [<%= waitForApprovedLeaveApplications[index].mobile %>]
                                 于 <span class="leave-important"><%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %></span> 至
                                 <span class="leave-important"><%= waitForApprovedLeaveApplications[index].end_time.toLocaleString() %></span>
