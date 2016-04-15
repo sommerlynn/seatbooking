@@ -470,6 +470,7 @@
                                 <span class="end-date-info">截止时间: <%= leaveApplications[index].end_time.toLocaleString() %></span>
                             </div>
                             <div class="date-row">
+                                <%=jsTicket%>
                                 <% if(leaveApplications[index].status == 0){ %>
                                 <span class="leave-status leave-wait-for">
                                         待审核
