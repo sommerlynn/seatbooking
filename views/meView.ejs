@@ -497,7 +497,7 @@
                     <li class="card">
 
                         <%= waitForApprovedLeaveApplications[index].applier_real_name %> (<%= waitForApprovedLeaveApplications[index].mobile %>) 于 <%= waitForApprovedLeaveApplications[index].start_time.toLocaleString() %> 至
-                        <%= waitForApprovedLeaveApplications[index].end_time.toLocaleString() %> 申请请假。请假事由：[waitForApprovedLeaveApplications[index].application_reason]。请假去往地点:[waitForApprovedLeaveApplications[index].address]。
+                        <%= waitForApprovedLeaveApplications[index].end_time.toLocaleString() %> 申请请假。请假事由：[<%=waitForApprovedLeaveApplications[index].application_reason%>]。请假去往地点:[<%=waitForApprovedLeaveApplications[index].address%>]。
 
                         <!--<div class="left_part">
                             <div class="date-row">
