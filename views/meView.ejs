@@ -335,42 +335,35 @@
             </ul>
         </div>
 
-        <div class="swiper-container" data-space-between='10' style="padding-bottom: 0">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <ul class="icon-list" style="padding: 1rem 0;">
-                        <% if(userInfo.real_name == null) { %>
-                        <li class="icon">
-                            <a style="display: block" href="verifySheet/<%= openid %>?ip=<%= ip %>">
-                                <span class="icon icon-circle icon-me"></span>
-                                <span class="icon-desc">实名认证</span>
-                            </a>
-                        </li>
-                        <% } else{ %>
-                        <li class="icon">
-                            <a style="display: block">
-                                <span class="icon icon-circle icon-me"></span>
-                                <span class="icon-desc">身份信息</span>
-                            </a>
-                        </li>
-                        <% } %>
-                        <li class="icon">
-                            <a style="display: block" href="/building/<%= openid %>?ip=<%= ip %>">
-                                <span class="icon icon-circle icon-building"></span>
-                                <span class="icon-desc">预约座位</span>
-                            </a>
-                        </li>
-                        <li class="icon">
-                            <a style="display: block" href="leaveSheet/<%= openid %>?ip=<%= ip %>">
-                                <span class="icon icon-circle icon-leave-application"></span>
-                                <span class="icon-desc">请假申请</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="swiper-pagination"></div>
-        </div>
+        <ul class="icon-list" style="padding: 1rem 0;">
+            <% if(userInfo.real_name == null) { %>
+            <li class="icon">
+                <a style="display: block" href="verifySheet/<%= openid %>?ip=<%= ip %>">
+                    <span class="icon icon-circle icon-me"></span>
+                    <span class="icon-desc">实名认证</span>
+                </a>
+            </li>
+            <% } else{ %>
+            <li class="icon">
+                <a style="display: block">
+                    <span class="icon icon-circle icon-me"></span>
+                    <span class="icon-desc">身份信息</span>
+                </a>
+            </li>
+            <% } %>
+            <li class="icon">
+                <a style="display: block" href="/building/<%= openid %>?ip=<%= ip %>">
+                    <span class="icon icon-circle icon-building"></span>
+                    <span class="icon-desc">预约座位</span>
+                </a>
+            </li>
+            <li class="icon">
+                <a style="display: block" href="leaveSheet/<%= openid %>?ip=<%= ip %>">
+                    <span class="icon icon-circle icon-leave-application"></span>
+                    <span class="icon-desc">请假申请</span>
+                </a>
+            </li>
+        </ul>
 
         <div class="content-block">
 
