@@ -508,6 +508,11 @@
                                  id="finish_<%= leaveApplications[index].application_id %>">销假
                             </div>
                             <% } %>
+                            <% if(leaveApplications[index].status == -1)    { %>
+                            <div class="operation-detail-leave"
+                                 id="detail_<%= leaveApplications[index].application_id %>">详情
+                            </div>
+                            <% } %>
                         </div>
                     </li>
 
