@@ -498,8 +498,7 @@
 
                     <% for(var index = 0; index < waitForApprovedLeaveApplications.length; index++){ %>
 
-                    <li class="card" style="height: auto">
-
+                    <li class="card" style="height: auto; background-color: #F7F7F8">
                         <div class="card-content">
                             <div class="card-content-inner" style="text-align: justify; line-height: 1.5rem;"><span class="leave-important"><%= waitForApprovedLeaveApplications[index].applier_real_name %></span>
                                 [<%= waitForApprovedLeaveApplications[index].mobile %>]
@@ -508,6 +507,14 @@
                                 申请请假。请假<span class="leave-important">事由</span>：[<%= waitForApprovedLeaveApplications[index].application_reason %>
                                 ]。请假去往<span class="leave-important">地点</span>:[<%= waitForApprovedLeaveApplications[index].address %>]。
                             </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="operation-approve-leave"
+                                 id="detail_<%= waitForApprovedLeaveApplications[index].application_id %>">同意
+                            </span>
+                            <span class="operation-reject-leave"
+                                  id="detail_<%= waitForApprovedLeaveApplications[index].application_id %>">驳回
+                            </span>
                         </div>
                     </li>
 
