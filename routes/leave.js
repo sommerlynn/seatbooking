@@ -11,28 +11,6 @@ var express = require('express'),
     OAuth = require('wechat-oauth');
 
 /*
- * 批准请假
- * 2016-04-13 CHEN PU 新建
- *
- * */
-router.post('/me/approveLeave', function (req, res) {
-    models.userModel.approveLeaveApplication(
-        req.body.openid,
-        req.body.applicationID,
-        function (err, result) {
-            if (err) {
-                res.send('内部错误，请重试或联系系统管理员');
-            } else {
-                res.send('已成功批准');
-            }
-        });
-});
-
-
-
-
-/*************************************************************************请假*/
-/*
  * 填写请假申请表单的页面
  * 2016-04-11 CHEN PU   新建
  * */
@@ -67,5 +45,24 @@ router.post('/me/leaveSheet/submitApplication', function (req, res) {
         }
     );
 });
+
+/*
+ * 批准请假
+ * 2016-04-13 CHEN PU 新建
+ *
+ * */
+router.post('/me/approveLeave', function (req, res) {
+    models.userModel.approveLeaveApplication(
+        req.body.openid,
+        req.body.applicationID,
+        function (err, result) {
+            if (err) {
+                res.send('内部错误，请重试或联系系统管理员');
+            } else {
+                res.send('已成功批准');
+            }
+        });
+});
+
 
 module.exports = router;
