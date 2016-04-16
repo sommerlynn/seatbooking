@@ -4,7 +4,8 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth');
+    OAuth = require('wechat-oauth'),
+    WeiJSAPI = require('weixin-jssdk');
 
 /************************************************************************用户信息*/
 
@@ -132,15 +133,28 @@ router.get('/me/:openid', function (req, res) {
                                             error: err
                                         });
                                     } else {
-                                        res.render('./meView', {
-                                            ip: req.ip,
-                                            openid: req.params.openid,
-                                            jsTicket:result.data.ticket,
-                                            title: '我的信息',
-                                            userInfo: userInfo[0],
-                                            userSeatOrders: userSeatOrders,
-                                            leaveApplications: leaveApplications,
-                                            waitForApprovedLeaveApplications: waitForApprovedLeaveApplications
+
+                                        WeiJSAPI weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+                                        weiJSAPI.getTicket(function(err, ticket){
+                                            if(err){
+                                                res.render('errorView', {
+                                                    openid: req.params.openid,
+                                                    title: '服务器故障',
+                                                    message: '服务器故障',
+                                                    error: err
+                                                });
+                                            }else{
+                                                res.render('./meView', {
+                                                    ip: req.ip,
+                                                    openid: req.params.openid,
+                                                    jsTicket:ticket.data.ticket,
+                                                    title: '我的信息',
+                                                    userInfo: userInfo[0],
+                                                    userSeatOrders: userSeatOrders,
+                                                    leaveApplications: leaveApplications,
+                                                    waitForApprovedLeaveApplications: waitForApprovedLeaveApplications
+                                                });
+                                            }
                                         });
                                     }
                                 });
