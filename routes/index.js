@@ -198,11 +198,9 @@ router.get('/debug', function (req, res){
                         error: err
                     });
                 }else{
-                    res.render('errorView', {
-                        openid: 'wxeec4313f49704ee2',
+                    res.render('testView', {
                         title: '服务器故障',
                         message: result.ticket,
-                        error: err
                     });
                 }
             });
