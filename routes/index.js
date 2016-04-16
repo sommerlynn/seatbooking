@@ -5,7 +5,7 @@ var express = require('express'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
     OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('./lib/weixin-jssdk');
+    WeiJSAPI = require('../lib/weixin-jssdk');
 
 /************************************************************************用户信息*/
 
