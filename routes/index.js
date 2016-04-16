@@ -10,7 +10,7 @@ var express = require('express'),
 /************************************************************************用户信息*/
 
 /*
- * 获取用户信息
+ * 获取用户信息1
  * 2016-04-12 CHEN PU 获取用户信息 第一步
  * */
 router.get('/oAuth/:schoolID/:from', function (req, res) {
