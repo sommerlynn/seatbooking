@@ -189,7 +189,7 @@ router.get('/debug', function (req, res){
                 error: err
             });
         }else{
-            weiJSAPI.getTicket(function(err, ticket){
+            weiJSAPI.getTicket(function(err, result){
                 if(err){
                     res.render('errorView', {
                         openid: 'wxeec4313f49704ee2',
@@ -201,7 +201,7 @@ router.get('/debug', function (req, res){
                     res.render('errorView', {
                         openid: 'wxeec4313f49704ee2',
                         title: '服务器故障',
-                        message: ticket,
+                        message: result.ticket,
                         error: err
                     });
                 }
