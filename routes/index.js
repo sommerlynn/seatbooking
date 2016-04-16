@@ -133,8 +133,7 @@ router.get('/me/:openid', function (req, res) {
                                             error: err
                                         });
                                     } else {
-
-                                        WeiJSAPI weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+                                        var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
                                         weiJSAPI.getTicket(function(err, ticket){
                                             if(err){
                                                 res.render('errorView', {
