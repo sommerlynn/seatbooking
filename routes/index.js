@@ -178,6 +178,38 @@ router.get('/me/:openid', function (req, res) {
 
 });
 
+router.get('/debug', function (req, res){
+    var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+    weiJSAPI.getAccessToken(function(err, token){
+        if(err){
+            res.render('errorView', {
+                openid: req.params.openid,
+                title: '服务器故障',
+                message: '服务器故障',
+                error: err
+            });
+        }else{
+            weiJSAPI.getTicket(function(err, ticket){
+                if(err){
+                    res.render('errorView', {
+                        openid: 'wxeec4313f49704ee2',
+                        title: '服务器故障',
+                        message: '服务器故障',
+                        error: err
+                    });
+                }else{
+                    res.render('errorView', {
+                        openid: 'wxeec4313f49704ee2',
+                        title: '服务器故障',
+                        message: ticket,
+                        error: err
+                    });
+                }
+            });
+        }
+    });
+});
+
 
 
 module.exports = router;
