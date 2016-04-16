@@ -126,7 +126,7 @@ router.get('/me/:openid', function (req, res) {
                                     });
                                 } else {
                                     var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-                                    weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
+                                    weiJSAPI.getJSConfig(url, function (err, result) {
                                         if (err) {
                                             res.render('errorView', {
                                                 openid: 'wxeec4313f49704ee2',
@@ -138,7 +138,7 @@ router.get('/me/:openid', function (req, res) {
                                             res.render('./meView', {
                                                 ip: req.ip,
                                                 openid: req.params.openid,
-                                                weiJSConfig: weiJSConfig,
+                                                jsTicket: ticket[0],
                                                 title: '我的信息',
                                                 userInfo: userInfo[0],
                                                 userSeatOrders: userSeatOrders,

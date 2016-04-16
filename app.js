@@ -7,6 +7,7 @@ var logger = require('morgan');
 var debug = require('debug');
 var log = debug("seatbooking::log");
 var error = debug("seatbooking::error");
+var WeiJSAPI = require('./lib/weixin-jssdk');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,8 +21,6 @@ var weixinrobot = require('./lib/weixin-robot');
 //require('./lib/weixin-robot/rules')(weixinrobot);
 require('./rules')(weixinrobot);
 weixinrobot.watch(app, { token: '1qazxsw2', path: '/weixin' });
-
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.query());
