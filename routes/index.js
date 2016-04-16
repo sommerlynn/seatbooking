@@ -155,7 +155,7 @@ router.get('/me/:openid', function (req, res) {
                                                         res.render('./meView', {
                                                             ip: req.ip,
                                                             openid: req.params.openid,
-                                                            jsTicket:ticket,
+                                                            jsTicket:ticket[0],
                                                             title: '我的信息',
                                                             userInfo: userInfo[0],
                                                             userSeatOrders: userSeatOrders,
