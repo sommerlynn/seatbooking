@@ -30,14 +30,14 @@ router.get('/me/verifySheet/:openid', function (req, res) {
                         message: '服务器故障',
                         error: err
                     });
-                }else{
+                } else {
                     var departmentNameArr = new Array();
                     for (var index = 0; index < departments.length; index++) {
                         departmentNameArr[index] = departments[index].department_name;
                     }
                     res.render('./verify/verifySheetView',
                         {
-                            ip:req.query.ip,
+                            ip: req.query.ip,
                             openid: req.params.openid,
                             title: '身份信息',
                             departments: departmentNameArr,
@@ -72,6 +72,27 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
 });
 
 /*
+ * 实名认证页面上根据用户类别获取部门列表
+ * 2016-04-11 CHEN PU 新建
+ * */
+router.post('/me/verifySheet/department', function (req, res) {
+    models.departmentClassModel.getActiveDepartments(function (err, departments) {
+        if (err) {
+            res.send('');
+        } else {
+            var departmentStr = '';
+            for (var index = 0; index < departments.length; index++) {
+                departmentStr += departments[index].department_name;
+                if (index < departments.length - 1) {
+                    departmentStr += ',';
+                }
+            }
+            res.send(departmentStr);
+        }
+    });
+});
+
+/*
  * 实名认证页面上获取对应学院的下属班级列表
  * 2016-04-11 CHEN PU 新建
  * */
@@ -92,7 +113,7 @@ router.post('/me/verifySheet/class', function (req, res) {
  * 身份信息
  * 2016-04-17 CHEN PU 新建
  */
-router.get('/me/info/:openid', function(req, res){
+router.get('/me/info/:openid', function (req, res) {
     models.userModel.getUser(req.params.openid, function (err, userInfo) {
         if (err) {
             res.render('errorView', {
@@ -111,7 +132,7 @@ router.get('/me/info/:openid', function(req, res){
                         message: '服务器故障',
                         error: err
                     });
-                }else{
+                } else {
                     res.render('./verify/infoView', {
                         ip: req.ip,
                         openid: req.params.openid,
