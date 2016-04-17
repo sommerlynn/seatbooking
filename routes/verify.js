@@ -80,7 +80,7 @@ router.post('/me/verifySheet/department', function (req, res) {
     if(req.body.type == '老师'){
         type = 2;
     }
-    models.departmentClassModel.getActiveDepartments(function (err, departments) {
+    models.departmentClassModel.getActiveDepartments(type, function (err, departments) {
         if (err) {
             res.send('');
         } else {
