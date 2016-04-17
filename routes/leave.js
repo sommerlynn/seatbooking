@@ -10,7 +10,7 @@ var express = require('express'),
     models = require('../models'),
     OAuth = require('wechat-oauth'),
     WeiJSAPI = require('../lib/weixin-jssdk'),
-    urllib = require('urllib');;
+    urllib = require('urllib');
 
 var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 

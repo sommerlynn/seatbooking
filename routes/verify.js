@@ -9,7 +9,10 @@ var express = require('express'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
     OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('../lib/weixin-jssdk');
+    WeiJSAPI = require('../lib/weixin-jssdk'),
+    urllib = require('urllib'),
+    fs = require('fs'),
+    path = require('path');
 
 var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 /*
@@ -56,12 +59,17 @@ router.get('/me/verifySheet/:openid', function (req, res) {
  * 2016-04-11 CHEN PU 新建
  * */
 router.post('/me/verifySheet/submitInfo', function (req, res) {
+    var personType = 1;
+    if(req.body.type == 0){
+        personType = 2;
+    }
     models.userModel.fillRealInfo(
         req.body.name,
         req.body.code,
         req.body.department,
         req.body.classs,
         req.body.openid,
+        personType,
         function (err, result) {
             if (err) {
                 res.send('亲，出错了额，请重试一下' + err.message);
@@ -69,6 +77,32 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                 res.send('亲，您的信息已认证');
             }
         });
+
+    weiJSAPI.getAccessToken(function (err, token) {
+        if (err) {
+
+        }else{
+            var url = "http://file.api.weixin.qq.com/cgi-bin/media/get";
+            var options = {
+                method:"GET",
+                data:{
+                    'access_token':token.data.access_token,
+                    'media_id':req.body.photoServerID
+                }
+            };
+            urllib.request(url, options, function(err, data, res){
+                if(err){
+
+                }else{
+                    fs.writeFile(path.join(__dirname, req.body.photoServerID), data, function(err){
+                        if(err){
+
+                        }
+                    });
+                }
+            });
+        }
+    });
 });
 
 /*

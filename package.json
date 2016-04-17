@@ -35,6 +35,7 @@
     "bluebird":"3.0.6",
     "wechat-oauth":"1.1.0",
     "express-mysql-session":"0.4.4",
-    "jssha":"2.0.2"
+    "jssha":"2.0.2",
+    "qiniu":"6.1.9"
   }
 }
