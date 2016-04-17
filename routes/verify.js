@@ -17,10 +17,10 @@ var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73ae
  * 2016-04-11 CHEN PU 新建
  * */
 router.get('/me/verifySheet/:openid', function (req, res) {
-    models.departmentClassModel.getActiveDepartments(function (err, departments) {
+    /*models.departmentClassModel.getActiveDepartments(function (err, departments) {
         if (err) {
             res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
-        } else {
+        } else {*/
             var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
             weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
                 if (err) {
@@ -47,8 +47,8 @@ router.get('/me/verifySheet/:openid', function (req, res) {
             });
 
 
-        }
-    });
+        /*}
+    });*/
 });
 
 /*

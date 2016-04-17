@@ -6,8 +6,8 @@ var departmentClass = {},
     db = require('./db');
 
 departmentClass.getActiveDepartments = function(personType, callback){
-    var selectQuery = "select * from department where is_active = 1 order by department_name",
-        params = [];
+    var selectQuery = "select * from department where is_active = 1 and type = ? order by department_name",
+        params = [personType];
     db.executeQuery(selectQuery, params, callback);
 };
 
