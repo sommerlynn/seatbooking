@@ -482,34 +482,30 @@
                                         准假
                                     </span>
                                     <span class="leave-approve-by">
-                                        审核: <%= leaveApplications[index].approve_by_name %>
+                                        审核人: <%= leaveApplications[index].approve_by_name %>
                                     </span>
                                     <% } else if(leaveApplications[index].status == -1){ %>
                                     <span class="leave-status leave-reject">
                                         不准
                                     </span>
                                     <span class="leave-approve-by">
-                                        审核: <%= leaveApplications[index].approve_by_name %>
+                                        审核人: <%= leaveApplications[index].approve_by_name %>
                                     </span>
                                     <% } %>
                                 </div>
                             </div>
                         </div>
+                        <% if(leaveApplications[index].status == 0) {%>
                         <div class="card-footer" style="text-align: center; margin: 0 auto; background-color: #E2E1D0">
                             <ul class="my-leave-operation-list" style="width: 100%; margin: 0; padding: 0">
                                 <li class="my-leave-operation">
                                     <span class="operation-reject-leave"
-                                          id="detail_<%= leaveApplications[index].application_id %>">驳回
-                                    </span>
-                                </li>
-                                <li class="my-leave-operation">
-                                    <span class="operation-approve-leave"
-                                          id="detail_<%= leaveApplications[index].application_id %>">同意
+                                          id="detail_<%= leaveApplications[index].application_id %>">删除
                                     </span>
                                 </li>
                             </ul>
                         </div>
-
+                        <% } %>
                     </li>
 
                     <% } %>
