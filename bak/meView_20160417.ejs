@@ -462,20 +462,14 @@
                     <% for(var index = 0; index < leaveApplications.length; index++){ %>
 
                     <li class="card">
-                        <div class="card-content">
-                            <div class="card-content-inner" style="text-align: justify; line-height: 1.25rem;"><span
-                                        class="leave-important"><%= leaveApplications[index].applier_real_name %></span>
-                                [<%= leaveApplications[index].mobile %>]
-                                于
-                                <span class="leave-important"><%= leaveApplications[index].start_time.toLocaleString() %></span>
-                                至
-                                <span class="leave-important"><%= leaveApplications[index].end_time.toLocaleString() %></span>
-                                申请请假。请假<span
-                                        class="leave-important">事由</span>：[<%= leaveApplications[index].application_reason %>
-                                ]。请假去往<span
-                                        class="leave-important">地点</span>:[<%= leaveApplications[index].address %>
-                                ]。
-
+                        <div class="left_part">
+                            <div class="date-row">
+                                <span class="start-date-info">开始时间: <%= leaveApplications[index].start_time.toLocaleString() %></span>
+                            </div>
+                            <div class="date-row">
+                                <span class="end-date-info">截止时间: <%= leaveApplications[index].end_time.toLocaleString() %></span>
+                            </div>
+                            <div class="date-row">
                                 <% if(leaveApplications[index].status == 0){ %>
                                 <span class="leave-status leave-wait-for">
                                         待审核
@@ -497,21 +491,29 @@
                                 <% } %>
                             </div>
                         </div>
-                        <div class="card-footer" style="text-align: center; margin: 0 auto; background-color: #E2E1D0">
-                            <ul class="my-leave-operation-list" style="width: 100%; margin: 0; padding: 0">
-                                <li class="approve-leave-operation">
-                                    <span class="operation-reject-leave"
-                                          id="detail_<%= leaveApplications[index].application_id %>">驳回
-                                    </span>
-                                </li>
-                                <li class="approve-leave-operation">
-                                    <span class="operation-approve-leave"
-                                          id="detail_<%= leaveApplications[index].application_id %>">同意
-                                    </span>
-                                </li>
-                            </ul>
+                        <div class="right_part">
+                            <% if(leaveApplications[index].status == 0)    { %>
+                            <div class="operation-modify-leave"
+                                 id="modify_<%= leaveApplications[index].application_id %>">修改
+                            </div>
+                            <div class="operation-cancel-leave"
+                                 id="cancel_<%= leaveApplications[index].application_id %>">撤回
+                            </div>
+                            <% } %>
+                            <% if(leaveApplications[index].status == 1)    { %>
+                            <div class="operation-detail-leave"
+                                 id="detail_<%= leaveApplications[index].application_id %>">详情
+                            </div>
+                            <div class="operation-finish-leave"
+                                 id="finish_<%= leaveApplications[index].application_id %>">销假
+                            </div>
+                            <% } %>
+                            <% if(leaveApplications[index].status == -1)    { %>
+                            <div class="operation-detail-leave"
+                                 id="detail_<%= leaveApplications[index].application_id %>">详情
+                            </div>
+                            <% } %>
                         </div>
-
                     </li>
 
                     <% } %>
@@ -560,6 +562,8 @@
                                     </span>
                                 </li>
                             </ul>
+
+
                         </div>
                     </li>
 
