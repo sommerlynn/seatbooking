@@ -171,7 +171,6 @@
                 $.showPreloader('获取院系列表...');
             }
 
-
             if($("#type-input")[0].value == '老师'){
                 $('#department_title')[0].innerHTML = '部门';
                 $('#class_title')[0].innerHTML = '科室';
@@ -190,6 +189,7 @@
                     },
                     function (response) {
                         var departmentArray = response.split(',');
+                        $("#department-picker").clear();
                         $("#department-picker").picker({
                             toolbarTemplate: '<header class="bar bar-nav">\
                           <button class="button button-link pull-left"></button>\
