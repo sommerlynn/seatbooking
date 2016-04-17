@@ -41,7 +41,6 @@ router.get('/me/verifySheet/:openid', function (req, res) {
                             openid: req.params.openid,
                             title: '身份信息',
                             departments: departmentNameArr,
-                            userInfo: userInfo[0],
                             weiJSConfig: weiJSConfig
                         });
                 }
