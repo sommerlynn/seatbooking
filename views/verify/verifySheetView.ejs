@@ -187,16 +187,19 @@
                 $('#class-picker')[0].placeholder = '选择所在的班级';
                 $('#code-input')[0].placeholder = '输入学号';
             }
+
+            $("#department-picker").data('picker', null);
+            $("#department-picker")[0].value = '';
+            $("#class-picker").data('picker', null);
+            $("#class-picker")[0].value = '';
+
             $.post('department',
                     {
                         type: $('#type-picker')[0].value
                     },
                     function (response) {
                         var departmentArray = response.split(',');
-                        $("#department-picker").data('picker', null);
-                        $("#department-picker")[0].value = '';
-                        $("#class-picker").data('picker', null);
-                        $("#class-picker")[0].value = '';
+
                         $("#department-picker").picker({
                             toolbarTemplate: '<header class="bar bar-nav">\
                           <button class="button button-link pull-left"></button>\
@@ -215,14 +218,15 @@
                                 }else{
                                     $.showPreloader('获取班级列表...');
                                 }
+                                $("#class-picker").data('picker', null);
+                                $("#class-picker")[0].value = '';
                                 $.post('class',
                                         {
                                             department: $('#department-picker')[0].value
                                         },
                                         function (response) {
                                             var classArray = response.split(',');
-                                            $("#class-picker").data('picker', null);
-                                            $("#class-picker")[0].value = '';
+
                                             $("#class-picker").picker({
                                                 toolbarTemplate: '<header class="bar bar-nav">\
                                               <button class="button button-link pull-left"></button>\
