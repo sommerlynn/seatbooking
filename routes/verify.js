@@ -76,7 +76,7 @@ router.post('/me/verifySheet/class', function (req, res) {
  * 身份信息
  * 2016-04-17 CHEN PU 新建
  */
-router.get('/me/info', function(req, res){
+router.get('/me/info/:openid', function(req, res){
     models.userModel.getUser(req.params.openid, function (err, userInfo) {
         if (err) {
             res.render('errorView', {
