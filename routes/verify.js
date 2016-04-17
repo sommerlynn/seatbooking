@@ -72,4 +72,26 @@ router.post('/me/verifySheet/class', function (req, res) {
     });
 });
 
+/**
+ * 身份信息
+ * 2016-04-17 CHEN PU 新建
+ */
+router.get('/me/info', function(req, res){
+    models.userModel.getUser(req.params.openid, function (err, userInfo) {
+        if (err) {
+            res.render('errorView', {
+                openid: req.params.openid,
+                title: '服务器故障',
+                message: '服务器故障',
+                error: err
+            });
+        } else {
+            res.render('./verify/infoView',{
+                openid: req.params.openid,
+                userInfo:userInfo
+            });
+        }
+    });
+});
+
 module.exports = router;

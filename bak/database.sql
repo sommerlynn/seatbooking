@@ -141,9 +141,15 @@ ALTER VIEW class_manager_user_count_view AS
 
 
 ALTER VIEW user_info_view AS
-        SELECT user.*, IFNULL(class_manager_user_count_view.count,0) AS manage_class_count
+        SELECT user.*,
+        IFNULL(class_manager_user_count_view.count,0) AS manage_class_count,
+        department.department_name,
+        class.class_name
         FROM user LEFT JOIN class_manager_user_count_view
         ON user.user_id = class_manager_user_count_view.user_id
+        LEFT JOIN department ON user.department_id = department.department_id
+        LEFT JOIN class ON user.class_id = class.class_id
+
 
 // 获取各教室今天的订座状态
 SELECT area_classroom.*,
