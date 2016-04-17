@@ -25,29 +25,26 @@ router.get('/building/:openid', function (req, res) {
                 error: err
             });
         } else {
-            if (req.query.ip != req.ip) {
-                res.redirect('http://www.julyangel.cn/oAuth/' + userInfo.school_id + '/building');
-            } else {
-                models.classroomModel.getAll(userInfo.school_id, function (err, classroomList) {
-                    if (err) {
-                        res.render('errorView', {
+
+            models.classroomModel.getAll(userInfo.school_id, function (err, classroomList) {
+                if (err) {
+                    res.render('errorView', {
+                        openid: req.params.openid,
+                        title: '服务器故障',
+                        message: '服务器故障',
+                        error: err
+                    });
+                }
+                else {
+                    res.render('./seat/buildingView',
+                        {
+                            ip: req.query.ip,
                             openid: req.params.openid,
-                            title: '服务器故障',
-                            message: '服务器故障',
-                            error: err
+                            title: '七玥天使-自习室导航',
+                            classroomList: classroomList
                         });
-                    }
-                    else {
-                        res.render('./seat/buildingView',
-                            {
-                                ip:req.query.ip,
-                                openid: req.params.openid,
-                                title: '七玥天使-自习室导航',
-                                classroomList: classroomList
-                            });
-                    }
-                });
-            }
+                }
+            });
         }
     });
 
