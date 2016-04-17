@@ -12,7 +12,8 @@ var express = require('express'),
     WeiJSAPI = require('../lib/weixin-jssdk'),
     urllib = require('urllib'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    qiniu = require("qiniu");
 
 var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 /*
@@ -94,11 +95,10 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                 if(err){
 
                 }else{
-                    fs.writeFile(path.join(__dirname, req.body.photoServerID), data, function(err){
-                        if(err){
+                    qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
+                    qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
 
-                        }
-                    });
+
                 }
             });
         }
