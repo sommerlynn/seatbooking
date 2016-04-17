@@ -31,16 +31,16 @@ router.get('/me/verifySheet/:openid', function (req, res) {
                         error: err
                     });
                 } else {
-                    var departmentNameArr = new Array();
+                    /*var departmentNameArr = new Array();
                     for (var index = 0; index < departments.length; index++) {
                         departmentNameArr[index] = departments[index].department_name;
-                    }
+                    }*/
                     res.render('./verify/verifySheetView',
                         {
                             ip: req.query.ip,
                             openid: req.params.openid,
                             title: '身份信息',
-                            departments: departmentNameArr,
+                            /*departments: departmentNameArr,*/
                             weiJSConfig: weiJSConfig
                         });
                 }
