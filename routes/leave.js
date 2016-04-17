@@ -50,11 +50,11 @@ router.post('/me/leaveSheet/submitApplication', function (req, res) {
                     if (err) {
 
                     } else {
-                        models.userModel.getUser(req.params.openid, function (err, applier) {
+                        models.userModel.getUser(req.body.openid, function (err, applier) {
                            if(err){
 
                            } else{
-                                models.userModel.getManager(req.params.openid, function(err, managers){
+                                models.userModel.getManager(req.body.openid, function(err, managers){
                                     if(err){
 
                                     }else{

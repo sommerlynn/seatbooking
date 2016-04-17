@@ -24,7 +24,7 @@ user.fillRealInfo = function (realName, userCode, departmentName, className, ope
  * 获取指定用户的管理者（如辅导员、班主任等）
  */
 user.getManager = function(openid, callback){
-    var selectQuery = "select * from class_manager_user_view where class_id = (select class_id from user where openid = ?)",
+    var selectQuery = "select * from class_manager_user_view where manager_class_id in (select class_id from user where openid = ?)",
         params = [openid];
     db.executeQuery(selectQuery, params, callback);
 };
