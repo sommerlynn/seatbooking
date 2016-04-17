@@ -8,9 +8,10 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth');
+    OAuth = require('wechat-oauth'),
+    WeiJSAPI = require('../lib/weixin-jssdk');
 
-
+var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 /*
  * 实名认证页面
  * 2016-04-11 CHEN PU 新建
