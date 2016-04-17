@@ -165,7 +165,13 @@
             }
         ],
         onClose:function(){
-            $.showPreloader('获取班级列表...');
+            if($("#type-input")[0].value == '老师'){
+                $.showPreloader('获取部门列表...');
+            }else{
+                $.showPreloader('获取院系列表...');
+            }
+
+
             if($("#type-input")[0].value == '老师'){
                 $('#department_title')[0].innerHTML = '部门';
                 $('#class_title')[0].innerHTML = '科室';
@@ -197,7 +203,11 @@
                                 }
                             ],
                             onClose: function () {
-                                $.showPreloader('获取班级列表...');
+                                if($("#type-input")[0].value == '老师'){
+                                    $.showPreloader('获取科室列表...');
+                                }else{
+                                    $.showPreloader('获取班级列表...');
+                                }
                                 $.post('class',
                                         {
                                             department: $('#department-picker')[0].value
@@ -222,6 +232,7 @@
                                         });
                             }
                         });
+                        $.hidePreloader();
                     });
         }
     });
