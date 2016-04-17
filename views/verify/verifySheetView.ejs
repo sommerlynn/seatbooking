@@ -46,12 +46,33 @@
                         <div class="item-inner">
                             <div class="item-title label">类别</div>
                             <div class="item-input">
-                                <input type="text" placeholder="选择您的身份类别" id="type-input">
+                                <input type="text" placeholder="选择您的身份类别" id="type-input" readonly="readonly">
                             </div>
                         </div>
                     </div>
                 </li>
-                <!-- Text inputs -->
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-email"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label"><span id="department_title">院系</span></div>
+                            <div class="item-input">
+                                <input type="text" placeholder="选择您所在的院系" id="department-picker" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-email"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label"><span id="class_title">班级</span></div>
+                            <div class="item-input">
+                                <input type="text" placeholder="选择您所在的班级" id="class-picker" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li>
                     <div class="item-content">
                         <div class="item-media"><i class="icon icon-form-name"></i></div>
@@ -70,28 +91,6 @@
                             <div class="item-title label">学号</div>
                             <div class="item-input">
                                 <input type="text" placeholder="输入学号" id="code-input">
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <div class="item-media"><i class="icon icon-form-email"></i></div>
-                        <div class="item-inner">
-                            <div class="item-title label"><span id="department_title">院系</span></div>
-                            <div class="item-input">
-                                <input type="text" placeholder="选择您所在的院系" id="department-picker">
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <div class="item-media"><i class="icon icon-form-email"></i></div>
-                        <div class="item-inner">
-                            <div class="item-title label"><span id="class_title">院系</span></div>
-                            <div class="item-input">
-                                <input type="text" placeholder="选择您所在的班级" id="class-picker">
                             </div>
                         </div>
                     </div>
@@ -214,7 +213,7 @@
                                         },
                                         function (response) {
                                             var classArray = response.split(',');
-
+                                            $("#class-picker").data('picker', null);
                                             $("#class-picker").picker({
                                                 toolbarTemplate: '<header class="bar bar-nav">\
                                               <button class="button button-link pull-left"></button>\
@@ -232,7 +231,6 @@
                                         });
                             }
                         });
-                        $("#department-picker").picker("open");
                         $.hidePreloader();
                     });
         }
