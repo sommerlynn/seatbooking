@@ -312,6 +312,13 @@
         text-align: center;
     }
 
+    .my-leave-operation-list .my-leave-operation {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 30%;
+        text-align: center;
+    }
+
     span.leave-approve-by {
         text-decoration: underline;
     }
@@ -452,8 +459,8 @@
 
                     <li class="card" style="height: auto; background-color: #FFFFFF">
                         <div class="card-content">
-                            <div class="card-content-inner" style="text-align: justify; line-height: 1.25rem;"><span
-                                        class="leave-important"><%= leaveApplications[index].applier_real_name %></span>
+                            <div class="card-content-inner" style="text-align: justify; line-height: 1.25rem;">
+                                <span class="leave-important"><%= leaveApplications[index].applier_real_name %></span>
                                 [<%= leaveApplications[index].mobile %>]
                                 于
                                 <span class="leave-important"><%= leaveApplications[index].start_time.toLocaleString() %></span>
@@ -464,7 +471,8 @@
                                 ]。请假去往<span
                                         class="leave-important">地点</span>:[<%= leaveApplications[index].address %>
                                 ]。
-                                <div class="data-row">
+
+                                <div class="data-row" style="text-align: right">
                                     <% if(leaveApplications[index].status == 0){ %>
                                     <span class="leave-status leave-wait-for">
                                         待审核
@@ -489,12 +497,12 @@
                         </div>
                         <div class="card-footer" style="text-align: center; margin: 0 auto; background-color: #E2E1D0">
                             <ul class="my-leave-operation-list" style="width: 100%; margin: 0; padding: 0">
-                                <li class="approve-leave-operation">
+                                <li class="my-leave-operation">
                                     <span class="operation-reject-leave"
                                           id="detail_<%= leaveApplications[index].application_id %>">驳回
                                     </span>
                                 </li>
-                                <li class="approve-leave-operation">
+                                <li class="my-leave-operation">
                                     <span class="operation-approve-leave"
                                           id="detail_<%= leaveApplications[index].application_id %>">同意
                                     </span>
