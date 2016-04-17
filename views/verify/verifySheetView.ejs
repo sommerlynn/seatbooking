@@ -88,7 +88,7 @@
                     <div class="item-content">
                         <div class="item-media"><i class="icon icon-form-email"></i></div>
                         <div class="item-inner">
-                            <div class="item-title label">学号</div>
+                            <div class="item-title label"><span id="code_title">学号</span></div>
                             <div class="item-input">
                                 <input type="text" placeholder="输入学号" id="code-input">
                             </div>
@@ -173,14 +173,17 @@
             if($("#type-input")[0].value == '老师'){
                 $('#department_title')[0].innerHTML = '部门';
                 $('#class_title')[0].innerHTML = '科室';
+                $('#code_title')[0].innerHTML = '教工号';
                 $('#department-picker')[0].placeholder = '选择所在的部门';
                 $('#class-picker')[0].placeholder = '选择所在的科室';
-
+                $('#code-input')[0].placeholder = '输入教工号';
             }else{
                 $('#department_title')[0].innerHTML = '院系';
                 $('#class_title')[0].innerHTML = '班级';
+                $('#code_title')[0].innerHTML = '学号';
                 $('#department-picker')[0].placeholder = '选择所在的院系';
                 $('#class-picker')[0].placeholder = '选择所在的班级';
+                $('#code-input')[0].placeholder = '输入学号';
             }
             $.post('department',
                     {
