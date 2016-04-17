@@ -140,10 +140,12 @@
         $.post('submitInfo',
                {
                   openid:'<%=openid%>',
+                  type:$('#type-picker')[0].value,
                   name:$('#name-input')[0].value,
                   code:$('#code-input')[0].value,
                   department:$('#department-picker')[0].value,
-                  classs:$('#class-picker')[0].value
+                  classs:$('#class-picker')[0].value,
+                  photoServerID:photoServerID
                },
                function (response) {
                    $.hidePreloader();
@@ -151,7 +153,7 @@
                });
     });
 
-    $("#type-input").picker({
+    $("#type-picker").picker({
         toolbarTemplate: '<header class="bar bar-nav">\
                           <button class="button button-link pull-left"></button>\
                           <button class="button button-link pull-right close-picker">确定</button>\
@@ -164,13 +166,13 @@
             }
         ],
         onClose:function(){
-            if($("#type-input")[0].value == '老师'){
+            if($("#type-picker")[0].value == '老师'){
                 $.showPreloader('获取部门列表...');
             }else{
                 $.showPreloader('获取院系列表...');
             }
 
-            if($("#type-input")[0].value == '老师'){
+            if($("#type-picker")[0].value == '老师'){
                 $('#department_title')[0].innerHTML = '部门';
                 $('#class_title')[0].innerHTML = '科室';
                 $('#code_title')[0].innerHTML = '教工号';
@@ -187,12 +189,14 @@
             }
             $.post('department',
                     {
-                        type: $('#type-input')[0].value
+                        type: $('#type-picker')[0].value
                     },
                     function (response) {
                         var departmentArray = response.split(',');
                         $("#department-picker").data('picker', null);
                         $("#department-picker")[0].value = '';
+                        $("#class-picker").data('picker', null);
+                        $("#class-picker")[0].value = '';
                         $("#department-picker").picker({
                             toolbarTemplate: '<header class="bar bar-nav">\
                           <button class="button button-link pull-left"></button>\
