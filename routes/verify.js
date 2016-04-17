@@ -88,7 +88,8 @@ router.get('/me/info/:openid', function(req, res){
         } else {
             res.render('./verify/infoView',{
                 openid: req.params.openid,
-                userInfo:userInfo
+                userInfo:userInfo,
+                title: '身份信息'
             });
         }
     });
