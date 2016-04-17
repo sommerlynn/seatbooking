@@ -86,10 +86,24 @@ router.get('/me/info/:openid', function(req, res){
                 error: err
             });
         } else {
-            res.render('./verify/infoView',{
-                openid: req.params.openid,
-                userInfo:userInfo[0],
-                title: '身份信息'
+            var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
+            weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
+                if (err) {
+                    res.render('errorView', {
+                        openid: 'wxeec4313f49704ee2',
+                        title: '服务器故障',
+                        message: '服务器故障',
+                        error: err
+                    });
+                }else{
+                    res.render('./meView', {
+                        ip: req.ip,
+                        openid: req.params.openid,
+                        weiJSConfig: weiJSConfig,
+                        title: '身份信息',
+                        userInfo: userInfo[0]
+                    });
+                }
             });
         }
     });
