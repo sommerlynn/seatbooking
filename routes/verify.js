@@ -96,7 +96,7 @@ router.get('/me/info/:openid', function(req, res){
                         error: err
                     });
                 }else{
-                    res.render('./meView', {
+                    res.render('./verify/infoView', {
                         ip: req.ip,
                         openid: req.params.openid,
                         weiJSConfig: weiJSConfig,
