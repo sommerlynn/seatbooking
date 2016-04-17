@@ -189,7 +189,7 @@
                     },
                     function (response) {
                         var departmentArray = response.split(',');
-                        $("#department-picker").clear();
+                        $("#department-picker").picker('updateValue');
                         $("#department-picker").picker({
                             toolbarTemplate: '<header class="bar bar-nav">\
                           <button class="button button-link pull-left"></button>\
