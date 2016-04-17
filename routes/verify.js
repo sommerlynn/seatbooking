@@ -76,11 +76,11 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
  * 2016-04-11 CHEN PU 新建
  * */
 router.post('/me/verifySheet/department', function (req, res) {
-    var type = 1;
+    var personType = 1;
     if(req.body.type == '老师'){
-        type = 2;
+        personType = 2;
     }
-    models.departmentClassModel.getActiveDepartments(type, function (err, departments) {
+    models.departmentClassModel.getActiveDepartments(personType, function (err, departments) {
         if (err) {
             res.send('');
         } else {
