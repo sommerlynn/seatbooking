@@ -50,37 +50,51 @@ router.post('/me/leaveSheet/submitApplication', function (req, res) {
                     if (err) {
 
                     } else {
-                        var sendData = {
-                            "touser":"oF4F0sxpbSEw5PETECnqB93JS1uc",
-                            "template_id":"LCnBfAKZ1uMUZGFb73lJgGyq6qhsFxu3TUWoDP6cjQc",
-                            "url":"http://www.sohu.com",
-                            "data":{
-                                "first":{
-                                    "value":'请假申请'
-                                },
-                                "childName":{
-                                    "value":"陈璞"
-                                },
-                                "time":{
-                                    "value":req.body.startTime
-                                },
-                                "score":{
-                                    "value":req.body.leaveReason
-                                },
-                                "remark":{
-                                    "value":"感谢审批"
-                                }
-                            }
-                        };
-                        var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
-                        var options = {
-                            method:"POST",
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            content: JSON.stringify(sendData)
-                        };
-                        urllib.request(url, options);
+                        models.userModel.getUser(req.params.openid, function (err, applier) {
+                           if(err){
+
+                           } else{
+                                models.userModel.getManager(req.params.openid, function(err, managers){
+                                    if(err){
+
+                                    }else{
+                                        for(var index = 0; index < managers.length; index++){
+                                            var sendData = {
+                                                "touser":managers[index].openid,
+                                                "template_id":"LCnBfAKZ1uMUZGFb73lJgGyq6qhsFxu3TUWoDP6cjQc",
+                                                "url":"http://www.julyangel.cn/oAuth/"+applier[0].school_id+'/me',
+                                                "data":{
+                                                    "first":{
+                                                        "value":applier[0].real_name+'申请请假，请您审批'
+                                                    },
+                                                    "childName":{
+                                                        "value":applier[0].real_name
+                                                    },
+                                                    "time":{
+                                                        "value":req.body.startTime+'至'+req.body.endTime
+                                                    },
+                                                    "score":{
+                                                        "value":req.body.leaveReason
+                                                    },
+                                                    "remark":{
+                                                        "value":"点击下方详情链接进入审批程序"
+                                                    }
+                                                }
+                                            };
+                                            var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
+                                            var options = {
+                                                method:"POST",
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                content: JSON.stringify(sendData)
+                                            };
+                                            urllib.request(url, options);
+                                        }
+                                    }
+                                });
+                           }
+                        });
                     }
                 });
             }
