@@ -253,21 +253,20 @@
         font-size: 0.75em;
     }
 
-    span.leave-wait-for{
+    span.leave-wait-for {
         color: #A00000;
         background-color: #E6DEB3;
     }
 
-    span.leave-approve{
+    span.leave-approve {
         color: #A00000;
         background-color: #7CDA95;
     }
 
-    span.leave-reject{
+    span.leave-reject {
         color: #E6DEB3;
         background-color: #A00000;
     }
-
 
     span.leave-reason {
         color: #A00000;
@@ -306,14 +305,14 @@
         text-decoration: underline;
     }
 
-    .approve-leave-operation-list .approve-leave-operation{
+    .approve-leave-operation-list .approve-leave-operation {
         display: inline-block;
         box-sizing: border-box;
         width: 30%;
         text-align: center;
     }
 
-    span.leave-approve-by{
+    span.leave-approve-by {
         text-decoration: underline;
     }
 </style>
@@ -387,16 +386,6 @@
 
             <div class="list-block cards-list">
                 <ul id="seat_tickets">
-                    <!--<div class="content-block-title">
-                        <div class="item-media">
-                            <i class="icon icon-me"></i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title">实名信息</div>
-                            <div class="item-real-info"><a href="verifySheet/<%= openid %>?ip=<%= ip %>">实名认证 ></a>
-                            </div>
-                        </div>
-                    </div>-->
 
                     <div class="content-block-title">
                         <div class="item-media">
@@ -475,26 +464,27 @@
                                 ]。请假去往<span
                                         class="leave-important">地点</span>:[<%= leaveApplications[index].address %>
                                 ]。
-
-                                <% if(leaveApplications[index].status == 0){ %>
-                                <span class="leave-status leave-wait-for">
+                                <div class="data-row">
+                                    <% if(leaveApplications[index].status == 0){ %>
+                                    <span class="leave-status leave-wait-for">
                                         待审核
-                                </span>
-                                <% } else if(leaveApplications[index].status == 1){ %>
-                                <span class="leave-status leave-approve">
-                                    准假
-                                </span>
-                                <span class="leave-approve-by">
-                                    审核: <%= leaveApplications[index].approve_by_name %>
-                                </span>
-                                <% } else if(leaveApplications[index].status == -1){%>
-                                <span class="leave-status leave-reject">
-                                    不准
-                                </span>
-                                <span class="leave-approve-by">
-                                    审核: <%= leaveApplications[index].approve_by_name %>
-                                </span>
-                                <% } %>
+                                     </span>
+                                    <% } else if(leaveApplications[index].status == 1){ %>
+                                    <span class="leave-status leave-approve">
+                                        准假
+                                    </span>
+                                    <span class="leave-approve-by">
+                                        审核: <%= leaveApplications[index].approve_by_name %>
+                                    </span>
+                                    <% } else if(leaveApplications[index].status == -1){ %>
+                                    <span class="leave-status leave-reject">
+                                        不准
+                                    </span>
+                                    <span class="leave-approve-by">
+                                        审核: <%= leaveApplications[index].approve_by_name %>
+                                    </span>
+                                    <% } %>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer" style="text-align: center; margin: 0 auto; background-color: #E2E1D0">
@@ -682,12 +672,12 @@
         jsApiList: ['hideAllNonBaseMenuItem'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
 
-    wx.ready(function(){
+    wx.ready(function () {
         // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         wx.hideAllNonBaseMenuItem();
     });
 
-    wx.error(function(res){
+    wx.error(function (res) {
         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
     });
 </script>
