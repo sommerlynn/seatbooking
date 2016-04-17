@@ -65,7 +65,7 @@ router.post('/me/leaveSheet/submitApplication', function (req, res) {
                                                 "url":"http://www.julyangel.cn/oAuth/"+applier[0].school_id+'/me',
                                                 "data":{
                                                     "first":{
-                                                        "value":applier[0].real_name+'申请请假，请您审批'
+                                                        "value":'请假条'
                                                     },
                                                     "childName":{
                                                         "value":applier[0].real_name
@@ -77,7 +77,7 @@ router.post('/me/leaveSheet/submitApplication', function (req, res) {
                                                         "value":req.body.leaveReason
                                                     },
                                                     "remark":{
-                                                        "value":"点击下方详情链接进入审批程序"
+                                                        "value":""
                                                     }
                                                 }
                                             };
