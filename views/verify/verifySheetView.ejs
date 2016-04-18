@@ -170,7 +170,7 @@
         }
 
         if(msg.length>0){
-            $.alert(msg.join(','),'您好，下列信息您还没有填写');
+            $.alert(msg.join('\n'),'您好，下列信息您还没有填写');
         }else{
             $.showPreloader('亲,我们正在提交你的信息,请稍候...');
             $.post('submitInfo',
