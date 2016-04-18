@@ -14,7 +14,8 @@ var express = require('express'),
     fs = require('fs'),
     path = require('path'),
     qiniu = require("qiniu"),
-    log = debug('verify');;
+    debug = require('debug'),
+    log = debug('verify');
 
 var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 /*
