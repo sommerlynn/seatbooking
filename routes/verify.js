@@ -13,7 +13,8 @@ var express = require('express'),
     urllib = require('urllib'),
     fs = require('fs'),
     path = require('path'),
-    qiniu = require("qiniu");
+    qiniu = require("qiniu"),
+    log = debug('verify');;
 
 var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 /*
@@ -98,9 +99,9 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                     var filePath = path.join(__dirname+'test');
                     fs.writeFile(filePath, data, function(err){
                         if(err){
-                            console.log(err.message);
+                            log(err.message);
                         }else{
-                            console.log('file is saved');
+                            log('file is saved');
                         }
                     });
                     qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
