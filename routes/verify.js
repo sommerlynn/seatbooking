@@ -100,7 +100,7 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                     log('headers %s', res.headers["content-disposition"]);
                     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
                     var temarr = res.headers["content-disposition"].split('"');
-                    var filename = temarr[1];
+                    var filename = req.body.openid+temarr[1];
                     var filePath = path.join(__dirname.replace('routes','public'),'verifyimages',filename);
                     log('filePath::'+filePath);
                     fs.writeFile(filePath, data, function(err){
