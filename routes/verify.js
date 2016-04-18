@@ -112,6 +112,19 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                     });
                     qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
                     qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
+
+                    var putPolicy = new qiniu.rs.PutPolicy('julyangel'+":"+filename);
+                    var token = putPolicy.token();
+                    var extra = new qiniu.io.PutExtra();
+                    qiniu.io.putFile(token, key, filePath, extra, function(err, ret) {
+                        if(!err) {
+                            // 上传成功， 处理返回值
+                            log('成功上传至七牛');
+                        } else {
+                            // 上传失败， 处理返回代码
+                            log(err);
+                        }
+                    });
                 }
             });
         }
