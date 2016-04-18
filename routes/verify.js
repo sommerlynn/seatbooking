@@ -82,7 +82,7 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
 
     weiJSAPI.getAccessToken(function (err, token) {
         if (err) {
-
+            log(err.message);
         }else{
             var url = "http://file.api.weixin.qq.com/cgi-bin/media/get";
             var options = {
