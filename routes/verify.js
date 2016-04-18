@@ -95,6 +95,14 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                 if(err){
 
                 }else{
+                    var filePath = path.join(__dirname+'test');
+                    fs.writeFile(filePath, data, function(err){
+                        if(err){
+                            console.log(err.message);
+                        }else{
+                            console.log('file is saved');
+                        }
+                    });
                     qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
                     qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
 
