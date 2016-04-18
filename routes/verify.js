@@ -116,7 +116,7 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                     var putPolicy = new qiniu.rs.PutPolicy('julyangel'+":"+filename);
                     var token = putPolicy.token();
                     var extra = new qiniu.io.PutExtra();
-                    qiniu.io.putFile(token, key, filePath, extra, function(err, ret) {
+                    qiniu.io.putFile(token, filename, filePath, extra, function(err, ret) {
                         if(!err) {
                             // 上传成功， 处理返回值
                             log('成功上传至七牛');
