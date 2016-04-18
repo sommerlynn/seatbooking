@@ -46,32 +46,10 @@
                             <div class="item-title label">身份</div>
                             <div class="item-input">
                                 <% if (userInfo.type == 1) {%>
-                                <%= 学生%>
+                                    学生
                                 <%} else {%>
-                                <%= 老师%>
+                                    老师
                                 <%}%>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <div class="item-media"><i class="icon icon-form-name"></i></div>
-                        <div class="item-inner">
-                            <div class="item-title label">姓名</div>
-                            <div class="item-input">
-                                <%= userInfo.real_name%>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <div class="item-media"><i class="icon icon-form-email"></i></div>
-                        <div class="item-inner">
-                            <div class="item-title label">学号</div>
-                            <div class="item-input">
-                                <%= userInfo.user_code%>
                             </div>
                         </div>
                     </div>
@@ -99,9 +77,31 @@
                     </div>
                 </li>
                 <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">姓名</div>
+                            <div class="item-input">
+                                <%= userInfo.real_name%>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-email"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">学号</div>
+                            <div class="item-input">
+                                <%= userInfo.user_code%>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
                     <div class="item-content" style="padding: .25rem;">
                         <div id="card-photo-wrapper" class="card-photo-wrapper">
-                            <img class="card-photo" id="card-photo" src="">
+                            <img class="card-photo" id="card-photo" src="http://7xt2h5.com1.z0.glb.clouddn.com/<%=userInfo.verify_image%>">
                         </div>
                     </div>
                 </li>
