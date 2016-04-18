@@ -100,7 +100,7 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                 if(err){
 
                 }else{
-                    var filePath = path.join(__dirname+'/'+'test');
+                    var filePath = path.join(__dirname+'/'+'verifyimages/'+req.body.photoServerID);
                     fs.writeFile(filePath, data, function(err){
                         if(err){
                             log(err.message);
