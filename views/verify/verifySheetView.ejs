@@ -136,21 +136,58 @@
     });
 
     $(document).on('click', '#submit-btn', function () {
-        $.showPreloader('亲,我们正在提交你的信息,请稍候...');
-        $.post('submitInfo',
-               {
-                  openid:'<%=openid%>',
-                  type:$('#type-picker')[0].value,
-                  name:$('#name-input')[0].value,
-                  code:$('#code-input')[0].value,
-                  department:$('#department-picker')[0].value,
-                  classs:$('#class-picker')[0].value,
-                  photoServerID:photoServerID
-               },
-               function (response) {
-                   $.hidePreloader();
-                   alert(response);
-               });
+        var msg = new Array();
+        if(!$('#type-picker')[0].value){
+            msg.push('身份类别');
+        }
+        if(!$('#department-picker')[0].value){
+
+            if($('#type-picker')[0].value == '老师'){
+                msg.push('部门');
+            }else{
+                msg.push('院系');
+            }
+        }
+        if(!$('#class-picker')[0].value){
+            if($('#type-picker')[0].value == '老师'){
+                msg.push('科室');
+            }else{
+                msg.push('班级');
+            }
+        }
+        if(!$('#name-input')[0].value){
+            msg.push('姓名');
+        }
+        if(!$('#code-input')[0].value){
+            if($('#type-picker')[0].value == '老师'){
+                msg.push('教工号');
+            }else{
+                msg.push('学号');
+            }
+        }
+        if(!photoServerID){
+            msg.push('校园卡照片');
+        }
+
+        if(msg.length>0){
+            $.alert(msg.join(','),'您好，下列信息您还没有填写');
+        }else{
+            $.showPreloader('亲,我们正在提交你的信息,请稍候...');
+            $.post('submitInfo',
+                    {
+                        openid:'<%=openid%>',
+                        type:$('#type-picker')[0].value,
+                        name:$('#name-input')[0].value,
+                        code:$('#code-input')[0].value,
+                        department:$('#department-picker')[0].value,
+                        classs:$('#class-picker')[0].value,
+                        photoServerID:photoServerID
+                    },
+                    function (response) {
+                        $.hidePreloader();
+                        alert(response);
+                    });
+        }
     });
 
     $("#type-picker").picker({
