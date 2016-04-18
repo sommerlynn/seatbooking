@@ -66,7 +66,6 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
     if(req.body.type == 0){
         personType = 2;
     }
-    log(__dirname);
     models.userModel.fillRealInfo(
         req.body.name,
         req.body.code,
@@ -84,7 +83,7 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
 
     weiJSAPI.getAccessToken(function (err, token) {
         if (err) {
-            log(err.message);
+            log('err0'+err.message);
         }else{
             var url = "http://file.api.weixin.qq.com/cgi-bin/media/get";
             var options = {
@@ -96,20 +95,19 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
             };
             urllib.request(url, options, function(err, data, res){
                 if(err){
-                    log(err.message);
+                    log('err1'+err.message);
                 }else{
                     var filePath = path.join(__dirname.replace('routes','public'),'verifyimages','test');
                     log('filePath::'+filePath);
                     fs.writeFile(filePath, data, function(err){
                         if(err){
-                            log(err.message);
+                            log('err2'+err.message);
                         }else{
                             log('file is saved');
                         }
                     });
                     qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
                     qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
-
 
                 }
             });
