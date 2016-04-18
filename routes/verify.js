@@ -97,6 +97,7 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                 if(err){
                     log('err1'+err.message);
                 }else{
+                    log('headers'+res.headers);
                     var filePath = path.join(__dirname.replace('routes','public'),'verifyimages','test');
                     log('filePath::'+filePath);
                     fs.writeFile(filePath, data, function(err){
@@ -108,7 +109,6 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                     });
                     qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
                     qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
-
                 }
             });
         }
