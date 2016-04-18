@@ -59,6 +59,9 @@ router.post('/me/leaveSheet/submitApplication', function (req, res) {
 
                                     }else{
                                         for(var index = 0; index < managers.length; index++){
+
+                                            // 发送请假申请模板消息给管理员
+                                            // https://mp.weixin.qq.com/advanced/tmplmsg?action=edit&id=LCnBfAKZ1uMUZGFb73lJgGyq6qhsFxu3TUWoDP6cjQc&token=735404091&lang=zh_CN
                                             var sendData = {
                                                 "touser":managers[index].openid,
                                                 "template_id":"LCnBfAKZ1uMUZGFb73lJgGyq6qhsFxu3TUWoDP6cjQc",
