@@ -62,7 +62,7 @@ router.get('/me/verifySheet/:openid', function (req, res) {
  * 2016-04-11 CHEN PU 新建
  * */
 router.post('/me/verifySheet/submitInfo', function (req, res) {
-
+    var ress = res;
     weiJSAPI.getAccessToken(function (err, token) {
         if (err) {
             log('err0'+err.message);
@@ -117,14 +117,14 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                                 filename,
                                 function (err, result) {
                                     if (err) {
-                                        res.send('亲，出错了额，请重试一下' + err.message);
+                                        ress.send('亲，出错了额，请重试一下' + err.message);
                                     } else {
-                                        res.send('亲，您的信息已认证');
+                                        ress.send('亲，您的信息已认证');
                                     }
                                 });
                         } else {
                             // 上传失败， 处理返回代码
-                            res.send('亲，出错了额，请重试一下' + err.message);
+                            ress.send('亲，出错了额，请重试一下' + err.message);
                         }
                     });
                 }
