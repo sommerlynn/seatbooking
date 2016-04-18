@@ -62,13 +62,11 @@ router.get('/me/verifySheet/:openid', function (req, res) {
  * 2016-04-11 CHEN PU 新建
  * */
 router.post('/me/verifySheet/submitInfo', function (req, res) {
-    log('test');
-
     var personType = 1;
     if(req.body.type == 0){
         personType = 2;
     }
-
+    log(__dirname);
     models.userModel.fillRealInfo(
         req.body.name,
         req.body.code,
@@ -98,7 +96,7 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
             };
             urllib.request(url, options, function(err, data, res){
                 if(err){
-
+                    log(err.message);
                 }else{
                     var filePath = path.join(__dirname+'/'+'verifyimages/'+req.body.photoServerID);
                     fs.writeFile(filePath, data, function(err){
