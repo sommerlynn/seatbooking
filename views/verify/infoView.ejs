@@ -45,11 +45,11 @@
                         <div class="item-inner">
                             <div class="item-title label">身份</div>
                             <div class="item-input">
-                                <%if (userInfo.type == 1) {%>
+                                <% if (userInfo.type == 1) {%>
                                 <%= 学生%>
                                 <%} else {%>
                                 <%= 老师%>
-                                <%""%>
+                                <%}%>
                             </div>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                 <li>
                     <div class="item-content" style="padding: .25rem;">
                         <div id="card-photo-wrapper" class="card-photo-wrapper">
-                            <img class="card-photo" id="card-photo" src="http://7xt2h5.com1.z0.glb.clouddn.com/<%=userInfo.verify_image%>">
+                            <img class="card-photo" id="card-photo" src="">
                         </div>
                     </div>
                 </li>
