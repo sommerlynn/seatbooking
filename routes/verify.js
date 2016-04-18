@@ -62,11 +62,12 @@ router.get('/me/verifySheet/:openid', function (req, res) {
  * 2016-04-11 CHEN PU 新建
  * */
 router.post('/me/verifySheet/submitInfo', function (req, res) {
+    log('test');
+
     var personType = 1;
     if(req.body.type == 0){
         personType = 2;
     }
-    log('test');
 
     models.userModel.fillRealInfo(
         req.body.name,
