@@ -66,6 +66,8 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
     if(req.body.type == 0){
         personType = 2;
     }
+    log('test');
+
     models.userModel.fillRealInfo(
         req.body.name,
         req.body.code,
