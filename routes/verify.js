@@ -98,7 +98,8 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                 if(err){
                     log(err.message);
                 }else{
-                    var filePath = path.join(__dirname+'/'+'verifyimages/'+req.body.photoServerID);
+                    var filePath = path.join(__dirname.replace('routes','public'),'verifyimages','test');
+                    log('filePath::'+filePath);
                     fs.writeFile(filePath, data, function(err){
                         if(err){
                             log(err.message);
