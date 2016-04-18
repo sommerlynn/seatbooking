@@ -1,5 +1,21 @@
 <% include ../header.html %>
 <style>
+    .list-block{
+        margin: 0;
+    }
+    .card-photo-wrapper{
+        text-align: center;
+        width: 70%;
+        height: 6rem;
+        line-height: 6rem;
+        border: 1px dashed #123456;
+        margin: 0 auto;
+    }
+
+    .card-photo{
+        height: 6rem;
+        padding: .25rem;
+    }
 </style>
 <div class="page">
     <header class="bar bar-nav">
@@ -23,6 +39,21 @@
         <div class="list-block">
             <ul>
                 <!-- Text inputs -->
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">身份</div>
+                            <div class="item-input">
+                                <%if (userInfo.type == 1) {%>
+                                <%= 学生%>
+                                <%} else {%>
+                                <%= 老师%>
+                                <%""%>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li>
                     <div class="item-content">
                         <div class="item-media"><i class="icon icon-form-name"></i></div>
@@ -64,6 +95,13 @@
                             <div class="item-input">
                                 <%= userInfo.class_name%>
                             </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content" style="padding: .25rem;">
+                        <div id="card-photo-wrapper" class="card-photo-wrapper">
+                            <img class="card-photo" id="card-photo" src="http://7xt2h5.com1.z0.glb.clouddn.com/<%=userInfo.verify_image%>">
                         </div>
                     </div>
                 </li>
