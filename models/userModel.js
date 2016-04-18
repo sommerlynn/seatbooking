@@ -11,13 +11,13 @@ user.getUser = function(openid, callback){
     db.executeQuery(selectQuery, params, callback);
 };
 
-user.fillRealInfo = function (realName, userCode, departmentName, className, openid, personType, callback) {
+user.fillRealInfo = function (realName, userCode, departmentName, className, openid, personType, verifyImage, callback) {
     var updateQuery = "update user set real_name = ?, user_code = ?, "+
                       "department_id = (select department_id from department where department_name = ?),"+
                       "class_id = (select class_id from class where class_name = ?), "+
-                      "type = ?, verify_date = ?"+
+                      "type = ?, verify_date = ?, verify_image = ?"+
                       "where openid = ?",
-        params = [realName, userCode, departmentName, className, personType, new Date(), openid];
+        params = [realName, userCode, departmentName, className, personType, new Date(), verifyImage, openid];
     db.executeQuery(updateQuery, params, callback);
 };
 

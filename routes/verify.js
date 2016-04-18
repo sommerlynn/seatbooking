@@ -62,24 +62,6 @@ router.get('/me/verifySheet/:openid', function (req, res) {
  * 2016-04-11 CHEN PU 新建
  * */
 router.post('/me/verifySheet/submitInfo', function (req, res) {
-    var personType = 1;
-    if(req.body.type == 0){
-        personType = 2;
-    }
-    models.userModel.fillRealInfo(
-        req.body.name,
-        req.body.code,
-        req.body.department,
-        req.body.classs,
-        req.body.openid,
-        personType,
-        function (err, result) {
-            if (err) {
-                res.send('亲，出错了额，请重试一下' + err.message);
-            } else {
-                res.send('亲，您的信息已认证');
-            }
-        });
 
     weiJSAPI.getAccessToken(function (err, token) {
         if (err) {
@@ -120,9 +102,29 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                         if(!err) {
                             // 上传成功， 处理返回值
                             log('成功上传至七牛');
+
+                            var personType = 1;
+                            if(req.body.type == 0){
+                                personType = 2;
+                            }
+                            models.userModel.fillRealInfo(
+                                req.body.name,
+                                req.body.code,
+                                req.body.department,
+                                req.body.classs,
+                                req.body.openid,
+                                personType,
+                                filename,
+                                function (err, result) {
+                                    if (err) {
+                                        res.send('亲，出错了额，请重试一下' + err.message);
+                                    } else {
+                                        res.send('亲，您的信息已认证');
+                                    }
+                                });
                         } else {
                             // 上传失败， 处理返回代码
-                            log(err);
+                            res.send('亲，出错了额，请重试一下' + err.message);
                         }
                     });
                 }
