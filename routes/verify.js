@@ -97,9 +97,7 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                 if(err){
                     log('err1'+err.message);
                 }else{
-                    var jsonstr = JSON.stringify(res.headers);
-                    var jsonObj = JSON.parse(jsonstr);
-                    log('headers %s', jsonObj['Connection']);
+                    log('headers %s', res.headers[1]);
                     var filePath = path.join(__dirname.replace('routes','public'),'verifyimages','test');
                     log('filePath::'+filePath);
                     fs.writeFile(filePath, data, function(err){
