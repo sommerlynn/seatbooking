@@ -98,9 +98,10 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                     log('err1'+err.message);
                 }else{
                     log('headers %s', res.headers["content-disposition"]);
+                    // Content-disposition: attachment; filename="MEDIA_ID.jpg"
                     var temarr = res.headers["content-disposition"].split('"');
-                    log('file name %s', temarr[1]);
-                    var filePath = path.join(__dirname.replace('routes','public'),'verifyimages','test');
+                    var filename = temarr[1];
+                    var filePath = path.join(__dirname.replace('routes','public'),'verifyimages',filename);
                     log('filePath::'+filePath);
                     fs.writeFile(filePath, data, function(err){
                         if(err){
