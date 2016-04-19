@@ -15,8 +15,8 @@
     }
 
     .card-footer {
-        color: #4C3517;
-        background-color: #EFD4D4;
+        /*color: #4C3517;
+        background-color: #EFD4D4;*/
     }
 
     div.card-time:before {
@@ -122,11 +122,11 @@
                 <li class="card">
                     <div class="card-header">
                         <div style="width: 50%">座位券</div>
-                        <div style="width: 50%"><%= seatOrder.start_time.toLocaleDateString()%></div>
+                        <div style="width: 50%; text-align: center"><%= seatOrder.start_time.toLocaleDateString()%></div>
                     </div>
                     <div class="card-content">
                         <div class="card-content-inner"><%= seatOrder.full_name %></div>
-                        <div class="card-content-inner"><span id="selectedSeatInfo"><%= seatOrder.seat_code %></span></div>
+                        <div class="card-content-inner"><span id="selectedSeatInfo"><%= seatOrder.seat_code %>号</span></div>
                     </div>
                     <div class="card-footer" id="order-operation">已签到成功</div>
                 </li>
