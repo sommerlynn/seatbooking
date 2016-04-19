@@ -47,8 +47,23 @@ seat.release = function (orderID, callback) {
     db.executeQuery(updateQuery, params, callback);
 };
 
-seat.leave = function (orderID, callback) {
+/*
+* 座位签到
+* 2016-04-19: CHEN PU 新建
+* */
+seat.sign = function (orderID, callback) {
     var updateQuery = "update user_seat_order set status = 2, leave_time = ? where order_id = ?",
+        params = [new Date(), orderID];
+    db.executeQuery(updateQuery, params, callback);
+};
+
+/*
+* 暂离座位
+* 2016-04-08 CHEN PU 新建
+* 2016-04-19 CHEN PU 修改status值从2变成3,2作为签到的状态
+* */
+seat.leave = function (orderID, callback) {
+    var updateQuery = "update user_seat_order set status = 3, leave_time = ? where order_id = ?",
         params = [new Date(), orderID];
     db.executeQuery(updateQuery, params, callback);
 };
