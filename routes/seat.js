@@ -224,11 +224,7 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                 }else if(userOrders.length > 0)
                                 {
-                                    res.render('./seat/seatOrderView', {
-                                        openid: openid,
-                                        title: '签到成功',
-                                        seatOrder:userOrders[0]
-                                    });
+                                    res.redirect('/me/' + openid);
                                 }else{
                                     res.redirect('/libraryClassroom/' +req.query.cid+'/'+ openid);
                                 }
