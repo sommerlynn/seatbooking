@@ -1,5 +1,22 @@
 <% include ../header.html %>
 <style>
+    .list-block{
+        margin: 0;
+    }
+
+    .list-block .item-link .item-inner{
+        background-image: none;
+    }
+
+    .list-block .item-after{
+        font-size:.75rem;
+        color: #A00000;
+    }
+
+    .list-block .item-text{
+        font-weight: bold;
+        color: #000000;
+    }
 </style>
 
 <div class="page">
@@ -33,7 +50,7 @@
                                 <div class="item-after"><%= oldOrders[index].start_time.toLocaleDateString()%></div>
                             </div>
                             <div class="item-subtitle"></div>
-                            <div class="item-text"><%= oldOrders[index].seat_code%></div>
+                            <div class="item-text"><%= oldOrders[index].seat_code%>号</div>
                         </div>
                     </a>
                 </li>
