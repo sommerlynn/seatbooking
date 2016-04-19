@@ -8,8 +8,11 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth');
+    OAuth = require('wechat-oauth'),
+    WeiJSAPI = require('../lib/weixin-jssdk');
 
+var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 /*
  * Get buildings of a school
  * 获取教学楼列表
@@ -185,6 +188,43 @@ router.post('/me/leave', function (req, res) {
             res.send('设置暂离失败，请重试');
         } else {
             res.send('设置暂离成功');
+        }
+    });
+});
+
+router.get('/scanclassroom/oauth/:cid/', function(req, res){
+    var url = client.getAuthorizeURL('http://www.julyangel.cn/scanclassroom/oauth/getinfo?cid=' + req.params.cid, '123', 'snsapi_userinfo');
+    res.redirect(url);
+});
+
+/*
+ * 获取用户信息 CHEN PU 获取用户信息 第二步
+ * */
+router.get('/scanclassroom/oauth/getinfo', function (req, res) {
+    client.getAccessToken(req.query.code, function (err, result) {
+        if (err) {
+            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+        }
+        else {
+            //var accessToken = result.data.access_token;
+            var openid = result.data.openid;
+            client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
+                if (err) {
+                    res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+                } else {
+                    var userInfo = result;
+
+                    models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
+                        if (err) {
+                            res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                        } else {
+
+
+                            res.redirect('me/' + openid);
+                        }
+                    });
+                }
+            });
         }
     });
 });
