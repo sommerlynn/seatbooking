@@ -6,8 +6,11 @@ var seat = {},
     db = require('./db');
 
 seat.newOrder = function(openid, classroomID, row, column, seatCode, startTime, endTime, callback){
+
     //检查该用户是否已有此教室的活动订阅
-    var selectQuery = "select 1 from user_seat_order_view where openid = ? "+
+    //图书馆类型的教室 图书馆内 只能订一个座位
+    //其他类型的教室 同一个教室只能定一个座位 可以最多定6个不同教室的位子
+    var selectQuery = "select * from user_seat_order_view where openid = ? "+
             "and classroom_id = ? and start_time = ? and status > 0",
         selectParams = [openid, classroomID, startTime];
 
@@ -15,9 +18,44 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, startTime, 
         if(err){
             callback(err);
         }else if(results.length > 0){
-            callback('你已在该教室订了其它座位，一人一天在同一教室只能订一个座位，请遵守《座位使用文明公约》。');
+            callback('不能太贪心哦，你已经有一个位子了(座位号:'+ results[0].seat_code +'), 让我们把这个位子留给其他小伙伴好不好');
         }
         else{
+            selectQuery = "select * from area_classroom where classroom_id = ?";
+            selectParams = [classroomID];
+
+            db.executeQuery(selectQuery, selectParams, function (err, classroomInfo) {
+                if(err){
+                    callback(err);
+                }else{
+                    if(classroomInfo[0].classroom_type_name == '图书馆'){
+                        selectQuery = "select * from user_seat_order_view where openid = ? "+
+                            "and classroom_type_name = ? and start_time = ? and status > 0";
+                        selectParams = [openid, '图书馆', startTime];
+
+                        db.executeQuery(selectQuery, selectParams, function (err, results) {
+                            if(err){
+                                callback(err);
+                            }else if(results.length > 0){
+                                callback('不能太贪心哦，你在图书馆已经有一个位子了('+results[0].full_name + ' ' +results[0].seat_code +'号), 让我们把这个位子留给其他小伙伴好不好');
+                            }
+                        });
+                    }else{
+                        selectQuery = "select * from user_seat_order_view where openid = ? "+
+                            "and classroom_type_name <> ? and start_time = ? and status > 0";
+                        selectParams = [openid, '图书馆', startTime];
+
+                        db.executeQuery(selectQuery, selectParams, function (err, results) {
+                            if(err){
+                                callback(err);
+                            }else if(results.length > 5){
+                                callback('不能太贪心哦，你已经有'+results.length+'个位子了, 让我们把这个位子留给其他小伙伴好不好');
+                            }
+                        });
+                    }
+                }
+            });
+
             var insertQuery = "insert into user_seat_order (user_id, classroom_id, row_no, column_no, seat_code, start_time, end_time, status) values "+
                     "((select user_id from user where openid = ?), ?, ?, ?, ?, ?, ?, 1)",
                 insertParams = [openid, classroomID, row, column, seatCode, startTime, endTime];

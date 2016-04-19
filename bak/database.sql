@@ -24,22 +24,16 @@ CREATE TABLE area_classroom
 SELECT classroom_id, classroom.area_id, area_name, classroom_name,
 CONCAT(area_name,' ',classroom_name) AS full_name,
 classroom.status AS classroom_status, building_area.status AS area_status,
-row_count, column_count, seat_count, seat_map
+row_count, column_count, seat_count, seat_map, classroom_type_name, available_rate, open_time, close_time
 FROM classroom LEFT JOIN building_area ON classroom.area_id = building_area.area_id
+LEFT JOIN classroom_type ON classroom.classroom_type_id = classroom_type.classroom_type_id
 ORDER BY order_no, area_name, classroom_name
 
 
 ALTER VIEW user_seat_order_view AS
-SELECT order_id, user.user_id, area_classroom.classroom_id, row_no, column_no,
-start_time, end_time, order_time, status, openid, nickname, sex, headimgurl,
-full_name
-FROM user_seat_order LEFT JOIN user on user_seat_order.user_id = user.user_id
-LEFT JOIN area_classroom on user_seat_order.classroom_id = area_classroom.classroom_id
-
-ALTER VIEW user_seat_order_view AS
 SELECT order_id, user.user_id, area_classroom.classroom_id, row_no, column_no, seat_code,
-start_time, end_time, order_time, leave_time, status, openid, nickname, sex, headimgurl,
-full_name
+start_time, end_time, order_time, leave_time, sign_time, user_seat_order.status, openid, nickname, sex, headimgurl,
+full_name, area_classroom.classroom_type_name
 FROM user_seat_order LEFT JOIN user on user_seat_order.user_id = user.user_id
 LEFT JOIN area_classroom on user_seat_order.classroom_id = area_classroom.classroom_id
 ORDER BY  start_time DESC
@@ -149,6 +143,8 @@ ALTER VIEW user_info_view AS
         ON user.user_id = class_manager_user_count_view.user_id
         LEFT JOIN department ON user.department_id = department.department_id
         LEFT JOIN class ON user.class_id = class.class_id
+
+
 
 
 // 获取各教室今天的订座状态
