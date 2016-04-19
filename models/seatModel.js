@@ -74,7 +74,7 @@ seat.leave = function (orderID, callback) {
 * */
 seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
     var selectQuery = "select * from user_seat_order_view where openid = ? and classroom_id = ? "+
-                      "and start_time < ? and end_time ? and (status = 1 or status = 3)",
+                      "and start_time < ? and end_time > ? and (status = 1 or status = 3)",
         params = [openid, classroomID, new Date(), new Date()];
     db.executeQuery(selectQuery, params, callback);
 };
