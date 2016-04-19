@@ -227,8 +227,7 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
                                     res.render('./seat/seatOrderView', {
                                         openid: openid,
                                         title: '签到成功',
-                                        seatOrder:userOrders[0],
-                                        weiJSConfig:weiJSConfig
+                                        seatOrder:userOrders[0]
                                     });
                                 }else{
                                     res.redirect('/libraryClassroom/' +req.query.cid+'/'+ openid);
