@@ -137,7 +137,7 @@ seat.sign = function(orderID, callback){
 };
 
 seat.getOld = function(openid, callback){
-    var selectQuery = "select * from user_seat_order_view where openid = ? and (end_time < ? or status < 0) order by start_time desc, order_time_desc",
+    var selectQuery = "select * from user_seat_order_view where openid = ? and (end_time < ? or status < 0) order by start_time desc, order_time desc",
         params = [openid, new Date()];
     db.executeQuery(selectQuery, params, callback);
 };
