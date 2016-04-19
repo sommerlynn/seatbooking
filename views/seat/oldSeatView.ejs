@@ -3,6 +3,9 @@
 </style>
 
 <div class="page">
+    <header class="bar bar-nav theme-dark">
+        <h1 class="title">历史座位</h1>
+    </header>
     <!-- 工具栏 -->
     <nav class="bar bar-tab">
         <a class="tab-item active" id="buildingTab" href="http://www.julyangel.cn/building/<%=openid%>" external>
@@ -19,16 +22,6 @@
         </a>
     </nav>
     <div class="content">
-        <div class="content-block-title">
-            <div class="item-media">
-                <i class="icon icon-my-seat"></i>
-            </div>
-            <div class="item-inner">
-                <div class="item-title">我的座位</div>
-                <div class="item-real-info"><a href="/building/<%= openid %>">历史座位 ></a></div>
-            </div>
-        </div>
-
         <div class="list-block media-list">
             <ul id="seat_tickets">
                 <% for(var index = 0; index < oldOrders.length; index++) {%>
