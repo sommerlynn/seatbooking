@@ -192,7 +192,7 @@ router.post('/me/leave', function (req, res) {
     });
 });
 
-router.get('/scanclassroom/oauth/:cid/', function(req, res){
+router.get('/scanclassroom/oauth/:cid', function(req, res){
     var url = client.getAuthorizeURL('http://www.julyangel.cn/scanclassroom/oauth/getinfo?cid=' + req.params.cid, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
