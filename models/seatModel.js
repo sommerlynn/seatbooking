@@ -28,6 +28,7 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, startTime, 
                 if(err){
                     callback(err);
                 }else{
+                    
                     if(classroomInfo[0].classroom_type_name == '图书馆'){
                         selectQuery = "select * from user_seat_order_view where openid = ? "+
                             "and classroom_type_name = ? and start_time = ? and status > 0";
