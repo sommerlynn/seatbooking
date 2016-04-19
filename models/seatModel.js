@@ -79,4 +79,10 @@ seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
     db.executeQuery(selectQuery, params, callback);
 };
 
+seat.sign = function(orderID, callback){
+    var updateQuery = "update user_seat_order set status = 2, sign_time = ? where order_id = ?",
+        params = [new Date(), orderID];
+    db.executeQuery(updateQuery, params, callback);
+};
+
 module.exports = seat;
