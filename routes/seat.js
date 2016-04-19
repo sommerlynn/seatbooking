@@ -218,9 +218,7 @@ router.get('/scanclassroom/oauth/getinfo', function (req, res) {
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                         } else {
-
-
-                            res.redirect('me/' + openid);
+                            res.redirect('/librarySeatMap/' +req.query.cid+'/'+ openid);
                         }
                     });
                 }
