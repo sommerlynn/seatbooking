@@ -224,7 +224,7 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                 }else if(userOrders.length > 0)
                                 {
-                                    models.userModel.sign(userOrders[0].order_id, function(err, result){
+                                    models.seatModel.sign(userOrders[0].order_id, function(err, result){
                                         if(err){
                                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                         }else{
