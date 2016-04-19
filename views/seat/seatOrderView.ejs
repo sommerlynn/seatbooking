@@ -1,5 +1,107 @@
 <% include ../header.html %>
 <style>
+    .card {
+        background-color: #A61000;
+        color: #ffffff;
+    }
+
+    .card-header {
+        font-size: 0.6rem;
+    }
+
+    .card-content-inner {
+        padding: 0.35rem;
+        text-align: center;
+    }
+
+    .card-footer {
+        color: #4C3517;
+        background-color: #EFD4D4;
+    }
+
+    div.card-time:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: auto;
+        top: 0;
+        height: 1px;
+        width: 100%;
+        background-color: #924A4A;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+    div.card-time {
+        position: relative;
+        padding: 0.625rem 0;
+    }
+
+    div.card-time-header {
+        width: 20%;
+        float: left;
+        text-align: center;
+        font-size: 0.5rem;
+        color: #FFCEA6;
+    }
+
+    div.card-time-status {
+        width: 20%;
+        float: left;
+        text-align: center;
+        font-size: 0.5rem;
+        line-height: 1.25rem;
+        color: #FFCEA6;
+    }
+
+    .bar {
+        /*background-color: #FFFFFF;*/
+    }
+
+    .bar:after {
+        height: 0;
+        background-color: #1D2025;
+    }
+
+    .bar-tab:before {
+        /*background-color: #33475F;*/
+    }
+
+    .content {
+        /*background-color: #7A9665;*/
+        padding: 1rem 0 0 0;
+        background-color: #E7E9ED;
+        top: 2rem;
+        bottom: 4rem;
+    }
+
+    .bar-tab~.content{
+        bottom: 4rem;
+    }
+
+    div.date-nav{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        height: 2rem;
+    }
+
+    A.date-item{
+        width: 50%;
+        text-align: center;
+        height: 2rem;
+        line-height: 2rem;
+        color: #000000;
+        display: block;
+        position: relative;
+    }
+
+    .date-nav .active{
+        color:#00B7FF;
+        border-bottom:1px solid #0894ec;
+    }
 </style>
 <div class="page">
     <nav class="bar bar-tab">
