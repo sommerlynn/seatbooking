@@ -37,9 +37,6 @@ router.get('/oAuthGetInfo', function (req, res) {
                 } else {
                     var userInfo = result;
 
-                    //req.cookies.setAttribute('1','1');
-                    //req.session.userInfo = userInfo;
-
                     models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});

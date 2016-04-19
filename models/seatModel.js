@@ -68,4 +68,15 @@ seat.leave = function (orderID, callback) {
     db.executeQuery(updateQuery, params, callback);
 };
 
+/*
+* 获取用户当天在某教室的座位预约单
+* 2016-04-19 CHEN PU 新建
+* */
+seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
+    var selectQuery = "select * from user_seat_order_view where openid = ? and classroom_id = ? "+
+                      "and start_time < ? and end_time ? and (status = 1 or status = 3)",
+        params = [openid, classroomID, new Date(), new Date()];
+    db.executeQuery(selectQuery, params, callback);
+};
+
 module.exports = seat;

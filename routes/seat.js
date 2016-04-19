@@ -55,7 +55,7 @@ router.get('/building/:openid', function (req, res) {
 
 /*
  * Get buildings of a school
- * 获取教学楼列表
+ * 获取教学楼内教室列表
  * */
 router.get('/buildingClassroom/:areaId/:openid', function (req, res) {
     models.classroomModel.getByAreaID(req.params.areaId, function (err, classroomList) {
@@ -77,7 +77,7 @@ router.get('/buildingClassroom/:areaId/:openid', function (req, res) {
  * Get seat map of a classroom
  * 获取一个教室的座位图
  * */
-router.get('/librarySeatMap/:cid/:openid', function (req, res) {
+router.get('/libraryClassroom/:cid/:openid', function (req, res) {
 
     models.classroomModel.getOrderByDayType(req.params.cid, req.query.t, function (err, classroom) {
         if (err) {
@@ -116,7 +116,7 @@ router.get('/librarySeatMap/:cid/:openid', function (req, res) {
                     var today = new Date(),
                         nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
 
-                    res.render('./seat/librarySeatMapView', {
+                    res.render('./seat/libraryClassroomView', {
                         openid: req.params.openid,
                         title: classroom['full_name'],
                         classroom: classroom,
@@ -192,8 +192,8 @@ router.post('/me/leave', function (req, res) {
     });
 });
 
-router.get('/scanclassroom/oauth/:cid', function(req, res){
-    var url = client.getAuthorizeURL('http://www.julyangel.cn/scanclassroom/oauthgetinfo?cid=' + req.params.cid, '123', 'snsapi_userinfo');
+router.get('/scanclassroom/oauth/:schoolID/:cid', function(req, res){
+    var url = client.getAuthorizeURL('http://www.julyangel.cn/scanclassroom/oauthgetinfo?cid=' + req.params.cid + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
@@ -218,7 +218,21 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                         } else {
-                            res.redirect('/librarySeatMap/' +req.query.cid+'/'+ openid);
+
+                            models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
+                                if(err){
+                                    res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                }else if(userOrders.length > 0)
+                                {
+                                    res.render('./seat/seatOrderView', {
+                                        openid: openid, 
+                                        title: '签到成功',
+                                        seatOrder:userOrders[0]
+                                    });
+                                }else{
+                                    res.redirect('/libraryClassroom/' +req.query.cid+'/'+ openid);
+                                }
+                            });
                         }
                     });
                 }
