@@ -123,7 +123,7 @@ ALTER VIEW active_leave_application_view AS
         ON (leave_application.approve_by = user2.user_id)
         WHERE end_time > NOW()
 
-        ALTER VIEW inactive_leave_application_view AS
+ALTER VIEW inactive_leave_application_view AS
                 SELECT
                     leave_application.*,
                     user1.openid applier_openid,
@@ -136,6 +136,19 @@ ALTER VIEW active_leave_application_view AS
                 LEFT JOIN user user2
                 ON (leave_application.approve_by = user2.user_id)
                 WHERE end_time < NOW()
+
+ALTER VIEW all_leave_application_view AS
+                SELECT
+                    leave_application.*,
+                    user1.openid applier_openid,
+                    user1.real_name applier_real_name,
+                    user1.class_id applier_class_id,
+                    user2.openid approv_by_openid,
+                    user2.real_name approve_by_name
+                FROM leave_application LEFT JOIN user user1
+                ON (leave_application.applier_id = user1.user_id)
+                LEFT JOIN user user2
+                ON (leave_application.approve_by = user2.user_id)
 
 
 ALTER VIEW class_manager_user_view AS
