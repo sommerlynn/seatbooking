@@ -28,7 +28,7 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, startTime, 
                 if(err){
                     callback(err);
                 }else{
-                    
+
                     if(classroomInfo[0].classroom_type_name == '图书馆'){
                         selectQuery = "select * from user_seat_order_view where openid = ? "+
                             "and classroom_type_name = ? and start_time = ? and status > 0";
@@ -69,7 +69,7 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, startTime, 
                                     insertParams = [openid, classroomID, row, column, seatCode, startTime, endTime];
                                 db.insertQuery(insertQuery, insertParams, function(err, id){
                                     if(err){
-                                        callback(err);
+                                        callback('该座位已被其他小伙伴预约，请选择其它座位');
                                     }
                                     else{
                                         callback(null);
@@ -93,8 +93,8 @@ seat.getActive = function(openid, callback) {
 };
 
 seat.release = function (orderID, callback) {
-    var updateQuery = "update user_seat_order set status = -1, leave_time = ? where order_id = ?",
-        params = [new Date(), orderID];
+    var updateQuery = "update user_seat_order set status = -1, leave_time = ?, lock_code = ? where order_id = ?",
+        params = [new Date(), orderID, orderID];
     db.executeQuery(updateQuery, params, callback);
 };
 
