@@ -38,4 +38,10 @@ leaveApplication.reject = function (openid, applicationID, callback) {
     db.executeQuery(updateQuery, params, callback);
 };
 
+leaveApplication.getOld = function(openid, callback){
+    var selectQuery = "select * from inactive_leave_application_view where applier_openid = ?",
+        params = [openid];
+    db.executeQuery(selectQuery, params, callback);
+};
+
 module.exports = leaveApplication;

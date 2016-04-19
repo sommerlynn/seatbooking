@@ -135,5 +135,18 @@ router.post('/me/rejectLeave', function (req, res) {
         });
 });
 
+router.get('/me/oldLeave/:openid', function(req, res){
+    models.leaveApplicationModel.getOld(req.params.openid, function(err, leaveApplications){
+        if(err){
+            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+        }else{
+            res.render('./leave/oldLeaveView', {
+                openid:req.params.openid,
+                title:'历史假条',
+                leaveApplications:leaveApplications
+            });
+        }
+    });
+});
 
 module.exports = router;
