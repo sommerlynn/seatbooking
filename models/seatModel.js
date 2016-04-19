@@ -87,7 +87,7 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, startTime, 
 };
 
 seat.getActive = function(openid, callback) {
-    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status > 0 order by start_time asc, order_date desc",
+    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status > 0 order by start_time asc, order_time desc",
         params = [openid, new Date()];
     db.executeQuery(selectQuery, params, callback);
 };
@@ -137,7 +137,7 @@ seat.sign = function(orderID, callback){
 };
 
 seat.getOld = function(openid, callback){
-    var selectQuery = "select * from user_seat_order_view where openid = ? and (end_time < ? or status < 0) order by start_time desc, order_date_desc",
+    var selectQuery = "select * from user_seat_order_view where openid = ? and (end_time < ? or status < 0) order by start_time desc, order_time_desc",
         params = [openid, new Date()];
     db.executeQuery(selectQuery, params, callback);
 };
