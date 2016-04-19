@@ -192,13 +192,35 @@ router.post('/me/leave', function (req, res) {
     });
 });
 
+router.get('/me/oldSeat/:openid', function(req, res){
+    models.seatModel.getOld(req.params.openid, function(err, oldOrders){
+        if(err){
+            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+        }else{
+            res.render('./seat/oldSeatView', {
+                title: '历史座位',
+                openid: req.params.openid,
+                oldOrders:oldOrders
+            });
+        }
+    });
+});
+
+
+/*
+* 扫描教室二维码进行签到 第一步
+*
+* 2016-04-19 CHEN PU 新建
+* */
 router.get('/scanclassroom/oauth/:schoolID/:cid', function(req, res){
     var url = client.getAuthorizeURL('http://www.julyangel.cn/scanclassroom/oauthgetinfo?cid=' + req.params.cid + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
 /*
- * 获取用户信息 CHEN PU 获取用户信息 第二步
+ * 扫描教室二维码进行签到 第二步
+ *
+ * 2016-04-19 CHEN PU 新建
  * */
 router.get('/scanclassroom/oauthgetinfo', function (req, res) {
     client.getAccessToken(req.query.code, function (err, result) {

@@ -136,4 +136,10 @@ seat.sign = function(orderID, callback){
     db.executeQuery(updateQuery, params, callback);
 };
 
+seat.getOld = function(openid, callback){
+    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time < ? order by start_time",
+        params = [openid, new Date()];
+    db.executeQuery(selectQuery, params, callback);
+};
+
 module.exports = seat;

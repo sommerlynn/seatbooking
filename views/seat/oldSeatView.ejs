@@ -1,0 +1,61 @@
+<% include ../header.html %>
+<style>
+</style>
+
+<div class="page">
+    <!-- 工具栏 -->
+    <nav class="bar bar-tab">
+        <a class="tab-item active" id="buildingTab" href="http://www.julyangel.cn/building/<%=openid%>?ip=<%=ip%>" external>
+            <span class="icon icon-building"></span>
+            <span class="tab-label">预约座位</span>
+        </a>
+        <a class="tab-item" id="skyTab" href="http://www.julyangel.cn/index/<%=openid%>?ip=<%=ip%>" external>
+            <span class="icon icon-star"></span>
+            <span class="tab-label">七玥星空</span>
+        </a>
+        <a class="tab-item" id="meTab" href="http://www.julyangel.cn/me/<%=openid%>?ip=<%=ip%>" external>
+            <span class="icon icon-me"></span>
+            <span class="tab-label">我的</span>
+        </a>
+    </nav>
+    <div class="content">
+        <div class="content-block-title">
+            <div class="item-media">
+                <i class="icon icon-my-seat"></i>
+            </div>
+            <div class="item-inner">
+                <div class="item-title">我的座位</div>
+                <div class="item-real-info"><a href="/building/<%= openid %>?ip=<%= ip %>">历史座位 ></a></div>
+            </div>
+        </div>
+
+        <div class="list-block media-list">
+            <ul id="seat_tickets">
+                <% for(var index = 0; index < oldOrders.lenght; index++) {%>
+                <li>
+                    <a href="#" class="item-link item-content">
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title"><%= oldOrders[index].full_name%></div>
+                                <div class="item-after"><%= oldOrders[index].start_time.toLocaleDateString()%></div>
+                            </div>
+                            <div class="item-subtitle"><%= oldOrders[index].seat_code%></div>
+                            <div class="item-text"></div>
+                        </div>
+                    </a>
+                </li>
+                <%}%>
+             <ul>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script>
+    $.config = {
+        autoInit: true,
+        router: false
+    }
+</script>
+<% include ../footer.html %>
