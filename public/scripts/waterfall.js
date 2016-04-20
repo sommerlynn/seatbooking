@@ -95,10 +95,10 @@
                         tpl = $('#waterfall-tpl').html();
                         template = Handlebars.compile(tpl);
 
-                        for(var index = 0; index < data.length; index++){
-                            var originalWidth = data[index].width;
-                            data[index].width = this.colWidth - 10;
-                            data[index].height = data[index].height*(originalWidth/data[index].width);
+                        for(var index = 0; index < data.result.length; index++){
+                            var originalWidth = data.result[index].width;
+                            data.result[index].width = this.colWidth - 10;
+                            data.result[index].height = data.result[index].height*(originalWidth/data.result[index].width);
                         }
 
                         return template(data);
