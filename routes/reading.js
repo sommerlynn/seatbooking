@@ -16,104 +16,104 @@ router.get('/reading/data', function(req, res){
         "total": 20,
         "result": [
             {
-                "image": "http://wlog.cn/demo/waterfall/images/001.jpg",
-                "width": 192,
-                "height": 288
+                "image": "http://img4.duitang.com/uploads/item/201508/19/20150819131101_hQkZL.thumb.700_0.jpeg",
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/002.jpg",
-                "width": 192,
-                "height": 257
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/003.jpg",
-                "width": 192,
-                "height": 288
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/004.jpg",
-                "width": 192,
-                "height": 288
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/005.jpg",
-                "width": 192,
-                "height": 248
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/006.jpg",
-                "width": 192,
-                "height": 288
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/007.jpg",
-                "width": 192,
-                "height": 288
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/008.jpg",
-                "width": 192,
-                "height": 290
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/009.jpg",
-                "width": 192,
-                "height": 240
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/010.jpg",
-                "width": 192,
-                "height": 228
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/011.jpg",
-                "width": 192,
-                "height": 128
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/012.jpg",
-                "width": 192,
-                "height": 128
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/013.jpg",
-                "width": 192,
-                "height": 128
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/014.jpg",
-                "width": 192,
-                "height": 128
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/015.jpg",
-                "width": 192,
-                "height": 256
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/016.jpg",
-                "width": 192,
-                "height": 256
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/017.jpg",
-                "width": 192,
-                "height": 287
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/018.jpg",
-                "width": 192,
-                "height": 288
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/019.jpg",
-                "width": 192,
-                "height": 192
+                "width": 0,
+                "height": 0
             },
             {
                 "image": "http://wlog.cn/demo/waterfall/images/020.jpg",
-                "width": 192,
-                "height": 288
+                "width": 0,
+                "height": 0
             }
         ]
     };
