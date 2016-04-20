@@ -21,7 +21,7 @@ router.get('/reading/data', function(req, res){
                 "height": 0
             },
             {
-                "image": "http://wlog.cn/demo/waterfall/images/002.jpg",
+                "image": "http://7xt2h5.com2.z0.glb.clouddn.com/20150225163034_BWrZV.jpeg",
                 "width": 0,
                 "height": 0
             },
