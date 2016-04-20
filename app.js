@@ -66,7 +66,7 @@ app.use('/', seat);
 var verify = require('./routes/verify');
 app.use('/', verify);
 
-var verify = require('./routes/reading');
+var reading = require('./routes/reading');
 app.use('/', reading);
 
 // catch 404 and forward to error handler
