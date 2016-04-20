@@ -19,7 +19,7 @@
             <span class="tab-label">我的</span>
         </a>
     </nav>
-    <div class="content" style="width:100%">
+    <div class="content" id="content">
         <div class="content-block" id="container">
 
         </div>
@@ -46,6 +46,8 @@
     }
 </script>
 <script>
+    $('$content').css('width', this.window.innerWidth);
+
     $('#container').waterfall({
         debug:true,
         align:'left',
