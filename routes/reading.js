@@ -117,6 +117,7 @@ router.get('/reading/data', function(req, res){
             }
         ]
     };
+    res.contentType('json');
     res.send(JSON.stringify(jsonData));
 });
 
