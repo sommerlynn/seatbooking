@@ -95,6 +95,12 @@
                         tpl = $('#waterfall-tpl').html();
                         template = Handlebars.compile(tpl);
 
+                        for(var index = 0; index < data.length; index++){
+                            var originalWidth = data[index].width;
+                            data[index].width = this.colWidth - 10;
+                            data[index].height = data[index].height*(originalWidth/data[index].width);
+                        }
+
                         return template(data);
                     } else { // html format
                         return data;
