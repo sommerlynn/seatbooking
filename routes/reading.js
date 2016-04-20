@@ -16,7 +16,7 @@ router.get('/reading/data', function(req, res){
         "total": 20,
         "result": [
             {
-                "image": "http://img4.duitang.com/uploads/item/201508/19/20150819131101_hQkZL.thumb.700_0.jpeg",
+                "image": "http://7xt2h5.com2.z0.glb.clouddn.com/20150819131101_hQkZL.thumb.700_0.jpeg",
                 "width": 0,
                 "height": 0
             },
