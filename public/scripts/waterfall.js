@@ -87,7 +87,7 @@
                  * @param {String} data
                  * @param {String} dataType , "json", "jsonp", "html"
                  */
-                renderData: function (data, dataType) {
+                renderData: function (data, width, dataType) {
                     var tpl,
                         template;
 
@@ -97,7 +97,7 @@
 
                         for(var index = 0; index < data.result.length; index++){
                             var originalWidth = data.result[index].width;
-                            data.result[index].width = this.colWidth - 10;
+                            data.result[index].width = width - 10;
                             data.result[index].height = data.result[index].height*(originalWidth/data.result[index].width);
                         }
 
@@ -493,7 +493,7 @@
         _handleResponse: function(data, callback) {
             var self = this,
                 options = this.options,
-                content = $.trim(options.callbacks.renderData(data, options.dataType)),
+                content = $.trim(options.callbacks.renderData(data, options.colWidth, options.dataType)),
                 $content = $(content),
                 checkImagesLoaded = options.checkImagesLoaded;
 
