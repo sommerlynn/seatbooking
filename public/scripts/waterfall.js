@@ -201,7 +201,7 @@
         _getColumns : function() {
             var options = this.options,
                 $container = options.fitWidth ?  this.$element.parent() : this.$element,
-                containerWidth = $container[0].tagName === 'BODY' ? $container.width() - 20 : $container.width(),  // if $container[0].tagName === 'BODY', fix browser scrollbar
+                containerWidth = 260,//$container[0].tagName === 'BODY' ? $container.width() - 20 : $container.width(),  // if $container[0].tagName === 'BODY', fix browser scrollbar
                 colWidth = options.colWidth,
                 gutterWidth = options.gutterWidth,
                 minCol = options.minCol,
