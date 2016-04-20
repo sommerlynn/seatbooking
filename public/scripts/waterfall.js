@@ -98,7 +98,7 @@
                         for(var index = 0; index < data.result.length; index++){
                             var originalWidth = data.result[index].width;
                             data.result[index].width = width - 10;
-                            data.result[index].height = data.result[index].height*(originalWidth/data.result[index].width);
+                            data.result[index].height = data.result[index].height*(data.result[index].width/originalWidth);
                         }
 
                         return template(data);
