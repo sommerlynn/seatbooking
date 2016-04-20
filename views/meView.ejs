@@ -192,6 +192,7 @@
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
+        border-left: 4px solid #A00000;
     }
 
     .content-block-title:after {
@@ -398,7 +399,7 @@
 
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
 
-                    <li class="card" style="border-left: 4px solid #A00000;">
+                    <li class="card" style="">
                         <div class="left_part">
                             <div class="date-row">
                                 <span class="building-info"><%= userSeatOrders[index].full_name %></span>
@@ -457,7 +458,7 @@
 
                     <% for(var index = 0; index < leaveApplications.length; index++){ %>
 
-                    <li class="card" style="height: auto; background-color: #FFFFFF; border-left: 4px solid #A00000">
+                    <li class="card" style="height: auto; background-color: #FFFFFF; ">
                         <div class="card-content">
                             <div class="card-content-inner" style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
                                 <span class="leave-important"><%= leaveApplications[index].applier_real_name %></span>
