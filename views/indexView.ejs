@@ -52,7 +52,6 @@
 
     $('#container').waterfall({
         debug:true,
-        align:'center',
         itemCls: 'item',
         colWidth: (this.window.innerWidth-10)/2,
         gutterWidth: 5,
@@ -64,7 +63,7 @@
         animationOptions: {
         },
         path: function(page) {
-            return 'http://wlog.cn/demo/waterfall/data/data1.json?page=' + page;
+            return '/reading/data';
         }
     });
 </script>
