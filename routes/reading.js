@@ -132,7 +132,7 @@ router.post('/reading/digest', function(req, res){
     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
     /*var temarr = res.headers["content-disposition"].split('"');
     var filename = 'reading_digest_'+req.body.openid+'_'+temarr[1];*/
-    res.send('上传成功');
+    res.send(res.headers["content-disposition"]);
     /*weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.imageID, filename, function(err, filePath){
         if(err){
             res.send('亲，出错了额，请重试一下' + err.message);
