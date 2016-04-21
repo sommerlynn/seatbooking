@@ -129,7 +129,7 @@ router.get('/reading/data', function(req, res){
 
 router.post('/reading/digest', function(req, res){
 
-    weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.imageID, 'reading_digest_', function(err, filePath, fileName){
+    models.weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.imageID, 'reading_digest_', function(err, filePath, fileName){
         if(err){
             res.send('亲，出错了额，请重试一下' + err.message);
         }else{
