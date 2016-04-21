@@ -65,7 +65,7 @@ weixinMessage.addUserInfo = function(schoolID, userInfo, callback){
  * 上传微信资源到七牛云存储
  * 2016-04-21 CHEN PU 从verify.js抽取迁移至此
  * */
-weixinMessage.uploadWeiXinServerResourceToQiniu = function(serverID, fileName_prefix, callback){
+weixinMessage.uploadWeiXinServerResourceToQiniu = function(openid, resourceID, fileName_prefix, callback){
     weiJSAPI.getAccessToken(function (err, token) {
         if (err) {
             log('err0'+err.message);
@@ -75,7 +75,7 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(serverID, fileName_pr
                 method:"GET",
                 data:{
                     'access_token':token.data.access_token,
-                    'media_id':serverID
+                    'media_id':resourceID
                 }
             };
             // 下载至本地之后再上传至七牛
@@ -85,7 +85,7 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(serverID, fileName_pr
                 }else{
                     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
                     var temarr = res.headers["content-disposition"].split('"');
-                    var fileName = fileName_prefix+req.body.openid+'_'+temarr[1];
+                    var fileName = fileName_prefix+openid+'_'+temarr[1];
                     var filePath = path.join(__dirname.replace('routes','public'),'tempimages',fileName);
                     log('filePath::'+filePath);
                     fs.writeFile(filePath, data, function(err){
