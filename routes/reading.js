@@ -130,20 +130,19 @@ router.get('/reading/data', function(req, res){
 router.post('/reading/digest', function(req, res){
     models.weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.openid, req.body.imageID, 'reading_digest_', function(err, filePath, fileName){
         if(err){
-            //res.send('亲，出错了额，请重试一下' + err.message);
+            res.send('亲，出错了额，请重试一下' + err.message);
         }else{
             sizeOf(filePath, function(err, dimensions){
                 models.readingModel.newDigest(req.body.openid, fileName, dimensions.width, dimensions.height, function(err, result){
                     if(err){
-                        //res.send('亲，出错了额，请重试一下' + err.message);
+                        res.send('亲，出错了额，请重试一下' + err.message);
                     }else{
-                        //res.send('上传成功');
+                        res.send('上传成功');
                     }
                 });
             });
         }
     });
-    res.send('上传成功');
 });
 
 module.exports = router;
