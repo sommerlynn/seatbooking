@@ -111,7 +111,7 @@
 
     $(document).on('click', '#photo', function () {
         $.showPreloader('正在上传您的书摘,请稍候...');
-        $.post('/reading/digest',
+        $.post('/me/verifySheet/submitInfo',
                 {
                     openid:'<%=openid%>',
                     imageID:''
