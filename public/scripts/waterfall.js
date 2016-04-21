@@ -658,7 +658,7 @@
         return this;
     };
 
-}( jQuery, window, document ));
+}( Zepto, window, document ));
 
 
 /*!
