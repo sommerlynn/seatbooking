@@ -9,7 +9,10 @@ var express = require('express'),
     models = require('../models'),
     OAuth = require('wechat-oauth'),
     WeiJSAPI = require('../lib/weixin-jssdk'),
-    sizeOf = require('image-size');
+    sizeOf = require('image-size'),
+    debug = require('debug'),
+    log = debug('reading');
+;
 
 var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
@@ -125,6 +128,7 @@ router.get('/reading/data', function(req, res){
 });
 
 router.post('/reading/digest/image', function(req, res){
+    log('reading post');
     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
     var temarr = res.headers["content-disposition"].split('"');
     var filename = 'reading_digest_'+req.body.openid+'_'+temarr[1];
