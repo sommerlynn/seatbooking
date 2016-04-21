@@ -5,9 +5,9 @@
 var reading = {},
     db = require('./db');
 
-reading.newDigest = function(openid, imageName, imageHeight, imageWidth, callback){
+reading.newDigest = function(openid, imageName, imageWidth, imageHeight, callback){
     var insertQuery = "insert into reading_digest (openid, image_name, image_width, image_height) values (?, ?, ?, ?)",
-        params = [openid, imageName, imageHeight, imageWidth];
+        params = [openid, imageName, imageWidth, imageHeight];
     db.executeQuery(insertQuery, params, callback)
 };
 

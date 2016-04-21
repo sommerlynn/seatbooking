@@ -134,7 +134,7 @@ router.post('/reading/digest', function(req, res){
             res.send('亲，出错了额，请重试一下' + err.message);
         }else{
             sizeOf(filePath, function(err, dimensions){
-                models.readingModel.newDigest(req.body.openid, dimensions.width, dimensions.height, fileName, function(err, result){
+                models.readingModel.newDigest(req.body.openid, fileName, dimensions.width, dimensions.height, function(err, result){
                     if(err){
                         res.send('亲，出错了额，请重试一下' + err.message);
                     }else{
