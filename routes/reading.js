@@ -128,10 +128,10 @@ router.get('/reading/data', function(req, res){
 });
 
 router.post('/reading/digest', function(req, res){
-    log('reading post');
+    //log('reading post');
     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
-    var temarr = res.headers["content-disposition"].split('"');
-    var filename = 'reading_digest_'+req.body.openid+'_'+temarr[1];
+    /*var temarr = res.headers["content-disposition"].split('"');
+    var filename = 'reading_digest_'+req.body.openid+'_'+temarr[1];*/
     res.send('上传成功');
     /*weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.imageID, filename, function(err, filePath){
         if(err){
