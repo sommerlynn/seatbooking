@@ -137,7 +137,7 @@ router.post('/reading/digest/image', function(req, res){
         if(err){
             res.send('亲，出错了额，请重试一下' + err.message);
         }else{
-            sizeOf(filePath, function(err, dimensions){
+            /*sizeOf(filePath, function(err, dimensions){
                 models.readingModel.newDigest(req.body.openid, dimensions.width, dimensions.height, filename, function(err, result){
                     if(err){
                         res.send('亲，出错了额，请重试一下' + err.message);
@@ -146,7 +146,8 @@ router.post('/reading/digest/image', function(req, res){
                     }
                     
                 });
-            });
+            });*/
+            res.send('上传成功');
         }
     });
     
