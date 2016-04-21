@@ -3,6 +3,15 @@
     .content-block{
         margin:0;
     }
+
+    .photo{
+        position: fixed;
+        width: 2.5rem;
+        height: 2.5rem;
+        right: 1rem;
+        bottom: 2rem;
+        z-index: 1000;
+    }
 </style>
 
 <div class="page">
@@ -26,6 +35,9 @@
 
         </div>
     </div>
+    <div class="photo">
+        <i class="icon icon-photo"></i>
+    </div>
 </div>
 <script type="text/x-handlebars-template" id="waterfall-tpl">
     {{#result}}
@@ -38,6 +50,7 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.1.0.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/handlebars.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/jquery.easing.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/waterfall.js?v=201604202110' charset='utf-8'></script>
@@ -46,6 +59,15 @@
         autoInit: true,
         router: false
     }
+
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '<%= weiJSConfig.appId %>', // 必填，公众号的唯一标识
+        timestamp: '<%= weiJSConfig.timestamp %>', // 必填，生成签名的时间戳
+        nonceStr: '<%= weiJSConfig.nonceStr %>', // 必填，生成签名的随机串
+        signature: '<%= weiJSConfig.signature %>',// 必填，签名，见附录1
+        jsApiList: ['chooseImage','previewImage','uploadImage','downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
 </script>
 <script>
     $('#content').css('width', this.window.innerWidth);

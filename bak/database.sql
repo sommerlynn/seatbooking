@@ -171,7 +171,13 @@ ALTER VIEW user_info_view AS
         LEFT JOIN department ON user.department_id = department.department_id
         LEFT JOIN class ON user.class_id = class.class_id
 
+ALTER VIEW reading_digest_view AS
+        SELECT reading_digest.digest_id, reading_digest.image_name, reading_digest.create_date,
+        reading_digest.image_width, reading_digest.image_height,user.*
 
+        FROM reading_digest LEFT JOIN user
+        ON reading_digest.openid = user.openid
+        ORDER BY reading_digest.create_date desc
 
 
 // 获取各教室今天的订座状态

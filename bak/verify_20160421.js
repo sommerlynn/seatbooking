@@ -62,33 +62,73 @@ router.get('/me/verifySheet/:openid', function (req, res) {
  * 2016-04-11 CHEN PU 新建
  * */
 router.post('/me/verifySheet/submitInfo', function (req, res) {
-    // Content-disposition: attachment; filename="MEDIA_ID.jpg"
-    var temarr = res.headers["content-disposition"].split('"');
-    var filename = 'verify_'+req.body.openid+'_'+temarr[1];
-
-    weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.photoServerID, filename, function(err){
-        if(err){
-            res.send('亲，出错了额，请重试一下' + err.message);
+    var ress = res;
+    weiJSAPI.getAccessToken(function (err, token) {
+        if (err) {
+            log('err0'+err.message);
         }else{
-            var personType = 1;
-            if(req.body.type == 0){
-                personType = 2;
-            }
-            models.userModel.fillRealInfo(
-                req.body.name,
-                req.body.code,
-                req.body.department,
-                req.body.classs,
-                req.body.openid,
-                personType,
-                filename,
-                function (err, result) {
-                    if (err) {
-                        res.send('亲，出错了额，请重试一下' + err.message);
-                    } else {
-                        res.send('亲，您的信息已认证');
-                    }
-                });
+            var url = "http://file.api.weixin.qq.com/cgi-bin/media/get";
+            var options = {
+                method:"GET",
+                data:{
+                    'access_token':token.data.access_token,
+                    'media_id':req.body.photoServerID
+                }
+            };
+            urllib.request(url, options, function(err, data, res){
+                if(err){
+                    log('err1'+err.message);
+                }else{
+                    log('headers %s', res.headers["content-disposition"]);
+                    // Content-disposition: attachment; filename="MEDIA_ID.jpg"
+                    var temarr = res.headers["content-disposition"].split('"');
+                    var filename = req.body.openid+temarr[1];
+                    var filePath = path.join(__dirname.replace('routes','public'),'verifyimages',filename);
+                    log('filePath::'+filePath);
+                    fs.writeFile(filePath, data, function(err){
+                        if(err){
+                            log('err2'+err.message);
+                        }else{
+                            log('file is saved');
+                        }
+                    });
+                    qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
+                    qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
+
+                    var putPolicy = new qiniu.rs.PutPolicy('julyangel'+":"+filename);
+                    var token = putPolicy.token();
+                    var extra = new qiniu.io.PutExtra();
+                    qiniu.io.putFile(token, filename, filePath, extra, function(err, ret) {
+                        if(!err) {
+                            // 上传成功， 处理返回值
+                            log('成功上传至七牛');
+
+                            var personType = 1;
+                            if(req.body.type == 0){
+                                personType = 2;
+                            }
+                            models.userModel.fillRealInfo(
+                                req.body.name,
+                                req.body.code,
+                                req.body.department,
+                                req.body.classs,
+                                req.body.openid,
+                                personType,
+                                filename,
+                                function (err, result) {
+                                    if (err) {
+                                        ress.send('亲，出错了额，请重试一下' + err.message);
+                                    } else {
+                                        ress.send('亲，您的信息已认证');
+                                    }
+                                });
+                        } else {
+                            // 上传失败， 处理返回代码
+                            ress.send('亲，出错了额，请重试一下' + err.message);
+                        }
+                    });
+                }
+            });
         }
     });
 });

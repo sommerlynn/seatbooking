@@ -8,7 +8,10 @@ var express = require('express'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
     OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('../lib/weixin-jssdk');
+    WeiJSAPI = require('../lib/weixin-jssdk'),
+    sizeOf = require('image-size');
+
+var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 router.get('/reading/data', function(req, res){
 
@@ -119,6 +122,31 @@ router.get('/reading/data', function(req, res){
     };
     res.contentType('json');
     res.send(JSON.stringify(jsonData));
+});
+
+router.post('/reading/digest/image', function(req, res){
+    // Content-disposition: attachment; filename="MEDIA_ID.jpg"
+    var temarr = res.headers["content-disposition"].split('"');
+    var filename = 'reading_digest_'+req.body.openid+'_'+temarr[1];
+
+    weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.imageID, filename, function(err, filePath){
+        if(err){
+            res.send('亲，出错了额，请重试一下' + err.message);
+        }else{
+            sizeOf(filePath, function(err, dimensions){
+                models.readingModel.newDigest(req.body.openid, dimensions.width, dimensions.height, filename, function(err, result){
+                    if(err){
+                        res.send('亲，出错了额，请重试一下' + err.message);
+                    }else{
+                        res.send('上传成功');
+                    }
+                    
+                });
+            });
+        }
+    });
+    
+    
 });
 
 module.exports = router;

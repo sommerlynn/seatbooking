@@ -57,21 +57,34 @@ router.get('/', function (req, res) {
 });
 
 router.get('/index/:openid', function (req, res) {
-    models.userModel.getUser(req.params.openid, function (err, userInfo) {
+    var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
+    weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
         if (err) {
             res.render('errorView', {
-                openid: req.params.openid,
+                openid: 'wxeec4313f49704ee2',
                 title: '服务器故障',
                 message: '服务器故障',
                 error: err
             });
-        } else {
-            res.render('indexView',
-                {
-                    ip: req.params.ip,
-                    openid: req.params.openid,
-                    title: '七玥星空'
-                });
+        }else{
+            models.userModel.getUser(req.params.openid, function (err, userInfo) {
+                if (err) {
+                    res.render('errorView', {
+                        openid: req.params.openid,
+                        title: '服务器故障',
+                        message: '服务器故障',
+                        error: err
+                    });
+                } else {
+                    res.render('indexView',
+                        {
+                            ip: req.params.ip,
+                            openid: req.params.openid,
+                            title: '七玥星空',
+                            weiJSConfig: weiJSConfig
+                        });
+                }
+            });
         }
     });
 });

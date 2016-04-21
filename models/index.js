@@ -10,7 +10,8 @@ models = {
     weixinMessageModel:require('./weixinMessageModel'),
     departmentClassModel:require('./departmentClassModel'),
     leaveApplicationModel:require('./leaveApplicationModel'),
-    seatModel:require('./seatModel')
+    seatModel:require('./seatModel'),
+    readingModel:require('./readingModel')
 };
 
 module.exports = models;

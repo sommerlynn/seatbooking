@@ -2,7 +2,14 @@
  * Created by pchen on 2016/1/9.
  */
 var weixinMessage = {},
-    db = require('./db');
+    db = require('./db'),
+    urllib = require('urllib'),
+    fs = require('fs'),
+    path = require('path'),
+    qiniu = require("qiniu"),
+    WeiJSAPI = require('../lib/weixin-jssdk');
+
+var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 weixinMessage.logUserLocation = function(openid, lat, lng, callback){
     var insertQuery = "insert into user_location_log (openid, latitude, longitude) values (?, ?, ?)",
@@ -48,6 +55,58 @@ weixinMessage.addUserInfo = function(schoolID, userInfo, callback){
                 }
                 else{
                     callback(null);
+                }
+            });
+        }
+    });
+};
+
+/**
+ * 上传微信资源到七牛云存储
+ * 2016-04-21 CHEN PU 从verify.js抽取迁移至此
+ * */
+weixinMessage.uploadWeiXinServerResourceToQiniu = function(serverID, fileName, callback){
+    weiJSAPI.getAccessToken(function (err, token) {
+        if (err) {
+            log('err0'+err.message);
+        }else{
+            var url = "http://file.api.weixin.qq.com/cgi-bin/media/get";
+            var options = {
+                method:"GET",
+                data:{
+                    'access_token':token.data.access_token,
+                    'media_id':serverID
+                }
+            };
+            // 下载至本地之后再上传至七牛
+            urllib.request(url, options, function(err, data, res){
+                if(err){
+                    log('err1'+err.message);
+                }else{
+
+                    var filePath = path.join(__dirname.replace('routes','public'),'tempimages',fileName);
+                    log('filePath::'+filePath);
+                    fs.writeFile(filePath, data, function(err){
+                        if(err){
+                            callback(err);
+                        }else{
+                            qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
+                            qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
+
+                            var putPolicy = new qiniu.rs.PutPolicy('julyangel'+":"+filename);
+                            var token = putPolicy.token();
+                            var extra = new qiniu.io.PutExtra();
+                            qiniu.io.putFile(token, fileName, filePath, extra, function(err, ret) {
+                                if(!err) {
+                                    // 上传成功， 处理返回值
+                                    callback(null, filePath);
+                                } else {
+                                    // 上传失败， 处理返回代码
+                                    callback(err);
+                                }
+                            });
+                        }
+                    });
                 }
             });
         }
