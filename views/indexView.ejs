@@ -110,7 +110,17 @@
     });
 
     $(document).on('click', '#photo', function () {
-        wx.chooseImage({
+        $.showPreloader('正在上传您的书摘,请稍候...');
+        $.post('/reading/digest',
+                {
+                    openid:'<%=openid%>',
+                    imageID:''
+                },
+                function (response) {
+                    $.hidePreloader();
+                    alert(response);
+                });
+        /*wx.chooseImage({
             count: 1, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
@@ -134,7 +144,7 @@
                     }
                 });
             }
-        });
+        });*/
     });
 </script>
 <!--
