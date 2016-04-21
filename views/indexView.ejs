@@ -129,10 +129,16 @@
                                 },
                                 function (response) {
                                     $.hidePreloader();
-                                    alert(response);
+                                    $.alert(response);
                                 });
+                    },
+                    fail:function(err){
+                        $.alert(err);
                     }
                 });
+            },
+            fail:function(err){
+                $.alert(err);
             }
         });
     });
