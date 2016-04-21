@@ -68,7 +68,7 @@ weixinMessage.addUserInfo = function(schoolID, userInfo, callback){
 weixinMessage.uploadWeiXinServerResourceToQiniu = function(openid, resourceID, fileName_prefix, callback){
     weiJSAPI.getAccessToken(function (err, token) {
         if (err) {
-            log('err0'+err.message);
+            callback(err);
         }else{
             var url = "http://file.api.weixin.qq.com/cgi-bin/media/get";
             var options = {
@@ -81,13 +81,12 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(openid, resourceID, f
             // 下载至本地之后再上传至七牛
             urllib.request(url, options, function(err, data, res){
                 if(err){
-                    log('err1'+err.message);
+                    callback(err);
                 }else{
                     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
                     var temarr = res.headers["content-disposition"].split('"');
                     var fileName = fileName_prefix+openid+'_'+temarr[1];
                     var filePath = path.join(__dirname.replace('routes','public'),'tempimages',fileName);
-                    log('filePath::'+filePath);
                     fs.writeFile(filePath, data, function(err){
                         if(err){
                             callback(err);
