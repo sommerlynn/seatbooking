@@ -127,7 +127,7 @@ router.get('/reading/data', function(req, res){
     res.send(JSON.stringify(jsonData));
 });
 
-router.post('/reading/digest/image', function(req, res){
+router.post('/reading/digest', function(req, res){
     log('reading post');
     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
     var temarr = res.headers["content-disposition"].split('"');
