@@ -143,7 +143,6 @@ router.post('/reading/digest', function(req, res){
                     
                 });
             });
-            res.send('上传成功');
         }
     });
     
