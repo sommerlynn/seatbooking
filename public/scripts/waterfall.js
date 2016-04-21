@@ -658,7 +658,7 @@
         return this;
     };
 
-}( Zepto, window, document ));
+}( jquery, window, document ));
 
 
 /*!
@@ -782,4 +782,4 @@ $.fn.imagesLoaded = function( callback ) {
     return deferred ? deferred.promise( $this ) : $this;
 };
 
-})(Zepto);
+})(jquery);
