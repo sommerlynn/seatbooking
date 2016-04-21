@@ -86,7 +86,7 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(openid, resourceID, f
                     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
                     var temarr = res.headers["content-disposition"].split('"');
                     var fileName = fileName_prefix+openid+'_'+temarr[1];
-                    var filePath = path.join(__dirname.replace('routes','public'),'tempimages',fileName);
+                    var filePath = path.join(__dirname.replace('models','public'),'tempimages',fileName);
                     fs.writeFile(filePath, data, function(err){
                         if(err){
                             callback(err);
