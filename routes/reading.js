@@ -128,17 +128,13 @@ router.get('/reading/data', function(req, res){
 });
 
 router.post('/reading/digest', function(req, res){
-    //log('reading post');
-    // Content-disposition: attachment; filename="MEDIA_ID.jpg"
-    /*var temarr = res.headers["content-disposition"].split('"');
-    var filename = 'reading_digest_'+req.body.openid+'_'+temarr[1];*/
-    res.send(res.headers["content-disposition"]);
-    /*weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.imageID, filename, function(err, filePath){
+
+    weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.imageID, 'reading_digest_', function(err, filePath, fileName){
         if(err){
             res.send('亲，出错了额，请重试一下' + err.message);
         }else{
             sizeOf(filePath, function(err, dimensions){
-                models.readingModel.newDigest(req.body.openid, dimensions.width, dimensions.height, filename, function(err, result){
+                models.readingModel.newDigest(req.body.openid, dimensions.width, dimensions.height, fileName, function(err, result){
                     if(err){
                         res.send('亲，出错了额，请重试一下' + err.message);
                     }else{
@@ -149,7 +145,7 @@ router.post('/reading/digest', function(req, res){
             });
             res.send('上传成功');
         }
-    });*/
+    });
     
 });
 

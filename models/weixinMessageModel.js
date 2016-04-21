@@ -65,7 +65,7 @@ weixinMessage.addUserInfo = function(schoolID, userInfo, callback){
  * 上传微信资源到七牛云存储
  * 2016-04-21 CHEN PU 从verify.js抽取迁移至此
  * */
-weixinMessage.uploadWeiXinServerResourceToQiniu = function(serverID, fileName, callback){
+weixinMessage.uploadWeiXinServerResourceToQiniu = function(serverID, fileName_prefix, callback){
     weiJSAPI.getAccessToken(function (err, token) {
         if (err) {
             log('err0'+err.message);
@@ -83,7 +83,9 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(serverID, fileName, c
                 if(err){
                     log('err1'+err.message);
                 }else{
-
+                    // Content-disposition: attachment; filename="MEDIA_ID.jpg"
+                    var temarr = res.headers["content-disposition"].split('"');
+                    var fileName = fileName_prefix+req.body.openid+'_'+temarr[1];
                     var filePath = path.join(__dirname.replace('routes','public'),'tempimages',fileName);
                     log('filePath::'+filePath);
                     fs.writeFile(filePath, data, function(err){
@@ -93,13 +95,13 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(serverID, fileName, c
                             qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
                             qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
 
-                            var putPolicy = new qiniu.rs.PutPolicy('julyangel'+":"+filename);
+                            var putPolicy = new qiniu.rs.PutPolicy('julyangel'+":"+fileName);
                             var token = putPolicy.token();
                             var extra = new qiniu.io.PutExtra();
                             qiniu.io.putFile(token, fileName, filePath, extra, function(err, ret) {
                                 if(!err) {
                                     // 上传成功， 处理返回值
-                                    callback(null, filePath);
+                                    callback(null, filePath, fileName);
                                 } else {
                                     // 上传失败， 处理返回代码
                                     callback(err);
