@@ -133,19 +133,35 @@ router.post('/reading/digest', function(req, res){
         if(err){
             ress.send('1' + err.message);
         }else{
-            sizeOf(filePath, function(err, dimensions){
-                if(err){
-                    ress.send('1' + err.message);
-                }else{
-                    models.readingModel.newDigest(req.body.openid, fileName, dimensions.width, dimensions.height, function(err, result){
+            qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
+            qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
+
+            var putPolicy = new qiniu.rs.PutPolicy('julyangel'+":"+fileName);
+            var token = putPolicy.token();
+            var extra = new qiniu.io.PutExtra();
+            qiniu.io.putFile(token, fileName, filePath, extra, function(err, ret) {
+                if(!err) {
+
+                    sizeOf(filePath, function(err, dimensions){
                         if(err){
                             ress.send('1' + err.message);
                         }else{
-                            ress.send('已成功上传');
+                            models.readingModel.newDigest(req.body.openid, fileName, dimensions.width, dimensions.height, function(err, result){
+                                if(err){
+                                    ress.send('1' + err.message);
+                                }else{
+                                    ress.send('已成功上传');
+                                }
+                            });
                         }
                     });
+
+                } else {
+                    // 上传失败， 处理返回代码
+                    ress.send('1' + err.message);
                 }
             });
+
         }
     });
 });
