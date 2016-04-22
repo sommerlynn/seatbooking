@@ -91,7 +91,9 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(openid, resourceID, f
                         if(err){
                             callback(err);
                         }else{
-                            qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
+                            callback(null, filePath, fileName);
+
+                            /*qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
                             qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
 
                             var putPolicy = new qiniu.rs.PutPolicy('julyangel'+":"+fileName);
@@ -105,7 +107,7 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(openid, resourceID, f
                                     // 上传失败， 处理返回代码
                                     callback(err);
                                 }
-                            });
+                            });*/
                         }
                     });
                 }
