@@ -11,8 +11,9 @@ var express = require('express'),
     WeiJSAPI = require('../lib/weixin-jssdk'),
     sizeOf = require('image-size'),
     debug = require('debug'),
-    log = debug('reading');
-;
+    log = debug('reading'),
+    qiniu = require("qiniu");
+
 
 var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
