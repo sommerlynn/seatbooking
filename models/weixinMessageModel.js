@@ -75,7 +75,8 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(openid, resourceID, f
                 method:"GET",
                 data:{
                     'access_token':token.data.access_token,
-                    'media_id':resourceID
+                    'media_id':resourceID,
+                    'timeout':3600000
                 }
             };
             // 下载至本地之后再上传至七牛
@@ -93,7 +94,7 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(openid, resourceID, f
                         }else{
                             callback(null, filePath, fileName);
 
-                            /*qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
+                            qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
                             qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
 
                             var putPolicy = new qiniu.rs.PutPolicy('julyangel'+":"+fileName);
@@ -107,7 +108,7 @@ weixinMessage.uploadWeiXinServerResourceToQiniu = function(openid, resourceID, f
                                     // 上传失败， 处理返回代码
                                     callback(err);
                                 }
-                            });*/
+                            });
                         }
                     });
                 }
