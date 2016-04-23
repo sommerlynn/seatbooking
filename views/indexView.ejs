@@ -160,7 +160,9 @@
                                 function (response) {
                                     $.hidePreloader();
                                     $.alert(response);
-
+                                    $('#container').waterfall('reload', function() {
+                                        alert('刷新');
+                                    });
                                     //window.location.reload();
                                 });
                     },

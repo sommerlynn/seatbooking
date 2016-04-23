@@ -433,6 +433,11 @@
             }
         },
 
+        reload:function(callback){
+            this.resume();
+            this._init();
+        },
+
         /**
          * request data
          */
