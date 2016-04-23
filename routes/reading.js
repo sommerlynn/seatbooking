@@ -17,7 +17,9 @@ var express = require('express'),
 
 var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
-router.get('/reading/data', function(req, res){
+router.get('/reading/digest/list/:page', function(req, res){
+
+
 
     var jsonData = {
         "total": 20,
