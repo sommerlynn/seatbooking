@@ -117,7 +117,7 @@ weixinMessage.uploadToQiniu = function (fileName, filePath, callback) {
             callback(null, fileName, filePath);
         }
         else {
-            log("upload error %s",err.message);
+            log("upload error  uploadToQiniu %s",err);
             callback(err);
         }
     });
