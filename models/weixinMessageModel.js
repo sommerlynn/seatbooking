@@ -96,7 +96,7 @@ weixinMessage.downloadFromWeiXin = function (openid, resourceID, fileName_prefix
                             log("download error %j",err);
                             callback(err);
                         } else {
-                            callback(null, filePath, fileName);
+                            callback(null, fileName, filePath);
                         }
                     });
                 }
