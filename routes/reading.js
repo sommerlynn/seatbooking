@@ -131,7 +131,7 @@ router.get('/reading/data', function(req, res){
 router.post('/reading/digest', function(req, res){
     var ress = res;
     log('start');
-    models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.imageID, 'reading_digest_', function(err, filePath, fileName){
+    models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.imageID, 'reading_digest_', function(err, fileName, filePath){
         if(err){
             log('download err'+err.message);
             ress.send('1' + err.message);
