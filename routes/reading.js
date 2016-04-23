@@ -139,14 +139,14 @@ router.post('/reading/digest', function(req, res){
             log('upload start');
             models.weixinMessageModel.uploadToQiniu(fileName, filePath, function(err, fileName, filePath){
                 if(err){
-                    log('upload error'+err.message);
+                    log('upload error'+err.error);
                     ress.send('1' + err.message);
                 }else{
                     log('sizeof start');
                     sizeOf(filePath, function(err, dimensions){
                         if(err){
-                            log('sizeof error'+err.error);
-                            ress.send('1' + err.error);
+                            log('sizeof error'+err.message);
+                            ress.send('1' + err.message);
                         }else{
                             log('new digest start');
                             models.readingModel.newDigest(req.body.openid, fileName, dimensions.width, dimensions.height, function(err, result){
