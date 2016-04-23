@@ -533,7 +533,8 @@
         _nearbottom: function() {
             var options = this.options,
                 minColHeight = Math.min.apply({}, this.colHeightArray),
-                distanceFromWindowBottomToMinColBottom = $window.scrollTop() + $window.height() - this.$element.offset().top - minColHeight;
+                //distanceFromWindowBottomToMinColBottom = $window.scrollTop() + $window.height() - this.$element.offset().top - minColHeight;
+                distanceFromWindowBottomToMinColBottom = $('#content').scrollTop() + $('#content').height() - this.$element.offset().top - minColHeight;
 
             this._debug('math:', distanceFromWindowBottomToMinColBottom);
 
@@ -567,7 +568,7 @@
 
             this._requestData(function() {
                 var timer = setTimeout(function() {
-                    //self._scroll();
+                    self._scroll();
                 }, 100);
             });
         },
