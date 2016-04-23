@@ -141,19 +141,19 @@ router.get('/reading/digest/list/:page', function(req, res){
 router.post('/reading/digest/upload', function(req, res){
     models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.imageID, 'reading_digest_', function(err, fileName, filePath){
         if(err){
-            res.send('哎呀, 出了点小故障, 我们再来一次好不好');
+            res.send('哎呀, 出了点小故障, 我们再来一次好不好 1');
         }else{
             models.weixinMessageModel.uploadToQiniu(fileName, filePath, function(err, fileName, filePath){
                 if(err){
-                    res.send('哎呀, 出了点小故障, 我们再来一次好不好');
+                    res.send('哎呀, 出了点小故障, 我们再来一次好不好 2');
                 }else{
                     sizeOf(filePath, function(err, dimensions){
                         if(err){
-                            res.send('哎呀, 出了点小故障, 我们再来一次好不好');
+                            res.send('哎呀, 出了点小故障, 我们再来一次好不好 3');
                         }else{
                             models.readingModel.newDigest(req.body.openid, fileName, dimensions.width, dimensions.height, function(err, result){
                                 if(err){
-                                    res.send('哎呀, 出了点小故障, 我们再来一次好不好');
+                                    res.send('哎呀, 出了点小故障, 我们再来一次好不好 4');
                                 }else{
                                     res.send('书摘上传成功啦');
                                 }
