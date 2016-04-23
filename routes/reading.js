@@ -145,13 +145,13 @@ router.post('/reading/digest', function(req, res){
                     log('sizeof start');
                     sizeOf(filePath, function(err, dimensions){
                         if(err){
-                            log('sizeof error');
+                            log('sizeof error'+err.message);
                             ress.send('1' + err.message);
                         }else{
                             log('new digest start');
                             models.readingModel.newDigest(req.body.openid, fileName, dimensions.width, dimensions.height, function(err, result){
                                 if(err){
-                                    log('new digest error');
+                                    log('new digest error'+err.message);
                                     ress.send('1' + err.message);
                                 }else{
                                     log('new digest success');
