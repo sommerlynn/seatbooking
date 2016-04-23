@@ -19,9 +19,28 @@ var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73ae
 
 router.get('/reading/digest/list/:page', function(req, res){
 
+    models.readingModel.listDigestPaged(req.params.page, 20, function(err, digests){
+        if(err){
+
+        }else{
+            var jsonData = {
+                "total": 20,
+                "result":[
+                ]};
+            for(var index = 0; index < digests.length; index++){
+                jsonData.result[index] = {
+                    "image":'http://7xt2h5.com1.z0.glb.clouddn.com/'+digests[index].image_name,
+                    "width":digests[index].image_width,
+                    "height":digests[index].image_height
+                };
+            }
+            res.contentType('json');
+            res.send(JSON.stringify(jsonData));
+        }
+    });
 
 
-    var jsonData = {
+    /*var jsonData = {
         "total": 20,
         "result": [
             {
@@ -114,10 +133,8 @@ router.get('/reading/digest/list/:page', function(req, res){
                 "width": 0,
                 "height": 0
             }
-        ]
-    };
-    res.contentType('json');
-    res.send(JSON.stringify(jsonData));
+        ]*/
+
 });
 
 router.post('/reading/digest/upload', function(req, res){
@@ -147,7 +164,5 @@ router.post('/reading/digest/upload', function(req, res){
         }
     });
 });
-
-router.post
 
 module.exports = router;

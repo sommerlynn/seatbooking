@@ -5,8 +5,10 @@
 var reading = {},
     db = require('./db');
 
-reading.listDigest = function(page){
-
+reading.listDigestPaged = function(page, pageCount){
+    var selectQuery = "select * from reading_digest order by id desc limit ?, ?",
+        params = [(page-1)*pageCount, page*pageCount];
+    db.executeQuery(selectQuery, params, callback)
 };
 
 reading.newDigest = function(openid, imageName, imageWidth, imageHeight, callback){
