@@ -580,8 +580,20 @@
             var self = this,
                 scrollTimer;
 
-            $window.bind('scroll', function() {
-                alert('scroll');
+            // 2016-04-23 CHEN PU
+            // 把scroll绑定在window上无法触发该事件
+            // 故而改为绑定在content元素上
+            /*$window.bind('scroll', function() {
+                if ( scrollTimer ) {
+                    clearTimeout(scrollTimer);
+                }
+
+                scrollTimer = setTimeout(function() {
+                    //self._debug('event', 'scrolling ...');
+                    self._scroll();
+                }, 100);
+            });*/
+            $('#content').scroll(function() {
                 if ( scrollTimer ) {
                     clearTimeout(scrollTimer);
                 }
