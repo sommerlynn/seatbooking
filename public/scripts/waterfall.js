@@ -434,7 +434,7 @@
         },
 
         reload:function(callback){
-            options.state.curPage = 1;
+            this.options.state.curPage = 1;
             this.resume();
             this._init();
         },
