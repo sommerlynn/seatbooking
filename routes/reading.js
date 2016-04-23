@@ -130,19 +130,15 @@ router.get('/reading/data', function(req, res){
 
 router.post('/reading/digest', function(req, res){
     var ress = res;
-    models.weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.openid, req.body.imageID, 'reading_digest_', function(err, filePath, fileName){
+    models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.imageID, 'reading_digest_', function(err, filePath, fileName){
         if(err){
             ress.send('1' + err.message);
         }else{
-            qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
-            qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
 
-            var putPolicy = new qiniu.rs.PutPolicy('julyangel'+":"+fileName);
-            var token = putPolicy.token();
-            var extra = new qiniu.io.PutExtra();
-            qiniu.io.putFile(token, fileName, filePath, extra, function(err, ret) {
-                if(!err) {
-
+            models.weixinMessageModel.uploadToQiniu(fileName, filePath, function(err, filePath, fileName){
+                if(err){
+                    ress.send('1' + err.message);
+                }else{
                     sizeOf(filePath, function(err, dimensions){
                         if(err){
                             ress.send('1' + err.message);
@@ -156,13 +152,8 @@ router.post('/reading/digest', function(req, res){
                             });
                         }
                     });
-
-                } else {
-                    // 上传失败， 处理返回代码
-                    ress.send('1' + err.message);
                 }
             });
-
         }
     });
 });
