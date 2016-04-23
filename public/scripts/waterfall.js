@@ -568,7 +568,7 @@
 
             this._requestData(function() {
                 var timer = setTimeout(function() {
-                    self._scroll();
+                    //self._scroll();
                 }, 100);
             });
         },
@@ -601,7 +601,7 @@
 
                 scrollTimer = setTimeout(function() {
                     //self._debug('event', 'scrolling ...');
-                    //self._scroll();
+                    self._scroll();
                 }, 100);
             });
         },
