@@ -130,23 +130,31 @@ router.get('/reading/data', function(req, res){
 
 router.post('/reading/digest', function(req, res){
     var ress = res;
+    log('start');
     models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.imageID, 'reading_digest_', function(err, filePath, fileName){
         if(err){
+            log('download err');
             ress.send('1' + err.message);
         }else{
-
+            log('upload start');
             models.weixinMessageModel.uploadToQiniu(fileName, filePath, function(err, filePath, fileName){
                 if(err){
+                    log('upload error');
                     ress.send('1' + err.message);
                 }else{
+                    log('sizeof start');
                     sizeOf(filePath, function(err, dimensions){
                         if(err){
+                            log('sizeof error');
                             ress.send('1' + err.message);
                         }else{
+                            log('new digest start');
                             models.readingModel.newDigest(req.body.openid, fileName, dimensions.width, dimensions.height, function(err, result){
                                 if(err){
+                                    log('new digest error');
                                     ress.send('1' + err.message);
                                 }else{
+                                    log('new digest success');
                                     ress.send('已成功上传');
                                 }
                             });
