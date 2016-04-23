@@ -133,7 +133,7 @@ router.post('/reading/digest', function(req, res){
     log('start');
     models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.imageID, 'reading_digest_', function(err, filePath, fileName){
         if(err){
-            log('download err');
+            log('download err'+err.message);
             ress.send('1' + err.message);
         }else{
             log('upload start');
