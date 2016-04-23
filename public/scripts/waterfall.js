@@ -567,7 +567,7 @@
 
             this._requestData(function() {
                 var timer = setTimeout(function() {
-                    self._scroll();
+                    //self._scroll();
                 }, 100);
             });
         },
