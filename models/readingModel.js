@@ -5,7 +5,7 @@
 var reading = {},
     db = require('./db');
 
-reading.listDigestPaged = function(page, pageCount){
+reading.listDigestPaged = function(page, pageCount, callback){
     var selectQuery = "select * from reading_digest order by id desc limit ?, ?",
         params = [(page-1)*pageCount, page*pageCount];
     db.executeQuery(selectQuery, params, callback)
