@@ -49,8 +49,7 @@
                 isProcessingData: false,
                 isResizing: false,
                 isPause: false,
-                curPage: 1, // cur page,
-                lastID:1,
+                curPage: 1 // cur page,
             },
 
             // callbacks

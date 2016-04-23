@@ -159,6 +159,7 @@
                                 function (response) {
                                     $.hidePreloader();
                                     $.alert(response);
+                                    $('#container').waterfall('option',{});
                                     //window.location.reload();
                                 });
                     },
