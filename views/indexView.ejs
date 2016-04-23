@@ -111,6 +111,10 @@
 
     });
 
+    $(window).bind('scroll', function(){
+        $.alert('scroll');
+    });
+
     $(document).on('click', '#photo', function () {
         wx.chooseImage({
             count: 1, // 默认9
