@@ -93,7 +93,7 @@ weixinMessage.downloadFromWeiXin = function (openid, resourceID, fileName_prefix
                     var filePath = path.join(__dirname.replace('models', 'public'), 'tempimages', fileName);
                     fs.writeFile(filePath, data, function (err) {
                         if (err) {
-                            log("download error %j",res);
+                            log("download error %j",err);
                             callback(err);
                         } else {
                             callback(null, filePath, fileName);
@@ -117,7 +117,7 @@ weixinMessage.uploadToQiniu = function (fileName, filePath, callback) {
             callback(null, fileName, filePath);
         }
         else {
-            log("upload error %j",ret);
+            log("upload error %s",err.message);
             callback(err);
         }
     });
