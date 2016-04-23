@@ -49,7 +49,8 @@
                 isProcessingData: false,
                 isResizing: false,
                 isPause: false,
-                curPage: 1 // cur page
+                curPage: 1, // cur page,
+                lastID:1,
             },
 
             // callbacks
@@ -98,13 +99,6 @@
                     if ( dataType === 'json' ||  dataType === 'jsonp'  ) { // json or jsonp format
                         tpl = $('#waterfall-tpl').html();
                         template = Handlebars.compile(tpl);
-
-                        for(var index = 0; index < data.result.length; index++){
-                            var originalWidth = data.result[index].width;
-                            data.result[index].width = width - 10;
-                            data.result[index].height = data.result[index].height*(data.result[index].width/originalWidth);
-                        }
-
                         return template(data);
                     } else { // html format
                         return data;
@@ -447,8 +441,7 @@
             var self = this,
                 options = this.options,
                 maxPage = options.maxPage,
-                //curPage = options.state.curPage++, // cur page
-                curPage = options.state.curPage, // 2016-04-23 改在获取数据之后判断是否还有后续数据时修改
+                curPage = options.state.curPage++, // cur page
                 path = options.path,
                 dataType = options.dataType,
                 params = options.params,
@@ -480,10 +473,6 @@
                 headers: headers,
                 dataType: dataType,
                 success: function(data) {
-                    // 2016-04-23 判断是否还有后续数据
-                    if(data.total == data.pagesize){
-                        options.state.curPage++;
-                    }
                     self._handleResponse(data, callback);
                     self.options.state.isDuringAjax = false;
                 },
