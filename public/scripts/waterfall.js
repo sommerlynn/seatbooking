@@ -581,6 +581,7 @@
                 scrollTimer;
 
             $window.bind('scroll', function() {
+                alert('scroll');
                 if ( scrollTimer ) {
                     clearTimeout(scrollTimer);
                 }
