@@ -601,7 +601,7 @@
 
                 scrollTimer = setTimeout(function() {
                     //self._debug('event', 'scrolling ...');
-                    self._scroll();
+                    //self._scroll();
                 }, 100);
             });
         },
