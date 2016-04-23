@@ -84,7 +84,7 @@ weixinMessage.downloadFromWeiXin = function (openid, resourceID, fileName_prefix
             // 下载至本地之后再上传至七牛
             urllib.request(url, options, function (err, data, res) {
                 if (err) {
-                    log("download error %j",res);
+                    //log("download error %j",res);
                     callback(err);
                 } else {
                     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
@@ -93,7 +93,7 @@ weixinMessage.downloadFromWeiXin = function (openid, resourceID, fileName_prefix
                     var filePath = path.join(__dirname.replace('models', 'public'), 'tempimages', fileName);
                     fs.writeFile(filePath, data, function (err) {
                         if (err) {
-                            log("download error %j",err);
+                            //log("download error %j",err);
                             callback(err);
                         } else {
                             callback(null, fileName, filePath);
@@ -118,7 +118,7 @@ weixinMessage.uploadToQiniu = function (fileName, filePath, callback) {
             callback(null, fileName, filePath);
         }
         else {
-            log("upload error uploadToQiniu %s",JSON.stringify(err));
+            //log("upload error uploadToQiniu %s",JSON.stringify(err));
             callback(err);
         }
     });

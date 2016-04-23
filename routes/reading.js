@@ -128,34 +128,24 @@ router.get('/reading/data', function(req, res){
     res.send(JSON.stringify(jsonData));
 });
 
-router.post('/reading/digest', function(req, res){
-    var ress = res;
-    log('start');
+router.post('/reading/digest/upload', function(req, res){
     models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.imageID, 'reading_digest_', function(err, fileName, filePath){
         if(err){
-            log('download err'+err.message);
-            ress.send('1' + err.message);
+            res.send('哎呀, 出了点小故障, 我们再来一次好不好');
         }else{
-            log('upload start');
             models.weixinMessageModel.uploadToQiniu(fileName, filePath, function(err, fileName, filePath){
                 if(err){
-                    log('upload error'+err.error);
-                    ress.send('1' + err.error);
+                    res.send('哎呀, 出了点小故障, 我们再来一次好不好');
                 }else{
-                    log('sizeof start');
                     sizeOf(filePath, function(err, dimensions){
                         if(err){
-                            log('sizeof error'+err.message);
-                            ress.send('1' + err.message);
+                            res.send('哎呀, 出了点小故障, 我们再来一次好不好');
                         }else{
-                            log('new digest start');
                             models.readingModel.newDigest(req.body.openid, fileName, dimensions.width, dimensions.height, function(err, result){
                                 if(err){
-                                    log('new digest error'+err.message);
-                                    ress.send('1' + err.message);
+                                    res.send('哎呀, 出了点小故障, 我们再来一次好不好');
                                 }else{
-                                    log('new digest success');
-                                    ress.send('已成功上传');
+                                    res.send('书摘上传成功啦');
                                 }
                             });
                         }
