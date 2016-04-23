@@ -91,13 +91,19 @@
                  * @param {String} data
                  * @param {String} dataType , "json", "jsonp", "html"
                  */
-                renderData: function (data, dataType) {
+                renderData: function (data, width, dataType) {
                     var tpl,
                         template;
 
                     if ( dataType === 'json' ||  dataType === 'jsonp'  ) { // json or jsonp format
                         tpl = $('#waterfall-tpl').html();
                         template = Handlebars.compile(tpl);
+
+                        for(var index = 0; index < data.result.length; index++){
+                            var originalWidth = data.result[index].width;
+                            data.result[index].width = width - 10;
+                            /*data.result[index].height = data.result[index].height*(data.result[index].width/originalWidth);*/
+                        }
 
                         return template(data);
                     } else { // html format
@@ -491,7 +497,7 @@
         _handleResponse: function(data, callback) {
             var self = this,
                 options = this.options,
-                content = $.trim(options.callbacks.renderData(data, options.dataType)),
+                content = $.trim(options.callbacks.renderData(data, options.colWidth, options.dataType)),
                 $content = $(content),
                 checkImagesLoaded = options.checkImagesLoaded;
 
