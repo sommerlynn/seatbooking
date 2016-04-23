@@ -87,7 +87,7 @@
     $('#container').waterfall({
         debug:true,
         itemCls: 'item',
-        colWidth: (this.window.innerWidth-10)/2,
+        colWidth: ($('#content').innerWidth-10)/2,
         gutterWidth: 5,
         gutterHeight: 5,
         checkImagesLoaded: true,
@@ -159,49 +159,7 @@
                                 function (response) {
                                     $.hidePreloader();
                                     $.alert(response);
-                                    $('#container').waterfall('option',{
-                                        debug:true,
-                                        itemCls: 'item',
-                                        colWidth: (this.window.innerWidth-10)/2,
-                                        gutterWidth: 5,
-                                        gutterHeight: 5,
-                                        checkImagesLoaded: true,
-                                        isAnimated: true,
-                                        minCol: 2,
-                                        maxCol: 4,
-                                        bufferPixel:-50,
-                                        animationOptions: {
-                                        },
-                                        callbacks: {
-                                            renderData: function (data, width, dataType) {
-                                                var tpl,
-                                                        template;
 
-                                                if ( data.total < data.pagesize) {
-                                                    $('#container').waterfall('pause', function() {
-                                                        $('#waterfall-message').html('<p style="color:#666;">点拍一拍，上传您的书摘</p>')
-                                                    });
-                                                }
-
-                                                if ( dataType === 'json' ||  dataType === 'jsonp'  ) { // json or jsonp format
-                                                    tpl = $('#waterfall-tpl').html();
-                                                    template = Handlebars.compile(tpl);
-                                                    for(var index = 0; index < data.result.length; index++){
-                                                        var originalWidth = data.result[index].width;
-                                                        data.result[index].width = width - 10;
-                                                        data.result[index].height = data.result[index].height*(data.result[index].width/originalWidth);
-                                                    }
-                                                    return template(data);
-                                                } else { // html format
-                                                    return data;
-                                                }
-                                            }
-                                        },
-                                        path: function(page) {
-
-                                            return '/reading/digest/list/'+page;
-                                        }
-                                    });
                                     //window.location.reload();
                                 });
                     },
