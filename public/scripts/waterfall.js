@@ -447,7 +447,8 @@
             var self = this,
                 options = this.options,
                 maxPage = options.maxPage,
-                curPage = options.state.curPage++, // cur page
+                //curPage = options.state.curPage++, // cur page
+                curPage = options.state.curPage, // 2016-04-23 改在获取数据之后判断是否还有后续数据时修改
                 path = options.path,
                 dataType = options.dataType,
                 params = options.params,
@@ -479,6 +480,10 @@
                 headers: headers,
                 dataType: dataType,
                 success: function(data) {
+                    // 2016-04-23 判断是否还有后续数据
+                    if(data.total == data.pagesize){
+                        options.state.curPage++;
+                    }
                     self._handleResponse(data, callback);
                     self.options.state.isDuringAjax = false;
                 },
@@ -510,15 +515,12 @@
                     self.options.callbacks.loadingFinished(self.$loading, self.options.state.isBeyondMaxPage);
                 });
             }
-
-
         },
 
         /*
          * reponse error
          */
         _responeseError: function(xhr) {
-
             this.$loading.hide();
             this.options.callbacks.loadingError(this.$message, xhr);
 

@@ -24,7 +24,8 @@ router.get('/reading/digest/list/:page', function(req, res){
 
         }else{
             var jsonData = {
-                "total": 20,
+                "pagesize":20,
+                "total": digests.length,
                 "result":[
                 ]};
             for(var index = 0; index < digests.length; index++){
