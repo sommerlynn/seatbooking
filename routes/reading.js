@@ -140,7 +140,7 @@ router.post('/reading/digest', function(req, res){
             models.weixinMessageModel.uploadToQiniu(fileName, filePath, function(err, fileName, filePath){
                 if(err){
                     log('upload error'+err.error);
-                    ress.send('1' + err.message);
+                    ress.send('1' + err.error);
                 }else{
                     log('sizeof start');
                     sizeOf(filePath, function(err, dimensions){
