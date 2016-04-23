@@ -109,7 +109,7 @@ weixinMessage.uploadToQiniu = function (fileName, filePath, callback) {
     qiniu.conf.ACCESS_KEY = 'QvKQ0T5WODacE9YMZZK8q_tVdLX_WpMk_ry5DtQp';
     qiniu.conf.SECRET_KEY = 'altfZLdFEVd6-DS4nOs4ImrfAoIQa_JXAud7zL7s';
 
-    qiniu.conf.UP_HOST = 'http://up-z0.qiniu.com';
+    qiniu.conf.UP_HOST = 'http://up-z1.qiniu.com';
     var putPolicy = new qiniu.rs.PutPolicy('julyangel' + ":" + fileName);
     var token = putPolicy.token();
     var extra = new qiniu.io.PutExtra();
