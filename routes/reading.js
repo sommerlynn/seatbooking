@@ -25,16 +25,6 @@ router.get('/reading/digest/list/:page', function(req, res){
         "total": 20,
         "result": [
             {
-                "image": "http://7xt2h5.com2.z0.glb.clouddn.com/20150819131101_hQkZL.thumb.700_0.jpeg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://7xt2h5.com2.z0.glb.clouddn.com/20150225163034_BWrZV.jpeg",
-                "width": 0,
-                "height": 0
-            },
-            {
                 "image": "http://wlog.cn/demo/waterfall/images/003.jpg",
                 "width": 0,
                 "height": 0
