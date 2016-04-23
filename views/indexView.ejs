@@ -51,7 +51,7 @@
 <script type="text/x-handlebars-template" id="waterfall-tpl">
     {{#result}}
     <div class="item">
-        <img src="{{image}}" width="{{width}}" />
+        <img src="{{image}}" width="{{width}}" width="{{height}}"/>
     </div>
     {{/result}}
 </script>
@@ -90,7 +90,7 @@
         colWidth: (this.window.innerWidth-10)/2,
         gutterWidth: 5,
         gutterHeight: 5,
-        checkImagesLoaded: true,
+        checkImagesLoaded: false,
         isAnimated: true,
         isFadeIn: true,
         minCol: 2,
