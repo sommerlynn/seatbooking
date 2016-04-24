@@ -221,7 +221,7 @@
                         this.setAttribute('width', $(window).innerWidth()-20);
                         this.setAttribute('height', ($(window).innerWidth()-20)*originalHeight/originalWidth);
 
-                        $(window).scrollTop($('#'+curImgID).offset().top);
+                        $('#content').scrollTop($('#'+curImgID).offset().top);
                     });
                 });
     });
