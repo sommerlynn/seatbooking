@@ -20,6 +20,7 @@
             prefix: 'waterfall', // the waterfall elements prefix
             fitWidth: true, // fit the parent element width
             colWidth: 240,  // column width
+            containerWidth:240,
             gutterWidth: 10, // the brick element horizontal gutter
             gutterHeight: 10, // the brick element vertical gutter
             align: 'center', // the brick align，'align', 'left', 'right'
@@ -263,6 +264,7 @@
             $items = this.options.isFadeIn ? this._getItems($content).css({ opacity: 0 }).animate({ opacity: 1 }) : this._getItems($content),
                 styleFn = (this.options.isAnimated && this.options.state.isResizing) ? 'animate' : 'css',
                 animationOptions = options.animationOptions,
+                containerWidth = options.containerWidth,
                 colWidth = options.colWidth,
                 gutterWidth = options.gutterWidth,
                 len = this.colHeightArray.length,
@@ -275,13 +277,21 @@
             this.$element.append($items);
 
             // fixMarginLeft
-            if ( align === 'center' ) {
+            /*if ( align === 'center' ) {
                 fixMarginLeft = (this.$element.width() - colWidth * len  - gutterWidth * (len - 1) ) /2;
                 fixMarginLeft = fixMarginLeft > 0 ? fixMarginLeft : 0;
             } else if ( align === 'left' ) {
                 fixMarginLeft = 0;
             } else if ( align === 'right' ) {
                 fixMarginLeft = this.$element.width() - colWidth * len  - gutterWidth * (len - 1);
+            }*/
+            if ( align === 'center' ) {
+                fixMarginLeft = (containerWidth - colWidth * len  - gutterWidth * (len - 1) ) /2;
+                fixMarginLeft = fixMarginLeft > 0 ? fixMarginLeft : 0;
+            } else if ( align === 'left' ) {
+                fixMarginLeft = 0;
+            } else if ( align === 'right' ) {
+                fixMarginLeft = this.containerWidth - colWidth * len  - gutterWidth * (len - 1);
             }
 
             // place items
@@ -433,12 +443,18 @@
             }
         },
 
+        /**
+         * 2016-04-24 CHEN PU 新建，当用户上传之后或点击刷新时调用此方法重新加载瀑布流
+         * */
         reload:function(callback){
             this.$element.find('.' + this.options.itemCls).remove();
             $('#waterfall-message').html('');
             this.options.state.curPage = 1;
             this.resume();
             this._init();
+            if ( typeof callback === 'function' ) {
+                callback();
+            }
         },
 
         /**
@@ -566,7 +582,7 @@
 
             this._requestData(function() {
                 var timer = setTimeout(function() {
-                    //self._scroll();
+                    //self._scroll(); // 2016-04-23 CHEN PU 注释掉此行代码，其导致不停地向请求下一页数据
                 }, 100);
             });
         },
