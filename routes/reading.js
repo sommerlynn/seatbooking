@@ -31,6 +31,7 @@ router.get('/reading/digest/list/:page', function(req, res){
                 ]};
             for(var index = 0; index < digests.length; index++){
                 jsonData.result[index] = {
+                    "digestid":digests[index].digest_id,
                     //"image":'http://7xt2h5.com1.z0.glb.clouddn.com/'+digests[index].image_name,
                     "image":'http://store.julyangel.cn/'+digests[index].image_name,
                     "width":digests[index].image_width,
