@@ -211,7 +211,9 @@
                     colWidth: $(window).innerWidth()-20,
                 },
                 function(){
-                    $.find('.digest-img').attr('width',  $(window).innerWidth()-20);
+                    $.each($.find('.digest-img'), function(){
+                        this.setAttribute('width', $(window).innerWidth()-20);
+                    });
                 });
     });
 
