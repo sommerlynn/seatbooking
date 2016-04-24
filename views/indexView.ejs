@@ -64,8 +64,11 @@
     }
 
     .reading-nav .active{
-        color:#A00000;
         border-bottom:4px solid #A00000;
+    }
+
+    .nav-item-important{
+        color: #A00000;
     }
 
     .content{
@@ -75,10 +78,10 @@
 
 <div class="page">
     <div class="reading-nav">
-        <a href="?t=today" class="nav-item active">书摘</a>
-        <a href="?t=tomorrow" class="nav-item">书声</a>
-        <a href="?t=tomorrow" class="nav-item">书评</a>
-        <a href="?t=tomorrow" class="nav-item">书心</a>
+        <a href="?t=today" class="nav-item active">书<span class="nav-item-important">摘</span></a>
+        <a href="?t=tomorrow" class="nav-item">书<span class="nav-item-important">声</span></a>
+        <a href="?t=tomorrow" class="nav-item">书<span class="nav-item-important">评</span></a>
+        <a href="?t=tomorrow" class="nav-item">书<span class="nav-item-important">文</span></a>
     </div>
     <nav class="bar bar-tab">
         <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building/<%= openid %>?ip=<%= ip %>"
