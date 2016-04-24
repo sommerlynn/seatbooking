@@ -24,9 +24,41 @@
     .item-title{
         height: 50px;
     }
+
+    div.date-nav{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        height: 2rem;
+    }
+
+    A.date-item{
+        width: 50%;
+        text-align: center;
+        height: 2rem;
+        line-height: 2rem;
+        color: #000000;
+        display: block;
+        position: relative;
+    }
+
+    .date-nav .active{
+        color:#00B7FF;
+        border-bottom:1px solid #0894ec;
+    }
 </style>
 
 <div class="page">
+    <div class="date-nav">
+        <% if (type == 'tomorrow') { %>
+        <a href="?t=today" class="date-item">今天 <%= today.toLocaleDateString() %></a>
+        <a href="?t=tomorrow" class="active date-item">明天 <%= nextDay.toLocaleDateString() %></a>
+        <% } else { %>
+        <a href="?t=today" class="active date-item">今天 <%= today.toLocaleDateString() %></a>
+        <a href="?t=tomorrow" class="date-item">明天 <%= nextDay.toLocaleDateString() %></a>
+
+        <% } %>
+    </div>
     <nav class="bar bar-tab">
         <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building/<%= openid %>?ip=<%= ip %>"
            external>
