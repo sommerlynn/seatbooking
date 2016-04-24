@@ -56,7 +56,7 @@ router.get('/', function (req, res) {
     res.render('indexView', {title: '七玥星空'});
 });
 
-router.get('/index/:openid', function (req, res) {
+router.get('/index/:openid', function (req, res, next) {
     var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
     weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
         if (err) {
@@ -87,6 +87,7 @@ router.get('/index/:openid', function (req, res) {
             });
         }
     });
+    next();
 });
 
 /************************************************************************我的*/
