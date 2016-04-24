@@ -213,16 +213,15 @@
                 },
                 function(){
 
-
                     $.each($.find('.digest-img'), function(){
                         var originalWidth = this.getAttribute('width'),
                             originalHeight = this.getAttribute('height');
 
                         this.setAttribute('width', $(window).innerWidth()-20);
                         this.setAttribute('height', ($(window).innerWidth()-20)*originalHeight/originalWidth);
-
-                        $('#content').scrollTop($('#'+curImgID).offset().top);
                     });
+
+                    $('#content').scrollTop($('#'+curImgID).offset().top);
                 });
     });
 
