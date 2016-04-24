@@ -5,6 +5,10 @@
 var seat = {},
     db = require('./db');
 
+/**
+ * 2014-04-24: CHEN PU 新增逻辑 将时间逻辑从页面逻辑移到业务逻辑
+ *                     设置系统计划回收时间
+ * */
 seat.newOrder = function(openid, classroomID, row, column, seatCode, dayType, callback){
     var startTime;
     var today = new Date();
@@ -93,8 +97,17 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, dayType, ca
             });
         }
     });
+};
 
-
+/*
+ * 获取用户当天在某教室的座位预约单
+ * 2016-04-19 CHEN PU 新建
+ * */
+seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
+    var selectQuery = "select * from user_seat_order_view where openid = ? and classroom_id = ? "+
+            "and start_time < ? and end_time > ? and (status = 1 or status = 3)",
+        params = [openid, classroomID, new Date(), new Date()];
+    db.executeQuery(selectQuery, params, callback);
 };
 
 seat.getActive = function(openid, callback) {
@@ -103,19 +116,26 @@ seat.getActive = function(openid, callback) {
     db.executeQuery(selectQuery, params, callback);
 };
 
-seat.release = function (orderID, callback) {
-    var updateQuery = "update user_seat_order set status = -1, leave_time = ?, lock_code = ? where order_id = ?",
-        params = [new Date(), orderID, orderID];
-    db.executeQuery(updateQuery, params, callback);
+/**
+ * 历史座位
+ * **/
+seat.getOld = function(openid, callback){
+    var selectQuery = "select * from user_seat_order_view where openid = ? and (end_time < ? or status < 0) order by start_time desc, order_time desc",
+        params = [openid, new Date()];
+    db.executeQuery(selectQuery, params, callback);
 };
 
 /*
 * 座位签到
 * 2016-04-19: CHEN PU 新建
+* 2014-04-24: CHEN PU 新增逻辑 设置系统计划回收时间
 * */
 seat.sign = function (orderID, callback) {
-    var updateQuery = "update user_seat_order set status = 2, leave_time = ? where order_id = ?",
-        params = [new Date(), orderID];
+    // 签到后 计划回收时间设为到今天最后
+    var nextDay = new Date(new Date() + 24 * 60 * 60 * 1000),
+        scheduleRecoverDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
+    var updateQuery = "update user_seat_order set status = 2, sign_time = ?, schedule_recover_time = ? where order_id = ?",
+        params = [new Date(), scheduleRecoverDate, orderID];
     db.executeQuery(updateQuery, params, callback);
 };
 
@@ -130,27 +150,13 @@ seat.leave = function (orderID, callback) {
     db.executeQuery(updateQuery, params, callback);
 };
 
-/*
-* 获取用户当天在某教室的座位预约单
-* 2016-04-19 CHEN PU 新建
-* */
-seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
-    var selectQuery = "select * from user_seat_order_view where openid = ? and classroom_id = ? "+
-                      "and start_time < ? and end_time > ? and (status = 1 or status = 3)",
-        params = [openid, classroomID, new Date(), new Date()];
-    db.executeQuery(selectQuery, params, callback);
-};
-
-seat.sign = function(orderID, callback){
-    var updateQuery = "update user_seat_order set status = 2, sign_time = ? where order_id = ?",
-        params = [new Date(), orderID];
+/**
+ * 退回座位
+ * */
+seat.release = function (orderID, callback) {
+    var updateQuery = "update user_seat_order set status = -1, leave_time = ?, lock_code = ? where order_id = ?",
+        params = [new Date(), orderID, orderID];
     db.executeQuery(updateQuery, params, callback);
-};
-
-seat.getOld = function(openid, callback){
-    var selectQuery = "select * from user_seat_order_view where openid = ? and (end_time < ? or status < 0) order by start_time desc, order_time desc",
-        params = [openid, new Date()];
-    db.executeQuery(selectQuery, params, callback);
 };
 
 module.exports = seat;
