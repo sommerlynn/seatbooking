@@ -210,7 +210,9 @@
                 {
                     colWidth: $(window).innerWidth()-20,
                 },
-                function(){});
+                function(){
+                    $.find('.digest-img').attr('width',  $(window).innerWidth()-20);
+                });
     });
 
     wx.ready(function () {
