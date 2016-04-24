@@ -286,7 +286,7 @@
                 fixMarginLeft = this.$element.width() - colWidth * len  - gutterWidth * (len - 1);
             }*/
             if ( align === 'center' ) {
-                fixMarginLeft = (containerWidth - colWidth * len  - gutterWidth * (len - 1) ) /2;
+                fixMarginLeft = (containerWidth - colWidth * len  - gutterWidth * (len - 1) ) /3;
                 fixMarginLeft = fixMarginLeft > 0 ? fixMarginLeft : 0;
             } else if ( align === 'left' ) {
                 fixMarginLeft = 0;
