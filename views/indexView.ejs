@@ -154,6 +154,7 @@
     });
 </script>
 <script>
+
     $('#content').css('width', this.window.innerWidth);
     $('#content').scroll(function(){
         $('#photo').hide();
@@ -224,6 +225,7 @@
                         });
                     });
             $('#content').scrollTo($('#'+curImgID));
+            $('#waterfall-loading').remove();
         }else{
             $('#container').waterfall('option',
                     {
@@ -232,13 +234,14 @@
                     function(){
                         $.each($.find('.digest-img'), function(){
                             var originalWidth = this.getAttribute('width'),
-                                    originalHeight = this.getAttribute('height');
+                                originalHeight = this.getAttribute('height');
 
                             this.setAttribute('width', $(window).innerWidth()-20);
                             this.setAttribute('height', ($(window).innerWidth()-20)*originalHeight/originalWidth);
                         });
                     });
             $('#content').scrollTo($('#'+curImgID));
+            $('#waterfall-loading').remove();
         }
     });
 
