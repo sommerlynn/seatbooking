@@ -32,6 +32,17 @@
         height: 50px;
         line-height: 50px;
         width: 20%;
+        vertical-align: middle;
+    }
+
+    .author-image img{
+        vertical-align: middle;
+    }
+
+    .author-name{
+        height: 50px;
+        line-height: 50px;
+        width: 80%;
     }
 
     div.reading-nav{
@@ -100,6 +111,9 @@
         <div class="item-title">
             <div class="author-image">
                 <img src="{{authorimg}}" width="20" height="20"/>
+            </div>
+            <div class="author-name">
+                {{authornickname}}
             </div>
         </div>
     </div>
