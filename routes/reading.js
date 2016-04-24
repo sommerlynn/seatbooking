@@ -32,7 +32,9 @@ router.get('/reading/digest/list/:page', function(req, res){
                 jsonData.result[index] = {
                     "image":'http://7xt2h5.com1.z0.glb.clouddn.com/'+digests[index].image_name,
                     "width":digests[index].image_width,
-                    "height":digests[index].image_height
+                    "height":digests[index].image_height,
+                    "authorimg":digests[index].headimgurl,
+                    "authornickname":digests[index].nickname
                 };
             }
             res.contentType('json');
