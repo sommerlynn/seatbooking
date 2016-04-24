@@ -358,7 +358,8 @@
             }
 
             position = {
-                left: (colWidth + gutterWidth) * colIndex  + fixMarginLeft,
+                //left: (colWidth + gutterWidth) * colIndex  + fixMarginLeft,
+                left: colWidth* colIndex  + gutterWidth*(colIndex+1),
                 top: colHeightArray[colIndex]
             };
 
