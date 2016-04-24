@@ -20,6 +20,10 @@
     .photo-txt{
         color: #A00000;
     }
+
+    .item-title{
+        height: 50px;
+    }
 </style>
 
 <div class="page">
@@ -52,6 +56,9 @@
     {{#result}}
     <div class="item">
         <img src="{{image}}" width="{{width}}" height="{{height}}"/>
+        <div class="item-title">
+            测试
+        </div>
     </div>
     {{/result}}
 </script>
