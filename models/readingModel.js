@@ -7,7 +7,7 @@ var reading = {},
 
 reading.listDigestPaged = function(page, pageCount, callback){
     var selectQuery = "select * from reading_digest_view order by digest_id desc limit ?, ?",
-        params = [(page-1)*pageCount, page*pageCount];
+        params = [(page-1)*pageCount, pageCount];
     db.executeQuery(selectQuery, params, callback)
 };
 
