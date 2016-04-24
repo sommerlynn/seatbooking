@@ -208,20 +208,37 @@
 
     $(document).on('click', '.digest-img', function () {
         var curImgID = this.getAttribute('id');
-        $('#container').waterfall('option',
-                {
-                    colWidth: $(window).innerWidth()-20,
-                },
-                function(){
-                    $.each($.find('.digest-img'), function(){
-                        var originalWidth = this.getAttribute('width'),
-                            originalHeight = this.getAttribute('height');
+        if(this.getAttribute('width') == $(window).innerWidth()-20){
+            $('#container').waterfall('option',
+                    {
+                        colWidth: ($(window).innerWidth()-30)/2,
+                    },
+                    function(){
+                        $.each($.find('.digest-img'), function(){
+                            var originalWidth = this.getAttribute('width'),
+                               originalHeight = this.getAttribute('height');
 
-                        this.setAttribute('width', $(window).innerWidth()-20);
-                        this.setAttribute('height', ($(window).innerWidth()-20)*originalHeight/originalWidth);
+                            this.setAttribute('width', ($(window).innerWidth()-30)/2);
+                            this.setAttribute('height', (($(window).innerWidth()-30)/2)*originalHeight/originalWidth);
+                        });
                     });
-                });
-        $('#content').scrollTo($('#'+curImgID));
+            $('#content').scrollTo($('#'+curImgID));
+        }else{
+            $('#container').waterfall('option',
+                    {
+                        colWidth: $(window).innerWidth()-20,
+                    },
+                    function(){
+                        $.each($.find('.digest-img'), function(){
+                            var originalWidth = this.getAttribute('width'),
+                                    originalHeight = this.getAttribute('height');
+
+                            this.setAttribute('width', $(window).innerWidth()-20);
+                            this.setAttribute('height', ($(window).innerWidth()-20)*originalHeight/originalWidth);
+                        });
+                    });
+            $('#content').scrollTo($('#'+curImgID));
+        }
     });
 
     wx.ready(function () {
