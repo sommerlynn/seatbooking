@@ -206,7 +206,7 @@
     });
 
     $(document).on('click', '.digest-img', function () {
-        var imgeID = this.getAttribute('id');
+        var curImgID = this.getAttribute('id');
         $('#container').waterfall('option',
                 {
                     colWidth: $(window).innerWidth()-20,
@@ -218,7 +218,7 @@
 
                         this.setAttribute('width', $(window).innerWidth()-20);
                         this.setAttribute('height', ($(window).innerWidth()-20)*originalHeight/originalWidth);
-                        $.scrollTop(imgeID);
+                        $(window).scrollTop(curImgID.offset().top);
                     });
                 });
     });
