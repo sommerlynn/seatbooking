@@ -144,19 +144,7 @@ router.post('/order', function (req, res) {
     //var today = new Date();
     //var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
 
-    var startTime;
-    var today = new Date();
-    var scheduleRecoverTime =  new Date(today.getTime() + 30*60*1000);// 当天预约，需在半小时内到现场签到
-    if (req.body.type == 'tomorrow') {
-        var nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-        startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
-        scheduleRecoverTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 8, 30);
-    } else {
-        startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    }
-    var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
-
-    models.seatModel.newOrder(req.body.openid, req.body.classroom, req.body.row, req.body.column, req.body.seatCode, startTime, endTime, scheduleRecoverTime, function (err) {
+    models.seatModel.newOrder(req.body.openid, req.body.classroom, req.body.row, req.body.column, req.body.seatCode, req.body.type, function (err) {
         if (err) {
             res.send(err);
         } else {

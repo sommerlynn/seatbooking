@@ -5,7 +5,18 @@
 var seat = {},
     db = require('./db');
 
-seat.newOrder = function(openid, classroomID, row, column, seatCode, startTime, endTime, scheduleRecoverTime,callback){
+seat.newOrder = function(openid, classroomID, row, column, seatCode, dayType, callback){
+    var startTime;
+    var today = new Date();
+    var scheduleRecoverTime =  new Date(today.getTime() + 30*60*1000);// 当天预约，需在半小时内到现场签到
+    if (dayType == 'tomorrow') {
+        var nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
+        scheduleRecoverTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 8, 30);
+    } else {
+        startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    }
+    var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
 
     //检查该用户是否已有此教室的活动订阅
     //图书馆类型的教室 图书馆内 只能订一个座位
