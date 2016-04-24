@@ -192,7 +192,10 @@
 
 
             this.$element.css(this.options.containerStyle).addClass(prefix + '-container');
-            this.$element.after('<div id="' + prefix + '-loading">' +options.loadingMsg+ '</div><div id="' + prefix + '-message" style="text-align:center;color:#999;"></div>');
+            if(!this.$loading && !this.$message)
+            {
+                this.$element.after('<div id="' + prefix + '-loading">' +options.loadingMsg+ '</div><div id="' + prefix + '-message" style="text-align:center;color:#999;"></div>');
+            }
 
             this.$loading = $('#' + prefix + '-loading');
             this.$message = $('#' + prefix + '-message');
