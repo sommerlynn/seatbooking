@@ -169,7 +169,7 @@
         checkImagesLoaded: false,
         isAnimated: true,
         isFadeIn: true,
-        minCol: 2,
+        minCol: 1,
         maxCol: 4,
         bufferPixel:-50,
         animationOptions: {
@@ -212,6 +212,8 @@
                     colWidth: $(window).innerWidth()-20,
                 },
                 function(){
+
+
                     $.each($.find('.digest-img'), function(){
                         var originalWidth = this.getAttribute('width'),
                             originalHeight = this.getAttribute('height');
