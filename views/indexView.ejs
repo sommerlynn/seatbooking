@@ -208,7 +208,7 @@
     $(document).on('click', '.digest-img', function () {
         $('#container').waterfall('option',
                 {
-                    colWidth: (this.window.innerWidth-20),
+                    colWidth: $(window).innerWidth()-20,
                 },
                 function(){});
     });
