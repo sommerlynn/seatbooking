@@ -50,14 +50,8 @@
 
 <div class="page">
     <div class="date-nav">
-        <% if (type == 'tomorrow') { %>
-        <a href="?t=today" class="date-item">今天 <%= today.toLocaleDateString() %></a>
-        <a href="?t=tomorrow" class="active date-item">明天 <%= nextDay.toLocaleDateString() %></a>
-        <% } else { %>
-        <a href="?t=today" class="active date-item">今天 <%= today.toLocaleDateString() %></a>
-        <a href="?t=tomorrow" class="date-item">明天 <%= nextDay.toLocaleDateString() %></a>
-
-        <% } %>
+        <a href="?t=today" class="date-item">今天</a>
+        <a href="?t=tomorrow" class="active date-item">明天</a>
     </div>
     <nav class="bar bar-tab">
         <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building/<%= openid %>?ip=<%= ip %>"
