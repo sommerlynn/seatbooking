@@ -26,6 +26,14 @@
         line-height: 50px;
     }
 
+    .author-image{
+        margin: 0 auto;
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+        width: 20%;
+    }
+
     div.reading-nav{
         display: -webkit-box;
         display: -webkit-flex;
@@ -90,7 +98,9 @@
     <div class="item">
         <img src="{{image}}" width="{{width}}" height="{{height}}"/>
         <div class="item-title">
-            <img src="{{authorimg}}" width="20" height="20"/>
+            <div class="author-image">
+                <img src="{{authorimg}}" width="20" height="20"/>
+            </div>
         </div>
     </div>
     {{/result}}
