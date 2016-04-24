@@ -83,7 +83,12 @@
 </script>
 <script>
     $('#content').css('width', this.window.innerWidth);
-
+    $('#content').scroll(function(){
+        $('#photo').hide();
+        var timer = setTimeout(function(){
+            $('#photo').show();
+        }, 1000);
+    });
     $('#container').waterfall({
         debug:true,
         itemCls: 'item',
