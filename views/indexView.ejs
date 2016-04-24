@@ -25,15 +25,15 @@
         height: 50px;
     }
 
-    div.date-nav{
+    div.nav-item{
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
         height: 2rem;
     }
 
-    A.date-item{
-        width: 50%;
+    A.nav-item{
+        width: 25%;
         text-align: center;
         height: 2rem;
         line-height: 2rem;
@@ -42,7 +42,7 @@
         position: relative;
     }
 
-    .date-nav .active{
+    .nav-item .active{
         color:#00B7FF;
         border-bottom:1px solid #0894ec;
     }
@@ -53,9 +53,11 @@
 </style>
 
 <div class="page">
-    <div class="date-nav">
-        <a href="?t=today" class="date-item">今天</a>
-        <a href="?t=tomorrow" class="active date-item">明天</a>
+    <div class="reading-nav">
+        <a href="?t=today" class="nav-item active">书摘</a>
+        <a href="?t=tomorrow" class="nav-item">书声</a>
+        <a href="?t=tomorrow" class="nav-item">书评</a>
+        <a href="?t=tomorrow" class="nav-item">书心</a>
     </div>
     <nav class="bar bar-tab">
         <a class="tab-item" id="buildingTab" href="http://www.julyangel.cn/building/<%= openid %>?ip=<%= ip %>"
@@ -65,7 +67,7 @@
         </a>
         <a class="tab-item active" id="skyTab" href="http://www.julyangel.cn/index/<%= openid %>?ip=<%= ip %>" external>
             <span class="icon icon-star"></span>
-            <span class="tab-label">七玥星空</span>
+            <span class="tab-label">七玥书斋</span>
         </a>
         <a class="tab-item" id="meTab" href="http://www.julyangel.cn/me/<%= openid %>?ip=<%= ip %>" external>
             <span class="icon icon-me"></span>
