@@ -35,7 +35,7 @@ router.get('/reading/digest/list/:page', function(req, res){
                     "width":digests[index].image_width,
                     "height":digests[index].image_height,
                     "authorimg":digests[index].headimgurl,
-                    "authornickname":digests[index].nickname
+                    "authornickname":'000'
                 };
             }
             res.contentType('json');
