@@ -54,6 +54,7 @@ router.get('/oAuthGetInfo', function (req, res) {
 /* GET home page. */
 router.get('/', function (req, res) {
     res.render('indexView', {title: '七玥星空'});
+    next();
 });
 
 router.get('/index/:openid', function (req, res, next) {
