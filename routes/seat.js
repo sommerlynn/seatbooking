@@ -230,7 +230,7 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                         } else {
-
+                            // 检索该用户是否有这个教室的今天的座位预约
                             models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
                                 if(err){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
@@ -257,12 +257,64 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
 
 
 router.get('/scanseat/oauth/:schoolID/:cid/:seatcode', function(req, res){
-    var url = client.getAuthorizeURL('http://campus.julyangel.cn/scanclassroom/oauthgetinfo?cid=' + req.params.cid + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
+    var url = client.getAuthorizeURL('http://campus.julyangel.cn/scanclassroom/oauthgetinfo?cid=' +
+        req.params.cid + '&schoolID=' + req.params.schoolID+
+        '&seatcode='+req.params.seatcode, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
 router.get('/scanseat/oauthgetinfo', function(req, res){
+    client.getAccessToken(req.query.code, function (err, result) {
+        if (err) {
+            res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+        }
+        else {
+            //var accessToken = result.data.access_token;
+            var openid = result.data.openid;
+            client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
+                if (err) {
+                    res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
+                } else {
+                    var userInfo = result;
 
+                    models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
+                        if (err) {
+                            res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                        } else {
+                            // 检索该用户是否有这个教室的今天的座位预约
+                            models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
+                                if(err){
+                                    res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                }else if(userOrders.length > 0)
+                                {
+                                    if(userOrders[0].seat_code == req.query.seatcode){
+                                        models.seatModel.sign(userOrders[0].order_id, function(err, result){
+                                            if(err){
+                                                res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                            }else{
+                                                res.redirect('/me/' + openid);
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        // 提示 扫错座位了，你在该教室预约的座位是XXX 号
+
+
+                                    }
+                                }else{
+                                    // 检索该座位是否有人预约 如果没有人预约 则执行预约签到
+
+
+
+                                    //res.redirect('/libraryClassroom/' +req.query.cid+'/'+ openid);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
 });
 
 module.exports = router;
