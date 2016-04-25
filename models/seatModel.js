@@ -110,6 +110,17 @@ seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
     db.executeQuery(selectQuery, params, callback);
 };
 
+/*
+ * 检索当天该座位处于活动状态的预定信息
+ * 2016-04-25 CHEN PU 新建
+ **/
+seat.checkOrderBySeatCode = function(classroomID, seatCode, callback){
+    var selectQuery = "select * from user_seat_order_view where seat_code = ? and classroom_id = ? "+
+            "and start_time < ? and end_time > ? and status > 0",
+        params = [openid, classroomID, new Date(), new Date()];
+    db.executeQuery(selectQuery, params, callback);
+};
+
 seat.getActive = function(openid, callback) {
     var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status > 0 order by start_time asc, order_time desc",
         params = [openid, new Date()];

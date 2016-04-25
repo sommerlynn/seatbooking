@@ -303,8 +303,28 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                     }
                                 }else{
                                     // 检索该座位是否有人预约 如果没有人预约 则执行预约签到
+                                    models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seatcode, function(err, seatOrders){
+                                       if(err){
+                                           res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                       } else{
+                                           if(seatOrders.length > 0){
+                                               if(seatOrders[0].status == 1){
+                                                   // 处于预定状态的座位，不能进行预约
 
 
+                                               }else if(seatOrders[0].status == 2){
+                                                   // 已签到的座位，如果能被扫描说明未按要求设置暂离，可对该座位先释放，再分配给新的用户
+
+                                               }else if(seatOrders[0].status == 3){
+                                                   // 处于暂离状态的座位，不能进行预约
+
+                                               }
+                                           }else{
+                                               // 该座位无有效预定，执行预约、签到
+
+                                           }
+                                       }
+                                    });
 
                                     //res.redirect('/libraryClassroom/' +req.query.cid+'/'+ openid);
                                 }
