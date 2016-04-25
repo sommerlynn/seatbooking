@@ -225,15 +225,15 @@
 
     <!-- 工具栏 -->
     <nav class="bar bar-tab">
-        <a class="tab-item active" id="buildingTab" href="http://www.julyangel.cn/building/<%=openid%>" external>
+        <a class="tab-item active" id="buildingTab" href="/building/<%=openid%>" external>
             <span class="icon icon-building"></span>
             <span class="tab-label">预约座位</span>
         </a>
-        <a class="tab-item" id="skyTab" href="http://www.julyangel.cn/index/<%=openid%>" external>
+        <a class="tab-item" id="skyTab" href="/index/<%=openid%>" external>
             <span class="icon icon-star"></span>
-            <span class="tab-label">七玥星空</span>
+            <span class="tab-label">七玥书斋</span>
         </a>
-        <a class="tab-item" id="meTab" href="http://www.julyangel.cn/me/<%=openid%>" external>
+        <a class="tab-item" id="meTab" href="/me/<%=openid%>" external>
             <span class="icon icon-me"></span>
             <span class="tab-label">我的</span>
         </a>
@@ -290,7 +290,7 @@
 
 <script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
 <script>
-    $("#buildingTab").tap(function () {
+    /*$("#buildingTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/building/"+'<%=openid%>');
     });
     $("#skyTab").tap(function () {
@@ -298,7 +298,7 @@
     });
     $("#meTab").tap(function () {
         window.location.assign("http://www.julyangel.cn/me/"+'<%=openid%>');
-    });
+    });*/
     $(".seat-operation").tap(function () {
         window.location.assign("http://www.julyangel.cn/libraryClassroom/" + this.getAttribute('id')+'/'+'<%=openid%>');
     });
