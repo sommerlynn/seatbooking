@@ -203,7 +203,7 @@ router.get('/me/oldSeat/:openid', function(req, res){
 * 2016-04-19 CHEN PU 新建
 * */
 router.get('/scanclassroom/oauth/:schoolID/:cid', function(req, res){
-    var url = client.getAuthorizeURL('http://www.julyangel.cn/scanclassroom/oauthgetinfo?cid=' + req.params.cid + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
+    var url = client.getAuthorizeURL('http://campus.julyangel.cn/scanclassroom/oauthgetinfo?cid=' + req.params.cid + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
@@ -253,6 +253,16 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
             });
         }
     });
+});
+
+
+router.get('/scanseat/oauth/:schoolID/:cid/:seatcode', function(req, res){
+    var url = client.getAuthorizeURL('http://campus.julyangel.cn/scanclassroom/oauthgetinfo?cid=' + req.params.cid + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
+    res.redirect(url);
+});
+
+router.get('/scanseat/oauthgetinfo', function(req, res){
+
 });
 
 module.exports = router;

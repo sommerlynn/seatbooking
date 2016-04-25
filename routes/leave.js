@@ -65,7 +65,7 @@ router.post('/me/leaveSheet/submitApplication', function (req, res) {
                                             var sendData = {
                                                 "touser":managers[index].openid,
                                                 "template_id":"LCnBfAKZ1uMUZGFb73lJgGyq6qhsFxu3TUWoDP6cjQc",
-                                                "url":"http://www.julyangel.cn/oAuth/"+applier[0].school_id+'/me',
+                                                "url":"http://campus.julyangel.cn/oAuth/"+applier[0].school_id+'/me',
                                                 "data":{
                                                     "first":{
                                                         "value":'请假条'
