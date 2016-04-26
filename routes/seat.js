@@ -287,15 +287,22 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                 }else if(userOrders.length > 0)
                                 {
                                     if(userOrders[0].seat_code == req.query.seat){
-                                        models.seatModel.sign(userOrders[0].order_id, function(err, result){
-                                            if(err){
-                                                res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                            }else{
-                                                //res.redirect('/me/' + openid);
-                                                var msg = userOrders[0].nickname+', 你已成功签到座位 '+ userOrders[0].seat_code;
-                                                res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
-                                            }
-                                        });
+                                        if(userOrders[0].status == 0 || userOrders[0].status == 3 ){
+                                            // 当前状态为预约 执行签到
+                                            models.seatModel.sign(userOrders[0].order_id, function(err, result){
+                                                if(err){
+                                                    res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                                }else{
+                                                    //res.redirect('/me/' + openid);
+                                                    var msg = userOrders[0].nickname+', 你已成功签到座位 '+ userOrders[0].seat_code;
+                                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
+                                                }
+                                            });
+                                        }else{
+                                            // 当前状态为签到 提示
+                                            var msg = userOrders[0].nickname+', 你已成功签到座位 '+ userOrders[0].seat_code;
+                                            res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
+                                        }
                                     }
                                     else{
                                         // 提示 扫错座位了，你在该教室预约的座位是XXX 号
