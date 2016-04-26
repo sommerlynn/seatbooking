@@ -315,6 +315,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
                                                }else if(seatOrders[0].status == 2){
                                                    // 已签到的座位，如果能被扫描说明未按要求设置暂离，可对该座位先释放，再分配给新的用户
+                                                   res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试1'});
 
                                                }else if(seatOrders[0].status == 3){
                                                    // 处于暂离状态的座位，不能进行预约
@@ -323,7 +324,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                }
                                            }else{
                                                // 该座位无有效预定，执行预约、签到
-                                               res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
+                                               res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试2'});
                                            }
                                        }
                                     });
