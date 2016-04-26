@@ -282,11 +282,13 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                         } else {
                             // 检索该用户是否有这个教室的今天的座位预约
                             models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
-                                res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
-
-                                /*if(err){
+                                if(err){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                }else if(userOrders.length > 0)
+                                }else {
+                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
+
+                                }
+                                /*if(userOrders.length > 0)
                                 {
                                     if(userOrders[0].seat_code == req.query.seat){
                                         models.seatModel.sign(userOrders[0].order_id, function(err, result){
