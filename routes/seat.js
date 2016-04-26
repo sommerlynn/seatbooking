@@ -285,7 +285,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                 if(err){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                 }else {
-                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
+                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'+userOrders.length});
 
                                 }
                                 /*if(userOrders.length > 0)
