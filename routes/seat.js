@@ -306,7 +306,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                     }
                                     else{
                                         // 提示 扫错座位了，你在该教室预约的座位是XXX 号
-                                        var msg = seatOrders[0].nickname+', 咱是不是走错位了呢? 咱预约的好像是 '+ seatOrders[0].seat_code + '呀， 赶紧再看下';
+                                        var msg = userOrders[0].nickname+', 咱是不是走错位了呢? 咱预约的好像是 '+ userOrders[0].seat_code + '呀， 赶紧再看下';
                                         res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
                                     }
                                 }else{
