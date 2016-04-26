@@ -258,8 +258,7 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
 
 router.get('/scanseat/oauth/:schoolID/:cid/:seat', function(req, res){
     var url = client.getAuthorizeURL('http://campus.julyangel.cn/scanseat/oauthgetinfo?cid=' +
-        req.params.cid + '&schoolID=' + req.params.schoolID+
-        '&seat='+req.params.seat, '123', 'snsapi_userinfo');
+        req.params.cid + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
@@ -287,7 +286,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                 }else if(userOrders.length > 0)
                                 {
-                                    if(userOrders[0].seat_code == req.query.seat){
+                                    if(userOrders[0].seat_code == '0503'){
                                         models.seatModel.sign(userOrders[0].order_id, function(err, result){
                                             if(err){
                                                 res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
@@ -305,7 +304,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                     }
                                 }else{
                                     // 检索该座位是否有人预约 如果没有人预约 则执行预约签到
-                                    models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, function(err, seatOrders){
+                                    models.seatModel.checkOrderBySeatCode(req.query.cid, '0503', function(err, seatOrders){
                                        if(err){
                                            res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                        } else{
