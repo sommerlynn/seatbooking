@@ -310,14 +310,15 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                            if(seatOrders.length > 0){
                                                if(seatOrders[0].status == 1){
                                                    // 处于预定状态的座位，不能进行预约
-
-
+                                                   var msg = '哎呀，这个座位已被'+ seatOrders[0].nickname+'预约了，你看咱是不是选个别的座位呢?'
+                                                   res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
                                                }else if(seatOrders[0].status == 2){
                                                    // 已签到的座位，如果能被扫描说明未按要求设置暂离，可对该座位先释放，再分配给新的用户
 
                                                }else if(seatOrders[0].status == 3){
                                                    // 处于暂离状态的座位，不能进行预约
-
+                                                   var msg = '哎呀，这个座位已被'+ seatOrders[0].nickname+'预约了，你看咱是不是选个别的座位呢?'
+                                                   res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
                                                }
                                            }else{
                                                // 该座位无有效预定，执行预约、签到
