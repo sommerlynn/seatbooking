@@ -106,10 +106,12 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, dayType, ca
 /*
  * 获取用户当天在某教室的座位预约单
  * 2016-04-19 CHEN PU 新建
+ * 2016-04-26 CHEN PU 结果集由只返回预定、暂离状态改为返回预定、签到、暂离三种状态
+ * 
  * */
 seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
     var selectQuery = "select * from user_seat_order_view where openid = ? and classroom_id = ? "+
-            "and start_time < ? and end_time > ? and (status = 1 or status = 3)",
+            "and start_time < ? and end_time > ? and status > 0",
         params = [openid, classroomID, new Date(), new Date()];
     db.executeQuery(selectQuery, params, callback);
 };

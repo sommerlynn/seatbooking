@@ -292,7 +292,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                 res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                             }else{
                                                 //res.redirect('/me/' + openid);
-                                                var msg = seatOrders[0].nickname+', 你已成功签到座位 '+ seatOrders[0].seat_code;
+                                                var msg = userOrders[0].nickname+', 你已成功签到座位 '+ userOrders[0].seat_code;
                                                 res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
                                             }
                                         });
