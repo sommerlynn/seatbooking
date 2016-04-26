@@ -284,11 +284,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                             models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
                                 if(err){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                }else {
-                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'+userOrders.length});
-
-                                }
-                                /*if(userOrders.length > 0)
+                                }else if(userOrders.length > 0)
                                 {
                                     if(userOrders[0].seat_code == req.query.seat){
                                         models.seatModel.sign(userOrders[0].order_id, function(err, result){
@@ -327,11 +323,11 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                }
                                            }else{
                                                // 该座位无有效预定，执行预约、签到
-
+                                               res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
                                            }
                                        }
                                     });
-                                }*/
+                                }
                             });
                         }
                     });
