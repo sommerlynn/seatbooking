@@ -121,7 +121,7 @@ seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
 seat.checkOrderBySeatCode = function(classroomID, seatCode, callback){
     var selectQuery = "select * from user_seat_order_view where seat_code = ? and classroom_id = ? "+
             "and start_time < ? and end_time > ? and status > 0",
-        params = [openid, classroomID, new Date(), new Date()];
+        params = [seatCode, classroomID, new Date(), new Date()];
     db.executeQuery(selectQuery, params, callback);
 };
 
