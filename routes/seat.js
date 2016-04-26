@@ -280,14 +280,15 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                         } else {
-                            res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
                             // 检索该用户是否有这个教室的今天的座位预约
-                            /*models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
+                            models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
                                 if(err){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                 }else if(userOrders.length > 0)
                                 {
-                                    if(userOrders[0].seat_code == req.query.seat){
+                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
+
+                                    /*if(userOrders[0].seat_code == req.query.seat){
                                         models.seatModel.sign(userOrders[0].order_id, function(err, result){
                                             if(err){
                                                 res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
@@ -302,7 +303,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                         // 提示 扫错座位了，你在该教室预约的座位是XXX 号
                                         var msg = seatOrders[0].nickname+', 咱是不是走错位了呢? 咱预约的好像是 '+ seatOrders[0].seat_code + '呀， 赶紧再看下';
                                         res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
-                                    }
+                                    }*/
                                 }else{
                                     // 检索该座位是否有人预约 如果没有人预约 则执行预约签到
                                     models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, function(err, seatOrders){
@@ -329,7 +330,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                        }
                                     });
                                 }
-                            });*/
+                            });
                         }
                     });
                 }
