@@ -287,28 +287,26 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                 }else if(userOrders.length > 0)
                                 {
                                     if(userOrders[0].seat_code == req.query.seat){
-                                        if(userOrders[0].status == 0 || userOrders[0].status == 3 ){
+                                        if(userOrders[0].status == 1 || userOrders[0].status == 3 ){
                                             // 当前状态为预约 执行签到
                                             models.seatModel.sign(userOrders[0].order_id, function(err, result){
                                                 if(err){
                                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                                 }else{
                                                     //res.redirect('/me/' + openid);
-                                                    var msg = userOrders[0].nickname+', 你已成功签到座位 '+ userOrders[0].seat_code;
-                                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
+                                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', order:userOrders[0]});
                                                 }
                                             });
                                         }else{
                                             // 当前状态为签到 提示
-                                            var msg = userOrders[0].nickname+', 你已成功签到座位 '+ userOrders[0].seat_code;
-                                            res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
+                                            res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', order:userOrders[0], req:req});
                                         }
                                     }
                                     else{
                                         // 提示 扫错座位了，你在该教室预约的座位是XXX 号
-                                        var msg = userOrders[0].nickname+', 咱是不是走错位了呢? 咱的预约好像是 '+ userOrders[0].seat_code + '号, 不是'+
-                                            req.query.seat+'呀, 赶紧去【我的座位】里看看';
-                                        res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
+                                        //var msg = userOrders[0].nickname+', 咱是不是走错位了呢? 咱的预约好像是 '+ userOrders[0].seat_code + '号, 不是'+
+                                        //    req.query.seat+'呀, 赶紧去【我的座位】里看看';
+                                        res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'wrongseat', order:userOrders[0], req:req});
                                     }
                                 }else{
                                     // 检索该座位是否有人预约 如果没有人预约 则执行预约签到
@@ -317,22 +315,17 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                            res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                        } else{
                                            if(seatOrders.length > 0){
-                                               if(seatOrders[0].status == 1){
+                                               if(seatOrders[0].status == 1 || seatOrders[0].status == 3){
                                                    // 处于预定状态的座位，不能进行预约
-                                                   var msg = '哎呀，这个座位已被'+ seatOrders[0].nickname+'预约了，你看咱是不是选个别的座位呢?';
-                                                   res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
+                                                   // var msg = '哎呀，这个座位已被'+ seatOrders[0].nickname+'预约了，你看咱是不是选个别的座位呢?';
+                                                   res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'occupied', order:seatOrders[0], req:req});
                                                }else if(seatOrders[0].status == 2){
                                                    // 已签到的座位，如果能被扫描说明未按要求设置暂离，可对该座位先释放，再分配给新的用户
-                                                   res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试1'});
-
-                                               }else if(seatOrders[0].status == 3){
-                                                   // 处于暂离状态的座位，不能进行预约
-                                                   var msg = '哎呀，这个座位已被'+ seatOrders[0].nickname+'预约了，你看咱是不是选个别的座位呢?';
-                                                   res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: msg});
+                                                   res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', order:seatOrders[0], req:req});
                                                }
                                            }else{
                                                // 该座位无有效预定，执行预约、签到
-                                               res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试2'});
+                                               res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', order:seatOrders[0], req:req});
                                            }
                                        }
                                     });
