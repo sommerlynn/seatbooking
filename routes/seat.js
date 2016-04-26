@@ -276,13 +276,13 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                 } else {
                     var userInfo = result;
-                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
-                    /*models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
+                    models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                         } else {
+                            res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
                             // 检索该用户是否有这个教室的今天的座位预约
-                            models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
+                            /*models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
                                 if(err){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                 }else if(userOrders.length > 0)
@@ -329,9 +329,9 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                        }
                                     });
                                 }
-                            });
+                            });*/
                         }
-                    });*/
+                    });
                 }
             });
         }
