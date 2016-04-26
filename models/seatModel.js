@@ -19,6 +19,10 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, dayType, ca
         scheduleRecoverTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 8, 30);
     } else {
         startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        // 八点前预约的 系统回收时间统一定为8:30
+        if(today.getHours() < 8){
+            scheduleRecoverTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 8, 30);
+        }
     }
     var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
 

@@ -39,24 +39,7 @@
         </a>
     </nav>
     <div class="content">
-        <div class="list-block media-list">
-            <ul id="seat_tickets">
-                <% for(var index = 0; index < oldOrders.length; index++) {%>
-                <li>
-                    <a href="#" class="item-link item-content">
-                        <div class="item-inner">
-                            <div class="item-title-row">
-                                <div class="item-title"><%= oldOrders[index].full_name%></div>
-                                <div class="item-after"><%= oldOrders[index].start_time.toLocaleDateString()%></div>
-                            </div>
-                            <div class="item-subtitle"></div>
-                            <div class="item-text"><%= oldOrders[index].seat_code%>号</div>
-                        </div>
-                    </a>
-                </li>
-                <%}%>
-             </ul>
-        </div>
+
     </div>
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>

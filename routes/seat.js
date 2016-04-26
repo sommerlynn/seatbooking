@@ -325,8 +325,6 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                            }
                                        }
                                     });
-
-                                    //res.redirect('/libraryClassroom/' +req.query.cid+'/'+ openid);
                                 }
                             });
                         }
