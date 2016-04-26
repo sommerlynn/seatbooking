@@ -270,15 +270,14 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
         else {
             //var accessToken = result.data.access_token;
             var openid = result.data.openid;
-            res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
 
-            /*client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
+            client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
                 if (err) {
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                 } else {
                     var userInfo = result;
-
-                    models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
+                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', message: '测试'});
+                    /*models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                         } else {
@@ -332,9 +331,9 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                 }
                             });
                         }
-                    });
+                    });*/
                 }
-            });*/
+            });
         }
     });
 });
