@@ -257,7 +257,7 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
 
 
 router.get('/scanseat/oauth/:schoolID/:cid/:seatcode', function(req, res){
-    var url = client.getAuthorizeURL('http://campus.julyangel.cn/scanclassroom/oauthgetinfo?cid=' +
+    var url = client.getAuthorizeURL('http://campus.julyangel.cn/scanseat/oauthgetinfo?cid=' +
         req.params.cid + '&schoolID=' + req.params.schoolID+
         '&seatcode='+req.params.seatcode, '123', 'snsapi_userinfo');
     res.redirect(url);
