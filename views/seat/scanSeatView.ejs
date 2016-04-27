@@ -23,8 +23,8 @@
 
     .seat-status-card li {
         display: inline-block;
-        line-height: 2rem;
-        height: 2rem;
+        line-height: 2.5rem;
+        height: 2.5rem;
         text-align: center;
     }
 
@@ -34,10 +34,12 @@
 
     .seat {
         width: 30%;
+        color: #A00000;
     }
 
     .status {
         width: 30%;
+        color: #A00000;
     }
 </style>
 
@@ -69,9 +71,9 @@
             <li class="classroom">
                 <span><%= classroom %></span>
             </li><li class="seat">
-                <i class="icon icon-my-seat"></i><span><%= seat %></span>
+                <i class="icon icon-my-seat"></i><span style="padding-left: .5rem"><%= seat %></span>
             </li><li class="status">
-                <span>已签到</span>
+                <i class="icon icon-seat-signed"></i><span>已签到</span>
             </li>
         </ul>
 
