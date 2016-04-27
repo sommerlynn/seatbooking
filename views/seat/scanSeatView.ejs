@@ -3,6 +3,9 @@
     .seat-status-card{
         background-color: #f7f7f8;
         list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
     }
 
     .seat-status-card li{
@@ -46,11 +49,9 @@
         <ul class="seat-status-card">
             <li class="classroom">
                 <span><%= classroom %></span>
-            </li>
-            <li class="seat">
+            </li><li class="seat">
                 <span><%= seat %></span>
-            </li>
-            <li class="status">
+            </li><li class="status">
                 <span>已签到</span>
             </li>
         </ul>
