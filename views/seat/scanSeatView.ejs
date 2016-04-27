@@ -39,6 +39,25 @@
     .status {
         width: 30%;
     }
+
+    .seat-operation-card {
+        background-color: #f7f7f8;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .seat-operation-card li {
+        display: inline-block;
+        line-height: 2.5rem;
+        height: 2.5rem;
+        text-align: center;
+    }
+
+    .seat-operation{
+        width: 50%;
+    }
 </style>
 
 <div class="page">
@@ -73,6 +92,11 @@
                 <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>已签到</span>
             </li>
         </ul>
+
+        <ul class="seat-operation-card">
+            <li class="seat-operation">退座</li><li class="seat-operation">暂离</li>
+        </ul>
+
     </div>
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
