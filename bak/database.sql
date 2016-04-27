@@ -179,6 +179,13 @@ ALTER VIEW reading_digest_view AS
         ON reading_digest.openid = user.openid
         ORDER BY reading_digest.create_date desc
 
+ALTER VIEW seat_log_view AS
+        SELECT user.*, seat_log.school_id as seat_school_id, seat_log.classroom_id, seat_log.seat_code, seat_log.log_type, seat_log.log_time
+        FROM seat_log LEFT JOIN user
+        ON seat_log.openid = user.openid
+        WHERE TO_DAYS(log_time) = TO_DAYS(NOW())
+
+
 
 // 获取各教室今天的订座状态
 SELECT area_classroom.*,

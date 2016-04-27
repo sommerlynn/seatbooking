@@ -294,7 +294,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                                 }else{
                                                     //res.redirect('/me/' + openid);
-                                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', order:userOrders[0]});
+                                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:'图书馆三层', seatcode:'0101'});
                                                 }
                                             });
                                         }else{
