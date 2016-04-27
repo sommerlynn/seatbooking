@@ -1,28 +1,24 @@
 <% include ../header.html %>
 <style>
-    .list-block {
-        margin: 0;
-    }
-
-    .card-content-inner {
+    .seat-status-card{
         background-color: #f7f7f8;
-        margin: 1rem;
-        padding: 1.5rem;
-        font-size: .75rem;
+        list-style: none;
     }
 
-    .list-block .item-link .item-inner {
-        background-image: none;
+    .seat-status-card li{
+        display: inline-block;
     }
 
-    .list-block .item-after {
-        font-size: .75rem;
-        color: #A00000;
+    .classroom{
+        width: 40%;
     }
 
-    .list-block .item-text {
-        font-weight: bold;
-        height: auto;
+    .seat{
+        width: 30%;
+    }
+
+    .status{
+        width: 30%;
     }
 </style>
 
@@ -47,11 +43,14 @@
     </nav>
     <div class="content">
         <!--签到成功-->
-        <ul>
-            <li class="left_part">
-                <span><%= classroom %></span><span><%= seat %></span>
+        <ul class="seat-status-card">
+            <li class="classroom">
+                <span><%= classroom %></span>
             </li>
-            <li class="right_part">
+            <li class="seat">
+                <span><%= seat %></span>
+            </li>
+            <li class="status">
                 <span>已签到</span>
             </li>
         </ul>
