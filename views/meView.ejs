@@ -296,22 +296,17 @@
                     <span class="icon icon-circle icon-me"></span>
                     <span class="icon-desc">实名认证</span>
                 </a>
-            </li>
-            <% } else{ %>
-            <li class="icon">
+            </li><% } else{ %><li class="icon">
                 <a style="display: block" href="/me/info/<%= openid %>">
                     <span class="icon icon-circle icon-me"></span>
                     <span class="icon-desc">身份信息</span>
                 </a>
-            </li>
-            <% } %>
-            <li class="icon">
+            </li><% } %><li class="icon">
                 <a style="display: block" href="/building/<%= openid %>">
                     <span class="icon icon-circle icon-building"></span>
                     <span class="icon-desc">预约座位</span>
                 </a>
-            </li>
-            <li class="icon">
+            </li><li class="icon">
                 <a style="display: block" href="leaveSheet/<%= openid %>?ip=<%= ip %>">
                     <span class="icon icon-circle icon-leave-application"></span>
                     <span class="icon-desc">请假申请</span>
