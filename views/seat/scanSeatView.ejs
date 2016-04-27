@@ -1,5 +1,13 @@
 <% include ../header.html %>
 <style>
+    .list-block {
+        margin: 0;
+    }
+
+    .list-block ul:before {
+        height: 0;
+    }
+
     .seat-status-card{
         background-color: #f7f7f8;
         list-style: none;
@@ -26,12 +34,36 @@
     .status{
         width: 30%;
     }
+
+    .content-block-title {
+        margin: 0;
+        padding: .7rem;
+        background-color: #F7F7F8;
+        color: #A00000;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        border-left: 4px solid #A00000;
+    }
+
+    .content-block-title:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        top: auto;
+        height: 1px;
+        width: 100%;
+        background-color: #EFEFF4;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
 </style>
 
 <div class="page">
-    <header class="bar bar-nav">
-        <h1 class="title">历史座位</h1>
-    </header>
     <!-- 工具栏 -->
     <nav class="bar bar-tab">
         <a class="tab-item active" id="buildingTab" href="/building/<%= openid %>" external>
@@ -56,6 +88,16 @@
                     </a>
                 </li>
             </ul>
+        </div>
+
+        <div class="content-block-title">
+            <div class="item-media">
+                <i class="icon icon-my-seat"></i>
+            </div>
+            <div class="item-inner">
+                <div class="item-title">座位信息</div>
+                <div class="item-real-info"></div>
+            </div>
         </div>
 
         <!--签到成功-->

@@ -1,30 +1,9 @@
 <% include header.html %>
 <style>
-    .item-subtitle span {
-        padding: 0 1.25rem 0 0;
-        font-size: 1rem;
-        color: #FFFFFF;
-    }
 
     .content-block {
         margin: 0;
         padding: 0;
-    }
-
-    .item-text {
-        padding: 0.5rem 0 0 0;
-    }
-
-    .item-text span {
-        color: #FFFFFF;
-    }
-
-    .list-block {
-        margin: 0;
-    }
-
-    .list-block ul:before {
-        height: 0;
     }
 
     .bar {
@@ -40,10 +19,6 @@
         /*background-color: #33475F;*/
     }
 
-    .card-header {
-        font-size: 0.6rem;
-    }
-
     .card-content-inner {
         padding: 0.75rem;
         text-align: center;
@@ -53,43 +28,6 @@
         color: #000000;
         background-color: #FFFFFF;
         text-align: right;
-    }
-
-    div.card-time:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: auto;
-        top: 0;
-        height: 0px;
-        width: 100%;
-        background-color: #924A4A;
-        display: block;
-        z-index: 15;
-        -webkit-transform-origin: 50% 100%;
-        transform-origin: 50% 100%;
-    }
-
-    div.card-time {
-        position: relative;
-        padding: 0.5rem 0;
-    }
-
-    div.card-time-header {
-        width: 20%;
-        float: left;
-        text-align: center;
-        font-size: 0.5rem;
-        color: #000000;
-    }
-
-    div.card-time-status {
-        width: 20%;
-        float: left;
-        text-align: center;
-        font-size: 0.5rem;
-        line-height: 1.25rem;
-        color: #000000;
     }
 
     .building-info {
@@ -165,14 +103,6 @@
         height: 4.5rem;
     }
 
-    .cancel {
-        background: url('../images/quxiao.png') no-repeat center;
-    }
-
-    .zanli {
-        background: url('../images/zanli.png') no-repeat center;
-    }
-
     .card {
         background-color: #FFFFFF;
         color: #000000;
@@ -215,6 +145,14 @@
         margin-top: 0;
     }
 
+    .list-block {
+        margin: 0;
+    }
+
+    .list-block ul:before {
+        height: 0;
+    }
+
     .list-block .item-media {
         padding: 0;
     }
@@ -228,13 +166,21 @@
         height: 0px;
     }
 
-    .item-real-info {
+    .item-text {
+        padding: 0.5rem 0 0 0;
     }
 
-    span.start-date-info, span.end-date-info {
-        margin: 0.25rem 0.75rem;
-        line-height: 1.25rem;
-        font-size: 0.75em;
+    .item-subtitle span {
+        padding: 0 1.25rem 0 0;
+        font-size: 1rem;
+        color: #FFFFFF;
+    }
+
+    .item-text span {
+        color: #FFFFFF;
+    }
+
+    .item-real-info {
     }
 
     span.leave-status {
@@ -257,13 +203,6 @@
     span.leave-reject {
         color: #E6DEB3;
         background-color: #A00000;
-    }
-
-    span.leave-reason {
-        color: #A00000;
-        margin: 0.25rem 0.75rem;
-        line-height: 1.25rem;
-        font-size: 0.75em;
     }
 
     .icon-list .icon {
