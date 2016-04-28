@@ -144,7 +144,7 @@ router.post('/order', function (req, res) {
     //var today = new Date();
     //var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
 
-    models.seatModel.newOrder(req.body.openid, req.body.classroom, req.body.seatCode, req.body.type, function (err, newOrderId) {
+    models.seatModel.newOrder(req.body.openid, req.body.classroom, req.body.row, req.body.column, req.body.seatCode, req.body.type, function (err) {
         if (err) {
             res.send(err);
         } else {
@@ -280,71 +280,54 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                         } else {
-                            // 检索该座位是否有人预约
-                            models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, function(err, seatOrders){
+                            // 检索该用户是否有这个教室的今天的座位预约
+                            models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
                                 if(err){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                } else{
-                                    // 该座位有人预约
-                                    if(seatOrders.length > 0){
-                                        if(seatOrders[0].status == 1 || seatOrders[0].status == 3){
-                                            // 处于预定状态的座位 如果是本人 执行签到操作 如果非本人 提示不能预约
-                                            if(seatOrders[0].openid == openid){
-                                                models.seatModel.sign(userOrders[0].order_id, function(err, result){
-                                                    if(err){
-                                                        res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                                    }else{
-                                                        //res.redirect('/me/' + openid);
-                                                        res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:seatOrders[0].full_name, seat:req.query.seat});
-                                                    }
-                                                });
-                                            }else{
-                                                res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'occupied', classroom:seatOrders[0].full_name, seat:req.query.seat});
-                                            }
-                                        }else if(seatOrders[0].status == 2){
-                                            // 已签到的座位，如果能被扫描说明未按要求设置暂离，可对该座位先释放，再分配给新的用户
-                                            res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:seatOrders[0].full_name, seat:req.query.seat});
+                                }else if(userOrders.length > 0)
+                                {
+                                    if(userOrders[0].seat_code == req.query.seat){
+                                        if(userOrders[0].status == 1 || userOrders[0].status == 3 ){
+                                            // 当前状态为预约 执行签到
+                                            models.seatModel.sign(userOrders[0].order_id, function(err, result){
+                                                if(err){
+                                                    res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                                }else{
+                                                    //res.redirect('/me/' + openid);
+                                                    res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:'图书馆三层', seat:'0101'});
+                                                }
+                                            });
+                                        }else{
+                                            // 当前状态为签到 提示
+                                            res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:'图书馆三层', seat:'0101'});
                                         }
-                                    }else{
-                                        // 该座位没有被预约 检查本人是否有预约
-                                        models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
-                                            if(err){
-                                                res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                            }else if(userOrders.length > 0)
-                                            {
-                                                // 本人有预约 执行签到
-                                                if(userOrders[0].seat )
-                                                models.seatModel.sign(userOrders[0].order_id, function(err, result){
-                                                    if(err){
-                                                        res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                                    }else{
-                                                        res.redirect('/me/' + openid);
-                                                    }
-                                                });
-                                            }else{
-                                                // 本人没有预约 则执行预约 签到
-                                                models.seatModel.newOrder(openid, req.query.cid, req.query.seat, 'today', function (err, newOrderId) {
-                                                    if (err) {
-                                                        res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                                    } else {
-                                                        models.seatModel.sign(newOrderId, function(err, result){
-                                                            if(err){
-                                                                res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                                            }else{
-                                                                models.classroomModel.getByID(req.query.cid, function(err, classroom){
-                                                                    if(err){
-                                                                        res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                                                    }else{
-                                                                        res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:classroom[0].full_name, seat:req.query.seat});
-                                                                    }
-                                                                });
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                            }
-                                        });
                                     }
+                                    else{
+                                        // 提示 扫错座位了，你在该教室预约的座位是XXX 号
+                                        //var msg = userOrders[0].nickname+', 咱是不是走错位了呢? 咱的预约好像是 '+ userOrders[0].seat_code + '号, 不是'+
+                                        //    req.query.seat+'呀, 赶紧去【我的座位】里看看';
+                                        res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'wrongseat', classroom:'图书馆三层', seat:'0101'});
+                                    }
+                                }else{
+                                    // 检索该座位是否有人预约 如果没有人预约 则执行预约签到
+                                    models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, function(err, seatOrders){
+                                       if(err){
+                                           res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                       } else{
+                                           if(seatOrders.length > 0){
+                                               if(seatOrders[0].status == 1 || seatOrders[0].status == 3){
+                                                   // 处于预定状态的座位，不能进行预约
+                                                   res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'occupied', classroom:'图书馆三层', seat:'0101'});
+                                               }else if(seatOrders[0].status == 2){
+                                                   // 已签到的座位，如果能被扫描说明未按要求设置暂离，可对该座位先释放，再分配给新的用户
+                                                   res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:'图书馆三层', seat:'0101'});
+                                               }
+                                           }else{
+                                               // 该座位无有效预定，执行预约、签到
+                                               res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:'图书馆三层', seat:'0101'});
+                                           }
+                                       }
+                                    });
                                 }
                             });
                         }

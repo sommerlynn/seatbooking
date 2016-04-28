@@ -59,15 +59,15 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, dayType, ca
                             }else if(results.length > 0){
                                 callback('不能太贪心哦，你在图书馆已经有一个位子了('+results[0].full_name + ' ' +results[0].seat_code +'号), 让我们把这个位子留给其他小伙伴好不好');
                             }else{
-                                var insertQuery = "insert into user_seat_order (user_id, classroom_id, row_no, column_no, seat_code, start_time, end_time, schedule_recover_time, status) values "+
-                                        "((select user_id from user where openid = ?), ?, ?, ?, ?, ?, ?, ?, 1)",
+                                var insertQuery = "insert into user_seat_order (user_id, classroom_id, seat_code, start_time, end_time, schedule_recover_time, status) values "+
+                                        "((select user_id from user where openid = ?), ?, ?, ?, ?, ?, 1)",
                                     insertParams = [openid, classroomID, row, column, seatCode, startTime, endTime, scheduleRecoverTime];
                                 db.insertQuery(insertQuery, insertParams, function(err, id){
                                     if(err){
                                         callback(err);
                                     }
                                     else{
-                                        callback(null);
+                                        callback(null, id);
                                     }
                                 });
                             }
@@ -83,15 +83,15 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, dayType, ca
                             }else if(results.length > 5){
                                 callback('不能太贪心哦，你已经有'+results.length+'个位子了, 让我们把这个位子留给其他小伙伴好不好');
                             }else{
-                                var insertQuery = "insert into user_seat_order (user_id, classroom_id, row_no, column_no, seat_code, start_time, end_time, status) values "+
-                                        "((select user_id from user where openid = ?), ?, ?, ?, ?, ?, ?, 1)",
+                                var insertQuery = "insert into user_seat_order (user_id, classroom_id, seat_code, start_time, end_time, status) values "+
+                                        "((select user_id from user where openid = ?), ?, ?, ?, ?, 1)",
                                     insertParams = [openid, classroomID, row, column, seatCode, startTime, endTime];
                                 db.insertQuery(insertQuery, insertParams, function(err, id){
                                     if(err){
                                         callback('该座位已被其他小伙伴预约，请选择其它座位');
                                     }
                                     else{
-                                        callback(null);
+                                        callback(null, id);
                                     }
                                 });
                             }

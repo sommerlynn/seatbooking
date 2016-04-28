@@ -31,7 +31,7 @@ ORDER BY order_no, area_name, classroom_name
 
 
 ALTER VIEW user_seat_order_view AS
-SELECT order_id, user.user_id, area_classroom.classroom_id, row_no, column_no, seat_code,
+SELECT order_id, user.user_id, area_classroom.classroom_id, seat_code,
 start_time, end_time, order_time, leave_time, sign_time, schedule_recover_time, real_recover_time, user_seat_order.status, openid, nickname, sex, headimgurl,
 full_name, area_classroom.classroom_type_name
 FROM user_seat_order LEFT JOIN user on user_seat_order.user_id = user.user_id
