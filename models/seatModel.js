@@ -6,10 +6,12 @@ var seat = {},
     db = require('./db');
 
 /**
- * 2014-04-24: CHEN PU 新增逻辑 将时间逻辑从页面逻辑移到业务逻辑
+ * 2016-04-24: CHEN PU 新增逻辑 将时间逻辑从页面逻辑移到业务逻辑
  *                     设置系统计划回收时间
+ * 2016-04-28: CHEN PU 这个方法的业务逻辑后面要拆分开，图书馆和普通教室的方法各自独立，这样更清晰
+ *
  * */
-seat.newOrder = function(openid, classroomID, row, column, seatCode, dayType, callback){
+/*seat.newOrder = function(openid, classroomID, seatCode, dayType, callback){
     var startTime;
     var today = new Date();
     var scheduleRecoverTime =  new Date(today.getTime() + 30*60*1000);// 当天预约，需在半小时内到现场签到
@@ -101,6 +103,71 @@ seat.newOrder = function(openid, classroomID, row, column, seatCode, dayType, ca
             });
         }
     });
+};*/
+
+/**
+ * 根据日期类型（今天/明天）获取新增预约的开始时间、结束时间、座位系统预计回收时间
+ * 2016-04-28： CHEN Pu 从newOrder方法中抽取出来
+ * */
+seat.getOrderRelatedDateByDayType = function(dayType, callback){
+    var startTime;
+    var today = new Date();
+    var scheduleRecoverTime =  new Date(today.getTime() + 30*60*1000);// 当天预约，需在半小时内到现场签到
+    if (dayType == 'tomorrow') {
+        var nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
+        scheduleRecoverTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 8, 30);
+    } else {
+        startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        // 八点前预约的 系统回收时间统一定为8:30
+        if(today.getHours() < 8){
+            scheduleRecoverTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 8, 30);
+        }
+    }
+    var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
+    callback(startTime, endTime, scheduleRecoverTime);
+};
+
+/**
+* 是否合法的图书馆座位预约申请，在图书馆各楼层间只能预约一个座位
+* 2016-04-28：CHEN PU 从newOrder中拆分出来
+* */
+seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startTime, endTime, callback){
+
+    var selectQuery = "select * from user_seat_order_view where openid = ? "+
+        "and classroom_type_name = ? and start_time = ? and status > 0",
+        selectParams = [openid, '图书馆', startTime];
+
+    db.executeQuery(selectQuery, selectParams, function (err, results) {
+        if(err){
+            err.type = 'exception';
+            callback(err);
+        }else if(results.length > 0){
+            err = new Error('不能太贪心哦，你在图书馆已经有一个位子了('+results[0].full_name + ' ' +results[0].seat_code +'号), 让我们把这个位子留给其他小伙伴好不好');
+            err.type = 'prompt';
+            callback(err);
+        }else{
+            callback(null);
+        }
+    });
+};
+
+/**
+ * 创建预约单
+ * 2016-04-29: CHEN PU 从原newOrder中抽取出来
+ * **/
+seat.createOrder = function(openid, classroomID, seatCode, startTime, endTime, callback){
+    var insertQuery = "insert into user_seat_order (user_id, classroom_id, seat_code, start_time, end_time, status) values "+
+            "((select user_id from user where openid = ?), ?, ?, ?, ?, 1)",
+        insertParams = [openid, classroomID, seatCode, startTime, endTime];
+    db.insertQuery(insertQuery, insertParams, function(err, id){
+        if(err){
+            callback(err);
+        }
+        else{
+            callback(null, id);
+        }
+    });
 };
 
 /*
@@ -113,7 +180,13 @@ seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
     var selectQuery = "select * from user_seat_order_view where openid = ? and classroom_id = ? "+
             "and start_time < ? and end_time > ? and status > 0",
         params = [openid, classroomID, new Date(), new Date()];
-    db.executeQuery(selectQuery, params, callback);
+    db.executeQuery(selectQuery, params, function(err, result){
+        if(err){
+            callback(err);
+        }else{
+
+        }
+    });
 };
 
 /*

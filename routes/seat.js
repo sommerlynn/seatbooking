@@ -152,6 +152,40 @@ router.post('/order', function (req, res) {
         }
     });
 
+
+
+    models.seatModel.getOrderRelatedDateByDayType(req.body.type, function(startTime, endTime, scheduleRecoverTime){
+        models.seatModel.isValidLibraryOrderRequest(req.body.openid, req.body.classroom, req.body.seatCode, startTime, endTime, function(err){
+            if(err){
+                if(err.type == 'exception'){
+                    res.render('errorView', {openid: req.body.openid, title: '服务器故障', message: '服务器故障', error: err});
+                }else{
+                    res.render('./seat/scanSeatView', {openid: req.body.openid, title: '座位状态', statusType: 'prompt', promptMsg:err.message});
+                }
+            }else{
+                models.seatModel.createOrder(openid, req.body.classroom, req.body.seatCode, startTime, endTime, scheduleRecoverTime,
+                    function(err, newOrderId){
+                        if(err){
+                            res.render('errorView', {openid: req.body.openid, title: '服务器故障', message: '服务器故障', error: err});
+                        } else{
+                            models.seatModel.sign(newOrderId, function(err, result){
+                                if(err){
+                                    res.render('errorView', {openid: req.body.openid, title: '服务器故障', message: '服务器故障', error: err});
+                                }else{
+                                    models.classroomModel.getById(req.body.classroom, function(err, classroom){
+                                        if(err){
+                                            res.render('errorView', {openid: req.body.openid, title: '服务器故障', message: '服务器故障', error: err});
+                                        }else{
+                                            res.render('./seat/scanSeatView', {openid: req.body.openid, title: '座位状态', statusType: 'signed', classroom:classroom[0].full_name, seat:req.body.seatCode});
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+            }
+        });
+    });
 });
 
 /*
@@ -306,43 +340,38 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                             res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:seatOrders[0].full_name, seat:req.query.seat});
                                         }
                                     }else{
-                                        // 该座位没有被预约 检查本人是否有预约
-                                        models.seatModel.getMyTodayOrderWithinClassroom(req.query.cid, openid, function(err, userOrders){
-                                            if(err){
-                                                res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                            }else if(userOrders.length > 0)
-                                            {
-                                                // 本人有预约 执行签到
-                                                if(userOrders[0].seat )
-                                                models.seatModel.sign(userOrders[0].order_id, function(err, result){
-                                                    if(err){
+                                        // 该座位无人预约 如果该学生无其他座位 则可将该座位分配给该学生 并执行签到
+                                        models.seatModel.getOrderRelatedDateByDayType('today', function(startTime, endTime, scheduleRecoverTime){
+                                            models.seatModel.isValidLibraryOrderRequest(openid, req.query.cid, req.query.seat, startTime, endTime, function(err){
+                                                if(err){
+                                                    if(err.type == 'exception'){
                                                         res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                                     }else{
-                                                        res.redirect('/me/' + openid);
+                                                        res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'prompt', promptMsg:err.message});
                                                     }
-                                                });
-                                            }else{
-                                                // 本人没有预约 则执行预约 签到
-                                                models.seatModel.newOrder(openid, req.query.cid, req.query.seat, 'today', function (err, newOrderId) {
-                                                    if (err) {
-                                                        res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                                    } else {
-                                                        models.seatModel.sign(newOrderId, function(err, result){
-                                                            if(err){
-                                                                res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                                            }else{
-                                                                models.classroomModel.getByID(req.query.cid, function(err, classroom){
-                                                                    if(err){
-                                                                        res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                                                    }else{
-                                                                        res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:classroom[0].full_name, seat:req.query.seat});
-                                                                    }
-                                                                });
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                            }
+                                                }else{
+                                                    models.seatModel.createOrder(openid, req.query.cid, req.query.seat, startTime, endTime, scheduleRecoverTime,
+                                                    function(err, newOrderId){
+                                                       if(err){
+                                                           res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                                       } else{
+                                                           models.seatModel.sign(newOrderId, function(err, result){
+                                                               if(err){
+                                                                   res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                                               }else{
+                                                                   models.classroomModel.getById(req.query.cid, function(err, classroom){
+                                                                       if(err){
+                                                                           res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                                                       }else{
+                                                                           res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:classroom[0].full_name, seat:req.query.seat});
+                                                                       }
+                                                                   });
+                                                               }
+                                                           });
+                                                       }
+                                                    });
+                                                }
+                                            });
                                         });
                                     }
                                 }
