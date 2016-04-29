@@ -144,16 +144,6 @@ router.post('/order', function (req, res) {
     //var today = new Date();
     //var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
 
-    models.seatModel.newOrder(req.body.openid, req.body.classroom, req.body.seatCode, req.body.type, function (err, newOrderId) {
-        if (err) {
-            res.send(err);
-        } else {
-            res.send('已成功预定');
-        }
-    });
-
-
-
     models.seatModel.getOrderRelatedDateByDayType(req.body.type, function(startTime, endTime, scheduleRecoverTime){
         models.seatModel.isValidLibraryOrderRequest(req.body.openid, req.body.classroom, req.body.seatCode, startTime, endTime, function(err){
             if(err){
