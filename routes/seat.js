@@ -326,8 +326,19 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                 res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'occupied', classroom:seatOrders[0].full_name, seat:req.query.seat});
                                             }
                                         }else if(seatOrders[0].status == 2){
-                                            // 已签到的座位，如果能被扫描说明未按要求设置暂离，可对该座位先释放，再分配给新的用户
-                                            res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:seatOrders[0].full_name, seat:req.query.seat});
+                                            // 本人已签到的座位 执行暂离操作
+                                            if(seatOrders[0].openid == openid){
+                                                models.seatModel.leave(seatOrders[0].order_id, function(err, result){
+                                                    if(err){
+                                                        res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                                                    }else{
+                                                        res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'leaved', classroom:seatOrders[0].full_name, seat:req.query.seat});
+                                                    }
+                                                });
+                                            }else{
+                                                // 已签到的座位，如果能被扫描说明未按要求设置暂离，可对该座位先释放，再分配给新的用户
+                                                res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:seatOrders[0].full_name, seat:req.query.seat});
+                                            }
                                         }
                                     }else{
                                         // 该座位无人预约 如果该学生无其他座位 则可将该座位分配给该学生 并执行签到

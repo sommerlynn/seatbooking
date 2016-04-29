@@ -143,6 +143,8 @@
                 <img src='http://img4.imgtn.bdimg.com/it/u=1826932262,1615325516&fm=11&gp=0.jpg' style="width: 100%; margin: 0; padding: 0; border: 0; display: block">
             </a>
         </div>
+
+        <% if (status == 'signed') {%>
         <!--签到成功-->
         <ul class="seat-status-card">
             <li class="classroom">
@@ -157,7 +159,22 @@
         <ul class="seat-operation-card">
             <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">暂离</div></li>
         </ul>
+        <% } else if (status == 'leaved') {%>
+        <ul class="seat-status-card">
+            <li class="classroom">
+                <span><%= classroom %></span>
+            </li><li class="seat">
+                <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %></span>
+            </li><li class="status">
+                <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>暂离</span>
+            </li>
+        </ul>
 
+        <ul class="seat-operation-card">
+            <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">签到</div></li>
+        </ul>
+        <%}%>
+        <!--座位日志-->
         <ul class="seat-log-card-list">
             <li>
                 <ul class="seat-log-card">
