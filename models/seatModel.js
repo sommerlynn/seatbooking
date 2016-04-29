@@ -154,7 +154,7 @@ seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startT
 
 /**
  * 创建预约单
- * 2016-04-29: CHEN PU 从原newOrder中抽取出来
+ * 2016-04-28: CHEN PU 从原newOrder中抽取出来
  * **/
 seat.createOrder = function(openid, classroomID, seatCode, startTime, endTime, callback){
     var insertQuery = "insert into user_seat_order (user_id, classroom_id, seat_code, start_time, end_time, status) values "+
@@ -169,6 +169,32 @@ seat.createOrder = function(openid, classroomID, seatCode, startTime, endTime, c
         }
     });
 };
+
+/**
+ * 尝试创建订单
+ * 2016-04-29: CHEN　PU 从原seat.js抽取至此
+ *
+ * */
+seat.tryCreateLibraryOrder = function(dayType, openid, classroomID, seatCode, callback){
+    seat.getOrderRelatedDateByDayType('today', function(startTime, endTime, scheduleRecoverTime){
+        seat.isValidLibraryOrderRequest(openid, classroomID, seatCode, startTime, endTime, function(err){
+            if(err){
+                call(err);
+            }else{
+                seat.createOrder(openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime,
+                    function(err, newOrderId){
+                        if(err){
+                            err.type = 'exception';
+                            call(err);
+                        } else{
+                            call(null, newOrderId);
+                        }
+                    });
+            }
+        });
+    });
+};
+
 
 /*
  * 获取用户当天在某教室的座位预约单
