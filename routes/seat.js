@@ -309,7 +309,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                 if(err){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                 } else{
-                                    // 该座位有人预约
+                                    // 有人预约
                                     if(seatOrders.length > 0){
                                         if(seatOrders[0].status == 1 || seatOrders[0].status == 3){
                                             // 处于预定状态的座位 如果是本人 执行签到操作 如果非本人 提示不能预约
@@ -318,25 +318,39 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                     if(err){
                                                         res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                                     }else{
-                                                        //res.redirect('/me/' + openid);
                                                         res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:seatOrders[0].full_name, seat:req.query.seat});
                                                     }
                                                 });
                                             }else{
                                                 res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'occupied', classroom:seatOrders[0].full_name, seat:req.query.seat});
                                             }
-                                        }else if(seatOrders[0].status == 2){
+                                        }
+                                        else
+                                        if(seatOrders[0].status == 2){
                                             // 本人已签到的座位 执行暂离操作
-                                            if(seatOrders[0].openid == openid){
-                                                models.seatModel.leave(seatOrders[0].order_id, function(err, result){
-                                                    if(err){
-                                                        res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
-                                                    }else{
-                                                        res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'leaved', classroom:seatOrders[0].full_name, seat:req.query.seat});
+                                            if(seatOrders[0].openid == openid) {
+                                                models.seatModel.leave(seatOrders[0].order_id, function (err, result) {
+                                                    if (err) {
+                                                        res.render('errorView', {
+                                                            openid: openid,
+                                                            title: '服务器故障',
+                                                            message: '服务器故障',
+                                                            error: err
+                                                        });
+                                                    } else {
+                                                        res.render('./seat/scanSeatView', {
+                                                            openid: openid,
+                                                            title: '座位状态',
+                                                            statusType: 'leaved',
+                                                            classroom: seatOrders[0].full_name,
+                                                            seat: req.query.seat
+                                                        });
                                                     }
                                                 });
-                                            }else{
-                                                // 已签到的座位，如果能被扫描说明未按要求设置暂离，可对该座位先释放，再分配给新的用户
+                                            }
+                                            // 不是本人的座位，检查此人是否有其他座位，如没有，则将此座位释放，然后分配给此人，并执行签到
+                                            else
+                                            {
                                                 models.seatModel.getOrderRelatedDateByDayType('today', function(startTime, endTime, scheduleRecoverTime){
                                                     models.seatModel.isValidLibraryOrderRequest(openid, req.query.cid, req.query.seat, startTime, endTime, function(err){
                                                         if(err){
@@ -377,7 +391,9 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                 });
                                             }
                                         }
-                                    }else{
+                                    }
+                                    // 无人预约
+                                    else{
                                         models.seatModel.tryCreateLibraryOrder('today', openid, req.query.cid, req.query.seat, function(err, newOrderId){
                                             if(err){
                                                 if(err.type == 'exception'){
