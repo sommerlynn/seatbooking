@@ -337,7 +337,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                 });
                                             }else{
                                                 // 已签到的座位，如果能被扫描说明未按要求设置暂离，可对该座位先释放，再分配给新的用户
-                                                res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:seatOrders[0].full_name, seat:req.query.seat});
+                                                res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'signed', classroom:'测试', seat:req.query.seat});
                                             }
                                         }
                                     }else{
