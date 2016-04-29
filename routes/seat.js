@@ -314,7 +314,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                         if(seatOrders[0].status == 1 || seatOrders[0].status == 3){
                                             // 处于预定状态的座位 如果是本人 执行签到操作 如果非本人 提示不能预约
                                             if(seatOrders[0].openid == openid){
-                                                models.seatModel.sign(userOrders[0].order_id, function(err, result){
+                                                models.seatModel.sign(seatOrders[0].order_id, function(err, result){
                                                     if(err){
                                                         res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                                     }else{
