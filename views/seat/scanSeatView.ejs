@@ -144,7 +144,7 @@
             </a>
         </div>
 
-        <% if (status == 'signed') {%>
+        <% if (statusType == 'signed') {%>
         <!--签到成功-->
         <ul class="seat-status-card">
             <li class="classroom">
@@ -159,7 +159,7 @@
         <ul class="seat-operation-card">
             <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">暂离</div></li>
         </ul>
-        <% } else if (status == 'leaved') {%>
+        <% } else if (statusType == 'leaved') {%>
         <ul class="seat-status-card">
             <li class="classroom">
                 <span><%= classroom %></span>
