@@ -296,7 +296,6 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
         else {
             //var accessToken = result.data.access_token;
             var openid = result.data.openid;
-            log('test0');
             client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
                 if (err) {
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
@@ -311,6 +310,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                 if(err){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                 } else{
+                                    log('test0');
                                     // 有人预约
                                     if(seatOrders.length > 0)
                                     {
