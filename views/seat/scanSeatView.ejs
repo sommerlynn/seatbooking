@@ -162,7 +162,7 @@
                     <li class="seat">
                         <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %> 号</span>
                     </li><li class="status">
-                        <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>已签到</span>
+                        <!--<i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i>--><span>已签到</span>
                     </li>
                 </ul>
             </div>
@@ -171,41 +171,6 @@
                     <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">暂离</div></li>
                 </ul>
             </div>
-            <div class="card-footer">
-                <ul class="seat-log-card-list">
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
         <% } else if (statusType == 'leaved') {%>
         <div class="card">
             <div class="card-header">
@@ -213,7 +178,7 @@
                     <li class="seat">
                         <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %> 号</span>
                     </li><li class="status">
-                        <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>暂离</span>
+                        <!--<i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i>--><span>暂离</span>
                     </li>
                 </ul>
             </div>
@@ -222,44 +187,68 @@
                     <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">签到</div></li>
                 </ul>
             </div>
+
+        <%} else if (statusType == 'prompt-empty') {%>
+            <div class="card">
+                <div class="card-header">
+                    <ul class="seat-status-card">
+                        <li class="seat">
+                            <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %> 号</span>
+                        </li><li class="status">
+                            <span>空闲</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <span><%= promptMsg%></span>
+                    </div>
+                </div>
+        <%} else if (statusType == 'prompt-signed') {%>
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="seat-status-card">
+                            <li class="seat">
+                                <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %> 号</span>
+                            </li><li class="status">
+                                <span>已签到</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-content-inner">
+                            <span><%= promptMsg%></span>
+                        </div>
+                    </div>
+        <%} else if (statusType == 'prompt-leaved') {%>
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="seat-status-card">
+                                <li class="seat">
+                                    <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %> 号</span>
+                                </li><li class="status">
+                                    <span>暂离</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-content-inner">
+                                <span><%= promptMsg%></span>
+                            </div>
+                        </div>
+        <%}%>
             <div class="card-footer">
                 <ul class="seat-log-card-list">
+                    <% for (var index = 0; index < seatLogs.length; index++) {%>
                     <li>
                         <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
+                            <li class="user-header-img"><img width="20" height="20" src="<%= seatLogs[index].headimgurl%>"></li><li class="log-time"><span class="time"><%=seatLogs[index].log_time%></span></li><li class="log-msg"><span class="msg">seatLogs[index].log_msg</span></li>
                         </ul>
                     </li>
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0"></li><li class="log-time"><span class="time">10:30</span></li><li class="log-msg"><span class="msg">预定</span></li>
-                        </ul>
-                    </li>
+                    <%}%>
                 </ul>
             </div>
         </div>
-        <%} else if (statusType == 'prompt') {%>
-
-        <%}%>
     </div>
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>

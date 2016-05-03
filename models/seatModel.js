@@ -165,7 +165,13 @@ seat.createOrder = function(openid, classroomID, seatCode, startTime, endTime, c
             callback(err);
         }
         else{
-            callback(null, id);
+            seat.log(id, 1, '预约', function(err){
+                if(err){
+                    callback(err);
+                }else{
+                    callback(null, id);
+                }
+            });
         }
     });
 };
@@ -210,7 +216,7 @@ seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
         if(err){
             callback(err);
         }else{
-
+            callback(null, result);
         }
     });
 };
@@ -229,6 +235,12 @@ seat.checkOrderBySeatCode = function(classroomID, seatCode, callback){
 seat.getActive = function(openid, callback) {
     var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status > 0 order by start_time asc, order_time desc",
         params = [openid, new Date()];
+    db.executeQuery(selectQuery, params, callback);
+};
+
+seat.getActiveLibrary = function(openid, callback){
+    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status > 0 and classroom_type_name = ? order by start_time asc, order_time desc",
+        params = [openid, new Date(), '图书馆'];
     db.executeQuery(selectQuery, params, callback);
 };
 
@@ -252,7 +264,19 @@ seat.sign = function (orderID, callback) {
         scheduleRecoverDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
     var updateQuery = "update user_seat_order set status = 2, sign_time = ?, schedule_recover_time = ? where order_id = ?",
         params = [new Date(), scheduleRecoverDate, orderID];
-    db.executeQuery(updateQuery, params, callback);
+    db.executeQuery(updateQuery, params, function(err, result){
+        if(err){
+            callback(err);
+        }else{
+            seat.log(orderID, 2, '签到', function(err){
+                if(err){
+                    callback(err);
+                }else{
+                    callback(null, result);
+                }
+            });
+        }
+    });
 };
 
 /*
@@ -263,7 +287,19 @@ seat.sign = function (orderID, callback) {
 seat.leave = function (orderID, callback) {
     var updateQuery = "update user_seat_order set status = 3, leave_time = ? where order_id = ?",
         params = [new Date(), orderID];
-    db.executeQuery(updateQuery, params, callback);
+    db.executeQuery(updateQuery, params, function(err, result){
+        if(err){
+            callback(err);
+        }else{
+            seat.log(orderID, 3, '暂离', function(err){
+                if(err){
+                    callback(err);
+                }else{
+                    callback(null, result);
+                }
+            });
+        }
+    });
 };
 
 /**
@@ -272,7 +308,47 @@ seat.leave = function (orderID, callback) {
 seat.release = function (orderID, callback) {
     var updateQuery = "update user_seat_order set status = -1, leave_time = ?, lock_code = ? where order_id = ?",
         params = [new Date(), orderID, orderID];
-    db.executeQuery(updateQuery, params, callback);
+    db.executeQuery(updateQuery, params, function(err, result){
+        if(err){
+            callback(err);
+        }else{
+            seat.log(orderID, -1, '退座', function(err){
+                if(err){
+                    callback(err);
+                }else{
+                    callback(null, result);
+                }
+            });
+        }
+    });
+};
+
+/**
+ * 1 预定 2 签到 3 暂离 -1 退座 -2 系统回收
+ * 添加座位相关操作日志
+ * 2016-05-03: CHEN　PU 新建
+ * */
+seat.log = function(orderID, logType, logMsg, callback){
+    var insertQuery = 'insert into seat_log (classroom_id, seat_code, openid, log_type, log_msg) values '+
+            '((select classroom_id from user_seat_order_view where order_id = ?), '+
+            '(select seat_code from user_seat_order_view where order_id = ?), '+
+            '(select openid from user_seat_order_view where order_id = ?), '+
+            '?, ?)',
+        insertParams = [orderID, orderID, orderID, logType, logMsg];
+    db.insertQuery(insertQuery, insertParams, function(err, id){
+        if(err){
+            callback(err);
+        }
+        else{
+            callback(null);
+        }
+    });
+};
+
+seat.getLog = function(classroomID, seatCode, callback){
+    var selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? ",
+        params = [seatCode, classroomID];
+    db.executeQuery(selectQuery, params, callback);
 };
 
 module.exports = seat;
