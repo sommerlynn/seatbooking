@@ -179,15 +179,15 @@ seat.tryCreateLibraryOrder = function(dayType, openid, classroomID, seatCode, ca
     seat.getOrderRelatedDateByDayType('today', function(startTime, endTime, scheduleRecoverTime){
         seat.isValidLibraryOrderRequest(openid, classroomID, seatCode, startTime, endTime, function(err){
             if(err){
-                call(err);
+                callback(err);
             }else{
                 seat.createOrder(openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime,
                     function(err, newOrderId){
                         if(err){
                             err.type = 'exception';
-                            call(err);
+                            callback(err);
                         } else{
-                            call(null, newOrderId);
+                            callback(null, newOrderId);
                         }
                     });
             }
