@@ -313,7 +313,6 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                     // 有人预约
                                     if(seatOrders.length > 0)
                                     {
-                                        log('test0');
                                         if(seatOrders[0].status == 1 || seatOrders[0].status == 3){
                                             // 处于预定状态的座位 如果是本人 执行签到操作 如果非本人 提示不能预约
                                             if(seatOrders[0].openid == openid){
@@ -333,6 +332,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                             // 本人已签到的座位 执行暂离操作
                                             if(seatOrders[0].openid == openid) {
                                                 models.seatModel.leave(seatOrders[0].order_id, function (err, result) {
+                                                    log('test0');
                                                     if (err) {
                                                         res.render('errorView', {
                                                             openid: openid,
