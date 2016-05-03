@@ -242,7 +242,7 @@
                     <% for (var index = 0; index < seatLogs.length; index++) {%>
                     <li>
                         <ul class="seat-log-card">
-                            <li class="user-header-img"><img width="20" height="20" src="<%= seatLogs[index].headimgurl%>"></li><li class="log-time"><span class="time"><%=seatLogs[index].log_time%></span></li><li class="log-msg"><span class="msg">seatLogs[index].log_msg</span></li>
+                            <li class="user-header-img"><img width="20" height="20" src="<%= seatLogs[index].headimgurl%>"></li><li class="log-time"><span class="time"><%=seatLogs[index].log_time.toLocaleTimeString()%></span></li><li class="log-msg"><span class="msg"><%= seatLogs[index].log_msg%></span></li>
                         </ul>
                     </li>
                     <%}%>
