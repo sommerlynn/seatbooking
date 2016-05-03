@@ -296,7 +296,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
         else {
             //var accessToken = result.data.access_token;
             var openid = result.data.openid;
-
+            log('test0');
             client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
                 if (err) {
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
@@ -312,7 +312,8 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                     res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
                                 } else{
                                     // 有人预约
-                                    if(seatOrders.length > 0){
+                                    if(seatOrders.length > 0)
+                                    {
                                         if(seatOrders[0].status == 1 || seatOrders[0].status == 3){
                                             // 处于预定状态的座位 如果是本人 执行签到操作 如果非本人 提示不能预约
                                             if(seatOrders[0].openid == openid){
