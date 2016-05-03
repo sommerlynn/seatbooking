@@ -331,7 +331,6 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                         if(seatOrders[0].status == 2){
                                             // 本人已签到的座位 执行暂离操作
                                             if(seatOrders[0].openid == openid) {
-                                                log('test0');
                                                 models.seatModel.leave(seatOrders[0].order_id, function (err, result) {
                                                     if (err) {
                                                         res.render('errorView', {
@@ -397,7 +396,6 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                     }
                                     // 无人预约
                                     else{
-                                        log('test1');
                                         models.seatModel.tryCreateLibraryOrder('today', openid, req.query.cid, req.query.seat, function(err, newOrderId){
                                             if(err){
                                                 if(err.type == 'exception'){
@@ -406,7 +404,6 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                     res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'prompt', promptMsg:err.message});
                                                 }
                                             }else{
-                                                log('test2');
                                                 models.seatModel.sign(newOrderId, function(err, result){
                                                     if(err){
                                                         res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
