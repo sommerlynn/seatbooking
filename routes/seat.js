@@ -332,7 +332,6 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                             // 本人已签到的座位 执行暂离操作
                                             if(seatOrders[0].openid == openid) {
                                                 models.seatModel.leave(seatOrders[0].order_id, function (err, result) {
-                                                    log('test0');
                                                     if (err) {
                                                         res.render('errorView', {
                                                             openid: openid,
@@ -341,6 +340,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                             error: err
                                                         });
                                                     } else {
+                                                        log('test0');
                                                         res.render('./seat/scanSeatView', {
                                                             openid: openid,
                                                             title: '座位状态',
