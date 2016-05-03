@@ -18,6 +18,7 @@
         margin: 0;
         padding: 0;
         border: 0;
+        width: 100%;
         /*border-left: 4px solid #A00000;*/
     }
 
@@ -42,7 +43,7 @@
     }
 
     .seat-operation-card {
-        background-color: #E2E1D0;
+        /*background-color: #E2E1D0;*/
         list-style: none;
         margin: 0;
         padding: 0;
@@ -152,22 +153,11 @@
         </div>
         <% if (statusType == 'signed') {%>
         <!--签到成功-->
-        <!--<ul class="seat-status-card card">
-            <li class="seat">
-                <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %></span>
-            </li><li class="status">
-                <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>已签到</span>
-            </li>
-        </ul>
-
-        <ul class="seat-operation-card">
-            <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">暂离</div></li>
-        </ul>-->
         <div class="card">
             <div class="card-header">
                 <ul class="seat-status-card">
                     <li class="seat">
-                        <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %></span>
+                        <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %> 号</span>
                     </li><li class="status">
                         <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>已签到</span>
                     </li>
@@ -214,22 +204,11 @@
             </div>
         </div>
         <% } else if (statusType == 'leaved') {%>
-        <!--<ul class="seat-status-card card">
-            <li class="seat">
-                <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %></span>
-            </li><li class="status">
-                <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>暂离</span>
-            </li>
-        </ul>
-
-        <ul class="seat-operation-card">
-            <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">签到</div></li>
-        </ul>-->
         <div class="card">
             <div class="card-header">
                 <ul class="seat-status-card">
                     <li class="seat">
-                        <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %></span>
+                        <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %> 号</span>
                     </li><li class="status">
                         <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>暂离</span>
                     </li>
