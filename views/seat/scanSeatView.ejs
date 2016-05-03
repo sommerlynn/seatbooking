@@ -160,7 +160,15 @@
             <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">暂离</div></li>
         </ul>-->
         <div class="card">
-            <div class="card-header"><%= seat %> <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>已签到</span></div>
+            <div class="card-header">
+                <ul>
+                    <li class="seat">
+                        <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %></span>
+                    </li><li class="status">
+                        <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>已签到</span>
+                    </li>
+                </ul>
+            </div>
             <div class="card-content">
                 <ul class="seat-operation-card">
                     <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">暂离</div></li>
@@ -214,7 +222,15 @@
             <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">签到</div></li>
         </ul>-->
         <div class="card">
-            <div class="card-header"><%= seat %> <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>已暂离</span></div>
+            <div class="card-header">
+                <ul>
+                    <li class="seat">
+                        <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %></span>
+                    </li><li class="status">
+                        <i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i><span>暂离</span>
+                    </li>
+                </ul>
+            </div>
             <div class="card-content">
                 <ul class="seat-operation-card">
                     <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li><li class="seat-operation"><div class="seat-opertion-btn">签到</div></li>
