@@ -9,7 +9,9 @@ var express = require('express'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
     OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('../lib/weixin-jssdk');
+    WeiJSAPI = require('../lib/weixin-jssdk'),
+    debug = require('debug'),
+    log = debug('seat');
 
 var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
@@ -394,6 +396,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                     }
                                     // 无人预约
                                     else{
+                                        log('test1');
                                         models.seatModel.tryCreateLibraryOrder('today', openid, req.query.cid, req.query.seat, function(err, newOrderId){
                                             if(err){
                                                 if(err.type == 'exception'){
@@ -402,6 +405,7 @@ router.get('/scanseat/oauthgetinfo', function(req, res){
                                                     res.render('./seat/scanSeatView', {openid: openid, title: '座位状态', statusType: 'prompt', promptMsg:err.message});
                                                 }
                                             }else{
+                                                log('test2');
                                                 models.seatModel.sign(newOrderId, function(err, result){
                                                     if(err){
                                                         res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
