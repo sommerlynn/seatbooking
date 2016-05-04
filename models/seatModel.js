@@ -156,10 +156,10 @@ seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startT
  * 创建预约单
  * 2016-04-28: CHEN PU 从原newOrder中抽取出来
  * **/
-seat.createOrder = function(openid, classroomID, seatCode, startTime, endTime, callback){
-    var insertQuery = "insert into user_seat_order (user_id, classroom_id, seat_code, start_time, end_time, status) values "+
+seat.createOrder = function(openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime, callback){
+    var insertQuery = "insert into user_seat_order (user_id, classroom_id, seat_code, start_time, end_time, schedule_recover_time, status) values "+
             "((select user_id from user where openid = ?), ?, ?, ?, ?, 1)",
-        insertParams = [openid, classroomID, seatCode, startTime, endTime];
+        insertParams = [openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime];
     db.insertQuery(insertQuery, insertParams, function(err, id){
         if(err){
             callback(err);
