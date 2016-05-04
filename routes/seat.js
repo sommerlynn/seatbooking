@@ -179,7 +179,7 @@ router.post('/order', function (req, res) {
                                         error: err
                                     });
                                 } else {
-                                    models.classroomModel.getById(req.body.classroom, function (err, classroom) {
+                                    models.classroomModel.getByID(req.body.classroom, function (err, classroom) {
                                         if (err) {
                                             res.render('errorView', {
                                                 openid: req.body.openid,
