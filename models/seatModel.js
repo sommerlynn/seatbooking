@@ -158,7 +158,7 @@ seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startT
  * **/
 seat.createOrder = function(openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime, callback){
     var insertQuery = "insert into user_seat_order (user_id, classroom_id, seat_code, start_time, end_time, schedule_recover_time, status) values "+
-            "((select user_id from user where openid = ?), ?, ?, ?, ?, 1)",
+            "((select user_id from user where openid = ?), ?, ?, ?, ?, ?, 1)",
         insertParams = [openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime];
     db.insertQuery(insertQuery, insertParams, function(err, id){
         if(err){
