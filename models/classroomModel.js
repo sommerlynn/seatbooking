@@ -14,7 +14,7 @@ classroom.getAll = function(schoolID, callback){
 classroom.getByID = function(classroomID, callback){
   var selectQuery = "select * from area_classroom where classroom_id = ?",
       params = [classroomID];
-  db.getObject(selectQuery, params, callback);
+  db.executeQuery(selectQuery, params, callback);
 };
 
 classroom.getByAreaID = function (areaID, callback) {
