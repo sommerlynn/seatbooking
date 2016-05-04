@@ -325,187 +325,197 @@ router.get('/scanseat/oauth/:schoolID/:cid/:seat', function (req, res) {
 
 router.get('/scanseat/oauthgetinfo', function (req, res) {
     client.getAccessToken(req.query.code, function (err, result) {
-        //var accessToken = result.data.access_token;
-        var openid = result.data.openid;
-        client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
+        if(err){
+            res.render('errorView', {
+                openid: '',
+                title: '服务器故障',
+                message: '服务器故障',
+                error: err
+            });
+        }else{
+            //var accessToken = result.data.access_token;
+            var openid = result.data.openid;
+            client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
 
-            var userInfo = result;
-            models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
+                var userInfo = result;
+                models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
 
-                // 检索该座位是否有人预约
-                models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, function (err, seatOrders) {
-                    // 有人预约
-                    if (seatOrders.length > 0)
-                    {
-                        // 预定或暂离状态
-                        if (seatOrders[0].status == 1 || seatOrders[0].status == 3)
+                    // 检索该座位是否有人预约
+                    models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, function (err, seatOrders) {
+                        // 有人预约
+                        if (seatOrders.length > 0)
                         {
-                            // 处于预定状态的座位 如果是本人 执行签到操作
-                            if (seatOrders[0].openid == openid)
+                            // 预定或暂离状态
+                            if (seatOrders[0].status == 1 || seatOrders[0].status == 3)
                             {
-                                models.seatModel.sign(seatOrders[0].order_id, function (err, result) {
-                                    models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
-
-                                        res.render('./seat/scanSeatView',
-                                            {
-                                                openid: openid,
-                                                title: '座位状态',
-                                                statusType: 'signed',
-                                                classroom: seatOrders[0].full_name,
-                                                seat: req.query.seat,
-                                                seatLogs: seatLogs,
-                                                promptMsg: ''
-                                            });
-                                    });
-                                });
-                            }
-                            // 如果非本人 提示不能预约
-                            else
-                            {
-                                models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
-                                    var statusType = 'prompt-singed';
-                                    if(seatOrders[0].status == 3){
-                                        statusType = 'prompt-leaved';
-                                    }
-
-                                    res.render('./seat/scanSeatView',
-                                        {
-                                            openid: openid,
-                                            title: '座位状态',
-                                            statusType: statusType,
-                                            classroom: seatOrders[0].full_name,
-                                            seat: req.query.seat,
-                                            seatLogs: seatLogs,
-                                            promptMsg: '这个座位已被其他小伙伴预约, 咱们重新去找个座位吧'
-                                        });
-                                });
-                            }
-                        }
-                        else
-                        // 签到状态
-                        if (seatOrders[0].status == 2)
-                        {
-                            // 本人已签到的座位 执行暂离操作
-                            if (seatOrders[0].openid == openid)
-                            {
-                                models.seatModel.leave(seatOrders[0].order_id, function (err, result) {
-                                        models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
-                                                res.render('./seat/scanSeatView',
-                                                    {
-                                                        openid: openid,
-                                                        title: '座位状态',
-                                                        statusType: 'leaved',
-                                                        classroom: seatOrders[0].full_name,
-                                                        seat: req.query.seat,
-                                                        seatLogs: seatLogs,
-                                                        promptMsg: ''
-                                                    });
-                                        });
-                                });
-                            }
-                            // 不是本人的座位，检查此人是否有其他座位，如没有，则将此座位释放，然后分配给此人，并执行签到
-                            else {
-                                models.seatModel.getOrderRelatedDateByDayType('today', function (startTime, endTime, scheduleRecoverTime) {
-                                    models.seatModel.isValidLibraryOrderRequest(openid, req.query.cid, req.query.seat, startTime, endTime, function (err) {
-                                        // 出错 或 已有其它座位 不能预约
-                                        if (err)
-                                        {
-                                            // 有其他座位 不能预约
-                                            if (err.type == 'prompt') {
-                                                models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
-                                                    res.render('./seat/scanSeatView',
-                                                        {
-                                                            openid: openid,
-                                                            title: '座位状态',
-                                                            statusType: 'prompt-signed',
-                                                            classroom: seatOrders[0].full_name,
-                                                            seat: req.query.seat,
-                                                            seatLogs: seatLogs,
-                                                            promptMsg: err.message
-                                                        });
-                                                });
-                                            }
-                                        }
-                                        // 没有其它座位 可以预约此座位
-                                        else
-                                        {
-                                            // 释放座位
-                                            models.seatModel.release(seatOrders[0].order_id, function (err, result) {
-
-                                                models.seatModel.createOrder(openid, req.query.cid, req.query.seat, startTime, endTime, scheduleRecoverTime, function (err, newOrderId) {
-
-                                                    models.seatModel.sign(newOrderId, function (err, result) {
-
-                                                        models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
-
-                                                            res.render('./seat/scanSeatView',
-                                                                {
-                                                                    openid: openid,
-                                                                    title: '座位状态',
-                                                                    statusType: 'signed',
-                                                                    classroom: seatLogs[0].full_name,
-                                                                    seat: req.query.seat,
-                                                                    seatLogs: seatLogs,
-                                                                    promptMsg: ''
-                                                                });
-                                                        });
-                                                    });
-                                                });
-                                            });
-                                        }
-                                    });
-                                });
-                            }
-                        }
-                    }
-                    // 无人预约
-                    else
-                    {
-                        models.seatModel.tryCreateLibraryOrder('today', openid, req.query.cid, req.query.seat, function (err, newOrderId) {
-                            // 此学生有其他座位
-                            if (err)
-                            {
-                                if (err.type == 'prompt') {
-                                    models.classroomModel.getByID(req.query.cid, function (err, classroom) {
-
+                                // 处于预定状态的座位 如果是本人 执行签到操作
+                                if (seatOrders[0].openid == openid)
+                                {
+                                    models.seatModel.sign(seatOrders[0].order_id, function (err, result) {
                                         models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
 
                                             res.render('./seat/scanSeatView',
                                                 {
                                                     openid: openid,
                                                     title: '座位状态',
-                                                    statusType: 'prompt-empty',
-                                                    classroom: classroom[0].full_name,
+                                                    statusType: 'signed',
+                                                    classroom: seatOrders[0].full_name,
                                                     seat: req.query.seat,
                                                     seatLogs: seatLogs,
-                                                    promptMsg: err.message
+                                                    promptMsg: ''
                                                 });
                                         });
                                     });
                                 }
+                                // 如果非本人 提示不能预约
+                                else
+                                {
+                                    models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
+                                        var statusType = 'prompt-singed';
+                                        if(seatOrders[0].status == 3){
+                                            statusType = 'prompt-leaved';
+                                        }
+
+                                        res.render('./seat/scanSeatView',
+                                            {
+                                                openid: openid,
+                                                title: '座位状态',
+                                                statusType: statusType,
+                                                classroom: seatOrders[0].full_name,
+                                                seat: req.query.seat,
+                                                seatLogs: seatLogs,
+                                                promptMsg: '这个座位已被其他小伙伴预约, 咱们重新去找个座位吧'
+                                            });
+                                    });
+                                }
                             }
-                            // 此学生没有其他座位
                             else
+                            // 签到状态
+                            if (seatOrders[0].status == 2)
                             {
-                                models.seatModel.sign(newOrderId, function (err, result) {
-
-                                    models.classroomModel.getById(eq.query.cid, function (err, classroom) {
-
-                                        res.render('./seat/scanSeatView', {
-                                            openid: openid,
-                                            title: '座位状态',
-                                            statusType: 'signed',
-                                            classroom: classroom[0].full_name,
-                                            seat: req.query.seat
+                                // 本人已签到的座位 执行暂离操作
+                                if (seatOrders[0].openid == openid)
+                                {
+                                    models.seatModel.leave(seatOrders[0].order_id, function (err, result) {
+                                        models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
+                                            res.render('./seat/scanSeatView',
+                                                {
+                                                    openid: openid,
+                                                    title: '座位状态',
+                                                    statusType: 'leaved',
+                                                    classroom: seatOrders[0].full_name,
+                                                    seat: req.query.seat,
+                                                    seatLogs: seatLogs,
+                                                    promptMsg: ''
+                                                });
                                         });
                                     });
-                                });
+                                }
+                                // 不是本人的座位，检查此人是否有其他座位，如没有，则将此座位释放，然后分配给此人，并执行签到
+                                else {
+                                    models.seatModel.getOrderRelatedDateByDayType('today', function (startTime, endTime, scheduleRecoverTime) {
+                                        models.seatModel.isValidLibraryOrderRequest(openid, req.query.cid, req.query.seat, startTime, endTime, function (err) {
+                                            // 出错 或 已有其它座位 不能预约
+                                            if (err)
+                                            {
+                                                // 有其他座位 不能预约
+                                                if (err.type == 'prompt') {
+                                                    models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
+                                                        res.render('./seat/scanSeatView',
+                                                            {
+                                                                openid: openid,
+                                                                title: '座位状态',
+                                                                statusType: 'prompt-signed',
+                                                                classroom: seatOrders[0].full_name,
+                                                                seat: req.query.seat,
+                                                                seatLogs: seatLogs,
+                                                                promptMsg: err.message
+                                                            });
+                                                    });
+                                                }
+                                            }
+                                            // 没有其它座位 可以预约此座位
+                                            else
+                                            {
+                                                // 释放座位
+                                                models.seatModel.release(seatOrders[0].order_id, function (err, result) {
+
+                                                    models.seatModel.createOrder(openid, req.query.cid, req.query.seat, startTime, endTime, scheduleRecoverTime, function (err, newOrderId) {
+
+                                                        models.seatModel.sign(newOrderId, function (err, result) {
+
+                                                            models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
+
+                                                                res.render('./seat/scanSeatView',
+                                                                    {
+                                                                        openid: openid,
+                                                                        title: '座位状态',
+                                                                        statusType: 'signed',
+                                                                        classroom: seatLogs[0].full_name,
+                                                                        seat: req.query.seat,
+                                                                        seatLogs: seatLogs,
+                                                                        promptMsg: ''
+                                                                    });
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            }
+                                        });
+                                    });
+                                }
                             }
-                        });
-                    }
+                        }
+                        // 无人预约
+                        else
+                        {
+                            models.seatModel.tryCreateLibraryOrder('today', openid, req.query.cid, req.query.seat, function (err, newOrderId) {
+                                // 此学生有其他座位
+                                if (err)
+                                {
+                                    if (err.type == 'prompt') {
+                                        models.classroomModel.getByID(req.query.cid, function (err, classroom) {
+
+                                            models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
+
+                                                res.render('./seat/scanSeatView',
+                                                    {
+                                                        openid: openid,
+                                                        title: '座位状态',
+                                                        statusType: 'prompt-empty',
+                                                        classroom: classroom[0].full_name,
+                                                        seat: req.query.seat,
+                                                        seatLogs: seatLogs,
+                                                        promptMsg: err.message
+                                                    });
+                                            });
+                                        });
+                                    }
+                                }
+                                // 此学生没有其他座位
+                                else
+                                {
+                                    models.seatModel.sign(newOrderId, function (err, result) {
+
+                                        models.classroomModel.getById(eq.query.cid, function (err, classroom) {
+
+                                            res.render('./seat/scanSeatView', {
+                                                openid: openid,
+                                                title: '座位状态',
+                                                statusType: 'signed',
+                                                classroom: classroom[0].full_name,
+                                                seat: req.query.seat
+                                            });
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                    });
                 });
             });
-        });
+        }
+
     });
 });
 
