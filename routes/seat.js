@@ -497,7 +497,7 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
                                 {
                                     models.seatModel.sign(newOrderId, function (err, result) {
 
-                                        models.classroomModel.getById(req.query.cid, function (err, classroom) {
+                                        models.classroomModel.getByID(req.query.cid, function (err, classroom) {
 
                                             res.render('./seat/scanSeatView', {
                                                 openid: openid,
