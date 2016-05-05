@@ -363,7 +363,7 @@
 
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
 
-                    <li class="card" style="">
+                    <li class="card" style="background-color: #E2E1D0">
                         <div class="card-content">
                             <ul class="seat-content">
                                 <li class="left_part">
@@ -393,7 +393,7 @@
                                     </div>
                                     <% if (userSeatOrders[index].status == 3) {%>
                                     <div class="date-row">
-                                        <p class="seat-message">请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，否则座位将被系统回收</p>
+                                        <p class="seat-message">请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，过时座位将被系统回收</p>
                                     </div>
                                     <%}%>
                                 </li><li class="right_part">
