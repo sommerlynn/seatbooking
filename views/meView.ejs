@@ -108,10 +108,6 @@
         display: inline-flex;
     }
 
-    .seat-content li{
-        padding: 0;
-    }
-
     .left_part {
         width: 72%;
         line-height: 1rem;
@@ -382,7 +378,7 @@
                     <li class="card" style="background-color: #E2E1D0">
                         <div class="card-content">
                             <ul class="seat-content">
-                                <li class="left_part">
+                                <li class="left_part" style="padding: 0">
                                     <div class="date-row">
                                         <span class="building-info"><%= userSeatOrders[index].full_name %></span>
                                     </div>
@@ -414,7 +410,7 @@
                                     <%}%>
                                 </li><li class="right_part">
                                     <div style="clear: both"></div>
-                                    <ul class="seat_operation_wrapper">
+                                    <ul class="seat_operation_wrapper" style="position: absolute">
                                     <% if (userSeatOrders[index].status == 1) { %>
                                         <li>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
