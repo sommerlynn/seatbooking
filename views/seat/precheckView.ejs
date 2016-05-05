@@ -189,7 +189,7 @@
                             openid:'<%= openid %>'
                         },
                         function(response){
-                            if(response.retCode == 1){
+                            if(response.retcode == 1){
                                 windows.location.assign('seatoperation?'+'openid='+'<%= openid %>'+'&cid='+'<%= classroomID%>'+'&seat='+'<%= seat %>'+'&angelcode='+response.angelcode);
                             }else{
                                 $.alert(response.message);
