@@ -82,27 +82,25 @@
         color: #A00000;
         text-align: center;
     }
-    .seat-content{
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        display: inline-flex;
-    }
 
     .left_part {
         width: 72%;
+        float: left;
         line-height: 1rem;
         padding: 0.3125rem;
         font-family: 华文中宋;
         border-right: 1px dashed #332331;
+        height: 4.5rem;
         background-color: #FFFFFF;
     }
 
     .right_part {
         width: 28%;
+        float: left;
         padding: 0.55rem 0 0 0;
         text-align: center;
         background-color: #E2E1D0;
+        height: 4.5rem;
     }
 
     .card {
@@ -273,7 +271,7 @@
         </a>
     </nav>
     <div class="content" style="background-color: #FFFFFF">
-        <!--<div class="list-block media-list" style="margin: 0;">
+        <div class="list-block media-list" style="margin: 0;">
             <ul style="padding: 0;">
                 <li style="background: url('../images/headerbg.jpg') no-repeat; background-size: 100%; padding: 1.25rem">
                     <a href="#" class="item-link item-content" style="background-color: rgba(0,0,0,0.4)">
@@ -289,10 +287,8 @@
                     </a>
                 </li>
             </ul>
-        </div>-->
-        <header class="bar bar-nav">
-            <h1 class="title">我的</h1>
-        </header>
+        </div>
+
         <ul class="icon-list" style="padding: 1rem 0;padding: 0.7rem 0;margin: 0;">
             <% if(userInfo.status == 0) { %>
             <li class="icon">
@@ -300,22 +296,17 @@
                     <span class="icon icon-circle icon-me"></span>
                     <span class="icon-desc">实名认证</span>
                 </a>
-            </li>
-            <% } else{ %>
-            <li class="icon">
+            </li><% } else{ %><li class="icon">
                 <a style="display: block" href="/me/info/<%= openid %>">
                     <span class="icon icon-circle icon-me"></span>
                     <span class="icon-desc">身份信息</span>
                 </a>
-            </li>
-            <% } %>
-            <li class="icon">
+            </li><% } %><li class="icon">
                 <a style="display: block" href="/building/<%= openid %>">
                     <span class="icon icon-circle icon-building"></span>
                     <span class="icon-desc">预约座位</span>
                 </a>
-            </li>
-            <li class="icon">
+            </li><li class="icon">
                 <a style="display: block" href="leaveSheet/<%= openid %>?ip=<%= ip %>">
                     <span class="icon icon-circle icon-leave-application"></span>
                     <span class="icon-desc">请假申请</span>
@@ -343,55 +334,44 @@
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
 
                     <li class="card" style="">
-                        <div class="card-content">
-                            <ul class="seat-content">
-                                <li class="left_part">
-                                    <div class="date-row">
-                                        <span class="building-info"><%= userSeatOrders[index].full_name %></span>
-                                    </div>
-                                    <div class="date-row">
-                                        <span class="selected-seat-info" id="selectedSeatInfo">
-                                            <%= userSeatOrders[index].seat_code %> 号</span>
-                                        <span class="seat-status">
-                                            <% if (userSeatOrders[index].status == -1) { %>
-                                                已取消
-                                            <% } else if(userSeatOrders[index].status == 1) { %>
-                                                正常
-                                            <% } else if(userSeatOrders[index].status == -2) { %>
-                                                系统回收
-                                            <% } else if(userSeatOrders[index].status == 2) { %>
-                                                <%= userSeatOrders[index].sign_time.toLocaleTimeString() %> 已签到
-                                            <% } else if(userSeatOrders[index].status == 3) { %>
-                                                <%= userSeatOrders[index].leave_time.toLocaleTimeString() %> 暂离
-                                            <% } %>
-                                        </span>
-                                    </div>
-                                    <div class="date-row">
-                                        <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
-                                        <span class="comment-info">[当天有效 本人使用]</span>
-                                    </div>
-                                </li><li class="right_part">
-                                    <% if (userSeatOrders[index].status == 1) { %>
-                                        <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
-                                            退座
-                                        </div>
-                                        <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到
-                                        </div>
-                                    <% } else if (userSeatOrders[index].status == 2) { %>
-                                        <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
-                                            退座
-                                        </div>
-                                        <div class="operation-leave" id="leave_<%= userSeatOrders[index].order_id %>">暂离
-                                        </div>
-                                    <% } else if (userSeatOrders[index].status == 3) { %>
-                                        <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
-                                            退座
-                                        </div>
-                                        <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到
-                                        </div>
+                        <div class="left_part">
+                            <div class="date-row">
+                                <span class="building-info"><%= userSeatOrders[index].full_name %></span>
+                            </div>
+                            <div class="date-row">
+                                <span class="selected-seat-info"
+                                      id="selectedSeatInfo">
+                                     <%= userSeatOrders[index].seat_code %> 号</span>
+                                <span class="seat-status">
+                                    <% if (userSeatOrders[index].status == -1) { %>
+                                    已取消
+                                    <% } else if(userSeatOrders[index].status == 1) { %>
+                                    正常
+                                    <% } else if(userSeatOrders[index].status == -2) { %>
+                                    系统回收
+                                    <% } else if(userSeatOrders[index].status == 2) { %>
+                                    <%= userSeatOrders[index].sign_time.toLocaleTimeString() %> 已签到
+                                    <% } else if(userSeatOrders[index].status == 3) { %>
+                                    <%= userSeatOrders[index].leave_time.toLocaleTimeString() %> 暂离
                                     <% } %>
-                                </li>
-                            </ul>
+                                </span>
+                            </div>
+                            <div class="date-row">
+                                <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
+                                <span class="comment-info">[当天有效 本人使用]</span>
+                            </div>
+                        </div>
+                        <div class="right_part">
+                            <% if (userSeatOrders[index].status == 1) {%>
+                            <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">退座</div>
+                            <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到</div>
+                            <%} else if (userSeatOrders[index].status == 2) {%>
+                            <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">退座</div>
+                            <div class="operation-leave" id="leave_<%= userSeatOrders[index].order_id %>">暂离</div>
+                            <%} else if (userSeatOrders[index].status == 3) {%>
+                            <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">退座</div>
+                            <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到</div>
+                            <%}%>
                         </div>
                     </li>
                     <% } %>
@@ -414,8 +394,7 @@
 
                     <li class="card" style="height: auto; background-color: #FFFFFF; ">
                         <div class="card-content">
-                            <div class="card-content-inner"
-                                 style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
+                            <div class="card-content-inner" style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
                                 <span class="leave-important"><%= leaveApplications[index].applier_real_name %></span>
                                 [<%= leaveApplications[index].mobile %>]
                                 于
@@ -451,7 +430,7 @@
                                 </div>
                             </div>
                         </div>
-                        <% if(leaveApplications[index].status == 0) { %>
+                        <% if(leaveApplications[index].status == 0) {%>
                         <div class="card-footer" style="text-align: center; margin: 0 auto; background-color: #E2E1D0">
                             <ul class="my-leave-operation-list" style="width: 100%; margin: 0; padding: 0">
                                 <li class="my-leave-operation">
@@ -483,8 +462,7 @@
 
                     <li class="card" style="height: auto; background-color: #FFFFFF">
                         <div class="card-content">
-                            <div class="card-content-inner"
-                                 style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666"><span
+                            <div class="card-content-inner" style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666"><span
                                         class="leave-important"><%= waitForApprovedLeaveApplications[index].applier_real_name %></span>
                                 [<%= waitForApprovedLeaveApplications[index].mobile %>]
                                 于
@@ -539,7 +517,7 @@
         timestamp: '<%= weiJSConfig.timestamp %>', // 必填，生成签名的时间戳
         nonceStr: '<%= weiJSConfig.nonceStr %>', // 必填，生成签名的随机串
         signature: '<%= weiJSConfig.signature %>',// 必填，签名，见附录1
-        jsApiList: ['hideAllNonBaseMenuItem', 'scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        jsApiList: ['hideAllNonBaseMenuItem','scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
 
     wx.ready(function () {
@@ -583,7 +561,7 @@
     $(document).on('click', '.operation-sign', function () {
         wx.scanQRCode({
             needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-            scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+            scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
             success: function (res) {
                 var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
             }
