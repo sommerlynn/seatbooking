@@ -254,6 +254,10 @@
     span.leave-approve-by {
         text-decoration: underline;
     }
+
+    .list-block ul ul{
+        padding: 0;
+    }
 </style>
 
 <div class="page">
@@ -293,37 +297,37 @@
         <header class="bar bar-nav">
             <h1 class="title">我的</h1>
         </header>
-        <ul class="icon-list" style="padding: 1rem 0;padding: 0.7rem 0;margin: 0;">
-            <% if(userInfo.status == 0) { %>
-            <li class="icon">
-                <a style="display: block" href="/me/verifySheet/<%= openid %>">
-                    <span class="icon icon-circle icon-me"></span>
-                    <span class="icon-desc">实名认证</span>
-                </a>
-            </li>
-            <% } else{ %>
-            <li class="icon">
-                <a style="display: block" href="/me/info/<%= openid %>">
-                    <span class="icon icon-circle icon-me"></span>
-                    <span class="icon-desc">身份信息</span>
-                </a>
-            </li>
-            <% } %>
-            <li class="icon">
-                <a style="display: block" href="/building/<%= openid %>">
-                    <span class="icon icon-circle icon-building"></span>
-                    <span class="icon-desc">预约座位</span>
-                </a>
-            </li>
-            <li class="icon">
-                <a style="display: block" href="leaveSheet/<%= openid %>?ip=<%= ip %>">
-                    <span class="icon icon-circle icon-leave-application"></span>
-                    <span class="icon-desc">请假申请</span>
-                </a>
-            </li>
-        </ul>
 
         <div class="content-block">
+            <ul class="icon-list" style="padding: 1rem 0;padding: 0.7rem 0;margin: 0;">
+                <% if(userInfo.status == 0) { %>
+                <li class="icon">
+                    <a style="display: block" href="/me/verifySheet/<%= openid %>">
+                        <span class="icon icon-circle icon-me"></span>
+                        <span class="icon-desc">实名认证</span>
+                    </a>
+                </li>
+                <% } else{ %>
+                <li class="icon">
+                    <a style="display: block" href="/me/info/<%= openid %>">
+                        <span class="icon icon-circle icon-me"></span>
+                        <span class="icon-desc">身份信息</span>
+                    </a>
+                </li>
+                <% } %>
+                <li class="icon">
+                    <a style="display: block" href="/building/<%= openid %>">
+                        <span class="icon icon-circle icon-building"></span>
+                        <span class="icon-desc">预约座位</span>
+                    </a>
+                </li>
+                <li class="icon">
+                    <a style="display: block" href="leaveSheet/<%= openid %>?ip=<%= ip %>">
+                        <span class="icon icon-circle icon-leave-application"></span>
+                        <span class="icon-desc">请假申请</span>
+                    </a>
+                </li>
+            </ul>
 
             <div class="list-block cards-list">
                 <ul id="seat_tickets">
