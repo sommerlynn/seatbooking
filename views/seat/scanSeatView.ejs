@@ -203,11 +203,6 @@
                         </li>
                     </ul>
                 </div>
-                <div class="card-content">
-                    <div class="card-content-inner">
-                        <span><%= promptMsg%></span>
-                    </div>
-                </div>
         <%} else if (statusType == 'prompt-signed') {%>
                 <div class="card">
                     <div class="card-header">
@@ -218,11 +213,6 @@
                                 <span>已签到</span>
                             </li>
                         </ul>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-content-inner">
-                            <span><%= promptMsg%></span>
-                        </div>
                     </div>
         <%} else if (statusType == 'prompt-leaved') {%>
                     <div class="card">
@@ -235,12 +225,12 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="card-content">
-                            <div class="card-content-inner">
-                                <span><%= promptMsg%></span>
-                            </div>
-                        </div>
         <%}%>
+            <div class="card-content">
+                 <div class="card-content-inner">
+                      <span><%= promptMsg%></span>
+                 </div>
+            </div>
             <% if(seatLogs.length > 0) {%>
             <div class="card-footer">
                 <ul class="seat-log-card-list">
