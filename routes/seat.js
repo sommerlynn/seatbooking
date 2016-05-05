@@ -351,6 +351,8 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
                         }else{
                             res.render('./seat/precheckView', {
                                 openid: req.params.openid,
+                                classroomID:req.query.cid,
+                                seat:req.query.seat,
                                 weiJSConfig: weiJSConfig,
                                 title: '座位状态'
                             });
@@ -363,13 +365,13 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
 });
 
 router.post('/scanseat/checkLocation', function (req, res) {
-    log('test00');
-    var result = {retcode:0, accesscode:req.body.latitude};
-    res.send(JSON.stringify(result));
+    var result = {retcode:1, angelcode:'123456', message:'ok'};
+    res.send(result);
 });
 
 
-router.get('/scanseat/oauthcheck', function(req, res){
+router.get('/scanseat/seatoperation', function(req, res){
+    var openid = req.query.openid;
     // 检索该座位是否有人预约
     models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, function (err, seatOrders) {
         // 有人预约

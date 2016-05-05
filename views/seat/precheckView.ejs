@@ -181,13 +181,19 @@
                 var speed = res.speed; // 速度，以米/每秒计
                 var accuracy = res.accuracy; // 位置精度
 
-                $.post('/scanseat/checkLocation',
+                $.post('checkLocation',
                         {
                             latitude:latitude,
-                            longitude:longitude
+                            longitude:longitude,
+                            classroomID:'<%= classroomID %>',
+                            openid:'<%= openid %>'
                         },
                         function(response){
-                            $.alert(response);
+                            if(response.retCode == '1'){
+                                windows.location.assign('seatoperation?'+'openid='+'<%= openid %>'+'&cid='+'<%= classroomID%>'+'&seat='+'<%= seat %>'+'&angelcode='+response.angelcode);
+                            }else{
+                                $.alert(response.message);
+                            }
                         }
                 );
             }
