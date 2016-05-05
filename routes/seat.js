@@ -363,6 +363,7 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
 });
 
 router.post('/scanseat/checkLocation', function (req, res) {
+    log('test00');
     var result = {retcode:0, accesscode:req.body.latitude};
     res.send(JSON.stringify(result));
 });
