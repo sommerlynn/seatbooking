@@ -396,7 +396,9 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
                                 // 本人已签到的座位 执行暂离操作
                                 if (seatOrders[0].openid == openid)
                                 {
-                                    models.seatModel.leave(seatOrders[0].order_id, function (err, result) {
+                                    models.seatModel.leave(seatOrders[0].order_id, function (err, scheduleRecoverDate) {
+                                        var promptMsg = '感谢你遵守文明用座规范, 现已成功设置暂离, 座位将为你保留至'+scheduleRecoverDate.toLocaleTimeString()+
+                                            ', 请于此时间之前返回扫码签到, 否则座位将会被系统回收。';
                                         models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
                                             res.render('./seat/scanSeatView',
                                                 {
@@ -406,7 +408,7 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
                                                     classroom: seatOrders[0].full_name,
                                                     seat: req.query.seat,
                                                     seatLogs: seatLogs,
-                                                    promptMsg: ''
+                                                    promptMsg: promptMsg
                                                 });
                                         });
                                     });
@@ -442,10 +444,11 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
 
                                                     models.seatModel.createOrder(openid, req.query.cid, req.query.seat, startTime, endTime, scheduleRecoverTime, function (err, newOrderId) {
 
-                                                        models.seatModel.sign(newOrderId, function (err, result) {
+                                                        models.seatModel.sign(newOrderId, function (err, scheduleRecoverDate) {
 
                                                             models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
 
+                                                                var promptMsg = '你已成功签到, 请遵守座位使用规则, 暂离请扫码(如未扫码暂离, 其它同学可扫码获得此座, 你将被记录违规一次), 用完请退座。';
                                                                 res.render('./seat/scanSeatView',
                                                                     {
                                                                         openid: openid,
@@ -454,7 +457,7 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
                                                                         classroom: seatLogs[0].full_name,
                                                                         seat: req.query.seat,
                                                                         seatLogs: seatLogs,
-                                                                        promptMsg: ''
+                                                                        promptMsg: promptMsg
                                                                     });
                                                             });
                                                         });
@@ -496,8 +499,8 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
                                 // 此学生没有其他座位
                                 else
                                 {
-                                    models.seatModel.sign(newOrderId, function (err, result) {
-
+                                    models.seatModel.sign(newOrderId, function (err, scheduleRecoverDate) {
+                                        var promptMsg = '你已成功签到, 请遵守座位使用规则, 暂离请扫码(如未扫码暂离, 其它同学可扫码获得此座, 你将被记录违规一次), 用完请退座。';
                                         models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
 
                                             res.render('./seat/scanSeatView',

@@ -272,7 +272,7 @@ seat.sign = function (orderID, callback) {
                 if(err){
                     callback(err);
                 }else{
-                    callback(null, result);
+                    callback(null, scheduleRecoverDate);
                 }
             });
         }
@@ -285,8 +285,23 @@ seat.sign = function (orderID, callback) {
 * 2016-04-19 CHEN PU 修改status值从2变成3,2作为签到的状态
 * */
 seat.leave = function (orderID, callback) {
-    var updateQuery = "update user_seat_order set status = 3, leave_time = ? where order_id = ?",
-        params = [new Date(), orderID];
+    var updateQuery = "update user_seat_order set status = 3, leave_time = ?, schedule_recover_time = ? where order_id = ?",
+        now = new Date(),
+        scheduleRecoverDate = new Date(now + 0.5*60*60*1000), // 一般时段半小时后回收座位
+        lunchTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0),
+        lunchTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30, 0),
+        supperTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0),
+        supperTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 30, 0);
+
+    if(now >= lunchTimeStart && now <= lunchTimeEnd){
+        scheduleRecoverDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 0, 0);
+    }
+    else if(now >= supperTimeStart && now <= supperTimeEnd){
+        scheduleRecoverDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 0, 0);
+    }
+
+    var params = [new Date(), scheduleRecoverDate, orderID];
+
     db.executeQuery(updateQuery, params, function(err, result){
         if(err){
             callback(err);
@@ -295,7 +310,7 @@ seat.leave = function (orderID, callback) {
                 if(err){
                     callback(err);
                 }else{
-                    callback(null, result);
+                    callback(null, scheduleRecoverDate);
                 }
             });
         }
