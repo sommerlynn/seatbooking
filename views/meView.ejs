@@ -67,6 +67,21 @@
         font-size: 0.75em;
     }
 
+    .seat_operation_wrapper{
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        zoom: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .seat_operation_wrapper li{
+        height: 50%;
+        padding: .2rem 0;
+    }
+
     .operation-release, .operation-leave, .operation-sign {
         display: inline-block;
         padding: 0.1875rem 0.3125rem;
@@ -399,34 +414,34 @@
                                     <%}%>
                                 </li><li class="right_part">
                                     <div style="clear: both"></div>
-                                    <ul style="height: 100%">
+                                    <ul class="seat_operation_wrapper">
                                     <% if (userSeatOrders[index].status == 1) { %>
-                                        <li style="height: 50%">
+                                        <li>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
                                             退座
                                         </div>
                                         </li>
-                                        <li style="height: 50%">
+                                        <li>
                                         <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到
                                         </div>
                                         </li>
                                     <% } else if (userSeatOrders[index].status == 2) { %>
-                                        <li style="height: 50%">
+                                        <li>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
                                             退座
                                         </div>
                                         </li>
-                                        <li style="height: 50%">
+                                        <li>
                                         <div class="operation-leave" id="leave_<%= userSeatOrders[index].order_id %>">暂离
                                         </div>
                                         </li>
                                     <% } else if (userSeatOrders[index].status == 3) { %>
-                                        <li style="height: 50%">
+                                        <li>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
                                             退座
                                         </div>
                                         </li>
-                                        <li style="height: 50%">
+                                        <li>
                                         <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到
                                         </div>
                                         </li>
