@@ -1,0 +1,193 @@
+<% include ../header.html %>
+<style>
+    .seat-status-card {
+        /*background-color: #f7f7f8;*/
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        /*border-left: 4px solid #A00000;*/
+    }
+
+    .seat-status-card li {
+        display: inline-block;
+        line-height: 2.5rem;
+        height: 2.5rem;
+        text-align: center;
+    }
+
+    .classroom {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .seat {
+        width: 50%;
+    }
+
+    .status {
+        width: 50%;
+    }
+
+    .seat-operation-card {
+        /*background-color: #E2E1D0;*/
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .seat-operation-card li {
+        display: inline-block;
+        line-height: 2.5rem;
+        height: 2.5rem;
+        text-align: center;
+    }
+
+    .seat-operation{
+        width: 100%;
+    }
+
+    .seat-opertion-btn{
+        display: inline-block;
+        width: 3.75rem;
+        border: 0.0625rem solid #DCC6C6;
+        color: #A00000;
+        text-align: center;
+        height: 1.5rem;
+        line-height: 1.5rem;
+    }
+
+    .seat-log-card-list{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .seat-log-card{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .seat-log-card li {
+        display: table-cell;
+        line-height: 2rem;
+        height: 2rem;
+        text-align: center;
+        font-size: .75rem;
+    }
+
+    .user-header-img{
+        margin: 0 auto;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0px;
+        display: table-cell;
+    }
+
+    .user-header-img img{
+        vertical-align: middle;
+        border-radius: 10px;
+        margin: 0 .7rem;
+    }
+
+    .log-time{
+    }
+
+    .log-msg{
+    }
+
+    .time{
+        margin: 0 .75rem 0 0;
+    }
+
+    .msg{
+
+    }
+
+    .card-footer, .card-header{
+        padding: 0 .75rem;
+    }
+
+    .card{
+        background-color: #f7f7f8;
+    }
+
+    .prompt-message{
+        line-height: 1.5rem;
+    }
+</style>
+
+<div class="page">
+    <header class="bar bar-nav">
+        <h1 class="title">座位状态</h1>
+    </header>
+    <!-- 工具栏 -->
+    <nav class="bar bar-tab">
+        <a class="tab-item active" id="buildingTab" href="/building/<%= openid %>" external>
+            <span class="icon icon-building"></span>
+            <span class="tab-label">预约座位</span>
+        </a>
+        <a class="tab-item" id="skyTab" href="/index/<%= openid %>" external>
+            <span class="icon icon-star"></span>
+            <span class="tab-label">七玥书斋</span>
+        </a>
+        <a class="tab-item" id="meTab" href="/me/<%= openid %>" external>
+            <span class="icon icon-me"></span>
+            <span class="tab-label">我的</span>
+        </a>
+    </nav>
+    <div class="content">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-content-inner">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.1.0.js' charset='utf-8'></script>
+
+<script>
+    $.config = {
+        autoInit: true,
+        router: false
+    }
+
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '<%= weiJSConfig.appId %>', // 必填，公众号的唯一标识
+        timestamp: '<%= weiJSConfig.timestamp %>', // 必填，生成签名的时间戳
+        nonceStr: '<%= weiJSConfig.nonceStr %>', // 必填，生成签名的随机串
+        signature: '<%= weiJSConfig.signature %>',// 必填，签名，见附录1
+        jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    wx.ready(function () {
+        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+
+                $.alert(latitude);
+            }
+        });
+    });
+
+    wx.error(function (res) {
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+    });
+</script>
+<% include ../footer.html %>
