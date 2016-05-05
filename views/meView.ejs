@@ -376,6 +376,11 @@
                                         <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
                                         <span class="comment-info">[当天有效 本人使用]</span>
                                     </div>
+                                    <% if (userSeatOrders[index].status == 3) {%>
+                                    <div class="date-row">
+                                        <span>请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，否则座位将被系统回收</span>
+                                    </div>
+                                    <%}%>
                                 </li><li class="right_part">
                                     <% if (userSeatOrders[index].status == 1) { %>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
