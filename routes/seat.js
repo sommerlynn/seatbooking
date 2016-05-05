@@ -362,6 +362,12 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
     });
 });
 
+router.post('/scanseat/checkLocation', function (req, res) {
+    var result = {retcode:0, accesscode:req.body.latitude};
+    res.send(JSON.stringify(result));
+});
+
+
 router.get('/scanseat/oauthcheck', function(req, res){
     // 检索该座位是否有人预约
     models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, function (err, seatOrders) {
