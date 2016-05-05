@@ -502,7 +502,6 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
                                     models.seatModel.sign(newOrderId, function (err, scheduleRecoverDate) {
                                         var promptMsg = '你已成功签到, 请遵守座位使用规则, 暂离请扫码(如未扫码暂离, 其它同学可扫码获得此座, 你将被记录违规一次), 用完请退座。';
                                         models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
-
                                             res.render('./seat/scanSeatView',
                                                 {
                                                     openid: openid,
@@ -511,7 +510,7 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
                                                     classroom: seatLogs[0].full_name,
                                                     seat: req.query.seat,
                                                     seatLogs: seatLogs,
-                                                    promptMsg: ''
+                                                    promptMsg: promptMsg
                                                 });
                                         });
                                     });
