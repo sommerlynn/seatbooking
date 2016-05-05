@@ -397,6 +397,7 @@
                                     </div>
                                     <%}%>
                                 </li><li class="right_part">
+                                    <div>
                                     <% if (userSeatOrders[index].status == 1) { %>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
                                             退座
@@ -416,6 +417,7 @@
                                         <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到
                                         </div>
                                     <% } %>
+                                    </div>
                                 </li>
                                 <div style="clear: both"></div>
                             </ul>
