@@ -411,39 +411,25 @@
                                     <%}%>
                                 </li><li class="right_part">
                                     <div style="clear: both"></div>
-                                    <ul class="seat_operation_wrapper" style="position: absolute">
                                     <% if (userSeatOrders[index].status == 1) { %>
-                                        <li>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
                                             退座
                                         </div>
-                                        </li>
-                                        <li>
                                         <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到
                                         </div>
-                                        </li>
                                     <% } else if (userSeatOrders[index].status == 2) { %>
-                                        <li>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
                                             退座
                                         </div>
-                                        </li>
-                                        <li>
                                         <div class="operation-leave" id="leave_<%= userSeatOrders[index].order_id %>">暂离
                                         </div>
-                                        </li>
                                     <% } else if (userSeatOrders[index].status == 3) { %>
-                                        <li>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
                                             退座
                                         </div>
-                                        </li>
-                                        <li>
                                         <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到
                                         </div>
-                                        </li>
                                     <% } %>
-                                    </ul>
                                 </li>
                                 <div style="clear: both"></div>
                             </ul>
