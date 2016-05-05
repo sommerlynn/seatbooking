@@ -241,6 +241,7 @@
                             </div>
                         </div>
         <%}%>
+            <% if(seatLogs.length > 0) {%>
             <div class="card-footer">
                 <ul class="seat-log-card-list">
                     <% for (var index = 0; index < seatLogs.length; index++) {%>
@@ -252,6 +253,7 @@
                     <%}%>
                 </ul>
             </div>
+            <%}%>
         </div>
     </div>
 </div>
