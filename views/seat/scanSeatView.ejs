@@ -58,7 +58,7 @@
     }
 
     .seat-operation{
-        width: 50%;
+        width: 100%;
     }
 
     .seat-opertion-btn{
@@ -186,12 +186,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="card-content">
-                <ul class="seat-operation-card">
-                    <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li>
-                </ul>
-            </div>
-
         <%} else if (statusType == 'prompt-empty') {%>
             <div class="card">
                 <div class="card-header">
@@ -228,7 +222,13 @@
         <%}%>
             <div class="card-content">
                  <div class="card-content-inner">
-                      <span><%= promptMsg%></span>
+                     <p><span><%= promptMsg%></span></p>
+
+                     <% if (statusType == 'prompt-empty') { %>
+                        <ul class="seat-operation-card">
+                             <li class="seat-operation"><div class="seat-opertion-btn">退座</div></li>
+                        </ul>
+                     <%}%>
                  </div>
             </div>
             <% if(seatLogs.length > 0) {%>
