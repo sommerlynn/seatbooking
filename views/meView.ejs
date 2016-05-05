@@ -408,11 +408,7 @@
                                         <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
                                         <span class="comment-info">[当天有效 本人使用]</span>
                                     </div>
-                                    <% if (userSeatOrders[index].status == 3) {%>
-                                    <div class="date-row">
-                                        <p class="seat-message">请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，过时座位将被系统回收</p>
-                                    </div>
-                                    <%}%>
+
                                 </li><li class="right_part">
                                     <div style="clear: both"></div>
                                     <% if (userSeatOrders[index].status == 1) { %>
@@ -437,6 +433,11 @@
                                 </li>
                                 <div style="clear: both"></div>
                             </ul>
+                            <% if (userSeatOrders[index].status == 3) {%>
+                            <div class="date-row">
+                                <p class="seat-message">请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，过时座位将被系统回收</p>
+                            </div>
+                            <%}%>
                         </div>
                     </li>
                     <% } %>
