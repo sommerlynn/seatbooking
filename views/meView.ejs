@@ -84,11 +84,16 @@
         color: #A00000;
         text-align: center;
     }
+
     .seat-content{
         width: 100%;
         margin: 0;
         padding: 0;
         display: inline-flex;
+    }
+
+    .seat-content li{
+        padding: 0;
     }
 
     .left_part {
@@ -110,7 +115,7 @@
     .card {
         background-color: #FFFFFF;
         color: #000000;
-        height: 4.5rem;
+        /*height: 4.5rem;*/
         margin: 0 0 .2rem 0;
     }
 
@@ -260,6 +265,14 @@
     .list-block ul ul{
         padding: 0;
     }
+
+    .seat-message{
+        margin: 0;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.75em;
+        background-color: #A00000;
+        color: #FFFFFF;
+    }
 </style>
 
 <div class="page">
@@ -378,7 +391,7 @@
                                     </div>
                                     <% if (userSeatOrders[index].status == 3) {%>
                                     <div class="date-row">
-                                        <span>请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，否则座位将被系统回收</span>
+                                        <p class="seat-message">请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，否则座位将被系统回收</p>
                                     </div>
                                     <%}%>
                                 </li><li class="right_part">
