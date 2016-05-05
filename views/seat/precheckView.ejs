@@ -190,7 +190,7 @@
                         },
                         function(response){
                             if(response.retcode == 1){
-                                windows.location.assign('seatoperation?'+'openid='+'<%= openid %>'+'&cid='+'<%= classroomID%>'+'&seat='+'<%= seat %>'+'&angelcode='+response.angelcode);
+                                window.location.assign('seatoperation?'+'openid='+'<%= openid %>'+'&cid='+'<%= classroomID%>'+'&seat='+'<%= seat %>'+'&angelcode='+response.angelcode);
                             }else{
                                 $.alert(response.message);
                             }
