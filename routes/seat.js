@@ -350,7 +350,7 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
                             });
                         }else{
                             res.render('./seat/precheckView', {
-                                openid: req.params.openid,
+                                openid: openid,
                                 classroomID:req.query.cid,
                                 seat:req.query.seat,
                                 weiJSConfig: weiJSConfig,
