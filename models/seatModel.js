@@ -261,7 +261,7 @@ seat.getOld = function(openid, callback){
 seat.sign = function (orderID, callback) {
     // 签到后 计划回收时间设为到今天最后
     var now = new Date(),
-        nextDay = new Date(now + 24 * 60 * 60 * 1000),
+        nextDay = new Date(now.getTime() + 24 * 60 * 60 * 1000),
         scheduleRecoverDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
     var updateQuery = "update user_seat_order set status = 2, sign_time = ?, schedule_recover_time = ? where order_id = ?",
         params = [new Date(), scheduleRecoverDate, orderID];
