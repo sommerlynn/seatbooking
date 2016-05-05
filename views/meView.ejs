@@ -423,7 +423,7 @@
                                 <div style="clear: both"></div>
                             </ul>
                             <% if (userSeatOrders[index].status == 3) {%>
-                            <div class="date-row">
+                            <div class="card-footer date-row">
                                 <p class="seat-message">请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，过时座位将被系统回收</p>
                             </div>
                             <%}%>
