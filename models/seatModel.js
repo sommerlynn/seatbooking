@@ -260,7 +260,8 @@ seat.getOld = function(openid, callback){
 * */
 seat.sign = function (orderID, callback) {
     // 签到后 计划回收时间设为到今天最后
-    var nextDay = new Date(new Date() + 24 * 60 * 60 * 1000),
+    var now = new Date(),
+        nextDay = new Date(now + 24 * 60 * 60 * 1000),
         scheduleRecoverDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
     var updateQuery = "update user_seat_order set status = 2, sign_time = ?, schedule_recover_time = ? where order_id = ?",
         params = [new Date(), scheduleRecoverDate, orderID];
@@ -287,7 +288,7 @@ seat.sign = function (orderID, callback) {
 seat.leave = function (orderID, callback) {
     var updateQuery = "update user_seat_order set status = 3, leave_time = ?, schedule_recover_time = ? where order_id = ?",
         now = new Date(),
-        scheduleRecoverDate = new Date(now + 0.5*60*60*1000), // 一般时段半小时后回收座位
+        scheduleRecoverDate = new Date(now.getTime() + 0.5*60*60*1000), // 一般时段半小时后回收座位
         lunchTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0),
         lunchTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30, 0),
         supperTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0),
