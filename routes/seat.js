@@ -486,7 +486,7 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
                                                         classroom: classroom[0].full_name,
                                                         seat: req.query.seat,
                                                         seatLogs: seatLogs,
-                                                        promptMsg: err.message
+                                                        promptMsg: ''
                                                     });
                                             });
                                         });
