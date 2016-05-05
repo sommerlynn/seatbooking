@@ -474,6 +474,7 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
                                 if (err)
                                 {
                                     if (err.type == 'prompt') {
+                                        var promptMsg = err.message;
                                         models.classroomModel.getByID(req.query.cid, function (err, classroom) {
 
                                             models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
@@ -486,7 +487,7 @@ router.get('/scanseat/oauthgetinfo', function (req, res) {
                                                         classroom: classroom[0].full_name,
                                                         seat: req.query.seat,
                                                         seatLogs: seatLogs,
-                                                        promptMsg: err.message
+                                                        promptMsg: promptMsg
                                                     });
                                             });
                                         });
