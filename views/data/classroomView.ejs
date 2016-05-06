@@ -59,7 +59,7 @@
                 curLatitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
                 curLongitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
 
-                $('#cur-position').innerText = curLatitude+','+curLongitude;
+                $('#cur-position')[0].innerText = curLatitude+','+curLongitude;
             }
         });
     });
