@@ -13,7 +13,7 @@ var express = require('express'),
     log = debug('seat'),
     support = debug('../lib/support');
 
-/**/
+var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 router.get('/data/loadcourse', function (req, res, next) {
     var dataFromFile = xlsx.parse('./bak/data.xlsx');
