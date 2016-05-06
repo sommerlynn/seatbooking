@@ -135,3 +135,5 @@ router.get('/data/classroom/:cid', function (req, res) {
             title: '七玥校园'
         });
 });
+
+module.exports = router;
