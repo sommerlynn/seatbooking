@@ -1,7 +1,17 @@
 /**
  * Created by Administrator on 2016/4/12.
  */
-
+var express = require('express'),
+    router = express.Router(),
+    async = require('async'),
+    Promise = require('bluebird'),
+    xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
+    models = require('../models'),
+    OAuth = require('wechat-oauth'),
+    WeiJSAPI = require('../lib/weixin-jssdk'),
+    debug = require('debug'),
+    log = debug('seat'),
+    support = debug('../lib/support');
 
 /**/
 
