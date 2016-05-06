@@ -5,7 +5,7 @@
 
 /**/
 
-router.get('/loadcourse', function (req, res, next) {
+router.get('/data/loadcourse', function (req, res, next) {
     var dataFromFile = xlsx.parse('./bak/data.xlsx');
     var data = dataFromFile[0]['data'];
     var msg = '执行完毕';
@@ -32,7 +32,7 @@ router.get('/loadcourse', function (req, res, next) {
 // 5 上课时间
 // 6 上课地点
 
-router.get('/loadbuilding', function (req, res, next) {
+router.get('/data/loadbuilding', function (req, res, next) {
     var dataFromFile = xlsx.parse('./bak/data.xlsx');
     var datas = dataFromFile[0]['data'];
     var msg;
@@ -49,7 +49,7 @@ router.get('/loadbuilding', function (req, res, next) {
 });
 
 
-router.get('/loadclassroom', function (req, res, next) {
+router.get('/data/loadclassroom', function (req, res, next) {
     var dataFromFile = xlsx.parse('./bak/data.xlsx');
     var datas = dataFromFile[0]['data'];
     var msg;
@@ -65,7 +65,7 @@ router.get('/loadclassroom', function (req, res, next) {
     res.render('parseView', {title: '加载教室信息', msg: msg});
 });
 
-router.get('/loadclasstime', function (req, res, next) {
+router.get('/data/loadclasstime', function (req, res, next) {
     var dataFromFile = xlsx.parse('./bak/data.xlsx');
     var datas = dataFromFile[0]['data'];
     var msg;
@@ -81,7 +81,7 @@ router.get('/loadclasstime', function (req, res, next) {
 });
 
 /*根据行、列数计算教室的默认标准地图数据*/
-router.get('/fillSeatMap', function (req, res, next) {
+router.get('/data/fillSeatMap', function (req, res, next) {
     models.classroomModel.getAll(1, function (err, classrooms) {
         if (err) {
 
@@ -97,4 +97,31 @@ router.get('/fillSeatMap', function (req, res, next) {
         }
     });
 
+});
+
+router.get('/data/building/:schoolId', function (req, res) {
+    models.classroomModel.getAll(req.params.schoolId, function (err, classroomList) {
+        res.render('./data/buildingView',
+            {
+                title: '七玥天使-自习室导航',
+                classroomList: classroomList
+            });
+    });
+});
+
+router.get('/data/buildingClassroom/:areaId', function (req, res) {
+    models.classroomModel.getByAreaID(req.params.areaId, function (err, classroomList) {
+        res.render('./data/buildingClassroomView',
+            {
+                title: '七玥校园',
+                classroomList: classroomList
+            });
+    });
+});
+
+router.get('/data/classroom/:cid', function (req, res) {
+    res.render('./data/classroomView',
+        {
+            title: '七玥校园'
+        });
 });

@@ -1,0 +1,90 @@
+<% include ../header.html %>
+<style>
+    .bar {
+        /*background-color: #FFFFFF;*/
+    }
+
+    .bar:after {
+        height: 0;
+        background-color: #1D2025;
+    }
+
+    .bar-tab:before {
+        /*background-color: #33475F;*/
+    }
+
+    .card {
+        background-color: #F5F5F5;
+        color: #000000;
+    }
+
+    .card-header {
+        font-size: 0.6rem;
+    }
+
+    .card-content-inner {
+        padding: 0.35rem;
+        text-align: center;
+    }
+
+    .card-footer {
+        color: #4C3517;
+        background-color: #EFD4D4;
+    }
+
+    .content{
+        background-color: #E7E9ED;
+    }
+
+    .content-block{
+        padding: 0;
+    }
+
+    .item-content{
+        background-color: #FFFFFF;
+        margin: 0 1rem 0 1rem;
+    }
+</style>
+<div class="page">
+    <!--<header class="bar bar-nav theme-dark">
+        <h1 class="title">教室导航</h1>
+    </header>-->
+    <!-- 工具栏 -->
+
+    <div class="content">
+        <div class="content-block">
+            <div class="list-block cards-list">
+                <ul>
+                    <li>
+                        <a class="item-link item-content" href="buildingClassroom/429" external>
+                            <div class="item-inner">
+                                <div class="item-title">图书馆主馆</div>
+                                <div class="item-title"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item-link item-content" href="buildingClassroom/435" external>
+                            <div class="item-inner">
+                                <div class="item-title">图书馆分馆</div>
+                                <div class="item-title"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script>
+    $.config = {
+        autoInit: true,
+        router: false
+    }
+</script>
+
+<% include ../footer.html %>

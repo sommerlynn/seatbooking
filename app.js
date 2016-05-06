@@ -69,6 +69,9 @@ app.use('/', verify);
 var reading = require('./routes/reading');
 app.use('/', reading);
 
+var data = require('./routes/data');
+app.use('/', data);
+
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
   var err = new Error('Not Found');

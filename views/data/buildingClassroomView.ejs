@@ -1,0 +1,251 @@
+<% include ../header.html %>
+<style>
+    .bar {
+        /*background-color: #FFFFFF;*/
+    }
+
+    .bar:after {
+        height: 0;
+        background-color: #1D2025;
+    }
+
+    .bar-tab:before {
+        /*background-color: #33475F;*/
+    }
+
+    .content {
+        background-color: #E7EEE6;
+        position: absolute;
+        /*top: 2.8rem;*/
+        top:0;
+    }
+
+    .content-block {
+        padding: 0;
+        margin: 0;
+    }
+
+    .classroom-list {
+        margin: 0;
+        padding: 0;
+    }
+
+    .classroom-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .classroom-list ul li {
+        margin: 0.1rem 0 0 0;
+        background-color: #FFFFFF;
+        border-radius: 0 0 0.1rem 0.1rem;
+    }
+
+    .classroom-title {
+        line-height: 1.25rem;
+        font-family: 华文中宋;
+        border-radius: 0 0 0.1rem 0.1rem;
+        padding: 0.25rem 0.75rem;
+        color:#000000;
+    }
+
+
+    .status-nav {
+        font-size: 0.75rem;
+        margin: 0px auto;
+        padding: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        background-color: #FFFFFF;
+    }
+
+    .status-nav:after{
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        top: auto;
+        height: 1px;
+        width: 100%;
+        background-color: #33475F;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+    .status-row-cell {
+        width: 20%;
+        float: left;
+        text-align: center;
+        line-height: 1.25rem;
+    }
+
+    .status-row-item {
+        width: 20%;
+        float: left;
+        text-align: center;
+        line-height: 1.25rem;
+        padding: 0.25rem 0rem;
+        color: #79D9CF;
+    }
+
+    .status-row-spliter {
+        width: 20%;
+        float: left;
+        text-align: center;
+        line-height: 0.3rem;
+    }
+
+    .status-item{
+        line-height: 16px;
+        display: inline-block;
+    }
+
+    .status-icon{
+        height: 16px;
+        width: 16px;
+        margin: 0px;
+        float: left;
+        text-align: center;
+        outline: none;
+        font-size: 0.75em;
+        line-height:16px;
+        color: blue;
+
+        color: white;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        cursor: default;
+        margin: 0px auto;
+        padding: 0px;
+    }
+
+    .status-description{
+        color: #000000;
+        font-size: 0.75em;
+        height: 16px;
+        line-height: 16px;
+        margin: 0px 0px 0px 2px;
+    }
+
+    .seat-status{
+        padding: 0.3125rem 0;
+
+        z-index: 20;
+
+        list-style: none;
+        padding: 0;
+        text-align: center;
+    }
+
+
+    .seat-operation{
+        padding: 0.3125rem 0;
+
+        right:0;
+
+        z-index: 20;
+
+        list-style: none;
+        padding: 0;
+        text-align: center;
+    }
+
+    .operation-select{
+        display: inline-block;
+        padding: 0.1875rem 0.3125rem;
+        width: 3.75rem;
+        border: 0.0625rem solid #A00000;
+        color: #A00000;
+    }
+
+    .card-footer{
+        padding: 0rem 0.75rem;
+    }
+
+    .card-footer:before{
+        height: 0px;
+    }
+
+    .classroom-time-status{
+        margin: 0px auto;
+        padding: 0.25rem 0rem;
+    }
+
+    .cell-1{
+        background-color: #7C8489;
+    }
+
+    .cell-2{
+        background-color: #4FB3A4;
+    }
+
+    .cell-3{
+        background-color: #FF7073;
+    }
+
+    .cell-4{
+        background-color: #F5B977;
+    }
+
+    .cell-5{
+        background-color: #FDFC7F;
+    }
+</style>
+<div class="page">
+    <div class="content">
+        <div class="content-block">
+            <div class="classroom-list">
+                <ul>
+                    <% for ( var index = 0; index < classroomList.length; index++) { %>
+                    <li>
+                        <div class="classroom-title">
+                            <div class="classroom-name"><%= classroomList[index].area_name %> <%= classroomList[index].classroom_name %></div>
+                        </div>
+                        <div class="card-footer">
+                            <ul class="seat-status">
+                                <li class="status-item"><span
+                                            class="status-icon available16 normal-seat"></span><span
+                                            class="status-description">空座 <%= classroomList[index].empty_seat_count%></span></li>
+                                <li class="status-item"><span
+                                            class="status-icon booked-seat-boy16 booked-seat-boy"></span><span
+                                            class="status-description">男生 <%= classroomList[index].boy_order_count%></span></li>
+                                <li class="status-item"><span
+                                            class="status-icon booked-seat-girl16 booked-seat-girl"></span><span
+                                            class="status-description">女生 <%= classroomList[index].girl_order_count%></span></li>
+                            </ul>
+                            <ul class="seat-operation" id="<%= classroomList[index].classroom_id %>">
+                                <li class="operation-select">管理</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $.config = {
+        autoInit: true,
+        router: false
+    }
+</script>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+<script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
+<script>
+    $(".seat-operation").tap(function () {
+        window.location.assign("http://www.julyangel.cn/data/classroom/" + this.getAttribute('id'));
+    });
+</script>
+<% include ../footer.html %>
