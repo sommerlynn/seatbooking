@@ -30,6 +30,16 @@ FROM classroom LEFT JOIN building_area ON classroom.area_id = building_area.area
 LEFT JOIN classroom_type ON classroom.classroom_type_id = classroom_type.classroom_type_id
 ORDER BY order_no, area_name, classroom_name
 
+ALTER VIEW area_classroom_view AS
+SELECT classroom_id, classroom.area_id, area_name, classroom_name,
+CONCAT(area_name,' ',classroom_name) AS full_name,
+classroom.status AS classroom_status, building_area.status AS area_status,
+row_count, column_count, seat_count, seat_map, classroom_type_name, available_rate,
+open_time, close_time, latitude, longitude
+FROM classroom LEFT JOIN building_area ON classroom.area_id = building_area.area_id
+LEFT JOIN classroom_type ON classroom.classroom_type_id = classroom_type.classroom_type_id
+ORDER BY order_no, area_name, classroom_name
+
 
 ALTER VIEW user_seat_order_view AS
 SELECT order_id, user.user_id, area_classroom.classroom_id, seat_code,

@@ -88,4 +88,17 @@ classroom.buildSeatMap = function(classroom, callback){
     });
 };
 
+classroom.setPosition = function (classroomID, latitude, longitude, callback) {
+    var updateQuery = 'update classroom set latitude = ?, longitude = ? where classroom_id = ?',
+        params = [latitude, longitude, classroomID];
+    db.executeQuery(updateQuery, params, function(err, results){
+        if(err){
+            callback(err);
+        }
+        else{
+            callback(null);
+        }
+    });
+};
+
 module.exports = classroom;
