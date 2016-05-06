@@ -56,7 +56,7 @@
     }
 
     span.date-info {
-        color: #A00000;
+        /*color: #A00000;*/
         padding: 0.25rem 0.75rem;
         line-height: 1.25rem;
         font-size: 0.75em;
@@ -73,7 +73,11 @@
         width: 3.75rem;
         border: 0.0625rem solid #DCC6C6;
         color: #A00000;
-        margin-bottom: 0.55rem;
+        /*margin-bottom: 0.55rem;*/
+    }
+
+    .operation-release{
+        margin-bottom: .2rem;
     }
 
     .operation-approve-leave, .operation-reject-leave {
@@ -93,11 +97,6 @@
         display: inline-flex;
     }
 
-    .seat-content li{
-        padding: 0;
-        float: left;
-    }
-
     .left_part {
         width: 72%;
         line-height: 1rem;
@@ -105,6 +104,7 @@
         font-family: 华文中宋;
         border-right: 1px dashed #332331;
         background-color: #FFFFFF;
+        float: left;
     }
 
     .right_part {
@@ -112,6 +112,7 @@
         padding: 0.55rem 0 0 0;
         text-align: center;
         background-color: #E2E1D0;
+        float: left;
     }
 
     .card {
@@ -270,10 +271,15 @@
 
     .seat-message{
         margin: 0;
-        padding: 0.25rem 0.75rem;
+        padding: 0.25rem 0.5rem;
         font-size: 0.75em;
-        background-color: #A00000;
-        color: #FFFFFF;
+        /*background-color: #A00000;*/
+        color: #A00000;
+    }
+
+    .card-footer{
+        padding: 0;
+        min-height: unset;
     }
 </style>
 
@@ -366,7 +372,7 @@
                     <li class="card" style="background-color: #E2E1D0">
                         <div class="card-content">
                             <ul class="seat-content">
-                                <li class="left_part">
+                                <li class="left_part" style="padding: 0">
                                     <div class="date-row">
                                         <span class="building-info"><%= userSeatOrders[index].full_name %></span>
                                     </div>
@@ -391,13 +397,9 @@
                                         <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString() %></span>
                                         <span class="comment-info">[当天有效 本人使用]</span>
                                     </div>
-                                    <% if (userSeatOrders[index].status == 3) {%>
-                                    <div class="date-row">
-                                        <p class="seat-message">请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，过时座位将被系统回收</p>
-                                    </div>
-                                    <%}%>
+
                                 </li><li class="right_part">
-                                    <div style="position: absolute; top: 20%;">
+                                    <div style="clear: both"></div>
                                     <% if (userSeatOrders[index].status == 1) { %>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
                                             退座
@@ -417,10 +419,14 @@
                                         <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到
                                         </div>
                                     <% } %>
-                                    </div>
                                 </li>
                                 <div style="clear: both"></div>
                             </ul>
+                            <% if (userSeatOrders[index].status == 3) {%>
+                            <div class="card-footer date-row">
+                                <p class="seat-message"><!--<i class="icon icon-warn"  style="color: #A00000; padding-right: .5rem" ></i>--><b>注意:  </b>请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，过时座位将被系统回收</p>
+                            </div>
+                            <%}%>
                         </div>
                     </li>
                     <% } %>
