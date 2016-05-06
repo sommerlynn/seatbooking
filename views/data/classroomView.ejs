@@ -7,6 +7,35 @@
     .card {
         background-color: #f7f7f8;
     }
+
+    .position-operation-card {
+        /*background-color: #E2E1D0;*/
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .position-operation-card li {
+        display: inline-block;
+        line-height: 2.5rem;
+        height: 2.5rem;
+        text-align: center;
+    }
+
+    .position-operation {
+        width: 50%;
+    }
+
+    .position-opertion-btn {
+        display: inline-block;
+        width: 3.75rem;
+        border: 0.0625rem solid #DCC6C6;
+        color: #A00000;
+        text-align: center;
+        height: 1.5rem;
+        line-height: 1.5rem;
+    }
 </style>
 <div class="page">
     <div class="content">
@@ -23,7 +52,13 @@
                 </div>
             </div>
             <div class="card-footer">
-
+                <ul class="position-operation-card">
+                    <li class="position-operation">
+                        <div class="position-opertion-btn">刷新</div>
+                    </li><li class="position-operation">
+                        <div class="position-opertion-btn">设定</div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
