@@ -24,8 +24,8 @@ CREATE TABLE area_classroom
 SELECT classroom_id, classroom.area_id, area_name, classroom_name,
 CONCAT(area_name,' ',classroom_name) AS full_name,
 classroom.status AS classroom_status, building_area.status AS area_status,
-row_count, column_count, seat_count, seat_map, classroom_type_name, available_rate,
-open_time, close_time, latitude, longitude
+row_count, column_count, seat_count, classroom_type_name, available_rate,
+open_time, close_time
 FROM classroom LEFT JOIN building_area ON classroom.area_id = building_area.area_id
 LEFT JOIN classroom_type ON classroom.classroom_type_id = classroom_type.classroom_type_id
 ORDER BY order_no, area_name, classroom_name
@@ -93,32 +93,32 @@ ALTER VIEW classroom_nextday_girl_order_view AS
        GROUP BY classroom_id, start_time
 
 ALTER VIEW classroom_today_order_detail_view AS
-       SELECT area_classroom.*,
+       SELECT area_classroom_view.*,
        IFNULL(order_count, 0) AS order_count,
        IFNULL(boy_order_count, 0) AS boy_order_count,
        IFNULL(girl_order_count,0) AS girl_order_count,
        (seat_count - IFNULL(order_count, 0)) AS empty_seat_count
-       FROM area_classroom
+       FROM area_classroom_view
        LEFT JOIN classroom_today_order_view ON
-       area_classroom.classroom_id = classroom_today_order_view.classroom_id
+       area_classroom_view.classroom_id = classroom_today_order_view.classroom_id
        LEFT JOIN classroom_today_boy_order_view ON
-       area_classroom.classroom_id = classroom_today_boy_order_view.classroom_id
+       area_classroom_view.classroom_id = classroom_today_boy_order_view.classroom_id
        LEFT JOIN classroom_today_girl_order_view ON
-       area_classroom.classroom_id = classroom_today_girl_order_view.classroom_id
+       area_classroom_view.classroom_id = classroom_today_girl_order_view.classroom_id
 
 ALTER VIEW classroom_nextday_order_detail_view AS
-       SELECT area_classroom.*,
+       SELECT area_classroom_view.*,
        IFNULL(order_count, 0) AS order_count,
        IFNULL(boy_order_count, 0) AS boy_order_count,
        IFNULL(girl_order_count,0) AS girl_order_count,
        (seat_count - IFNULL(order_count, 0)) AS empty_seat_count
-       FROM area_classroom
+       FROM area_classroom_view
        LEFT JOIN classroom_nextday_order_view ON
-       area_classroom.classroom_id = classroom_nextday_order_view.classroom_id
+       area_classroom_view.classroom_id = classroom_nextday_order_view.classroom_id
        LEFT JOIN classroom_nextday_boy_order_view ON
-       area_classroom.classroom_id = classroom_nextday_boy_order_view.classroom_id
+       area_classroom_view.classroom_id = classroom_nextday_boy_order_view.classroom_id
        LEFT JOIN classroom_nextday_girl_order_view ON
-       area_classroom.classroom_id = classroom_nextday_girl_order_view.classroom_id
+       area_classroom_view.classroom_id = classroom_nextday_girl_order_view.classroom_id
 
 ALTER VIEW active_leave_application_view AS
         SELECT
