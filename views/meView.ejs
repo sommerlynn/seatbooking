@@ -381,15 +381,15 @@
                                             <%= userSeatOrders[index].seat_code %> 号</span>
                                         <span class="seat-status">
                                             <% if (userSeatOrders[index].status == -1) { %>
-                                                已取消
+                                                已退座
                                             <% } else if(userSeatOrders[index].status == 1) { %>
-                                                正常
+                                                预约
                                             <% } else if(userSeatOrders[index].status == -2) { %>
                                                 系统回收
                                             <% } else if(userSeatOrders[index].status == 2) { %>
                                                 <%= userSeatOrders[index].sign_time.toLocaleTimeString() %> 已签到
                                             <% } else if(userSeatOrders[index].status == 3) { %>
-                                                <%= userSeatOrders[index].leave_time.toLocaleTimeString() %> 暂离
+                                                <%= userSeatOrders[index].leave_time.toLocaleTimeString() %> 暂离中
                                             <% } %>
                                         </span>
                                     </div>
@@ -425,6 +425,10 @@
                             <% if (userSeatOrders[index].status == 3) {%>
                             <div class="card-footer date-row">
                                 <p class="seat-message"><!--<i class="icon icon-warn"  style="color: #A00000; padding-right: .5rem" ></i>--><b>注意:  </b>请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，过时座位将被系统回收</p>
+                            </div>
+                            <%} else if((userSeatOrders[index].status == 1)) {%>
+                            <div class="card-footer date-row">
+                                <p class="seat-message"><!--<i class="icon icon-warn"  style="color: #A00000; padding-right: .5rem" ></i>--><b>注意:  </b>请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前扫码签到，过时座位将被系统回收</p>
                             </div>
                             <%}%>
                         </div>
