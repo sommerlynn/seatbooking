@@ -394,7 +394,7 @@
                                         </span>
                                     </div>
                                     <div class="date-row">
-                                        <span class="date-info"><%= userSeatOrders[index].start_time.toLocaleDateString('en-US') %></span>
+                                        <span class="date-info"><%= userSeatOrders[index].start_time.getMonth()+1 %> 月 <%= userSeatOrders[index].start_time.getDate() %> 日</span>
                                         <span class="comment-info">[当天有效 本人使用]</span>
                                     </div>
 
