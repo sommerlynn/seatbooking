@@ -12,7 +12,7 @@ classroom.getAll = function(schoolID, callback){
 };
 
 classroom.getByID = function(classroomID, callback){
-  var selectQuery = "select * from area_classroom where classroom_id = ?",
+  var selectQuery = "select * from area_classroom_view where classroom_id = ?",
       params = [classroomID];
   db.executeQuery(selectQuery, params, callback);
 };

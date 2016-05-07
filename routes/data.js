@@ -142,4 +142,18 @@ router.get('/data/classroom/:cid', function (req, res) {
     });
 });
 
+router.post('/data/classroom/setPosition', function(req, res){
+    models.classroomModel.setPosition(
+        req.body.classroomID, req.body.latitude, req.body.longitude,
+        function(err){
+            var response = {retCode:1, message:'位置已成功设置为'+req.body.latitude+','+req.body.longitude};
+            if(err){
+                response = {retCode:-1, message:'位置设置发生错误:'+err.message};
+                res.send(response);
+            }else{
+                res.send(response);
+            }
+        });
+});
+
 module.exports = router;

@@ -46,7 +46,7 @@
             </div>
             <div class="card-content">
                 <div class="card-content-inner">
-                    原位置:<span><%=classroom.latitude%> , <%=classroom.longitude%></span>
+                    原位置:<span id="original-position"><%=classroom.latitude%> , <%=classroom.longitude%></span>
                 </div>
                 <div class="card-content-inner">
                     现位置:<span id="cur-position"><%=classroom.latitude%> , <%=classroom.longitude%></span>
@@ -120,6 +120,22 @@
     });
 
     $(document).on('click', '#position-set-btn', function () {
+        $.showPreloader('设置位置信息......');
+        $.post(
+                'setPosition',
+                {
+                    classroomID:'<%=classroom.classroom_id%>',
+                    latitude:curLatitude,
+                    longitude:curLongitude
+                },
+                function(response){
+                    if(response.retCode > 0){
+                        $('#original-position')[0].innerText = curLatitude+','+curLongitude;
+                    }
+                    $.alert(response.message);
+                    $.hidePreloader();
+                }
+        );
 
     });
 </script>
