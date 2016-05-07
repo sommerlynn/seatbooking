@@ -152,7 +152,7 @@ router.post('/seat/order', function (req, res) {
             if (err) {
                 res.send(err.message);
             } else {
-                models.seatModel.createOrder(openid, req.body.classroom, req.body.seatCode, req.body.row, req.body.column, startTime, endTime, scheduleRecoverTime,
+                models.seatModel.createOrder(req.body.openid, req.body.classroom, req.body.seatCode, req.body.row, req.body.column, startTime, endTime, scheduleRecoverTime,
                     function (err, newOrderId) {
                         if (err) {
                             res.send(err.message);
