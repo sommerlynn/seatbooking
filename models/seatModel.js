@@ -156,10 +156,10 @@ seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startT
  * 创建预约单
  * 2016-04-28: CHEN PU 从原newOrder中抽取出来
  * **/
-seat.createOrder = function(openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime, callback){
-    var insertQuery = "insert into user_seat_order (openid, classroom_id, seat_code, start_time, end_time, schedule_recover_time, status) values "+
-            "(?, ?, ?, ?, ?, ?, 1)",
-        insertParams = [openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime];
+seat.createOrder = function(openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime, callback){
+    var insertQuery = "insert into user_seat_order (openid, classroom_id, seat_code, row_no, column_no, start_time, end_time, schedule_recover_time, status) values "+
+            "(?, ?, ?, ?, ?, ?, ?, ?, 1)",
+        insertParams = [openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime];
     db.insertQuery(insertQuery, insertParams, function(err, id){
         if(err){
             callback(err);
@@ -181,13 +181,13 @@ seat.createOrder = function(openid, classroomID, seatCode, startTime, endTime, s
  * 2016-04-29: CHEN　PU 从原seat.js抽取至此
  *
  * */
-seat.tryCreateLibraryOrder = function(dayType, openid, classroomID, seatCode, callback){
+seat.tryCreateLibraryOrder = function(dayType, openid, classroomID, seatCode, row, column, callback){
     seat.getOrderRelatedDateByDayType('today', function(startTime, endTime, scheduleRecoverTime){
         seat.isValidLibraryOrderRequest(openid, classroomID, seatCode, startTime, endTime, function(err){
             if(err){
                 callback(err);
             }else{
-                seat.createOrder(openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime,
+                seat.createOrder(openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime,
                     function(err, newOrderId){
                         if(err){
                             err.type = 'exception';

@@ -152,7 +152,7 @@ router.post('/seat/order', function (req, res) {
             if (err) {
                 res.send(err.message);
             } else {
-                models.seatModel.createOrder(openid, req.body.classroom, req.body.seatCode, startTime, endTime, scheduleRecoverTime,
+                models.seatModel.createOrder(openid, req.body.classroom, req.body.seatCode, req.body.row, req.body.column, startTime, endTime, scheduleRecoverTime,
                     function (err, newOrderId) {
                         if (err) {
                             res.send(err.message);
@@ -276,9 +276,11 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
 });
 
 
-router.get('/scanseat/oauth/:schoolID/:cid/:seat', function (req, res) {
+router.get('/scanseat/oauth/:schoolID/:cid/:seat/:row/:column', function (req, res) {
     var url = client.getAuthorizeURL('http://campus.julyangel.cn/scanseat/oauthprecheck?cid=' +
-        req.params.cid + '&schoolID=' + req.params.schoolID + '&seat=' + req.params.seat, '123', 'snsapi_userinfo');
+        req.params.cid + '&schoolID=' + req.params.schoolID + '&seat=' + req.params.seat+
+        '&row='+req.params.row+'&column='+req.params.column,
+        '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
@@ -312,6 +314,8 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
                                 openid: openid,
                                 classroomID:req.query.cid,
                                 seat:req.query.seat,
+                                row:req.query.row,
+                                column:req.query.column,
                                 weiJSConfig: weiJSConfig,
                                 title: '座位状态'
                             });
@@ -442,7 +446,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                 // 释放座位
                                 models.seatModel.release(seatOrders[0].order_id, eatOrders[0].openid, function (err, result) {
 
-                                    models.seatModel.createOrder(openid, req.query.cid, req.query.seat, startTime, endTime, scheduleRecoverTime, function (err, newOrderId) {
+                                    models.seatModel.createOrder(openid, req.query.cid, req.query.seat, req.query.row, req.query.column, startTime, endTime, scheduleRecoverTime, function (err, newOrderId) {
 
                                         models.seatModel.sign(newOrderId, function (err, scheduleRecoverDate) {
 
@@ -473,7 +477,7 @@ router.get('/scanseat/seatoperation', function(req, res){
         // 无人预约
         else
         {
-            models.seatModel.tryCreateLibraryOrder('today', openid, req.query.cid, req.query.seat, function (err, newOrderId) {
+            models.seatModel.tryCreateLibraryOrder('today', openid, req.query.cid, req.query.seat, req.query.row, req.query.column, function (err, newOrderId) {
                 // 此学生有其他座位
                 if (err)
                 {
