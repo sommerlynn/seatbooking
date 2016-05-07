@@ -157,8 +157,8 @@ seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startT
  * 2016-04-28: CHEN PU 从原newOrder中抽取出来
  * **/
 seat.createOrder = function(openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime, callback){
-    var insertQuery = "insert into user_seat_order (user_id, classroom_id, seat_code, start_time, end_time, schedule_recover_time, status) values "+
-            "((select user_id from user where openid = ?), ?, ?, ?, ?, ?, 1)",
+    var insertQuery = "insert into user_seat_order (openid, classroom_id, seat_code, start_time, end_time, schedule_recover_time, status) values "+
+            "(?, ?, ?, ?, ?, ?, 1)",
         insertParams = [openid, classroomID, seatCode, startTime, endTime, scheduleRecoverTime];
     db.insertQuery(insertQuery, insertParams, function(err, id){
         if(err){
@@ -285,8 +285,8 @@ seat.sign = function (orderID, callback) {
 * 2016-04-08 CHEN PU 新建
 * 2016-04-19 CHEN PU 修改status值从2变成3,2作为签到的状态
 * */
-seat.leave = function (orderID, callback) {
-    var updateQuery = "update user_seat_order set status = 3, leave_time = ?, schedule_recover_time = ? where order_id = ?",
+seat.leave = function (orderID, openid, callback) {
+    var updateQuery = "update user_seat_order set status = 3, leave_time = ?, schedule_recover_time = ? where order_id = ? and openid = ?",
         now = new Date(),
         scheduleRecoverDate = new Date(now.getTime() + 0.5*60*60*1000), // 一般时段半小时后回收座位
         lunchTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0),
@@ -301,7 +301,7 @@ seat.leave = function (orderID, callback) {
         scheduleRecoverDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 0, 0);
     }
 
-    var params = [new Date(), scheduleRecoverDate, orderID];
+    var params = [new Date(), scheduleRecoverDate, orderID, openid];
 
     db.executeQuery(updateQuery, params, function(err, result){
         if(err){
@@ -321,9 +321,9 @@ seat.leave = function (orderID, callback) {
 /**
  * 退回座位
  * */
-seat.release = function (orderID, callback) {
-    var updateQuery = "update user_seat_order set status = -1, leave_time = ?, lock_code = ? where order_id = ?",
-        params = [new Date(), orderID, orderID];
+seat.release = function (orderID, openid, callback) {
+    var updateQuery = "update user_seat_order set status = -1, leave_time = ?, lock_code = ? where order_id = ? and openid = ?",
+        params = [new Date(), orderID, orderID, openid];
     db.executeQuery(updateQuery, params, function(err, result){
         if(err){
             callback(err);

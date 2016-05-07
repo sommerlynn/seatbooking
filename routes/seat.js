@@ -140,7 +140,7 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
  * 提交订座申请
  * 2016-04-08 CHEN PU 新建
  * */
-router.post('/order', function (req, res) {
+router.post('/seat/order', function (req, res) {
     //var dateArr = req.body.time.split(' ');
     //var hour = dateArr[0].substr(0, dateArr[0].length-1);
     //var minute = dateArr[1].substr(0, dateArr[1].length-1);
@@ -150,56 +150,14 @@ router.post('/order', function (req, res) {
     models.seatModel.getOrderRelatedDateByDayType(req.body.type, function (startTime, endTime, scheduleRecoverTime) {
         models.seatModel.isValidLibraryOrderRequest(req.body.openid, req.body.classroom, req.body.seatCode, startTime, endTime, function (err) {
             if (err) {
-                if (err.type == 'exception') {
-                    res.render('errorView', {openid: req.body.openid, title: '服务器故障', message: '服务器故障', error: err});
-                } else {
-                    res.render('./seat/scanSeatView', {
-                        openid: req.body.openid,
-                        title: '座位状态',
-                        statusType: 'prompt',
-                        promptMsg: err.message
-                    });
-                }
+                res.send(err.message);
             } else {
                 models.seatModel.createOrder(openid, req.body.classroom, req.body.seatCode, startTime, endTime, scheduleRecoverTime,
                     function (err, newOrderId) {
                         if (err) {
-                            res.render('errorView', {
-                                openid: req.body.openid,
-                                title: '服务器故障',
-                                message: '服务器故障',
-                                error: err
-                            });
+                            res.send(err.message);
                         } else {
-                            models.seatModel.sign(newOrderId, function (err, result) {
-                                if (err) {
-                                    res.render('errorView', {
-                                        openid: req.body.openid,
-                                        title: '服务器故障',
-                                        message: '服务器故障',
-                                        error: err
-                                    });
-                                } else {
-                                    models.classroomModel.getByID(req.body.classroom, function (err, classroom) {
-                                        if (err) {
-                                            res.render('errorView', {
-                                                openid: req.body.openid,
-                                                title: '服务器故障',
-                                                message: '服务器故障',
-                                                error: err
-                                            });
-                                        } else {
-                                            res.render('./seat/scanSeatView', {
-                                                openid: req.body.openid,
-                                                title: '座位状态',
-                                                statusType: 'signed',
-                                                classroom: classroom[0].full_name,
-                                                seat: req.body.seatCode
-                                            });
-                                        }
-                                    });
-                                }
-                            });
+                            res.send('你已成功预订座位'+req.body.seatCode+', 请于'+scheduleRecoverTime.toLocaleTimeString()+'之前扫码签到, 过时座位将被系统自动回收。');
                         }
                     });
             }
@@ -211,8 +169,8 @@ router.post('/order', function (req, res) {
  * 释放座位
  * 2016-04-08 CHEN PU 新建
  * */
-router.post('/me/release', function (req, res) {
-    models.seatModel.release(req.body.orderID, function (err, results) {
+router.post('/seat/release', function (req, res) {
+    models.seatModel.release(req.body.orderID, req.body.openid, function (err, results) {
         if (err) {
             res.send('释放失败，请重试');
         } else {
@@ -225,8 +183,8 @@ router.post('/me/release', function (req, res) {
  * 暂离座位
  * 2016-04-08 CHEN PU 新建
  **/
-router.post('/me/leave', function (req, res) {
-    models.seatModel.leave(req.body.orderID, function (err, results) {
+router.post('/seat/leave', function (req, res) {
+    models.seatModel.leave(req.body.orderID, req.body.openid, function (err, results) {
         if (err) {
             res.send('设置暂离失败，请重试');
         } else {
@@ -399,6 +357,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                     statusType: 'signed',
                                     classroom: seatOrders[0].full_name,
                                     seat: req.query.seat,
+                                    orderID:seatOrders[0].order_id,
                                     seatLogs: seatLogs,
                                     promptMsg: promptMsg
                                 });
@@ -409,9 +368,9 @@ router.get('/scanseat/seatoperation', function(req, res){
                 else
                 {
                     models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
-                        var statusType = 'prompt-singed';
+                        var statusType = 'singed-others';
                         if(seatOrders[0].status == 3){
-                            statusType = 'prompt-leaved';
+                            statusType = 'leaved-others';
                         }
 
                         res.render('./seat/scanSeatView',
@@ -421,6 +380,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                 statusType: statusType,
                                 classroom: seatOrders[0].full_name,
                                 seat: req.query.seat,
+                                orderID:-1,
                                 seatLogs: seatLogs,
                                 promptMsg: '这个座位已被其他小伙伴预约, 咱们重新去找个座位吧'
                             });
@@ -445,6 +405,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                     statusType: 'leaved',
                                     classroom: seatOrders[0].full_name,
                                     seat: req.query.seat,
+                                    orderID:seatOrders[0].order_id,
                                     seatLogs: seatLogs,
                                     promptMsg: promptMsg
                                 });
@@ -465,9 +426,10 @@ router.get('/scanseat/seatoperation', function(req, res){
                                             {
                                                 openid: openid,
                                                 title: '座位状态',
-                                                statusType: 'prompt-signed',
+                                                statusType: 'signed-others',
                                                 classroom: seatOrders[0].full_name,
                                                 seat: req.query.seat,
+                                                orderID:-1,
                                                 seatLogs: seatLogs,
                                                 promptMsg: err.message
                                             });
@@ -494,6 +456,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                                         statusType: 'signed',
                                                         classroom: seatLogs[0].full_name,
                                                         seat: req.query.seat,
+                                                        orderID:newOrderId,
                                                         seatLogs: seatLogs,
                                                         promptMsg: promptMsg
                                                     });
@@ -524,9 +487,10 @@ router.get('/scanseat/seatoperation', function(req, res){
                                     {
                                         openid: openid,
                                         title: '座位状态',
-                                        statusType: 'prompt-empty',
+                                        statusType: 'empty',
                                         classroom: classroom[0].full_name,
                                         seat: req.query.seat,
+                                        orderID:-1,
                                         seatLogs: seatLogs,
                                         promptMsg: promptMsg
                                     });
@@ -547,6 +511,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                     statusType: 'signed',
                                     classroom: seatLogs[0].full_name,
                                     seat: req.query.seat,
+                                    orderID:newOrderId,
                                     seatLogs: seatLogs,
                                     promptMsg: promptMsg
                                 });

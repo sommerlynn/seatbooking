@@ -159,7 +159,7 @@
                  <span class="classroom"><%= classroom %></span>
             </div>
             <div class="card-header">
-                <% if (statusType == 'signed') { %>
+                <% if (statusType == 'signed' || ) { %>
                 <!--签到成功-->
                 <ul class="seat-status-card">
                     <li class="seat">
@@ -187,7 +187,7 @@
                         <span>空闲</span>
                     </li>
                 </ul>
-                <% } else if (statusType == 'prompt-signed') { %>
+                <% } else if (statusType == 'signed-others') { %>
                 <ul class="seat-status-card">
                     <li class="seat">
                         <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %>
@@ -196,7 +196,7 @@
                         <span>已签到</span>
                     </li>
                 </ul>
-                <% } else if (statusType == 'prompt-leaved') { %>
+                <% } else if (statusType == 'leaved-others') { %>
                 <ul class="seat-status-card">
                     <li class="seat">
                         <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %>
@@ -212,10 +212,12 @@
                 <div class="card-content-inner">
                     <p class="prompt-message"><span><%= promptMsg %></span></p>
 
-                    <% if (statusType != 'prompt-empty') { %>
+                    <% if (statusType != 'empty' &&
+                           statusType != 'signed-others' &&
+                           statusType != 'leaved-others' ) { %>
                     <ul class="seat-operation-card">
                         <li class="seat-operation">
-                            <div class="seat-opertion-btn">退座</div>
+                            <div class="seat-opertion-btn" id="release-seat-btn">退座</div>
                         </li>
                     </ul>
                     <% } %>
@@ -249,5 +251,23 @@
         autoInit: true,
         router: false
     }
+
+    $(document).on('click', '#release-seat-btn', function () {
+        $.showPreloader('正在提交退座请求, 请稍后......');
+        $.post(
+                '/seat/release',
+                {
+                    openid:'<%=openid%>',
+                    orderID:'<%=orderID%>',
+                },
+                function(response){
+                    if(response.retCode > 0){
+                        $('#original-position')[0].innerText = curLatitude+','+curLongitude;
+                    }
+                    $.alert(response.message);
+                    $.hidePreloader();
+                }
+        );
+    });
 </script>
 <% include ../footer.html %>

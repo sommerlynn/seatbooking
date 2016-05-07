@@ -605,8 +605,11 @@
                     /*确定释放座位*/
                     $.showPreloader('释放座位中，请稍候...');
 
-                    $.post('release',
-                            {orderID: order_id},
+                    $.post('/seat/release',
+                            {
+                                openid:'<%= openid %>',
+                                orderID: order_id
+                            },
                             function (response) {
                                 $.hidePreloader();
                                 $.alert(response);
@@ -630,8 +633,11 @@
         var order_id = order_arr[1];
         $.showPreloader('设置暂离中，请稍候...');
 
-        $.post('leave',
-                {orderID: order_id},
+        $.post('/seat/leave',
+                {
+                    openid:'<%= openid %>',
+                    orderID: order_id
+                },
                 function (response) {
                     $.hidePreloader();
                     $.alert(response);

@@ -365,7 +365,7 @@
         if (selectedSeatRowID > 0 &&
                 selectedSeatColumnID > 0) {
             $.showPreloader('提交预约申请...');
-            $.post('/order', {
+            $.post('/seat/order', {
                 openid:'<%=openid%>',
                 classroom: '<%= cid %>',
                 row: selectedSeatRowID,
