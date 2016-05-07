@@ -264,8 +264,9 @@
                     if(response.retCode > 0){
                         $('#original-position')[0].innerText = curLatitude+','+curLongitude;
                     }
-                    $.alert(response.message);
+                    $.alert(response);
                     $.hidePreloader();
+                    window.location.assign('/me/'+'<%=openid%>');
                 }
         );
     });
