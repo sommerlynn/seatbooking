@@ -352,7 +352,7 @@ router.get('/scanseat/seatoperation', function(req, res){
     models.userModel.getUser(openid, function(err, user){
         if(user[0].angelcode != req.query.angelcode)
         {
-            res.render('./messageView', {message:'非法请求, 如继续使用此方式, 你将被拉入黑名单'});
+            res.render('./messageView', {title:'非法请求', message:'非法请求, 如继续使用此方式, 你将被加入黑名单, 拒收你的一切请求。'});
         }
         else
         {
