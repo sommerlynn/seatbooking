@@ -264,6 +264,12 @@ seat.getActiveLibrary = function(openid, callback){
     db.executeQuery(selectQuery, params, callback);
 };
 
+seat.getOrderNeedToRecycle = function(callback){
+    var selectQuery = "select * from user_seat_order_view where schedule_recover_time < ? and (status = 1 or status = 3)",
+        params = [new Date()];
+    db.executeQuery(selectQuery, params, callback);
+};
+
 /**
  * 历史座位
  * **/
@@ -369,6 +375,28 @@ seat.release = function (orderID, openid, callback) {
 };
 
 /**
+ * 回收座位（暂离、预约未按时签到的）
+ * 2016-05-08 CHEN PU
+ * **/
+seat.recycle = function(orderID, callback){
+    var updateQuery = "update user_seat_order set status = -2, real_recover_time = ?, lock_code = ? where order_id = ?",
+        params = [new Date(), orderID, orderID];
+    db.executeQuery(updateQuery, params, function(err, result){
+        if(err){
+            callback(err);
+        }else{
+            seat.log(orderID, '0101010101', -2, '超时 系统回收', function(err){
+                if(err){
+                    callback(err);
+                }else{
+                    callback(null, result);
+                }
+            });
+        }
+    });
+};
+
+/**
  * 1 预定 2 签到 3 暂离 -1 退座 -2 系统回收
  * 添加座位相关操作日志
  * 2016-05-03: CHEN　PU 新建
@@ -380,6 +408,27 @@ seat.log = function(orderID, logType, logMsg, callback){
             '(select openid from user_seat_order_view where order_id = ?), '+
             '?, ?)',
         insertParams = [orderID, orderID, orderID, logType, logMsg];
+    db.insertQuery(insertQuery, insertParams, function(err, id){
+        if(err){
+            callback(err);
+        }
+        else{
+            callback(null);
+        }
+    });
+};
+
+/**
+ * 1 预定 2 签到 3 暂离 -1 退座 -2 系统回收
+ * 添加座位相关操作日志
+ * 2016-05-03: CHEN　PU 新建
+ * */
+seat.log = function(orderID, openid, logType, logMsg, callback){
+    var insertQuery = 'insert into seat_log (classroom_id, seat_code, openid, log_type, log_msg) values '+
+            '((select classroom_id from user_seat_order_view where order_id = ?), '+
+            '(select seat_code from user_seat_order_view where order_id = ?), '+
+            '?, ?, ?)',
+        insertParams = [orderID, orderID, openid, logType, logMsg];
     db.insertQuery(insertQuery, insertParams, function(err, id){
         if(err){
             callback(err);
