@@ -3,7 +3,8 @@
  */
 
 var seat = {},
-    db = require('./db');
+    db = require('./db'),
+    weixinMessage = require('./weixinMessageModel');
 
 /**
  * 2016-04-24: CHEN PU 新增逻辑 将时间逻辑从页面逻辑移到业务逻辑
@@ -169,11 +170,30 @@ seat.createOrder = function(openid, classroomID, seatCode, row, column, startTim
                 if(err){
                     callback(err);
                 }else{
+                    seat.getOrder(id, function(err, order){
+                        if(err){
+                            callback(err);
+                        }else{
+                            weixinMessage.createOrderSuccess(openid, order[0].school_id, order[0].full_name,
+                                order[0].seat_code, startTime, scheduleRecoverTime);
+                        }
+                    });
+
                     callback(null, id);
                 }
             });
         }
     });
+};
+
+/**
+ * 获取座位预约信息
+ * 2016-05-08 CHEN PU 创建
+ * */
+seat.getOrder = function(orderID, callback){
+    var selectQuery = "select * from user_seat_order_view where order_id = ?",
+        params = [orderID];
+    db.executeQuery(selectQuery, params, callback);
 };
 
 /**

@@ -8,7 +8,8 @@ var weixinMessage = {},
     path = require('path'),
     qiniu = require("qiniu"),
     debug = require('debug'),
-    log = debug('reading');
+    log = debug('reading'),
+    weixinAPIClient = models.weixinAPIClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 weixinMessage.logUserLocation = function (openid, lat, lng, callback) {
     var insertQuery = "insert into user_location_log (openid, latitude, longitude) values (?, ?, ?)",
@@ -121,38 +122,46 @@ weixinMessage.uploadToQiniu = function (fileName, filePath, callback) {
     });
 };
 
-weixinMessage.sendOrderSuccessful = function(){
-    var sendData = {
-        "touser":managers[index].openid,
-        "template_id":"LCnBfAKZ1uMUZGFb73lJgGyq6qhsFxu3TUWoDP6cjQc",
-        "url":"http://campus.julyangel.cn/oAuth/"+applier[0].school_id+'/me',
-        "data":{
-            "first":{
-                "value":'请假条'
-            },
-            "childName":{
-                "value":applier[0].real_name
-            },
-            "time":{
-                "value":req.body.startTime+'至'+req.body.endTime
-            },
-            "score":{
-                "value":req.body.leaveReason
-            },
-            "remark":{
-                "value":""
+/**
+ * 座位预约成功时发送的微信模板消息
+ * https://mp.weixin.qq.com/advanced/tmplmsg?action=edit&t=tmplmsg/detail&id=uXnnlW_zxLI2g35-SoDl6MtB5vkuZP4QKpCLETuC0JI&token=223773654&lang=zh_CN
+ * 2016-05-08 CHEN PU 创建
+ *
+ * */
+weixinMessage.createOrderSuccess = function(openid, schoolID, classroom, seatCode, orderDate, scheduleRecoverTime){
+    weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
+        var sendData = {
+            "touser":openid,
+            "template_id":"LCnBfAKZ1uMUZGFb73lJgGyq6qhsFxu3TUWoDP6cjQc",
+            "url":"http://campus.julyangel.cn/oAuth/"+schoolID+'/me',
+            "data":{
+                "first":{
+                    "value":'你的座位已成功预约'
+                },
+                "keyword1":{
+                    "value":classroom
+                },
+                "keyword2":{
+                    "value":seatCode
+                },
+                "keyword3":{
+                    "value":orderDate.toLocaleDateString()
+                },
+                "remark":{
+                    "value":"请于"+scheduleRecoverTime.toLocaleString()+'之前扫码签到入座, 过时未签到座位由系统回收重新分配。七玥天使提醒你文明用座, 珍惜同窗情谊, 快乐学习。'
+                }
             }
-        }
-    };
-    var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
-    var options = {
-        method:"POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        content: JSON.stringify(sendData)
-    };
-    urllib.request(url, options);
+        };
+        var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
+        var options = {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            content: JSON.stringify(sendData)
+        };
+        urllib.request(url, options);
+    });
 };
 
 module.exports = weixinMessage;
