@@ -17,7 +17,7 @@ var express = require('express'),
  * 2016-04-12 CHEN PU 获取用户信息 第一步
  * */
 router.get('/oAuth/:schoolID/:from', function (req, res) {
-    var url = client.getAuthorizeURL('http://campus.julyangel.cn/oAuthGetInfo?from=' + req.params.from + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
+    var url = weixinAPIClient.oAuthClient.getAuthorizeURL('http://campus.julyangel.cn/oAuthGetInfo?from=' + req.params.from + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
