@@ -170,7 +170,7 @@ weixinMessage.orderSeatNotice = function(openid, schoolID, classroom, seatCode, 
  * https://mp.weixin.qq.com/advanced/tmplmsg?action=edit&id=sQoCHWBhCDTyO2eR0fgbghVWkSuPy1oBtwnxdNESNLY&token=223773654&lang=zh_CN
  * 2016-05-08 CHEN PU 创建
  * */
-weixinMessage.leaveSeatNotice = function(openid, schoolID, classroom, seatCode, orderDate, scheduleRecoverTime){
+weixinMessage.leaveSeatNotice = function(openid, schoolID, classroom, seatCode, scheduleRecoverTime){
     weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
         var sendData = {
             "touser":openid,

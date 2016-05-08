@@ -336,7 +336,7 @@ seat.leave = function (orderID, openid, callback) {
                             callback(err);
                         }else{
                             weixinMessage.leaveSeatNotice(openid, order[0].school_id, order[0].full_name,
-                                order[0].seat_code, startTime, scheduleRecoverTime);
+                                order[0].seat_code, scheduleRecoverTime);
                         }
                     });
 
