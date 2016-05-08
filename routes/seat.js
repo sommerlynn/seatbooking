@@ -157,7 +157,7 @@ router.post('/seat/order', function (req, res) {
                         if (err) {
                             res.send(err.message);
                         } else {
-                            res.send('你已成功预订座位'+req.body.seatCode+', 请于'+scheduleRecoverTime.toLocaleTimeString()+'之前扫码签到, 过时座位将被系统自动回收。');
+                            res.send('你已成功预订座位'+req.body.seatCode+', 请于'+scheduleRecoverTime.toLocaleString()+'之前扫码签到, 过时座位将被系统自动回收。');
                         }
                     });
             }
