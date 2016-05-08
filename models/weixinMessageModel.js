@@ -136,7 +136,7 @@ weixinMessage.createOrderSuccess = function(openid, schoolID, classroom, seatCod
             "url":"http://campus.julyangel.cn/oAuth/"+schoolID+'/me',
             "data":{
                 "first":{
-                    "value":'你的座位已成功预约'
+                    "value":''
                 },
                 "keyword1":{
                     "value":classroom
@@ -148,7 +148,7 @@ weixinMessage.createOrderSuccess = function(openid, schoolID, classroom, seatCod
                     "value":orderDate.toLocaleDateString()
                 },
                 "remark":{
-                    "value":"请于"+scheduleRecoverTime.toLocaleString()+'之前扫码签到入座, 过时未签到座位由系统回收重新分配。七玥天使提醒你文明用座, 珍惜同窗情谊, 快乐学习。'
+                    "value":"请在"+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前扫码签到入座, 过时未签到, 系统收回座位。七玥天使提醒大家, 请珍惜同窗情谊, 文明用座, 快乐学习。'
                 }
             }
         };
