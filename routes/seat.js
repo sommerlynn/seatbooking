@@ -421,7 +421,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                         if (seatOrders[0].openid == openid)
                         {
                             models.seatModel.leave(seatOrders[0].order_id, openid, function (err, scheduleRecoverDate) {
-                                var promptMsg = '感谢你遵守文明用座规范, 现已成功设置暂离, 座位将为你保留至'+scheduleRecoverDate.toLocaleTimeString()+
+                                var promptMsg = '感谢你遵守文明用座规范, 现已成功设置暂离, 座位将为你保留至'+scheduleRecoverDate.toLocaleTimeString('en-US', {hour12:false})+
                                     ', 请于此时间之前返回扫码签到, 否则座位将会被系统回收。';
                                 models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
                                     res.render('./seat/scanSeatView',
