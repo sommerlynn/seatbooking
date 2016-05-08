@@ -8,17 +8,17 @@ var oAuth = require('wechat-oauth'),
 
 var weixinAPIClient = function(appid, appsecret){
     if (!(this instanceof weixinAPIClient)) {
-        this.prototype.oAuthClient = new oAuth(appid, appsecret);
-        this.prototype.jSAPIClient = new jSAPI(appid, appsecret);
+        this._oAuthClient = new oAuth(appid, appsecret);
+        this._jSAPIClient = new jSAPI(appid, appsecret);
     }
 };
 
 weixinAPIClient.oAuthClient = function(){
-    return this.prototype.oAuthClient;
+    return this._oAuthClient;
 };
 
 weixinAPIClient.jSAPIClient = function(){
-    return this.prototype.jSAPIClient;
+    return this._jSAPIClient;
 };
 
 module.exports = weixinAPIClient;
