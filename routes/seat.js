@@ -356,7 +356,7 @@ router.get('/scanseat/seatoperation', function(req, res){
         }
         else
         {
-            models.userModel.setAngelCode(req.body.openid, '', function(err, result){
+            models.userModel.setAngelCode(openid, '', function(err, result){
 
             });
 
