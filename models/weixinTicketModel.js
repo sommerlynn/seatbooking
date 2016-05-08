@@ -1,6 +1,8 @@
 /**
  * Created by pchen on 2016/5/8.
  *
+ * 单例模式：http://www.cnblogs.com/TomXu/archive/2012/02/20/2352817.html
+ *
  * 2016-05-08：CHEN PU 集中控制oAuth 和 weixinJS 的票据信息
  */
 var oAuth = require('wechat-oauth'),
@@ -8,26 +10,30 @@ var oAuth = require('wechat-oauth'),
     debug = require('debug'),
     log = debug('weixin');
 
-var weixinAPIClient = function(appid, appsecret){
-    log('test001');
-    if (!(this instanceof weixinAPIClient)) {
-        log('test002');
+var weixinAPIClient = (function () {
 
-        this._oAuthClient = new oAuth(appid, appsecret);
-        this._jSAPIClient = new jSAPI(appid, appsecret);
+    //参数：传递给单例的一个参数集合
+    function weixinAPIClientSingleton(appid, appsecret) {
+        this.oAuthClient = new oAuth(appid, appsecret);
+        this.jSAPIClient = new jSAPI(appid, appsecret);
     }
 
-    return {
-        oAuthClient: function(){
-            return this._oAuthClient;
-        },
+    //实例容器
+    var instance;
 
-        jSAPIClient: function(){
-            return this._jSAPIClient;
+    var _static = {
+        name: 'weixinAPIClient',
+
+        //获取实例的方法
+        //返回Singleton的实例
+        getInstance: function (appid, appsecret) {
+            if (instance === undefined) {
+                instance = new weixinAPIClientSingleton(appid, appsecret);
+            }
+            return instance;
         }
     };
-};
-
-
+    return _static;
+})();
 
 module.exports = weixinAPIClient;
