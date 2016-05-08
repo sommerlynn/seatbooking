@@ -8,14 +8,17 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('../lib/weixin-jssdk'),
+    /*OAuth = require('wechat-oauth'),
+    WeiJSAPI = require('../lib/weixin-jssdk'),*/
     debug = require('debug'),
     log = debug('seat'),
-    support = require('../lib/support');
+    support = require('../lib/support'),
+    weixinAPIClient = models.weixinAPIClient('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
-var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+/*var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');*/
+
+
 /*
  * Get buildings of a school
  * 获取教学楼列表
@@ -214,7 +217,7 @@ router.get('/me/oldSeat/:openid', function (req, res) {
  * 2016-04-19 CHEN PU 新建
  * */
 router.get('/scanclassroom/oauth/:schoolID/:cid', function (req, res) {
-    var url = client.getAuthorizeURL('http://campus.julyangel.cn/scanclassroom/oauthgetinfo?cid=' + req.params.cid + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
+    var url = weixinAPIClient.oAuthClient().getAuthorizeURL('http://campus.julyangel.cn/scanclassroom/oauthgetinfo?cid=' + req.params.cid + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
     res.redirect(url);
 });
 
@@ -224,14 +227,14 @@ router.get('/scanclassroom/oauth/:schoolID/:cid', function (req, res) {
  * 2016-04-19 CHEN PU 新建
  * */
 router.get('/scanclassroom/oauthgetinfo', function (req, res) {
-    client.getAccessToken(req.query.code, function (err, result) {
+    weixinAPIClient.oAuthClient().getAccessToken(req.query.code, function (err, result) {
         if (err) {
             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
         }
         else {
             //var accessToken = result.data.access_token;
             var openid = result.data.openid;
-            client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
+            weixinAPIClient.oAuthClient().getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
                 if (err) {
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                 } else {
@@ -275,9 +278,8 @@ router.get('/scanclassroom/oauthgetinfo', function (req, res) {
     });
 });
 
-
 router.get('/scanseat/oauth/:schoolID/:cid/:seat/:row/:column', function (req, res) {
-    var url = client.getAuthorizeURL('http://campus.julyangel.cn/scanseat/oauthprecheck?cid=' +
+    var url = weixinAPIClient.oAuthClient().getAuthorizeURL('http://campus.julyangel.cn/scanseat/oauthprecheck?cid=' +
         req.params.cid + '&schoolID=' + req.params.schoolID + '&seat=' + req.params.seat+
         '&row='+req.params.row+'&column='+req.params.column,
         '123', 'snsapi_userinfo');
@@ -285,7 +287,7 @@ router.get('/scanseat/oauth/:schoolID/:cid/:seat/:row/:column', function (req, r
 });
 
 router.get('/scanseat/oauthprecheck', function (req, res) {
-    client.getAccessToken(req.query.code, function (err, result) {
+    weixinAPIClient.oAuthClient().getAccessToken(req.query.code, function (err, result) {
         if(err){
             res.render('errorView', {
                 openid: '',
@@ -296,12 +298,12 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
         }else{
             //var accessToken = result.data.access_token;
             var openid = result.data.openid;
-            client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
+            weixinAPIClient.oAuthClient().getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
 
                 var userInfo = result;
                 models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
                     var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-                    weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
+                    weixinAPIClient.jSAPIClient().getJSConfig(url, function (err, weiJSConfig) {
                         if (err) {
                             res.render('errorView', {
                                 openid: 'wxeec4313f49704ee2',
@@ -334,7 +336,6 @@ router.post('/scanseat/checkLocation', function (req, res) {
         res.send(result);
     });
 });
-
 
 router.get('/scanseat/seatoperation', function(req, res){
     var openid = req.query.openid;

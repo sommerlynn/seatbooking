@@ -124,4 +124,38 @@ weixinMessage.uploadToQiniu = function (fileName, filePath, callback) {
     });
 };
 
+weixinMessage.sendOrderSuccessful = function(){
+    var sendData = {
+        "touser":managers[index].openid,
+        "template_id":"LCnBfAKZ1uMUZGFb73lJgGyq6qhsFxu3TUWoDP6cjQc",
+        "url":"http://campus.julyangel.cn/oAuth/"+applier[0].school_id+'/me',
+        "data":{
+            "first":{
+                "value":'请假条'
+            },
+            "childName":{
+                "value":applier[0].real_name
+            },
+            "time":{
+                "value":req.body.startTime+'至'+req.body.endTime
+            },
+            "score":{
+                "value":req.body.leaveReason
+            },
+            "remark":{
+                "value":""
+            }
+        }
+    };
+    var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
+    var options = {
+        method:"POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        content: JSON.stringify(sendData)
+    };
+    urllib.request(url, options);
+};
+
 module.exports = weixinMessage;
