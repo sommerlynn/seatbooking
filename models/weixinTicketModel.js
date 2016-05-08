@@ -16,7 +16,6 @@ var weixinAPIClient = function(appid, appsecret){
         this._oAuthClient = new oAuth(appid, appsecret);
         this._jSAPIClient = new jSAPI(appid, appsecret);
     }
-    return this;
 };
 
 weixinAPIClient.oAuthClient = function(){
