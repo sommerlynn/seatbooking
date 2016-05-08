@@ -16,14 +16,18 @@ var weixinAPIClient = function(appid, appsecret){
         this._oAuthClient = new oAuth(appid, appsecret);
         this._jSAPIClient = new jSAPI(appid, appsecret);
     }
+
+    return {
+        oAuthClient: function(){
+            return this._oAuthClient;
+        },
+
+        jSAPIClient: function(){
+            return this._jSAPIClient;
+        }
+    };
 };
 
-weixinAPIClient.prototype.oAuthClient = function(){
-    return this._oAuthClient;
-};
 
-weixinAPIClient.prototype.jSAPIClient = function(){
-    return this._jSAPIClient;
-};
 
 module.exports = weixinAPIClient;
