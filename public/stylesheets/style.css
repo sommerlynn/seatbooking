@@ -141,16 +141,12 @@ span.seatCharts-seat.focused {
   background-image: url('../images/blankseat-focused.png');
 }
 
-span.seatCharts-seat.available {
+span.seatCharts-seat.normal-seat {
   background-image: url('../images/blankseat.png');
 }
 
 span.seatCharts-seat.unavailable {
   cursor: not-allowed;
-}
-
-span.seatCharts-seat.available {
-  background-image: url('../images/blankseat.png');
 }
 
 span.seatCharts-seat.booked-seat-girl{
