@@ -132,7 +132,7 @@ weixinMessage.createOrderSuccess = function(openid, schoolID, classroom, seatCod
     weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
         var sendData = {
             "touser":openid,
-            "template_id":"LCnBfAKZ1uMUZGFb73lJgGyq6qhsFxu3TUWoDP6cjQc",
+            "template_id":"uXnnlW_zxLI2g35-SoDl6MtB5vkuZP4QKpCLETuC0JI",
             "url":"http://campus.julyangel.cn/oAuth/"+schoolID+'/me',
             "data":{
                 "first":{

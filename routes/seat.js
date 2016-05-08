@@ -209,7 +209,6 @@ router.get('/me/oldSeat/:openid', function (req, res) {
     });
 });
 
-
 /*
  * 扫描教室二维码进行签到 第一步
  *
