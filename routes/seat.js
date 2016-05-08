@@ -356,6 +356,10 @@ router.get('/scanseat/seatoperation', function(req, res){
         }
         else
         {
+            models.userModel.setAngelCode(req.body.openid, '', function(err, result){
+
+            });
+
             // 检索该座位是否有人预约
             models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, function (err, seatOrders) {
                 // 有人预约
@@ -542,10 +546,6 @@ router.get('/scanseat/seatoperation', function(req, res){
                         }
                     });
                 }
-            });
-
-            models.userModel.setAngelCode(req.body.openid, '', function(err, result){
-
             });
         }
     });
