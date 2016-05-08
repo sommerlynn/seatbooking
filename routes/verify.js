@@ -8,16 +8,17 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('../lib/weixin-jssdk'),
     urllib = require('urllib'),
     fs = require('fs'),
     path = require('path'),
     qiniu = require("qiniu"),
     debug = require('debug'),
-    log = debug('verify');
+    log = debug('verify'),
+    weixinAPIClient = models.weixinAPIClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
-var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+//OAuth = require('wechat-oauth'),
+//WeiJSAPI = require('../lib/weixin-jssdk'),
+//var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 /*
  * 实名认证页面
  * 2016-04-11 CHEN PU 新建
@@ -28,7 +29,7 @@ router.get('/me/verifySheet/:openid', function (req, res) {
             res.render('errorView', {openid: req.params.openid, title: '服务器故障', message: '服务器故障', error: err});
         } else {*/
             var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-            weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
+            weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
                 if (err) {
                     res.render('errorView', {
                         openid: 'wxeec4313f49704ee2',
@@ -150,7 +151,7 @@ router.get('/me/info/:openid', function (req, res) {
             });
         } else {
             var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-            weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
+            weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
                 if (err) {
                     res.render('errorView', {
                         openid: 'wxeec4313f49704ee2',

@@ -8,16 +8,15 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    /*OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('../lib/weixin-jssdk'),*/
     debug = require('debug'),
     log = debug('seat'),
     support = require('../lib/support'),
     weixinAPIClient = models.weixinAPIClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
+/*OAuth = require('wechat-oauth'),
+ WeiJSAPI = require('../lib/weixin-jssdk'),*/
 /*var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');*/
-
 
 /*
  * Get buildings of a school
@@ -303,7 +302,7 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
                 var userInfo = result;
                 models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
                     var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-                    weixinAPIClient.jSAPIClient.getJSConfig(url, function (err, weiJSConfig) {
+                    weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
                         if (err) {
                             res.render('errorView', {
                                 openid: 'wxeec4313f49704ee2',

@@ -7,15 +7,14 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('../lib/weixin-jssdk'),
     sizeOf = require('image-size'),
     debug = require('debug'),
     log = debug('reading'),
-    qiniu = require("qiniu");
+    weixinAPIClient = models.weixinAPIClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
-
-var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+//OAuth = require('wechat-oauth'),
+//WeiJSAPI = require('../lib/weixin-jssdk'),
+//var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 router.get('/reading/digest/list/:page', function(req, res){
 
@@ -44,103 +43,6 @@ router.get('/reading/digest/list/:page', function(req, res){
             res.send(JSON.stringify(jsonData));
         }
     });
-
-
-    /*var jsonData = {
-        "total": 20,
-        "result": [
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/003.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/004.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/005.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/006.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/007.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/008.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/009.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/010.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/011.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/012.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/013.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/014.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/015.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/016.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/017.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/018.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/019.jpg",
-                "width": 0,
-                "height": 0
-            },
-            {
-                "image": "http://wlog.cn/demo/waterfall/images/020.jpg",
-                "width": 0,
-                "height": 0
-            }
-        ]*/
-
 });
 
 router.post('/reading/digest/upload', function(req, res){

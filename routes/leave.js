@@ -8,11 +8,12 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('../lib/weixin-jssdk'),
-    urllib = require('urllib');
+    urllib = require('urllib'),
+    weixinAPIClient = models.weixinAPIClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
-var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+//OAuth = require('wechat-oauth'),
+//WeiJSAPI = require('../lib/weixin-jssdk'),
+//var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 /*
  * 填写请假申请表单的页面
@@ -46,7 +47,7 @@ router.post('/me/leaveSheet/submitApplication', function (req, res) {
             } else {
                 res.send('亲，您的申请已提交');
 
-                weiJSAPI.getAccessToken(function (err, token) {
+                weixinAPIClient.jsAPIClient.getAccessToken(function (err, token) {
                     if (err) {
 
                     } else {

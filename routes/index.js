@@ -4,11 +4,12 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('../lib/weixin-jssdk');
+    weixinAPIClient = models.weixinAPIClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
-var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
-var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+//OAuth = require('wechat-oauth'),
+//WeiJSAPI = require('../lib/weixin-jssdk'),
+//var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+//var client = new OAuth('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 /************************************************************************用户信息*/
 
 /*
@@ -24,14 +25,14 @@ router.get('/oAuth/:schoolID/:from', function (req, res) {
  * 获取用户信息 CHEN PU 获取用户信息 第二步
  * */
 router.get('/oAuthGetInfo', function (req, res) {
-    client.getAccessToken(req.query.code, function (err, result) {
+    weixinAPIClient.oAuthClient.getAccessToken(req.query.code, function (err, result) {
         if (err) {
             res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
         }
         else {
             //var accessToken = result.data.access_token;
             var openid = result.data.openid;
-            client.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
+            weixinAPIClient.oAuthClient.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
                 if (err) {
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                 } else {
@@ -58,7 +59,7 @@ router.get('/', function (req, res) {
 
 router.get('/index/:openid', function (req, res) {
     var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-    weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
+    weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
         if (err) {
             res.render('errorView', {
                 openid: 'wxeec4313f49704ee2',
@@ -97,13 +98,6 @@ router.get('/index/:openid', function (req, res) {
  * 2016-04-12 CHEN PU 调整代码,用querystring传递openid
  * */
 router.get('/me/:openid', function (req, res) {
-    /*var userInfo = {
-     nickname: '璞',
-     province: '北京',
-     city: '昌平',
-     headimgurl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0'
-     };*/
-
     models.userModel.getUser(req.params.openid, function (err, userInfo) {
         if (err) {
             res.render('errorView', {
@@ -136,7 +130,7 @@ router.get('/me/:openid', function (req, res) {
                                     });
                                 } else {
                                     var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-                                    weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
+                                    weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
                                         if (err) {
                                             res.render('errorView', {
                                                 openid: 'wxeec4313f49704ee2',
@@ -170,7 +164,7 @@ router.get('/me/:openid', function (req, res) {
 
 router.get('/debug', function (req, res) {
     var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-    weiJSAPI.getJSConfig(url, function (err, result) {
+    weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, result) {
         if (err) {
             res.render('errorView', {
                 openid: 'wxeec4313f49704ee2',

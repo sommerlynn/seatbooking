@@ -15,7 +15,7 @@ var weixinAPIClient = (function () {
     //参数：传递给单例的一个参数集合
     function weixinAPIClientSingleton(appid, appsecret) {
         this.oAuthClient = new oAuth(appid, appsecret);
-        this.jSAPIClient = new jSAPI(appid, appsecret);
+        this.jsAPIClient = new jSAPI(appid, appsecret);
     }
 
     //实例容器
