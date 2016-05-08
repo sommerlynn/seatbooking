@@ -18,11 +18,11 @@ var weixinAPIClient = function(appid, appsecret){
     }
 };
 
-weixinAPIClient.oAuthClient = function(){
+weixinAPIClient.prototype.oAuthClient = function(){
     return this._oAuthClient;
 };
 
-weixinAPIClient.jSAPIClient = function(){
+weixinAPIClient.prototype.jSAPIClient = function(){
     return this._jSAPIClient;
 };
 
