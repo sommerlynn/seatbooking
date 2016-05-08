@@ -8,10 +8,7 @@ var weixinMessage = {},
     path = require('path'),
     qiniu = require("qiniu"),
     debug = require('debug'),
-    log = debug('reading'),
-    WeiJSAPI = require('../lib/weixin-jssdk');
-
-var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+    log = debug('reading');
 
 weixinMessage.logUserLocation = function (openid, lat, lng, callback) {
     var insertQuery = "insert into user_location_log (openid, latitude, longitude) values (?, ?, ?)",
