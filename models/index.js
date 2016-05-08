@@ -12,7 +12,7 @@ models = {
     leaveApplicationModel:require('./leaveApplicationModel'),
     seatModel:require('./seatModel'),
     readingModel:require('./readingModel'),
-    weixinAPIClient:require('./weixinAPIModel')
+    weixinAPIClient:require('./weixinTicketModel')
 };
 
 module.exports = models;
