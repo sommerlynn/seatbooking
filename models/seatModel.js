@@ -385,7 +385,7 @@ seat.recycle = function(orderID, callback){
         if(err){
             callback(err);
         }else{
-            seat.log(orderID, '0101010101', -2, '超时 系统回收', function(err){
+            seat.systemRecycleLog(orderID, '0101010101', -2, '超时 系统回收', function(err){
                 if(err){
                     callback(err);
                 }else{
@@ -423,7 +423,7 @@ seat.log = function(orderID, logType, logMsg, callback){
  * 添加座位相关操作日志
  * 2016-05-03: CHEN　PU 新建
  * */
-seat.log = function(orderID, openid, logType, logMsg, callback){
+seat.systemRecycleLog = function(orderID, openid, logType, logMsg, callback){
     var insertQuery = 'insert into seat_log (classroom_id, seat_code, openid, log_type, log_msg) values '+
             '((select classroom_id from user_seat_order_view where order_id = ?), '+
             '(select seat_code from user_seat_order_view where order_id = ?), '+
