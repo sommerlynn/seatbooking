@@ -424,11 +424,11 @@
                             </ul>
                             <% if (userSeatOrders[index].status == 3) {%>
                             <div class="card-footer date-row">
-                                <p class="seat-message"><!--<i class="icon icon-warn"  style="color: #A00000; padding-right: .5rem" ></i>--><b>注意:  </b>请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前返回签到，过时座位将被系统回收</p>
+                                <p class="seat-message"><!--<i class="icon icon-warn"  style="color: #A00000; padding-right: .5rem" ></i>--><b>注意:  </b>请于<%= userSeatOrders[index].schedule_recover_time.toLocaleString()%>前返回签到，过时座位将被系统回收</p>
                             </div>
                             <%} else if((userSeatOrders[index].status == 1)) {%>
                             <div class="card-footer date-row">
-                                <p class="seat-message"><!--<i class="icon icon-warn"  style="color: #A00000; padding-right: .5rem" ></i>--><b>注意:  </b>请于<%= userSeatOrders[index].schedule_recover_time.toLocaleTimeString()%>前扫码签到，过时座位将被系统回收</p>
+                                <p class="seat-message"><!--<i class="icon icon-warn"  style="color: #A00000; padding-right: .5rem" ></i>--><b>注意:  </b>请于<%= userSeatOrders[index].schedule_recover_time.toLocaleString()%>前扫码签到，过时座位将被系统回收</p>
                             </div>
                             <%}%>
                         </div>
