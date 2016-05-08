@@ -19,8 +19,8 @@ rule.minute = minutes;
 schedule.scheduleJob(rule, function(){
     seatModel.getOrderNeedToRecycle(function(err, orders){
         for(var order in orders){
-            seatModel.recycle(order[order_id], function(err, result){
-                log('系统释放'+order[full_name]+' '+order[seat_code]+(new Date()).toLocaleString());
+            seatModel.recycle(order['order_id'], function(err, result){
+                log('系统释放'+order['full_name']+' '+order['seat_code']+(new Date()).toLocaleString());
             });
         }
     });
