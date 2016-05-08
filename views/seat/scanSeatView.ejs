@@ -230,7 +230,7 @@
                     <li>
                         <ul class="seat-log-card">
                             <li class="user-header-img"><img width="20" height="20"
-                                                             src="<%= seatLogs[index].headimgurl %>"></li>
+                                                             src="<%= seatLogs[index].headimgurl.replace('/0','/46') %>"></li>
                             <li class="log-time"><span
                                         class="time"><%= seatLogs[index].log_time.toLocaleTimeString('en-US', {hour12:false}) %></span></li>
                             <li class="log-msg"><span class="msg"><%= seatLogs[index].log_msg %></span></li>
