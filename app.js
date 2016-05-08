@@ -7,7 +7,7 @@ var logger = require('morgan');
 var debug = require('debug');
 var log = debug("seatbooking::log");
 var error = debug("seatbooking::error");
-var WeiJSAPI = require('./lib/weixin-jssdk');
+var schedule = require('./models');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
