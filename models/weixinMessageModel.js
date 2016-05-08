@@ -187,7 +187,7 @@ weixinMessage.leaveSeatNotice = function(openid, schoolID, classroom, seatCode, 
                     "value":scheduleRecoverTime.toLocaleString('en-US', {hour12:false})
                 },
                 "remark":{
-                    "value":"请在"+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前扫码签到入座, 过时未签到, 系统收回座位。七玥天使提醒大家, 珍惜同窗情谊, 文明用座, 快乐学习。',
+                    "value":"请在"+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前回座签到, 过时未返回, 系统收回座位。七玥天使提醒大家, 珍惜同窗情谊, 文明用座, 快乐学习。',
                     "color":"#A00000"
                 }
             }

@@ -30,4 +30,10 @@ user.getManager = function(openid, callback){
     db.executeQuery(selectQuery, params, callback);
 };
 
+user.setAngelCode = function(openid, angelcode, callback){
+    var updateQuery = "update user set angelcode = ? where openid = ?",
+        params = [angelcode, openid];
+    db.executeQuery(updateQuery, params, callback);
+};
+
 module.exports = user;
