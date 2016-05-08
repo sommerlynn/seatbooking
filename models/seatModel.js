@@ -174,7 +174,7 @@ seat.createOrder = function(openid, classroomID, seatCode, row, column, startTim
                         if(err){
                             callback(err);
                         }else{
-                            weixinMessage.createOrderSuccess(openid, order[0].school_id, order[0].full_name,
+                            weixinMessage.orderSeatNotice(openid, order[0].school_id, order[0].full_name,
                                 order[0].seat_code, startTime, scheduleRecoverTime);
                         }
                     });
@@ -331,6 +331,15 @@ seat.leave = function (orderID, openid, callback) {
                 if(err){
                     callback(err);
                 }else{
+                    seat.getOrder(orderID, function(err, order){
+                        if(err){
+                            callback(err);
+                        }else{
+                            weixinMessage.leaveSeatNotice(openid, order[0].school_id, order[0].full_name,
+                                order[0].seat_code, startTime, scheduleRecoverTime);
+                        }
+                    });
+
                     callback(null, scheduleRecoverDate);
                 }
             });

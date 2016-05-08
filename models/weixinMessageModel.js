@@ -128,7 +128,7 @@ weixinMessage.uploadToQiniu = function (fileName, filePath, callback) {
  * 2016-05-08 CHEN PU 创建
  *
  * */
-weixinMessage.createOrderSuccess = function(openid, schoolID, classroom, seatCode, orderDate, scheduleRecoverTime){
+weixinMessage.orderSeatNotice = function(openid, schoolID, classroom, seatCode, orderDate, scheduleRecoverTime){
     weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
         var sendData = {
             "touser":openid,
@@ -146,6 +146,45 @@ weixinMessage.createOrderSuccess = function(openid, schoolID, classroom, seatCod
                 },
                 "keyword3":{
                     "value":orderDate.toLocaleDateString()
+                },
+                "remark":{
+                    "value":"请在"+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前扫码签到入座, 过时未签到, 系统收回座位。七玥天使提醒大家, 珍惜同窗情谊, 文明用座, 快乐学习。',
+                    "color":"#A00000"
+                }
+            }
+        };
+        var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
+        var options = {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            content: JSON.stringify(sendData)
+        };
+        urllib.request(url, options);
+    });
+};
+
+/**
+ * 暂离座位时发送的微信模板消息
+ * https://mp.weixin.qq.com/advanced/tmplmsg?action=edit&id=sQoCHWBhCDTyO2eR0fgbghVWkSuPy1oBtwnxdNESNLY&token=223773654&lang=zh_CN
+ * 2016-05-08 CHEN PU 创建
+ * */
+weixinMessage.leaveSeatNotice = function(openid, schoolID, classroom, seatCode, orderDate, scheduleRecoverTime){
+    weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
+        var sendData = {
+            "touser":openid,
+            "template_id":"sQoCHWBhCDTyO2eR0fgbghVWkSuPy1oBtwnxdNESNLY",
+            "url":"http://campus.julyangel.cn/oAuth/"+schoolID+'/me',
+            "data":{
+                "first":{
+                    "value":''
+                },
+                "keyword1":{
+                    "value":classroom +' ' +seatCode
+                },
+                "keyword2":{
+                    "value":scheduleRecoverTime.toLocaleString('en-US', {hour12:false})
                 },
                 "remark":{
                     "value":"请在"+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前扫码签到入座, 过时未签到, 系统收回座位。七玥天使提醒大家, 珍惜同窗情谊, 文明用座, 快乐学习。',
