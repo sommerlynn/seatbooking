@@ -330,7 +330,7 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
 router.post('/scanseat/checkLocation', function (req, res) {
     models.classroomModel.getByID(req.body.classroomID, function(err, classroom){
         var distance = support.distance(req.body.longitude, req.body.latitude, classroom[0].longitude, classroom[0].latitude);
-        var result = {retcode:1, angelcode:'123456', message:distance};
+        var result = {retcode:-1, angelcode:'123456', message:distance};
         res.send(result);
     });
 });
