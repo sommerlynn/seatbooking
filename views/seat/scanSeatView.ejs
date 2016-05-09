@@ -214,7 +214,8 @@
 
                     <% if (statusType != 'empty' &&
                            statusType != 'signed-others' &&
-                           statusType != 'leaved-others' ) { %>
+                           statusType != 'leaved-others' &&
+                           statusType != 'prompt-empty') { %>
                     <ul class="seat-operation-card">
                         <li class="seat-operation">
                             <div class="seat-opertion-btn" id="release-seat-btn">退座</div>
