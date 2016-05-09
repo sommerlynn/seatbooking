@@ -339,7 +339,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
             });
         }
         else{
-            var result = {retcode:-11, angelcode:'', message:'你所在区域不在规定的地理区域内, 不能进行该操作。'};
+            var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内, 不能进行该操作。超出规定区域 '+distance};
             res.send(result);
         }
     });
