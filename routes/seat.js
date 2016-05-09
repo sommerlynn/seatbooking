@@ -330,7 +330,7 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
 router.post('/scanseat/checkLocation', function (req, res) {
     models.classroomModel.getByID(req.body.classroomID, function(err, classroom){
         var distance = support.distance(req.body.longitude, req.body.latitude, classroom[0].longitude, classroom[0].latitude);
-        /*if(distance < 1000){
+        if(distance < 150){
             var angelCode = support.random(5);
 
             models.userModel.setAngelCode(req.body.openid, angelCode, function(err, result){
@@ -341,10 +341,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
         else{
             var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内, 不能进行该操作。超出规定区域 '+distance};
             res.send(result);
-        }*/
-
-        var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内, 不能进行该操作。超出规定区域 '+distance};
-        res.send(result);
+        }
     });
 });
 
