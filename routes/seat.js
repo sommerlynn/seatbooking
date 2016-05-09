@@ -159,7 +159,7 @@ router.post('/seat/order', function (req, res) {
                         if (err) {
                             res.send(err.message);
                         } else {
-                            res.send('你已成功预订座位'+req.body.seatCode+', 请于'+scheduleRecoverTime.toLocaleString()+'之前扫码签到, 过时座位将被系统自动回收。');
+                            res.send('你已成功预订座位'+req.body.seatCode+', 请于'+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前扫码签到, 过时座位将被系统自动回收。');
                         }
                     });
             }
@@ -330,7 +330,7 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
 router.post('/scanseat/checkLocation', function (req, res) {
     models.classroomModel.getByID(req.body.classroomID, function(err, classroom){
         var distance = support.distance(req.body.longitude, req.body.latitude, classroom[0].longitude, classroom[0].latitude);
-        if(distance < 1000){
+        if(distance < 260){
             var angelCode = support.random(5);
 
             models.userModel.setAngelCode(req.body.openid, angelCode, function(err, result){
@@ -339,7 +339,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
             });
         }
         else{
-            var result = {retcode:-11, angelcode:'', message:'你所在区域不在规定的地理区域内, 不能进行该操作。'};
+            var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 不能进行该操作。 '};
             res.send(result);
         }
     });
@@ -513,7 +513,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                             {
                                                 openid: openid,
                                                 title: '座位状态',
-                                                statusType: 'empty',
+                                                statusType: 'prompt-empty',
                                                 classroom: classroom[0].full_name,
                                                 seat: req.query.seat,
                                                 orderID:-1,

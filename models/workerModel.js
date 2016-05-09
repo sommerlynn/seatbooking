@@ -11,10 +11,15 @@ var schedule = require("node-schedule"),
 
 var rule = new schedule.RecurrenceRule();
 var minutes = [];
+var hours = [];
 for(var index = 0; index < 60; index++){
     minutes.push(index);
 }
+for(var index = 8; index < 22; index++){
+    hours.push(index);
+}
 rule.minute = minutes;
+rule.hour = hours;
 
 schedule.scheduleJob(rule, function(){
     seatModel.getOrderNeedToRecycle(function(err, orders){
