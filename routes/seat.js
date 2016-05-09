@@ -513,7 +513,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                             {
                                                 openid: openid,
                                                 title: '座位状态',
-                                                statusType: 'empty',
+                                                statusType: 'prompt-empty',
                                                 classroom: classroom[0].full_name,
                                                 seat: req.query.seat,
                                                 orderID:-1,
