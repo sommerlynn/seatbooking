@@ -389,9 +389,9 @@
                                             <% } else if(userSeatOrders[index].status == -2) { %>
                                                 系统回收
                                             <% } else if(userSeatOrders[index].status == 2) { %>
-                                                <%= userSeatOrders[index].sign_time.toLocaleTimeString() %> 已签到
+                                                <%= userSeatOrders[index].sign_time.toLocaleTimeString('en-US', {hour12:false}) %> 已签到
                                             <% } else if(userSeatOrders[index].status == 3) { %>
-                                                <%= userSeatOrders[index].leave_time.toLocaleTimeString() %> 暂离中
+                                                <%= userSeatOrders[index].leave_time.toLocaleTimeString('en-US', {hour12:false}) %> 暂离中
                                             <% } %>
                                         </span>
                                     </div>
