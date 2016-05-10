@@ -7,13 +7,14 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
-    OAuth = require('wechat-oauth'),
-    WeiJSAPI = require('../lib/weixin-jssdk'),
     debug = require('debug'),
     log = debug('seat'),
-    support = debug('../lib/support');
+    support = debug('../lib/support'),
+    weixinAPIClient = models.weixinClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
-var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+//OAuth = require('wechat-oauth'),
+//WeiJSAPI = require('../lib/weixin-jssdk'),
+//var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 router.get('/data/loadcourse', function (req, res, next) {
     var dataFromFile = xlsx.parse('./bak/data.xlsx');
@@ -132,7 +133,7 @@ router.get('/data/buildingClassroom/:areaId', function (req, res) {
 router.get('/data/classroom/:cid', function (req, res) {
     models.classroomModel.getByID(req.params.cid, function (err, classroom) {
         var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-        weiJSAPI.getJSConfig(url, function (err, weiJSConfig) {
+        weixinAPIClient.getInstance().jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
             res.render('./data/classroomView', {
                 title: '七玥校园',
                 classroom: classroom[0],

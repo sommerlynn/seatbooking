@@ -48,7 +48,17 @@ router.get('/oAuthGetInfo', function (req, res) {
                 }
             });*/
             weixinAPIClient.jsAPIClient.getUserInfo(openid, function (err, userInfo) {
-                res.render('messageView', {openid: openid, title: '服务器故障', message: userInfo.subscribe});
+                if(userInfo.subscribe == 1){
+                    models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
+                        if (err) {
+                            res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
+                        } else {
+                            res.redirect(req.query.from + '/' + openid);
+                        }
+                    });
+                }else{
+                    res.render('messageView', {openid: openid, title: '服务器故障', message: '请先关注七玥天使微信公众号。'});
+                }
             });
         }
     });
