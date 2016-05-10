@@ -64,8 +64,8 @@ router.get('/me/verifySheet/:openid', function (req, res) {
  * */
 router.post('/me/verifySheet/submitInfo', function (req, res) {
     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
-    
-    weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.photoServerID, 'verify_', function (err, fileName, filePath) {
+
+    models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.photoServerID, 'verify_', function (err, fileName, filePath) {
         if (err) {
             res.send('哎呀, 出了点小故障, 我们再来一次好不好');
         } else {
@@ -94,32 +94,6 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                         });
                 }
             });
-        }
-    });
-
-    weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.photoServerID, filename, function(err){
-        if(err){
-            res.send('亲，出错了额，请重试一下' + err.message);
-        }else{
-            var personType = 1;
-            if(req.body.type == 0){
-                personType = 2;
-            }
-            models.userModel.fillRealInfo(
-                req.body.name,
-                req.body.code,
-                req.body.department,
-                req.body.classs,
-                req.body.openid,
-                personType,
-                filename,
-                function (err, result) {
-                    if (err) {
-                        res.send('亲，出错了额，请重试一下' + err.message);
-                    } else {
-                        res.send('亲，您的信息已认证');
-                    }
-                });
         }
     });
 });
