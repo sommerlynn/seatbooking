@@ -48,7 +48,7 @@ router.get('/oAuthGetInfo', function (req, res) {
                 }
             });*/
             weixinAPIClient.jsAPIClient.getUserInfo(openid, function (err, userInfo) {
-                res.render('messageView', {openid: openid, title: '服务器故障', message: JSON.stringify(userInfo)});
+                res.render('messageView', {openid: openid, title: '服务器故障', message: userInfo.subscribe});
             });
         }
     });
