@@ -292,8 +292,8 @@
             <span class="icon icon-building"></span>
             <span class="tab-label">预约座位</span>
         </a>
-        <a class="tab-item" id="skyTab" href="/index/<%= openid %>" external>
-            <span class="icon icon-star"></span>
+        <a class="tab-item" id="skyTab" href="/reading/<%= openid %>" external>
+            <span class="icon icon-book"></span>
             <span class="tab-label">七玥书斋</span>
         </a>
         <a class="tab-item active" id="meTab" href="/me/<%= openid %>" external>
@@ -586,9 +586,63 @@
     wx.ready(function () {
         // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         wx.onMenuShareTimeline({
-            title: '七玥天使 伴你快乐学习', // 分享标题
+            title: '七玥天使 伴你快乐学习 畅享未来', // 分享标题
             link: '/index', // 分享链接
-            imgUrl: 'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1748565998,3316296207&fm=80', // 分享图标
+            imgUrl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareAppMessage({
+            title: '七玥天使', // 分享标题
+            desc: '伴你快乐学习 畅享未来', // 分享描述
+            link: '/index', // 分享链接
+            imgUrl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareQQ({
+            title: '七玥天使', // 分享标题
+            desc: '伴你快乐学习 畅享未来', // 分享描述
+            link: '/index', // 分享链接
+            imgUrl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareWeibo({
+            title: '七玥天使', // 分享标题
+            desc: '伴你快乐学习 畅享未来', // 分享描述
+            link: '/index', // 分享链接
+            imgUrl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareQZone({
+            title: '七玥天使', // 分享标题
+            desc: '伴你快乐学习 畅享未来', // 分享描述
+            link: '/index', // 分享链接
+            imgUrl: 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJLKaunSsjF2ky7vkXEicrZ21h6StXw0brPib0AUex7LOR42NKU2P0l5sJWPiavjH0h1M8DcmHd02B1aqmcUFcibEJ5sIcKqneLtf4/0', // 分享图标
             success: function () {
                 // 用户确认分享后执行的回调函数
             },

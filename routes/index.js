@@ -59,7 +59,7 @@ router.get('/oAuthGetInfo', function (req, res) {
                         }
                     });
                 }else{
-                    res.render('qiyueView', {openid: openid, title: '七玥校园', message: '请先关注七玥天使微信公众号。'});
+                    res.render('indexView', {openid: openid, title: '七玥校园', message: '请先关注七玥天使微信公众号。'});
                 }
             });
         }
@@ -69,41 +69,10 @@ router.get('/oAuthGetInfo', function (req, res) {
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    res.render('indexView', {title: '七玥书斋'});
+    res.render('indexView', {title: '七玥校园'});
 });
 
-router.get('/index/:openid', function (req, res) {
-    var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-    weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
-        if (err) {
-            res.render('errorView', {
-                openid: 'wxeec4313f49704ee2',
-                title: '服务器故障',
-                message: '服务器故障',
-                error: err
-            });
-        }else{
-            models.userModel.getUser(req.params.openid, function (err, userInfo) {
-                if (err) {
-                    res.render('errorView', {
-                        openid: req.params.openid,
-                        title: '服务器故障',
-                        message: '服务器故障',
-                        error: err
-                    });
-                } else {
-                    res.render('indexView',
-                        {
-                            ip: req.params.ip,
-                            openid: req.params.openid,
-                            title: '七玥书斋',
-                            weiJSConfig: weiJSConfig
-                        });
-                }
-            });
-        }
-    });
-});
+
 
 /************************************************************************我的*/
 

@@ -47,9 +47,12 @@
   content:"\e60f";
 }
 
-
 .icon-direction:before{
   content:"\e610";
+}
+
+.icon-book:before{
+  content:"\e60c";
 }
 
 body {
