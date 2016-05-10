@@ -10,10 +10,10 @@ var oAuth = require('wechat-oauth'),
     debug = require('debug'),
     log = debug('weixin');
 
-var weixinAPIClient = (function () {
+var weixinClient = (function () {
 
     //参数：传递给单例的一个参数集合
-    function weixinAPIClientSingleton(appid, appsecret) {
+    function weixinClientSingleton(appid, appsecret) {
         this.oAuthClient = new oAuth(appid, appsecret);
         this.jsAPIClient = new jSAPI(appid, appsecret);
     }
@@ -22,13 +22,13 @@ var weixinAPIClient = (function () {
     var instance;
 
     var _static = {
-        name: 'weixinAPIClient',
+        name: 'weixinClient',
 
         //获取实例的方法
         //返回Singleton的实例
         getInstance: function (appid, appsecret) {
             if (instance === undefined) {
-                instance = new weixinAPIClientSingleton(appid, appsecret);
+                instance = new weixinClientSingleton(appid, appsecret);
             }
             return instance;
         }
@@ -36,4 +36,4 @@ var weixinAPIClient = (function () {
     return _static;
 })();
 
-module.exports = weixinAPIClient;
+module.exports = weixinClient;
