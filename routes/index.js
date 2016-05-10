@@ -127,7 +127,7 @@ router.get('/me/:openid', function (req, res) {
                                                 ip: req.ip,
                                                 openid: req.params.openid,
                                                 weiJSConfig: weiJSConfig,
-                                                title: '我的信息',
+                                                title: '我的',
                                                 userInfo: userInfo[0],
                                                 userSeatOrders: userSeatOrders,
                                                 leaveApplications: leaveApplications,

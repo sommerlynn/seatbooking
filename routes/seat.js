@@ -48,7 +48,7 @@ router.get('/building/:openid', function (req, res) {
                         {
                             ip: req.query.ip,
                             openid: req.params.openid,
-                            title: '七玥天使-自习室导航',
+                            title: '自习室导航',
                             classroomList: classroomList
                         });
                 }
@@ -71,7 +71,7 @@ router.get('/buildingClassroom/:areaId/:openid', function (req, res) {
             res.render('./seat/buildingClassroomView',
                 {
                     openid: req.params.openid,
-                    title: '七玥校园',
+                    title: '自习室导航',
                     classroomList: classroomList
                 });
         }
