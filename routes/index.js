@@ -23,6 +23,8 @@ router.get('/oAuth/:schoolID/:from', function (req, res) {
 
 /*
  * 获取用户信息 CHEN PU 获取用户信息 第二步
+ * 2016-05-10 CHEN PU 获取用户的订阅状态信息 (是否有意义?)
+ *
  * */
 router.get('/oAuthGetInfo', function (req, res) {
     weixinAPIClient.oAuthClient.getAccessToken(req.query.code, function (err, result) {
@@ -94,7 +96,7 @@ router.get('/index/:openid', function (req, res) {
                         {
                             ip: req.params.ip,
                             openid: req.params.openid,
-                            title: '七玥星空',
+                            title: '七玥书斋',
                             weiJSConfig: weiJSConfig
                         });
                 }
