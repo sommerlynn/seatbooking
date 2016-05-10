@@ -57,7 +57,7 @@ router.get('/oAuthGetInfo', function (req, res) {
                         }
                     });
                 }else{
-                    res.render('messageView', {openid: openid, title: '服务器故障', message: '请先关注七玥天使微信公众号。'});
+                    res.render('qiyueView', {openid: openid, title: '七玥校园', message: '请先关注七玥天使微信公众号。'});
                 }
             });
         }
