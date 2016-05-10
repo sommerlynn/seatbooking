@@ -17,17 +17,15 @@ var express = require('express'),
 //var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 router.get('/reading/:openid', function (req, res) {
+
     var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
     weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
-        models.userModel.getUser(req.params.openid, function (err, userInfo) {
-            res.render('./reading/digestView',
-                {
-                    ip: req.params.ip,
-                    openid: req.params.openid,
-                    title: '七玥书斋',
-                    weiJSConfig: weiJSConfig
-                });
-        });
+        res.render('./reading/digestView',
+            {
+                openid: req.params.openid,
+                title: '七玥书斋',
+                weiJSConfig: weiJSConfig
+            });
     });
 });
 
@@ -61,7 +59,9 @@ router.get('/reading/digest/list/:page', function (req, res) {
 });
 
 router.post('/reading/digest/upload', function (req, res) {
+    log('test001');
     models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.imageID, 'reading_digest_', function (err, fileName, filePath) {
+        log('test002');
         if (err) {
             res.send('哎呀, 出了点小故障, 我们再来一次好不好 1');
         } else {
