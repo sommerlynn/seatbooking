@@ -133,7 +133,7 @@ router.get('/data/buildingClassroom/:areaId', function (req, res) {
 router.get('/data/classroom/:cid', function (req, res) {
     models.classroomModel.getByID(req.params.cid, function (err, classroom) {
         var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-        weixinAPIClient.getInstance().jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
+        weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
             res.render('./data/classroomView', {
                 title: '七玥校园',
                 classroom: classroom[0],
