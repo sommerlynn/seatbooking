@@ -64,8 +64,6 @@ router.get('/me/verifySheet/:openid', function (req, res) {
  * */
 router.post('/me/verifySheet/submitInfo', function (req, res) {
     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
-    var temarr = res.headers["content-disposition"].split('"');
-    var filename = 'verify_'+req.body.openid+'_'+temarr[1];
     
     weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.photoServerID, 'verify_', function (err, fileName, filePath) {
         if (err) {
