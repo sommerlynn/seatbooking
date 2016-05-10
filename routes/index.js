@@ -32,7 +32,7 @@ router.get('/oAuthGetInfo', function (req, res) {
         else {
             //var accessToken = result.data.access_token;
             var openid = result.data.openid;
-            weixinAPIClient.oAuthClient.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
+            /*weixinAPIClient.oAuthClient.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
                 if (err) {
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                 } else {
@@ -46,6 +46,9 @@ router.get('/oAuthGetInfo', function (req, res) {
                         }
                     });
                 }
+            });*/
+            weixinAPIClient.jsAPIClient.getUserInfo(openid, function (err, userInfo) {
+                res.render('messageView', {openid: openid, title: '服务器故障', message: JSON.stringify(userInfo)});
             });
         }
     });
