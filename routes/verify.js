@@ -66,6 +66,38 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
     var temarr = res.headers["content-disposition"].split('"');
     var filename = 'verify_'+req.body.openid+'_'+temarr[1];
+    
+    weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.photoServerID, 'verify_', function (err, fileName, filePath) {
+        if (err) {
+            res.send('哎呀, 出了点小故障, 我们再来一次好不好');
+        } else {
+            models.weixinMessageModel.uploadToQiniu(fileName, filePath, function (err, fileName, filePath) {
+                if (err) {
+                    res.send('哎呀, 出了点小故障, 我们再来一次好不好');
+                } else {
+                    var personType = 1;
+                    if(req.body.type == 0){
+                        personType = 2;
+                    }
+                    models.userModel.fillRealInfo(
+                        req.body.name,
+                        req.body.code,
+                        req.body.department,
+                        req.body.classs,
+                        req.body.openid,
+                        personType,
+                        fileName,
+                        function (err, result) {
+                            if (err) {
+                                res.send('出错了额，请重试一下' + err.message);
+                            } else {
+                                res.send('您的信息已成功提交');
+                            }
+                        });
+                }
+            });
+        }
+    });
 
     weixinMessageModel.uploadWeiXinServerResourceToQiniu(req.body.photoServerID, filename, function(err){
         if(err){

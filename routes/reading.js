@@ -59,15 +59,13 @@ router.get('/reading/digest/list/:page', function (req, res) {
 });
 
 router.post('/reading/digest/upload', function (req, res) {
-    log('test001');
     models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.imageID, 'reading_digest_', function (err, fileName, filePath) {
-        log('test002');
         if (err) {
-            res.send('哎呀, 出了点小故障, 我们再来一次好不好 1');
+            res.send('哎呀, 出了点小故障, 我们再来一次好不好');
         } else {
             models.weixinMessageModel.uploadToQiniu(fileName, filePath, function (err, fileName, filePath) {
                 if (err) {
-                    res.send('哎呀, 出了点小故障, 我们再来一次好不好 2');
+                    res.send('哎呀, 出了点小故障, 我们再来一次好不好');
                 } else {
                     sizeOf(filePath, function (err, dimensions) {
                         if (err) {
