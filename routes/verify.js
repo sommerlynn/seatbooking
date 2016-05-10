@@ -14,7 +14,7 @@ var express = require('express'),
     qiniu = require("qiniu"),
     debug = require('debug'),
     log = debug('verify'),
-    weixinAPIClient = models.weixinAPIClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
+    weixinAPIClient = models.weixinClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 //OAuth = require('wechat-oauth'),
 //WeiJSAPI = require('../lib/weixin-jssdk'),
