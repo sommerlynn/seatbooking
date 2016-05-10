@@ -66,7 +66,7 @@ weixinMessage.addUserInfo = function (schoolID, userInfo, callback) {
  * 2016-04-21 CHEN PU 从verify.js抽取迁移至此
  * */
 weixinMessage.downloadFromWeiXin = function (openid, resourceID, fileName_prefix, callback) {
-    weiJSAPI.getAccessToken(function (err, token) {
+    weixinAPIClient.jsAPIClient.getAccessToken(function (err, token) {
         if (err) {
             callback(err);
         } else {
