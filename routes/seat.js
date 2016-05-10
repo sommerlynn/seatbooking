@@ -195,6 +195,10 @@ router.post('/seat/leave', function (req, res) {
     });
 });
 
+/**
+ * 历史座位
+ *
+ * */
 router.get('/me/oldSeat/:openid', function (req, res) {
     models.seatModel.getOld(req.params.openid, function (err, oldOrders) {
         if (err) {
@@ -296,7 +300,7 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
         }else{
             //var accessToken = result.data.access_token;
             var openid = result.data.openid;
-            weixinAPIClient.oAuthClient.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
+            /*weixinAPIClient.oAuthClient.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
 
                 var userInfo = result;
                 models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
@@ -322,6 +326,27 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
                         }
                     });                    
                 });
+            });*/
+            weixinAPIClient.jsAPIClient.getUserInfo(openid, function (err, userInfo) {
+                if(userInfo.subscribe == 1){
+                    models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
+                        var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
+                        weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
+
+                                res.render('./seat/precheckView', {
+                                    openid: openid,
+                                    classroomID:req.query.cid,
+                                    seat:req.query.seat,
+                                    row:req.query.row,
+                                    column:req.query.column,
+                                    weiJSConfig: weiJSConfig,
+                                    title: '座位状态'
+                                });
+                        });
+                    });
+                }else{
+                    res.render('indexView', {openid: openid, title: '七玥校园', message: '请先关注七玥天使微信公众号。'});
+                }
             });
         }
     });
