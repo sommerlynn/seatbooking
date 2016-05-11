@@ -394,7 +394,7 @@ seat.sysReleaseAsNotSetLeave = function (orderID, callback) {
                         if(err){
                             callback(err);
                         }else{
-                            weixinMessage.recycleAsNotSetLeaveNotice(openid, order[0].school_id, order[0].full_name,
+                            weixinMessage.recycleAsNotSetLeaveNotice(order[0].openid, order[0].school_id, order[0].full_name,
                                 order[0].seat_code);
                         }
                     });
@@ -425,7 +425,7 @@ seat.sysReleaseAsNotSign = function(orderID, callback){
                         if(err){
                             callback(err);
                         }else{
-                            weixinMessage.recycleAsNotSignNotice(openid, order[0].school_id, order[0].full_name,
+                            weixinMessage.recycleAsNotSignNotice(order[0].openid, order[0].school_id, order[0].full_name,
                                 order[0].seat_code);
                         }
                     });
