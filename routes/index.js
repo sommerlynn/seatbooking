@@ -4,6 +4,8 @@ var express = require('express'),
     Promise = require('bluebird'),
     xlsx = require('node-xlsx'), // https://github.com/mgcrea/node-xlsx
     models = require('../models'),
+    debug = require('debug'),
+    log = debug('index'),
     weixinAPIClient = models.weixinClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 //OAuth = require('wechat-oauth'),
@@ -34,6 +36,7 @@ router.get('/oAuthGetInfo', function (req, res) {
         else {
             //var accessToken = result.data.access_token;
             var openid = result.data.openid;
+            log(openid);
             /*weixinAPIClient.oAuthClient.getUser({openid: openid, lang: "zh_CN"}, function (err, result) {
                 if (err) {
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
