@@ -28,18 +28,11 @@ module.exports = exports = function(webot){
         },
         handler: function(info){
             var reply = {
-                title: '【你好】我是七玥',
-                pic: 'http://img5.duitang.com/uploads/item/201506/12/20150612194418_T4S3r.thumb.700_0.jpeg',
-                url: 'http://julyangel.cn',
+                title: '七玥校园',
+                pic: '/images/subscribe-img.jpg',
+                url: 'http://campus.julyangel.cn',
                 description: [
-                    '在青春岁月里',
-                    '陪你走过每一个季节',
-                    '助你通过每一门考试',
-                    '帮你实现每一个梦想',
-                    '倾听你的烦恼和忧愁',
-                    '给你带去快乐带走忧愁'
-                    //'s+空格+关键词 : 我会帮你百度搜索喔',
-                    //'s+空格+nde : 可以试试我的纠错能力'
+                    '七玥伴你度过最美的大学时光'
                 ].join('\n')
             };
             // 返回值如果是list，则回复图文消息列表
