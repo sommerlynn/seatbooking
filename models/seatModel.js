@@ -265,8 +265,8 @@ seat.getActiveLibrary = function(openid, callback){
 };
 
 seat.getOrderNeedToRecycle = function(callback){
-    var selectQuery = "select * from user_seat_order_view where schedule_recover_time < ? and (status = 1 or status = 3)",
-        params = [new Date()];
+    var selectQuery = "select * from user_seat_order_view where schedule_recover_time < ? and end_time > ? and (status = 1 or status = 3)",
+        params = [new Date(), new Date()];
     db.executeQuery(selectQuery, params, callback);
 };
 
