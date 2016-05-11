@@ -6,7 +6,7 @@ var classroom = {},
     db = require('./db');
 
 classroom.getAll = function(schoolID, callback){
-  var selectQuery = "select * from area_classroom where area_status = 1",
+  var selectQuery = "select * from area_classroom_view where area_status = 1",
       params = [schoolID];
   db.executeQuery(selectQuery, params, callback);
 };
