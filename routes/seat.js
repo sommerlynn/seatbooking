@@ -152,12 +152,10 @@ router.post('/seat/order', function (req, res) {
     log('classroom1', req.body.classroom);
 
     models.seatModel.getOrderRelatedDateByDayType(req.body.type, function (startTime, endTime, scheduleRecoverTime) {
-        log('classroom1', req.body.classroom);
         models.seatModel.isValidLibraryOrderRequest(req.body.openid, req.body.classroom, req.body.seatCode, startTime, endTime, function (err) {
             if (err) {
                 res.send(err.message);
             } else {
-                log('classroom1', req.body.classroom);
                 models.seatModel.createOrder(req.body.openid, req.body.classroom, req.body.seatCode, req.body.row, req.body.column, startTime, endTime, scheduleRecoverTime,
                     function (err, newOrderId) {
                         if (err.code == 'ER_DUP_ENTRY') {
