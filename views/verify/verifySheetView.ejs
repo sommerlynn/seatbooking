@@ -186,6 +186,7 @@
                     function (response) {
                         $.hidePreloader();
                         alert(response);
+                        window.location.assign('/me/'+'<%=openid%>');
                     });
         }
     });
