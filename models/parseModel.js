@@ -159,7 +159,7 @@ parse.parseOneClassTime = function(classroomtime, callback){
         classroom = '教1楼'+' '+classroomData[1];
     }
 
-    var searchClassroomQuery = "SELECT classroom_id FROM area_classroom WHERE full_name = ?",
+    var searchClassroomQuery = "SELECT classroom_id FROM area_classroom_view WHERE full_name = ?",
         searchClassroomParams = [classroom];
 
     db.getId(searchClassroomQuery, searchClassroomParams, function(err, classroomId){

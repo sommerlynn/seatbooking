@@ -359,6 +359,7 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
 router.post('/scanseat/checkLocation', function (req, res) {
     models.classroomModel.getByID(req.body.classroomID, function(err, classroom){
         var distance = support.distance(req.body.longitude, req.body.latitude, classroom[0].longitude, classroom[0].latitude);
+        log('距离:'+distance);
         if(distance < 260){
             var angelCode = support.random(5);
 
