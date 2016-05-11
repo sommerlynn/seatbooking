@@ -74,7 +74,7 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
                     res.send('哎呀, 出了点小故障, 我们再来一次好不好');
                 } else {
                     var personType = 1;
-                    if(req.body.type == 0){
+                    if(req.body.type == '老师'){
                         personType = 2;
                     }
                     models.userModel.fillRealInfo(
