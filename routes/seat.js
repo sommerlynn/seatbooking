@@ -161,7 +161,7 @@ router.post('/seat/order', function (req, res) {
                 models.seatModel.createOrder(req.body.openid, req.body.classroom, req.body.seatCode, req.body.row, req.body.column, startTime, endTime, scheduleRecoverTime,
                     function (err, newOrderId) {
                         if (err) {
-                            res.send(JSON.stringify(err));
+                            res.send(err.code);
                         } else {
                             res.send('你已成功预订座位'+req.body.seatCode+', 请于'+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前扫码签到, 过时座位将被系统自动回收。');
                         }
