@@ -29,7 +29,7 @@ module.exports = exports = function(webot){
         handler: function(info){
             var reply = {
                 title: '七玥校园',
-                pic: 'http://campus.julyangel.cn/images/subscribe-img.jpg',
+                pic: '/images/subscribe-img.jpg',
                 url: '',
                 description: [
                     '七玥伴你度过最美的大学时光'
