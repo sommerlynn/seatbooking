@@ -491,7 +491,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                     else
                                     {
                                         // 释放座位
-                                        models.seatModel.release(seatOrders[0].order_id, eatOrders[0].openid, function (err, result) {
+                                        models.seatModel.sysReleaseAsNotSetLeave(seatOrders[0].order_id, eatOrders[0].openid, function (err, result) {
 
                                             models.seatModel.createOrder(openid, req.query.cid, req.query.seat, req.query.row, req.query.column, startTime, endTime, scheduleRecoverTime, function (err, newOrderId) {
 

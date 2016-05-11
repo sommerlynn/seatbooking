@@ -204,4 +204,82 @@ weixinMessage.leaveSeatNotice = function(openid, schoolID, classroom, seatCode, 
     });
 };
 
+/**
+* 系统释放座位时发送的微信模板消息 （暂离、预约 未按时签到）
+ *https://mp.weixin.qq.com/advanced/tmplmsg?action=edit&id=AcUdNRYIr2g2SKMF5yTcGbdW0Q3x_UE7f7fVyN8NFOU&token=1206403495&lang=zh_CN
+ * 2016-05-11 CHEN PU 创建
+* */
+weixinMessage.recycleAsNotSignNotice = function(openid, schoolID, classroom, seatCode){
+    weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
+        var sendData = {
+            "touser":openid,
+            "template_id":"AcUdNRYIr2g2SKMF5yTcGbdW0Q3x_UE7f7fVyN8NFOU",
+            "url":"http://campus.julyangel.cn/oAuth/"+schoolID+'/me',
+            "data":{
+                "first":{
+                    "value":''
+                },
+                "keyword1":{
+                    "value":classroom +' ' +seatCode
+                },
+                "keyword2":{
+                    "value":(new Date()).toLocaleString('en-US', {hour12:false})
+                },
+                "keyword3":{
+                    "value":'由于未按时签到, 你的座位已被七玥回收。七玥提醒你自觉遵守《文明用座规范》, 共同营造快乐学习的氛围。',
+                    "color":"#A00000"
+                }
+            }
+        };
+        var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
+        var options = {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            content: JSON.stringify(sendData)
+        };
+        urllib.request(url, options);
+    });
+};
+
+/**
+ * 系统释放座位时发送的微信模板消息 （暂离未设离座）
+ *https://mp.weixin.qq.com/advanced/tmplmsg?action=edit&id=AcUdNRYIr2g2SKMF5yTcGbdW0Q3x_UE7f7fVyN8NFOU&token=1206403495&lang=zh_CN
+ * 2016-05-11 CHEN PU 创建
+ * */
+weixinMessage.recycleAsNotSetLeaveNotice = function(openid, schoolID, classroom, seatCode){
+    weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
+        var sendData = {
+            "touser":openid,
+            "template_id":"AcUdNRYIr2g2SKMF5yTcGbdW0Q3x_UE7f7fVyN8NFOU",
+            "url":"http://campus.julyangel.cn/oAuth/"+schoolID+'/me',
+            "data":{
+                "first":{
+                    "value":''
+                },
+                "keyword1":{
+                    "value":classroom +' ' +seatCode
+                },
+                "keyword2":{
+                    "value":(new Date()).toLocaleString('en-US', {hour12:false})
+                },
+                "keyword3":{
+                    "value":'由于你离开时未设暂离, 该座位已被七玥回收。七玥提醒你自觉遵守《文明用座规范》, 共同营造快乐学习的氛围。',
+                    "color":"#A00000"
+                }
+            }
+        };
+        var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
+        var options = {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            content: JSON.stringify(sendData)
+        };
+        urllib.request(url, options);
+    });
+};
+
 module.exports = weixinMessage;

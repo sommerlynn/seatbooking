@@ -24,7 +24,7 @@ rule.hour = hours;
 schedule.scheduleJob(rule, function(){
     seatModel.getOrderNeedToRecycle(function(err, orders){
         for(var index = 0; index < orders.length; index++){
-            seatModel.recycle(orders[index].order_id, function(err, result){
+            seatModel.sysReleaseAsNotSign(orders[index].order_id, function(err, result){
                 //log('系统释放'+orders[index].full_name+' '+orders[index].seat_code+' '+(new Date()).toLocaleString());
             });
         }

@@ -375,20 +375,61 @@ seat.release = function (orderID, openid, callback) {
 };
 
 /**
+ * 未设暂离离座 他人扫码时 系统释放此座
+ * 2016-05-11 CHEN PU 创建
+ *
+ * */
+seat.sysReleaseAsNotSetLeave = function (orderID, callback) {
+    var updateQuery = "update user_seat_order set status = -3, leave_time = ?, lock_code = ? where order_id = ?",
+        params = [new Date(), orderID, orderID];
+    db.executeQuery(updateQuery, params, function(err, result){
+        if(err){
+            callback(err);
+        }else{
+            seat.systemLog(orderID, -3, '未设暂离离座 系统回收', function(err){
+                if(err){
+                    callback(err);
+                }else{
+                    seat.getOrder(orderID, function(err, order){
+                        if(err){
+                            callback(err);
+                        }else{
+                            weixinMessage.recycleAsNotSetLeaveNotice(openid, order[0].school_id, order[0].full_name,
+                                order[0].seat_code);
+                        }
+                    });
+
+                    callback(null, result);
+                }
+            });
+        }
+    });
+};
+
+/**
  * 回收座位（暂离、预约未按时签到的）
  * 2016-05-08 CHEN PU
  * **/
-seat.recycle = function(orderID, callback){
+seat.sysReleaseAsNotSign = function(orderID, callback){
     var updateQuery = "update user_seat_order set status = -2, real_recover_time = ?, lock_code = ? where order_id = ?",
         params = [new Date(), orderID, orderID];
     db.executeQuery(updateQuery, params, function(err, result){
         if(err){
             callback(err);
         }else{
-            seat.systemRecycleLog(orderID, '0101010101', -2, '超时 系统回收', function(err){
+            seat.systemLog(orderID, -2, '超时 系统回收', function(err){
                 if(err){
                     callback(err);
                 }else{
+                    seat.getOrder(orderID, function(err, order){
+                        if(err){
+                            callback(err);
+                        }else{
+                            weixinMessage.recycleAsNotSignNotice(openid, order[0].school_id, order[0].full_name,
+                                order[0].seat_code);
+                        }
+                    });
+
                     callback(null, result);
                 }
             });
@@ -423,12 +464,12 @@ seat.log = function(orderID, logType, logMsg, callback){
  * 添加座位相关操作日志
  * 2016-05-03: CHEN　PU 新建
  * */
-seat.systemRecycleLog = function(orderID, openid, logType, logMsg, callback){
+seat.systemLog = function(orderID, logType, logMsg, callback){
     var insertQuery = 'insert into seat_log (classroom_id, seat_code, openid, log_type, log_msg) values '+
             '((select classroom_id from user_seat_order_view where order_id = ?), '+
             '(select seat_code from user_seat_order_view where order_id = ?), '+
             '?, ?, ?)',
-        insertParams = [orderID, orderID, openid, logType, logMsg];
+        insertParams = [orderID, orderID, '0101010101', logType, logMsg];
     db.insertQuery(insertQuery, insertParams, function(err, id){
         if(err){
             callback(err);
