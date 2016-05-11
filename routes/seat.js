@@ -156,8 +156,12 @@ router.post('/seat/order', function (req, res) {
             } else {
                 models.seatModel.createOrder(req.body.openid, req.body.classroom, req.body.seatCode, req.body.row, req.body.column, startTime, endTime, scheduleRecoverTime,
                     function (err, newOrderId) {
-                        if (err.code == 'ER_DUP_ENTRY') {
-                            res.send('哎呀, 就在上一秒这个座位被其他小伙伴约去了, 咱们来重新选一个位子吧');
+                        if (err) {
+                            if(err.code == 'ER_DUP_ENTRY'){
+                                res.send('哎呀, 就在上一秒这个座位被其他小伙伴约去了, 咱们来重新选一个位子吧');
+                            }else{
+                                res.send('哎呀, 出错了, 咱们再来一次试试, 如果还不行, 赶紧找管理员2858212885@qq.com');
+                            }
                         } else {
                             res.send('你已成功预订座位'+req.body.seatCode+', 请于'+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前扫码签到, 过时座位将被系统自动回收。');
                         }
