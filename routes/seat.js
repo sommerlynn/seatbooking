@@ -201,7 +201,9 @@ router.post('/seat/leave', function (req, res) {
 
 router.get('/leave/:openid', function(req, res){
     models.seatModel.getActiveLibrary(req.query.openid, function(err, orders){
-        if(orders.length > 0){
+        if
+        (orders.length > 0)
+        {
             /*当前为预约的 提示请先签到*/
             if(order[0].status == 1)
             {
@@ -223,7 +225,8 @@ router.get('/leave/:openid', function(req, res){
                 });
             }
             /*当前为签到的 可执行暂离*/
-            else if (orders[0].status == 2){
+            else
+            if (orders[0].status == 2){
                 models.seatModel.leave(orders[0].order_id, openid, function (err, scheduleRecoverDate) {
                     var promptMsg = '感谢你遵守文明用座规范, 现已成功设置暂离, 座位将为你保留至'+scheduleRecoverDate.toLocaleTimeString('en-US', {hour12:false})+
                         ', 请于此时间之前返回扫码签到, 否则座位将会被系统回收。';
@@ -262,6 +265,9 @@ router.get('/leave/:openid', function(req, res){
                         });
                 });
             }
+        }
+        else{
+            res.render('./messageView', {title:'暂离失败', message:'你今天没有预约座位, 不能执行暂离操作。'});
         }
     });
 });
