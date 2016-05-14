@@ -284,7 +284,7 @@ router.get('/arbitration/:openid', function(req, res){
         models.classroomModel.getByType(user[0].school_id, '图书馆', function(err, classrooms){
             var classroomIDArr = '',
                 classroomNameArr = '';
-            for(var index = 0; index < classrooms; index++){
+            for(var index = 0; index < classrooms.length; index++){
                 classroomIDArr += classrooms[index].classroom_id;
                 classroomNameArr += classrooms[index].full_name;
                 if(index < classrooms.length -1){
