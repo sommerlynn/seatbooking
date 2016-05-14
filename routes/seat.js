@@ -218,7 +218,7 @@ router.get('/leave/:openid', function(req, res){
                             title: '座位状态',
                             statusType: 'ordered',
                             classroom: orders[0].full_name,
-                            seat: req.query.seat,
+                            seat: orders[0].seat_code,
                             orderID:orders[0].order_id,
                             seatLogs: seatLogs,
                             promptMsg: promptMsg
@@ -238,7 +238,7 @@ router.get('/leave/:openid', function(req, res){
                                 title: '座位状态',
                                 statusType: 'leaved',
                                 classroom: orders[0].full_name,
-                                seat: req.query.seat,
+                                seat: orders[0].seat_code,
                                 orderID:orders[0].order_id,
                                 seatLogs: seatLogs,
                                 promptMsg: promptMsg
@@ -259,7 +259,7 @@ router.get('/leave/:openid', function(req, res){
                             title: '座位状态',
                             statusType: 'leaved',
                             classroom: orders[0].full_name,
-                            seat: req.query.seat,
+                            seat: orders[0].seat_code,
                             orderID:orders[0].order_id,
                             seatLogs: seatLogs,
                             promptMsg: promptMsg
