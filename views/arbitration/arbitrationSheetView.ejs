@@ -87,8 +87,19 @@
             cols: [
                 {
                     textAlign: 'center',
-                    values:[<%=classroomIDArr%>],
-                    displayValues:[<%= classroomNameArr%>]
+                    values:
+                            [
+                                <% for (var i = 0; i < classroomIDArr.length; i++){ %>
+                                '<%= classroomIDArr[i] %>',
+                                <% } %>
+                            ]
+                    ,
+                    displayValues:
+                            [
+                                <% for (var i = 0; i < classroomNameArr.length; i++){ %>
+                                    '<%= classroomNameArr[i] %>',
+                                <% } %>
+                            ]
                 }
             ]
         });
