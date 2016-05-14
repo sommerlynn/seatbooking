@@ -285,8 +285,8 @@ router.get('/arbitration/:openid', function(req, res){
             var classroomIDArr = '',
                 classroomNameArr ='';
             for(var index = 0; index < classrooms.length; index++){
-                classroomIDArr += classrooms[index].classroom_id;
-                classroomNameArr += '\''+classrooms[index].full_name+'\'';
+                classroomIDArr += ''+classrooms[index].classroom_id+'';
+                classroomNameArr += ''+classrooms[index].full_name+'';
                 if(index < classrooms.length -1){
                     classroomIDArr += ',';
                     classroomNameArr += ',';
