@@ -282,11 +282,15 @@ router.get('/arbitration/:openid', function(req, res){
     var openid = req.params.openid;
     models.userModel.getUser(openid, function(err, user){
         models.classroomModel.getByType(user[0].school_id, '图书馆', function(err, classrooms){
-            var classroomIDArr = [],
-                classroomNameArr = [];
+            var classroomIDArr = '',
+                classroomNameArr = '';
             for(var index = 0; index < classrooms; index++){
-                classroomIDArr.push(classrooms[index].classroom_id);
-                classroomIDArr.push(classrooms[index].full_name);
+                classroomIDArr += classrooms[index].classroom_id;
+                classroomNameArr += classrooms[index].full_name;
+                if(index < classrooms.length -1){
+                    classroomIDArr += ',';
+                    classroomNameArr += ',';
+                }
             }
             res.render('./arbitration/arbitrationSheetView',
                 {
