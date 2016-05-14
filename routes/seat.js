@@ -278,6 +278,14 @@ router.get('/leave/:openid', function(req, res){
     });
 });
 
+router.get('/arbitration/:openid', function(req, res){
+    res.render('./arbitration/arbitrationSheetView',
+        {
+            title:'仲裁申请'
+        }
+    );
+});
+
 /**
  * 历史座位
  *

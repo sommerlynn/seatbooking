@@ -57,6 +57,11 @@ A seat booking system for campus
                     "type": "view",
                     "name": "暂离",
                     "url":"http://campus.julyangel.cn/oAuth/1/leave"
+                },
+                {
+                    "type": "view",
+                    "name": "申请仲裁",
+                    "url":"http://campus.julyangel.cn/oAuth/1/arbitration"
                 }
              ]
         },
