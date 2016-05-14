@@ -200,7 +200,7 @@ router.post('/seat/leave', function (req, res) {
 });
 
 router.get('/leave/:openid', function(req, res){
-    var openid = req.query.openid;
+    var openid = req.params.openid;
     models.seatModel.getActiveLibrary(openid, function(err, orders){
         if
         (orders.length > 0)
