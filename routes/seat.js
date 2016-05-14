@@ -200,7 +200,8 @@ router.post('/seat/leave', function (req, res) {
 });
 
 router.get('/leave/:openid', function(req, res){
-    models.seatModel.getActiveLibrary(req.query.openid, function(err, orders){
+    var openid = req.query.openid;
+    models.seatModel.getActiveLibrary(openid, function(err, orders){
         if
         (orders.length > 0)
         {
@@ -271,7 +272,7 @@ router.get('/leave/:openid', function(req, res){
                 {
                     title:'暂离失败',
                     message:'你今天没有预约座位, 不能执行暂离操作。',
-                    openid:req.query.openid
+                    openid:openid
                 });
         }
     });
