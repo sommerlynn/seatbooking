@@ -166,6 +166,16 @@
                         <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %>
                             号</span>
                     </li><li class="status">
+                        <!--<i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i>--><span>已预约</span>
+                    </li>
+                </ul>
+                <%} else if (statusType == 'signed') { %>
+                <!--签到成功-->
+                <ul class="seat-status-card">
+                    <li class="seat">
+                        <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %>
+                            号</span>
+                    </li><li class="status">
                         <!--<i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i>--><span>已签到</span>
                     </li>
                 </ul>

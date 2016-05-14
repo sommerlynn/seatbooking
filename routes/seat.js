@@ -199,6 +199,73 @@ router.post('/seat/leave', function (req, res) {
     });
 });
 
+router.get('/leave/:openid', function(req, res){
+    models.seatModel.getActiveLibrary(req.query.openid, function(err, orders){
+        if(orders.length > 0){
+            /*当前为预约的 提示请先签到*/
+            if(order[0].status == 1)
+            {
+                var promptMsg = '你的座位尚未签到, 请先到现场扫码签到。';
+
+                models.seatModel.getLog(order[0].classroom_id, order[0].seat_code, function (err, seatLogs) {
+
+                    res.render('./seat/scanSeatView',
+                        {
+                            openid: openid,
+                            title: '座位状态',
+                            statusType: 'ordered',
+                            classroom: seatOrders[0].full_name,
+                            seat: req.query.seat,
+                            orderID:seatOrders[0].order_id,
+                            seatLogs: seatLogs,
+                            promptMsg: promptMsg
+                        });
+                });
+            }
+            /*当前为签到的 可执行暂离*/
+            else if (orders[0].status == 2){
+                models.seatModel.leave(orders[0].order_id, openid, function (err, scheduleRecoverDate) {
+                    var promptMsg = '感谢你遵守文明用座规范, 现已成功设置暂离, 座位将为你保留至'+scheduleRecoverDate.toLocaleTimeString('en-US', {hour12:false})+
+                        ', 请于此时间之前返回扫码签到, 否则座位将会被系统回收。';
+                    models.seatModel.getLog(order[0].classroom_id, order[0].seat_code, function (err, seatLogs) {
+                        res.render('./seat/scanSeatView',
+                            {
+                                openid: openid,
+                                title: '座位状态',
+                                statusType: 'leaved',
+                                classroom: seatOrders[0].full_name,
+                                seat: req.query.seat,
+                                orderID:seatOrders[0].order_id,
+                                seatLogs: seatLogs,
+                                promptMsg: promptMsg
+                            });
+                    });
+                });
+            }
+            /*当前为暂离的 提示已是暂离状态*/
+            else
+            {
+                var promptMsg = '你已经执行过暂离操作, 不用再重复操作。请于'+order[0].schedule_recover_time.toLocaleTimeString('en-US', {hour12:false});
+
+                models.seatModel.getLog(order[0].classroom_id, order[0].seat_code, function (err, seatLogs) {
+
+                    res.render('./seat/scanSeatView',
+                        {
+                            openid: openid,
+                            title: '座位状态',
+                            statusType: 'leaved',
+                            classroom: seatOrders[0].full_name,
+                            seat: req.query.seat,
+                            orderID:seatOrders[0].order_id,
+                            seatLogs: seatLogs,
+                            promptMsg: promptMsg
+                        });
+                });
+            }
+        }
+    });
+});
+
 /**
  * 历史座位
  *

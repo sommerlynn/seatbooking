@@ -26,7 +26,7 @@ A seat booking system for campus
        {
             "type":"view",
             "name":"七玥书斋",
-            "url":"http://campus.julyangel.cn/oAuth/1/index"
+            "url":"http://campus.julyangel.cn/oAuth/1/reading"
        },
        {
             "type":"view",
@@ -34,4 +34,41 @@ A seat booking system for campus
             "url":"http://campus.julyangel.cn/oAuth/1/me"
        }
        ]
-   }
+ }
+
+ {
+        "button":[
+        {
+             "name":"预约座位",
+             "sub_button":
+             [
+                {
+                    "type": "view",
+                    "name": "预约",
+                    "url":"http://campus.julyangel.cn/oAuth/1/building"
+                },
+                {
+                    "type": "scancode_push",
+                    "name": "签到",
+                    "key": "rselfmenu_0_0",
+                    "sub_button": [ ]
+                },
+                {
+                    "type": "view",
+                    "name": "暂离",
+                    "url":"http://campus.julyangel.cn/oAuth/1/leave"
+                }
+             ]
+        },
+        {
+             "type":"view",
+             "name":"七玥书斋",
+             "url":"http://campus.julyangel.cn/oAuth/1/reading"
+        },
+        {
+             "type":"view",
+             "name":"我的",
+             "url":"http://campus.julyangel.cn/oAuth/1/me"
+        }
+        ]
+    }
