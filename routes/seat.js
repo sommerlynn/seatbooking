@@ -292,7 +292,7 @@ router.get('/arbitration/:openid', function(req, res){
                     classroomNameArr += ',';
                 }*/
                 classroomIDArr.push(classrooms[index].classroom_id);
-                classroomNameArr.push(classrooms[index].full_name);
+                classroomNameArr.push('\''+classrooms[index].full_name+'\'');
             }
             res.render('./arbitration/arbitrationSheetView',
                 {
