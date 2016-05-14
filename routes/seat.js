@@ -249,7 +249,7 @@ router.get('/leave/:openid', function(req, res){
             /*当前为暂离的 提示已是暂离状态*/
             else
             {
-                var promptMsg = '你已经执行过暂离操作, 不用再重复操作。请于'+orders[0].schedule_recover_time.toLocaleTimeString('en-US', {hour12:false}+'之前返回扫码签到, 否则座位将会被系统回收。');
+                var promptMsg = '你已经执行过暂离操作, 不用再重复操作。请于'+orders[0].schedule_recover_time.toLocaleTimeString('en-US', {hour12:false})+'之前返回扫码签到, 否则座位将会被系统回收。';
 
                 models.seatModel.getLog(orders[0].classroom_id, orders[0].seat_code, function (err, seatLogs) {
 
