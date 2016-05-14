@@ -6,9 +6,15 @@ var classroom = {},
     db = require('./db');
 
 classroom.getAll = function(schoolID, callback){
-  var selectQuery = "select * from area_classroom_view where area_status = 1",
+  var selectQuery = "select * from area_classroom_view where area_status = 1 and school_id = ?",
       params = [schoolID];
   db.executeQuery(selectQuery, params, callback);
+};
+
+classroom.getByType = function(schoolID, type, callback){
+    var selectQuery = "select * from area_classroom_view where area_status = 1 and school_id = ? and classroom_type_name = ?",
+        params = [schoolID, type];
+    db.executeQuery(selectQuery, params, callback);
 };
 
 classroom.getByID = function(classroomID, callback){

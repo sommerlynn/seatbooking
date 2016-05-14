@@ -279,12 +279,27 @@ router.get('/leave/:openid', function(req, res){
 });
 
 router.get('/arbitration/:openid', function(req, res){
-    res.render('./arbitration/arbitrationSheetView',
-        {
-            title:'仲裁申请',
-            openid:req.params.openid
-        }
-    );
+    var openid = req.params.openid;
+    models.userModel.getUser(openid, function(err, user){
+        models.classroomModel.getByType(user[0].school_id, '图书馆', function(err, classrooms){
+            var classroomIDArr = [],
+                classroomNameArr = [];
+            for(var index = 0; index < classrooms; index++){
+                classroomIDArr.push(classrooms[index].classroom_id);
+                classroomIDArr.push(classrooms[index].full_name);
+            }
+            res.render('./arbitration/arbitrationSheetView',
+                {
+                    title:'仲裁申请',
+                    openid:openid,
+                    classroomIDArr:classroomIDArr,
+                    classroomNameArr:classroomNameArr
+                }
+            );
+        });
+    });
+
+
 });
 
 /**

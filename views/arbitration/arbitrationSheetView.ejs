@@ -32,7 +32,7 @@
                         <div class="item-inner">
                             <div class="item-title label"><span id="department_title">阅览室</span></div>
                             <div class="item-input">
-                                <input type="text" placeholder="选择您所在的阅览室" id="department-picker" readonly="readonly">
+                                <input type="text" placeholder="选择您所在的阅览室" id="classroom-picker" readonly="readonly">
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,20 @@
             router: false
         }
 
-
+        $("#classroom-picker").picker({
+            toolbarTemplate: '<header class="bar bar-nav">\
+                          <button class="button button-link pull-left"></button>\
+                          <button class="button button-link pull-right close-picker">确定</button>\
+                          <h1 class="title">请选择你所在的阅览室</h1>\
+                          </header>',
+            cols: [
+                {
+                    textAlign: 'center',
+                    values: classroomIDArr,
+                    displayValues:classroomNameArr
+                }
+            ]
+        });
     </script>
 </div>
 <% include ../footer.html %>
