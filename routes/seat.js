@@ -267,7 +267,12 @@ router.get('/leave/:openid', function(req, res){
             }
         }
         else{
-            res.render('./messageView', {title:'暂离失败', message:'你今天没有预约座位, 不能执行暂离操作。'});
+            res.render('./messageView',
+                {
+                    title:'暂离失败',
+                    message:'你今天没有预约座位, 不能执行暂离操作。',
+                    openid:req.query.openid
+                });
         }
     });
 });
@@ -455,7 +460,13 @@ router.get('/scanseat/seatoperation', function(req, res){
     models.userModel.getUser(openid, function(err, user){
         if(user[0].angelcode != req.query.angelcode)
         {
-            res.render('./messageView', {title:'非法请求', message:'非法请求, 如继续使用此方式, 你将被加入黑名单, 拒收你的一切请求。'});
+            res.render(
+                './messageView',
+                {
+                    title:'非法请求',
+                    message:'非法请求, 如继续使用此方式, 你将被加入黑名单, 拒收你的一切请求。',
+                    openid:openid
+                });
         }
         else
         {
