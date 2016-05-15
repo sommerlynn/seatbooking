@@ -100,7 +100,7 @@
 
         $(document).on('click', '#submit-btn', function () {
             var msg = new Array();
-            if(!$('#type-picker')[0].value)
+            if(!$('#classroom-picker')[0].value)
             {
                 msg.push('你所在的阅览室');
             }
@@ -122,7 +122,7 @@
                 $.post('submitInfo',
                         {
                             openid:'<%=openid%>',
-                            classroomName:$('#type-picker')[0].value,
+                            classroomName:$('#classroom-picker')[0].value,
                             seatCode:$('#code-input')[0].value,
                             description:$('#arbitration-event-input')[0].value,
                         },
