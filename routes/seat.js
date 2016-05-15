@@ -317,9 +317,10 @@ router.get('/arbitration/:openid', function(req, res){
 /**
  * 提交仲裁
  * 2016-05-15 CHEN PU 新建
+ * 2016-05-15 CHEN PU
  *
  * */
-router.post('/arbitration/submit', function(req, res){
+router.post('/arbitration/submitInfo', function(req, res){
     models.arbitrationModel.new(req.body.openid, req.body.classroomName, req.body.seatCode, req.body.description, function(err, result){
         if(err)
         {
