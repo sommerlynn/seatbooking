@@ -97,6 +97,42 @@
                 }
             ]
         });
+
+        $(document).on('click', '#submit-btn', function () {
+            var msg = new Array();
+            if(!$('#type-picker')[0].value)
+            {
+                msg.push('你所在的阅览室');
+            }
+            if(!$('#code-input')[0].value)
+            {
+                msg.push('需要仲裁的座位号');
+            }
+            if(!$('#arbitration-event-input')[0].value)
+            {
+                msg.push('需要仲裁的事由');
+            }
+            if(msg.length > 0)
+            {
+                $.alert(msg.join('<br/>'),'请填写好下列信息再提交');
+            }
+            else
+            {
+                $.showPreloader('正在提交你的请求,请稍候...');
+                $.post('submitInfo',
+                        {
+                            openid:'<%=openid%>',
+                            classroomName:$('#type-picker')[0].value,
+                            seatCode:$('#code-input')[0].value,
+                            description:$('#arbitration-event-input')[0].value,
+                        },
+                        function (response) {
+                            $.hidePreloader();
+                            alert(response);
+                            window.location.assign('/me/'+'<%=openid%>');
+                        });
+            }
+        });
     </script>
 </div>
 <% include ../footer.html %>

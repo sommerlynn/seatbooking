@@ -13,7 +13,8 @@ models = {
     seatModel:require('./seatModel'),
     readingModel:require('./readingModel'),
     weixinClient:require('./weixinTicketModel'),
-    workerModel:require('./workerModel')
+    workerModel:require('./workerModel'),
+    arbitrationModel:require('./arbitrationModel')
 };
 
 module.exports = models;

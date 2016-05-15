@@ -170,9 +170,9 @@
         }
 
         if(msg.length>0){
-            $.alert(msg.join('<br/>'),'您好，下列信息您还没有填写');
+            $.alert(msg.join('<br/>'),'请填写好下列信息再提交');
         }else{
-            $.showPreloader('亲,我们正在提交你的信息,请稍候...');
+            $.showPreloader('正在提交你的信息,请稍候...');
             $.post('submitInfo',
                     {
                         openid:'<%=openid%>',

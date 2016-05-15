@@ -278,6 +278,12 @@ router.get('/leave/:openid', function(req, res){
     });
 });
 
+/**
+ * 申请仲裁
+ * 2016-05-15 CHEN PU 新建
+ *
+ *
+ * */
 router.get('/arbitration/:openid', function(req, res){
     var openid = req.params.openid;
     models.userModel.getUser(openid, function(err, user){
@@ -306,6 +312,23 @@ router.get('/arbitration/:openid', function(req, res){
     });
 
 
+});
+
+/**
+ * 提交仲裁
+ * 2016-05-15 CHEN PU 新建
+ *
+ * */
+router.post('/arbitration/submit', function(req, res){
+    models.arbitrationModel.new(req.body.openid, req.body.classroomName, req.body.seatCode, req.body.description, function(err, result){
+        if(err)
+        {
+            res.send(err.message);
+        }
+        else{
+            res.send('你的仲裁申请已成功提交, 管理员会马上前来处理。七玥提醒你, 珍惜同学情谊, 快乐学习, 给彼此留下美好的回忆。');
+        }
+    });
 });
 
 /**
