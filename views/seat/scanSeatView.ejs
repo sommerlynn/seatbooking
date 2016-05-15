@@ -159,7 +159,7 @@
                  <span class="classroom"><%= classroom %></span>
             </div>
             <div class="card-header">
-                <% if (statusType == 'ordered') { %>
+                <% if (statusType == 'ordered' || statusType == 'ordered-others') { %>
                 <!--签到成功-->
                 <ul class="seat-status-card">
                     <li class="seat">
@@ -169,7 +169,7 @@
                         <!--<i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i>--><span>已预约</span>
                     </li>
                 </ul>
-                <%} else if (statusType == 'signed') { %>
+                <%} else if (statusType == 'signed' || statusType == 'signed-others') { %>
                 <!--签到成功-->
                 <ul class="seat-status-card">
                     <li class="seat">
@@ -179,7 +179,7 @@
                         <!--<i class="icon icon-seat-signed" style="color: #A00000; padding-right: .5rem"></i>--><span>已签到</span>
                     </li>
                 </ul>
-                <% } else if (statusType == 'leaved') { %>
+                <% } else if (statusType == 'leaved' || statusType == 'leaved-others') { %>
                 <ul class="seat-status-card">
                     <li class="seat">
                         <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %>
@@ -197,25 +197,6 @@
                         <span>空闲</span>
                     </li>
                 </ul>
-                <% } else if (statusType == 'signed-others') { %>
-                <ul class="seat-status-card">
-                    <li class="seat">
-                        <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %>
-                            号</span>
-                    </li><li class="status">
-                        <span>已签到</span>
-                    </li>
-                </ul>
-                <% } else if (statusType == 'leaved-others') { %>
-                <ul class="seat-status-card">
-                    <li class="seat">
-                        <i class="icon icon-my-seat" style="color: #A00000; padding-right: .5rem"></i><span><%= seat %>
-                            号</span>
-                    </li><li class="status">
-                        <span>暂离</span>
-                    </li>
-                </ul>
-
                 <% } %>
             </div>
             <div class="card-content">
@@ -223,6 +204,7 @@
                     <p class="prompt-message"><span><%= promptMsg %></span></p>
 
                     <% if (statusType != 'empty' &&
+                           statusType != 'ordered-others' &&
                            statusType != 'signed-others' &&
                            statusType != 'leaved-others' &&
                            statusType != 'prompt-empty') { %>

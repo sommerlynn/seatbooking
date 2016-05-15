@@ -170,7 +170,13 @@ weixinMessage.orderSeatNotice = function(openid, schoolID, classroom, seatCode, 
  * https://mp.weixin.qq.com/advanced/tmplmsg?action=edit&id=sQoCHWBhCDTyO2eR0fgbghVWkSuPy1oBtwnxdNESNLY&token=223773654&lang=zh_CN
  * 2016-05-08 CHEN PU 创建
  * */
-weixinMessage.leaveSeatNotice = function(openid, schoolID, classroom, seatCode, scheduleRecoverTime){
+weixinMessage.leaveSeatNotice = function(openid, schoolID, classroom, seatCode, scheduleRecoverTime, self){
+    var remark = '';
+    if(!self){
+        remark = '由于你离开时未设置暂离, 现已由其他小伙伴代你设置暂离。';
+    }
+    remark += "请在"+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前回座签到, 过时未返回, 系统收回座位。七玥天使提醒大家, 珍惜同窗情谊, 文明用座, 快乐学习。';
+
     weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
         var sendData = {
             "touser":openid,
@@ -187,7 +193,7 @@ weixinMessage.leaveSeatNotice = function(openid, schoolID, classroom, seatCode, 
                     "value":scheduleRecoverTime.toLocaleString('en-US', {hour12:false})
                 },
                 "remark":{
-                    "value":"请在"+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前回座签到, 过时未返回, 系统收回座位。七玥天使提醒大家, 珍惜同窗情谊, 文明用座, 快乐学习。',
+                    "value":remark,
                     "color":"#A00000"
                 }
             }

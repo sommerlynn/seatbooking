@@ -221,7 +221,6 @@ seat.tryCreateLibraryOrder = function(dayType, openid, classroomID, seatCode, ro
     });
 };
 
-
 /*
  * 获取用户当天在某教室的座位预约单
  * 2016-04-19 CHEN PU 新建
@@ -252,12 +251,6 @@ seat.checkOrderBySeatCode = function(classroomID, seatCode, callback){
     db.executeQuery(selectQuery, params, callback);
 };
 
-seat.getActive = function(openid, callback) {
-    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status > 0 order by start_time asc, order_time desc",
-        params = [openid, new Date()];
-    db.executeQuery(selectQuery, params, callback);
-};
-
 seat.getActiveLibrary = function(openid, callback){
     var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status > 0 and classroom_type_name = ? order by start_time asc, order_time desc",
         params = [openid, new Date(), '图书馆'];
@@ -267,6 +260,17 @@ seat.getActiveLibrary = function(openid, callback){
 seat.getOrderNeedToRecycle = function(callback){
     var selectQuery = "select * from user_seat_order_view where schedule_recover_time < ? and end_time > ? and (status = 1 or status = 3)",
         params = [new Date(), new Date()];
+    db.executeQuery(selectQuery, params, callback);
+};
+
+/**
+ * 排队等待某座位的订单
+ * 2016-05-15 CHEN PU 新建
+ *
+ * */
+seat.getQueue = function(classroomID, seatCode, callback){
+    var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ? and status = 0 and seat_code = ? order by order_time asc",
+        params = [new Date(), new Date(), classroomID, seatCode];
     db.executeQuery(selectQuery, params, callback);
 };
 
@@ -311,8 +315,8 @@ seat.sign = function (orderID, callback) {
 * 2016-04-08 CHEN PU 新建
 * 2016-04-19 CHEN PU 修改status值从2变成3,2作为签到的状态
 * */
-seat.leave = function (orderID, openid, callback) {
-    var updateQuery = "update user_seat_order set status = 3, leave_time = ?, schedule_recover_time = ? where order_id = ? and openid = ?",
+seat.leave = function (orderID, openid, self, callback) {
+    var updateQuery = "update user_seat_order set status = 3, leave_time = ?, schedule_recover_time = ? where order_id = ?",
         now = new Date(),
         scheduleRecoverDate = new Date(now.getTime() + 0.5*60*60*1000), // 一般时段半小时后回收座位
         lunchTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0),
@@ -333,7 +337,11 @@ seat.leave = function (orderID, openid, callback) {
         if(err){
             callback(err);
         }else{
-            seat.log(orderID, 3, '暂离', function(err){
+            var logMsg = '暂离';
+            if(!self){
+                logMsg = '代暂离';
+            }
+            seat.logBySpecificUser(orderID, openid, 3, logMsg, function(err){
                 if(err){
                     callback(err);
                 }else{
@@ -342,7 +350,7 @@ seat.leave = function (orderID, openid, callback) {
                             callback(err);
                         }else{
                             weixinMessage.leaveSeatNotice(openid, order[0].school_id, order[0].full_name,
-                                order[0].seat_code, order[0].schedule_recover_time);
+                                order[0].seat_code, order[0].schedule_recover_time, self);
                         }
                     });
 
@@ -375,6 +383,40 @@ seat.release = function (orderID, openid, callback) {
 };
 
 /**
+ * 排队轮候
+ * 2016-05-15 CHEN PU 新建
+ *
+ * */
+seat.queue = function(openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime, callback){
+    var insertQuery = "insert into user_seat_order (openid, classroom_id, seat_code, row_no, column_no, start_time, end_time, schedule_recover_time, status) values "+
+            "(?, ?, ?, ?, ?, ?, ?, ?, 0)",
+        insertParams = [openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime];
+    db.insertQuery(insertQuery, insertParams, function(err, id){
+        if(err){
+            callback(err);
+        }
+        else{
+            seat.log(id, 0, '排队轮候', function(err){
+                if(err){
+                    callback(err);
+                }else{
+                    seat.getOrder(id, function(err, order){
+                        if(err){
+                            callback(err);
+                        }else{
+                            weixinMessage.orderSeatNotice(openid, order[0].school_id, order[0].full_name,
+                                order[0].seat_code, startTime, scheduleRecoverTime);
+                        }
+                    });
+
+                    callback(null, id);
+                }
+            });
+        }
+    });
+};
+
+/**
  * 未设暂离离座 他人扫码时 系统释放此座
  * 2016-05-11 CHEN PU 创建
  *
@@ -386,7 +428,7 @@ seat.sysReleaseAsNotSetLeave = function (orderID, callback) {
         if(err){
             callback(err);
         }else{
-            seat.systemLog(orderID, -3, '未设暂离离座 系统回收', function(err){
+            seat.logBySpecificUser(orderID, '0101010101', -3, '未设暂离离座 系统回收', function(err){
                 if(err){
                     callback(err);
                 }else{
@@ -417,7 +459,7 @@ seat.sysReleaseAsNotSign = function(orderID, callback){
         if(err){
             callback(err);
         }else{
-            seat.systemLog(orderID, -2, '超时 系统回收', function(err){
+            seat.logBySpecificUser(orderID, '0101010101', -2, '超时 系统回收', function(err){
                 if(err){
                     callback(err);
                 }else{
@@ -459,17 +501,19 @@ seat.log = function(orderID, logType, logMsg, callback){
     });
 };
 
+
 /**
  * 1 预定 2 签到 3 暂离 -1 退座 -2 系统回收
  * 添加座位相关操作日志
- * 2016-05-03: CHEN　PU 新建
+ * 2016-05-15: CHEN　PU 由指定用户执行操作的日志记录
+ *
  * */
-seat.systemLog = function(orderID, logType, logMsg, callback){
+seat.logBySpecificUser = function(orderID, openid, logType, logMsg, callback){
     var insertQuery = 'insert into seat_log (classroom_id, seat_code, openid, log_type, log_msg) values '+
             '((select classroom_id from user_seat_order_view where order_id = ?), '+
             '(select seat_code from user_seat_order_view where order_id = ?), '+
             '?, ?, ?)',
-        insertParams = [orderID, orderID, '0101010101', logType, logMsg];
+        insertParams = [orderID, orderID, openid, logType, logMsg];
     db.insertQuery(insertQuery, insertParams, function(err, id){
         if(err){
             callback(err);

@@ -94,7 +94,7 @@ router.get('/me/:openid', function (req, res) {
                 error: err
             });
         } else {
-            models.seatModel.getActive(req.params.openid, function (err, userSeatOrders) {
+            models.seatModel.getActiveLibrary(req.params.openid, function (err, userSeatOrders) {
                 if (err) {
                     res.render('errorView', {title: '服务器故障', message: '服务器故障', error: err});
                 } else {

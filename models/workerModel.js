@@ -26,6 +26,13 @@ schedule.scheduleJob(rule, function(){
         for(var index = 0; index < orders.length; index++){
             seatModel.sysReleaseAsNotSign(orders[index].order_id, function(err, result){
                 //log('系统释放'+orders[index].full_name+' '+orders[index].seat_code+' '+(new Date()).toLocaleString());
+                seatModel.getQueue(orders[index].classroom_id, orders[index].seat_code, function(err, queueOrders){
+                    for (var rindex = 0; rindex < queueOrders.length; rindex++){
+                        seatModel.sign(orders[index].order_id, function(err, result){
+
+                        });
+                    }
+                });
             });
         }
     });
