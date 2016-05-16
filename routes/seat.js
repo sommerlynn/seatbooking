@@ -593,7 +593,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                     // 没有其它座位 进入排队程序 如果原主未按时返回 可自动获取该座
                                     else
                                     {
-                                        models.seatModel.queue(openid, seatOrders[0].classroom_id, seatOrders[0].seat_code, seatOrders[0].row, seatOrders[0].column,
+                                        models.seatModel.queue(openid, seatOrders[0].classroom_id, seatOrders[0].seat_code, seatOrders[0].row_no, seatOrders[0].column_no,
                                             seatOrders[0].start_time, seatOrders[0].end_time, seatOrders[0].schedule_recover_time, function(err, result){
                                                 var promptMsg = '你已进入该座位的等候队列, 该座位会为原主人保留至'+scheduleRecoverDate.toLocaleTimeString('en-US', {hour12:false})+
                                                     ', 如原主人在此时间之前未返回扫码签到, 你将自动获得该座位并签到。';
