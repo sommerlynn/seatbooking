@@ -569,7 +569,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                     {
                                         // 有其他座位 不能预约
                                         if (err.type == 'prompt') {
-
+                                            var promptMsg = err.message;
                                             models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
                                                 var statusType = 'ordered-others';
                                                 if(seatOrders[0].status == 3){
@@ -585,7 +585,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                                         seat: req.query.seat,
                                                         orderID:-1,
                                                         seatLogs: seatLogs,
-                                                        promptMsg: err.message
+                                                        promptMsg: promptMsg
                                                     });
                                             });
                                         }
@@ -596,6 +596,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                         models.seatModel.isValidEnQueueRequest(openid, req.query.cid, req.query.seat, function (err) {
                                             if(err){
                                                 if(err.type == 'prompt'){
+                                                    var promptMsg = err.message;
                                                     models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
                                                         res.render('./seat/scanSeatView',
                                                             {
@@ -606,7 +607,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                                                 seat: req.query.seat,
                                                                 orderID:seatOrders[0].order_id,
                                                                 seatLogs: seatLogs,
-                                                                promptMsg: err.message
+                                                                promptMsg: promptMsg
                                                             });
                                                     });
                                                 }
@@ -678,6 +679,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                         {
                                             // 有其他座位 不能预约
                                             if (err.type == 'prompt') {
+                                                var promptMsg = err.message;
                                                 models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
                                                     res.render('./seat/scanSeatView',
                                                         {
@@ -688,7 +690,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                                             seat: req.query.seat,
                                                             orderID:-1,
                                                             seatLogs: seatLogs,
-                                                            promptMsg: err.message
+                                                            promptMsg: promptMsg
                                                         });
                                                 });
                                             }
@@ -699,6 +701,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                             models.seatModel.isValidEnQueueRequest(openid, seatOrders[0].classroom_id, seatOrders[0].seat_code, function(err){
                                                 if(err){
                                                     if(err.type == 'prompt'){
+                                                        var promptMsg = err.message;
                                                         models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
                                                             res.render('./seat/scanSeatView',
                                                                 {
@@ -709,7 +712,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                                                     seat: req.query.seat,
                                                                     orderID:seatOrders[0].order_id,
                                                                     seatLogs: seatLogs,
-                                                                    promptMsg: err.message
+                                                                    promptMsg: promptMsg
                                                                 });
                                                         });
                                                     }
