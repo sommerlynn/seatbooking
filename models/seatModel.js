@@ -120,7 +120,7 @@ seat.getOrderRelatedDateByDayType = function(dayType, callback){
         startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
         scheduleRecoverTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 8, 30);
     } else {
-        startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         var lunchTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0),
             lunchTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30, 0),
             supperTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0),
