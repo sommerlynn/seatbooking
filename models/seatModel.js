@@ -168,17 +168,21 @@ seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startT
 };
 
 seat.isValidEnQueueRequest = function(openid, classroomID, seatCode, callback){
-    var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and openid = ? and classroom_id = ? and status = 0 and seat_code = ? order by order_time asc",
-        params = [new Date(), new Date(), openid, classroomID, seatCode];
+    var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and openid = ? and classroom_id = ? and status = 0 order by order_time asc",
+        params = [new Date(), new Date(), openid, classroomID];
     db.executeQuery(selectQuery, params, function(err, results){
         if(err){
             err.type = 'exception';
             callback(err);
-        }else if(results.length > 0){
+        }
+        else
+        if(results.length > 0){
             err = new Error('你已在('+results[0].full_name + ' ' +results[0].seat_code +'号)的等候队列, 如果原座位主人未能按时返回签到, 将根据等候队列的次序由最先开始等待的小伙伴获得座位使用权。');
             err.type = 'prompt';
             callback(err);
-        }else{
+        }
+        else
+        {
             callback(null);
         }
     });
