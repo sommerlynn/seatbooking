@@ -390,7 +390,7 @@ seat.leave = function (orderID, openid, self, callback) {
         }else{
             var logMsg = '暂离';
             if(!self){
-                logMsg = '代暂离';
+                logMsg = '暂离[代]';
             }
             seat.logBySpecificUser(orderID, openid, 3, logMsg, function(err){
                 if(err){
