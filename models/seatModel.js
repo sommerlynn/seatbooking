@@ -114,7 +114,7 @@ var seat = {},
 seat.getOrderRelatedDateByDayType = function(dayType, callback){
     var startTime;
     var now = new Date();
-    var scheduleRecoverTime =  new Date(today.getTime() + 30*60*1000);// 当天预约，需在半小时内到现场签到
+    var scheduleRecoverTime =  new Date(now.getTime() + 30*60*1000);// 当天预约，需在半小时内到现场签到
     if (dayType == 'tomorrow') {
         var nextDay = new Date(now.getTime() + 24 * 60 * 60 * 1000);
         startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
