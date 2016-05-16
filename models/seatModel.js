@@ -108,21 +108,35 @@ var seat = {},
 
 /**
  * 根据日期类型（今天/明天）获取新增预约的开始时间、结束时间、座位系统预计回收时间
+ * TODO: 当天预约 午餐时段、晚餐时段
  * 2016-04-28： CHEN Pu 从newOrder方法中抽取出来
  * */
 seat.getOrderRelatedDateByDayType = function(dayType, callback){
     var startTime;
-    var today = new Date();
-    var scheduleRecoverTime =  new Date(today.getTime() + 30*60*1000);// 当天预约，需在半小时内到现场签到
+    var now = new Date();
+    var scheduleRecoverTime =  new Date(now.getTime() + 30*60*1000);// 当天预约，需在半小时内到现场签到
     if (dayType == 'tomorrow') {
-        var nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        var nextDay = new Date(now.getTime() + 24 * 60 * 60 * 1000);
         startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
         scheduleRecoverTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 8, 30);
     } else {
-        startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var lunchTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0),
+            lunchTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30, 0),
+            supperTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0),
+            supperTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 30, 0);
+
         // 八点前预约的 系统回收时间统一定为8:30
-        if(today.getHours() < 8){
-            scheduleRecoverTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 8, 30);
+        if(now.getHours() < 8){
+            scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 30);
+        }
+        else
+        if(now >= lunchTimeStart && now <= lunchTimeEnd){
+            scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 0, 0);
+        }
+        else
+        if(now >= supperTimeStart && now <= supperTimeEnd){
+            scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 0, 0);
         }
     }
     var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
@@ -148,6 +162,27 @@ seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startT
             err.type = 'prompt';
             callback(err);
         }else{
+            callback(null);
+        }
+    });
+};
+
+seat.isValidEnQueueRequest = function(openid, classroomID, seatCode, callback){
+    var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and openid = ? and classroom_id = ? and status = 0 order by order_time asc",
+        params = [new Date(), new Date(), openid, classroomID];
+    db.executeQuery(selectQuery, params, function(err, results){
+        if(err){
+            err.type = 'exception';
+            callback(err);
+        }
+        else
+        if(results.length > 0){
+            err = new Error('你已在('+results[0].full_name + ' ' +results[0].seat_code +'号)的等候队列, 如果原座位主人未能按时返回签到, 将根据等候队列的次序由最先开始等待的小伙伴获得座位使用权。');
+            err.type = 'prompt';
+            callback(err);
+        }
+        else
+        {
             callback(null);
         }
     });
@@ -240,7 +275,7 @@ seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
     });
 };
 
-/*
+/**
  * 检索当天该座位处于活动状态的预定信息
  * 2016-04-25 CHEN PU 新建
  **/
@@ -251,8 +286,24 @@ seat.checkOrderBySeatCode = function(classroomID, seatCode, callback){
     db.executeQuery(selectQuery, params, callback);
 };
 
+/**
+ * 预约、暂离、已签到 三种状态的座位订单
+ * 
+ * 
+ * */
 seat.getActiveLibrary = function(openid, callback){
     var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status > 0 and classroom_type_name = ? order by start_time asc, order_time desc",
+        params = [openid, new Date(), '图书馆'];
+    db.executeQuery(selectQuery, params, callback);
+};
+
+/**
+ * 等待、预约、暂离、已签到 四种状态的座位订单
+ * 
+ * 
+ * **/
+seat.getActiveLibraryIncludeWaitQueue = function(openid, callback){
+    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status >= 0 and classroom_type_name = ? order by start_time asc, order_time desc",
         params = [openid, new Date(), '图书馆'];
     db.executeQuery(selectQuery, params, callback);
 };
@@ -339,7 +390,7 @@ seat.leave = function (orderID, openid, self, callback) {
         }else{
             var logMsg = '暂离';
             if(!self){
-                logMsg = '代暂离';
+                logMsg = '暂离[代]';
             }
             seat.logBySpecificUser(orderID, openid, 3, logMsg, function(err){
                 if(err){
@@ -349,7 +400,7 @@ seat.leave = function (orderID, openid, self, callback) {
                         if(err){
                             callback(err);
                         }else{
-                            weixinMessage.leaveSeatNotice(openid, order[0].school_id, order[0].full_name,
+                            weixinMessage.leaveSeatNotice(order[0].openid, order[0].school_id, order[0].full_name,
                                 order[0].seat_code, order[0].schedule_recover_time, self);
                         }
                     });
@@ -382,14 +433,16 @@ seat.release = function (orderID, openid, callback) {
     });
 };
 
+
+
 /**
  * 排队轮候
  * 2016-05-15 CHEN PU 新建
  *
  * */
-seat.queue = function(openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime, callback){
-    var insertQuery = "insert into user_seat_order (openid, classroom_id, seat_code, row_no, column_no, start_time, end_time, schedule_recover_time, status) values "+
-            "(?, ?, ?, ?, ?, ?, ?, ?, 0)",
+seat.enQueue = function(openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime, callback){
+    var insertQuery = "insert into user_seat_order (openid, classroom_id, seat_code, row_no, column_no, start_time, end_time, schedule_recover_time, status, lock_code) values "+
+            "(?, ?, ?, ?, ?, ?, ?, ?, 0, 0)",
         insertParams = [openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime];
     db.insertQuery(insertQuery, insertParams, function(err, id){
         if(err){

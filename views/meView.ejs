@@ -392,6 +392,8 @@
                                                 <%= userSeatOrders[index].sign_time.toLocaleTimeString('en-US', {hour12:false}) %> 已签到
                                             <% } else if(userSeatOrders[index].status == 3) { %>
                                                 <%= userSeatOrders[index].leave_time.toLocaleTimeString('en-US', {hour12:false}) %> 暂离中
+                                            <% } else if(userSeatOrders[index].status == 0) { %>
+                                                <%= userSeatOrders[index].order_time.toLocaleTimeString('en-US', {hour12:false}) %> 排队中
                                             <% } %>
                                         </span>
                                     </div>

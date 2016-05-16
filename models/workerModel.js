@@ -7,7 +7,8 @@
 var schedule = require("node-schedule"),
     debug = require('debug'),
     log = debug('worker'),
-    seatModel = require('./seatModel');
+    seatModel = require('./seatModel'),
+    async = require('async');
 
 var rule = new schedule.RecurrenceRule();
 var minutes = [];
@@ -23,25 +24,25 @@ rule.hour = hours;
 
 schedule.scheduleJob(rule, function(){
     seatModel.getOrderNeedToRecycle(function(err, orders){
-        for(var index = 0; index < orders.length; index++){
-            seatModel.sysReleaseAsNotSign(orders[index].order_id, function(err, result){
+        async.forEachSeries(orders, function(item){
+            seatModel.sysReleaseAsNotSign(item.order_id, function(err, result){
                 //log('系统释放'+orders[index].full_name+' '+orders[index].seat_code+' '+(new Date()).toLocaleString());
-                seatModel.getQueue(orders[index].classroom_id, orders[index].seat_code, function(err, queueOrders){
-                    for (var rindex = 0; rindex < queueOrders.length; rindex++){
-                        seatModel.isValidLibraryOrderRequest(orders[index].openid, orders[index].classroom_id, orders[index].seat_code,
-                            orders[index].start_time, orders[index].end_time, function(err, result){
+                seatModel.getQueue(item.classroom_id, item.seat_code, function(err, queueOrders){
+                    async.forEachSeries(queueOrders, function(queueOrder){
+                        seatModel.isValidLibraryOrderRequest(queueOrder.openid, queueOrder.classroom_id, queueOrder.seat_code,
+                            queueOrder.start_time, queueOrder.end_time, function(err, result){
                                 if(err){
 
                                 }else{
-                                    seatModel.sign(orders[index].order_id, function(err, result){
+                                    seatModel.sign(queueOrder.order_id, function(err, result){
 
                                     });
                                 }
                             });
-                    }
+                    });
                 });
             });
-        }
+        });
     });
 });
 
