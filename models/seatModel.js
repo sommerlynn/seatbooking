@@ -167,6 +167,23 @@ seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startT
     });
 };
 
+seat.isValidEnQueueRequest = function(openid, classroomID, seatCode, callback){
+    var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and openid = ? and classroom_id = ? and status = 0 and seat_code = ? order by order_time asc",
+        params = [new Date(), new Date(), openid, classroomID, seatCode];
+    db.executeQuery(selectQuery, params, function(err, results){
+        if(err){
+            err.type = 'exception';
+            callback(err);
+        }else if(results.length > 0){
+            err = new Error('你已在('+results[0].full_name + ' ' +results[0].seat_code +'号)的等候队列, 如果原座位主人未能按时返回签到, 将根据等候队列的次序由最先开始等待的小伙伴获得座位使用权。');
+            err.type = 'prompt';
+            callback(err);
+        }else{
+            callback(null);
+        }
+    });
+};
+
 /**
  * 创建预约单
  * 2016-04-28: CHEN PU 从原newOrder中抽取出来
@@ -396,12 +413,14 @@ seat.release = function (orderID, openid, callback) {
     });
 };
 
+
+
 /**
  * 排队轮候
  * 2016-05-15 CHEN PU 新建
  *
  * */
-seat.queue = function(openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime, callback){
+seat.enQueue = function(openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime, callback){
     var insertQuery = "insert into user_seat_order (openid, classroom_id, seat_code, row_no, column_no, start_time, end_time, schedule_recover_time, status, lock_code) values "+
             "(?, ?, ?, ?, ?, ?, ?, ?, 0, 0)",
         insertParams = [openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime];
