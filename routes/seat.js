@@ -594,8 +594,8 @@ router.get('/scanseat/seatoperation', function(req, res){
                                     else
                                     {
                                         models.seatModel.queue(openid, seatOrders[0].classroom_id, seatOrders[0].seat_code, seatOrders[0].row_no, seatOrders[0].column_no,
-                                            seatOrders[0].start_time, seatOrders[0].end_time, seatOrders[0].schedule_recover_time, function(err, result){
-                                                var promptMsg = '你已进入该座位的等候队列, 该座位会为原主人保留至'+scheduleRecoverDate.toLocaleTimeString('en-US', {hour12:false})+
+                                            seatOrders[0].start_time, seatOrders[0].end_time, seatOrders[0].end_time, function(err, result){
+                                                var promptMsg = '你已进入该座位的等候队列, 该座位会为原主人保留至'+seatOrders[0].schedule_recover_time.toLocaleTimeString('en-US', {hour12:false})+
                                                     ', 如原主人在此时间之前未返回扫码签到, 你将自动获得该座位并签到。';
                                                 models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
                                                     var statusType = 'ordered-others';
@@ -677,8 +677,8 @@ router.get('/scanseat/seatoperation', function(req, res){
                                         {
 
                                             models.seatModel.queue(openid, seatOrders[0].classroom_id, seatOrders[0].seat_code, seatOrders[0].row_no, seatOrders[0].column_no,
-                                                seatOrders[0].start_time, seatOrders[0].end_time, seatOrders[0].schedule_recover_time, function(err, result){
-                                                    var promptMsg = '该座位现已由你设置暂离, 座位会为原主人保留至'+scheduleRecoverDate.toLocaleTimeString('en-US', {hour12:false})+
+                                                seatOrders[0].start_time, seatOrders[0].end_time, seatOrders[0].end_time, function(err, result){
+                                                    var promptMsg = '该座位现已由你设置暂离, 座位会为原主人保留至'+seatOrders[0].scheduleRecoverDate.toLocaleTimeString('en-US', {hour12:false})+
                                                         ', 如原主人在此时间之前未返回扫码签到, 你将自动获得该座位并签到。';
                                                     models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
                                                         res.render('./seat/scanSeatView',
