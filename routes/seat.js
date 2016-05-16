@@ -593,7 +593,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                                     // 没有其它座位 进入排队程序 如果原主未按时返回 可自动获取该座
                                     else
                                     {
-                                        models.seatModel.isValidEnQueueRequest(openid, req.query.cid, req.query.seat, startTime, endTime, function (err) {
+                                        models.seatModel.isValidEnQueueRequest(openid, req.query.cid, req.query.seat, function (err) {
                                             if(err){
                                                 if(err.type == 'prompt'){
                                                     models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
