@@ -108,21 +108,35 @@ var seat = {},
 
 /**
  * 根据日期类型（今天/明天）获取新增预约的开始时间、结束时间、座位系统预计回收时间
+ * TODO: 当天预约 午餐时段、晚餐时段
  * 2016-04-28： CHEN Pu 从newOrder方法中抽取出来
  * */
 seat.getOrderRelatedDateByDayType = function(dayType, callback){
     var startTime;
-    var today = new Date();
+    var now = new Date();
     var scheduleRecoverTime =  new Date(today.getTime() + 30*60*1000);// 当天预约，需在半小时内到现场签到
     if (dayType == 'tomorrow') {
-        var nextDay = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        var nextDay = new Date(now.getTime() + 24 * 60 * 60 * 1000);
         startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
         scheduleRecoverTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 8, 30);
     } else {
         startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        var lunchTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0),
+            lunchTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30, 0),
+            supperTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0),
+            supperTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 30, 0);
+
         // 八点前预约的 系统回收时间统一定为8:30
-        if(today.getHours() < 8){
-            scheduleRecoverTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 8, 30);
+        if(now.getHours() < 8){
+            scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 30);
+        }
+        else
+        if(now >= lunchTimeStart && now <= lunchTimeEnd){
+            scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 0, 0);
+        }
+        else
+        if(now >= supperTimeStart && now <= supperTimeEnd){
+            scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 0, 0);
         }
     }
     var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
