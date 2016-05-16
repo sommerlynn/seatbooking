@@ -67,7 +67,7 @@
         font-size: 0.75em;
     }
 
-    .operation-release, .operation-leave, .operation-sign {
+    .operation-release, .operation-leave, .operation-sign, .operation-log {
         display: inline-block;
         padding: 0.1875rem 0.3125rem;
         width: 3.75rem;
@@ -413,6 +413,8 @@
                                             退座
                                         </div>
                                         <div class="operation-leave" id="leave_<%= userSeatOrders[index].order_id %>">暂离
+                                        </div>
+                                        <div class="operation-log" id="log_<%= userSeatOrders[index].order_id %>">日志
                                         </div>
                                     <% } else if (userSeatOrders[index].status == 3) { %>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
