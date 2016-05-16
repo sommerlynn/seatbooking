@@ -275,7 +275,7 @@ seat.getMyTodayOrderWithinClassroom = function (classroomID, openid, callback){
     });
 };
 
-/*
+/**
  * 检索当天该座位处于活动状态的预定信息
  * 2016-04-25 CHEN PU 新建
  **/
@@ -286,8 +286,24 @@ seat.checkOrderBySeatCode = function(classroomID, seatCode, callback){
     db.executeQuery(selectQuery, params, callback);
 };
 
+/**
+ * 预约、暂离、已签到 三种状态的座位订单
+ * 
+ * 
+ * */
 seat.getActiveLibrary = function(openid, callback){
     var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status > 0 and classroom_type_name = ? order by start_time asc, order_time desc",
+        params = [openid, new Date(), '图书馆'];
+    db.executeQuery(selectQuery, params, callback);
+};
+
+/**
+ * 等待、预约、暂离、已签到 四种状态的座位订单
+ * 
+ * 
+ * **/
+seat.getActiveLibraryIncludeWaitQueue = function(openid, callback){
+    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status >= 0 and classroom_type_name = ? order by start_time asc, order_time desc",
         params = [openid, new Date(), '图书馆'];
     db.executeQuery(selectQuery, params, callback);
 };
