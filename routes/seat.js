@@ -675,10 +675,9 @@ router.get('/scanseat/seatoperation', function(req, res){
                                         // 没有其它座位 进入排队程序 如果原主未按时返回 可自动获取该座
                                         else
                                         {
-
                                             models.seatModel.queue(openid, seatOrders[0].classroom_id, seatOrders[0].seat_code, seatOrders[0].row_no, seatOrders[0].column_no,
                                                 seatOrders[0].start_time, seatOrders[0].end_time, seatOrders[0].end_time, function(err, result){
-                                                    var promptMsg = '该座位现已由你设置暂离, 座位会为原主人保留至'+seatOrders[0].scheduleRecoverDate.toLocaleTimeString('en-US', {hour12:false})+
+                                                    var promptMsg = '该座位现已由你设置暂离, 座位会为原主人保留至'+scheduleRecoverTime.toLocaleTimeString('en-US', {hour12:false})+
                                                         ', 如原主人在此时间之前未返回扫码签到, 你将自动获得该座位并签到。';
                                                     models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
                                                         res.render('./seat/scanSeatView',
