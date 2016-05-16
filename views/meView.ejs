@@ -76,7 +76,7 @@
         /*margin-bottom: 0.55rem;*/
     }
 
-    .operation-release{
+    .operation-release, .operation-leave, .operation-sign{
         margin-bottom: .2rem;
     }
 
@@ -283,16 +283,6 @@
         padding: 0;
         min-height: unset;
     }
-
-    .seat-operation{
-        width: 100%;
-        display: flex;
-        list-style: none;
-    }
-
-    .seat-operation-item{
-        width: 33%;
-    }
 </style>
 
 <div class="page">
@@ -412,7 +402,7 @@
                                         <span class="comment-info">[当天有效 本人使用]</span>
                                     </div>
 
-                                </li><!--<li class="right_part">
+                                </li><li class="right_part">
                                     <div style="clear: both"></div>
                                     <% if (userSeatOrders[index].status == 1) { %>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
@@ -426,6 +416,8 @@
                                         </div>
                                         <div class="operation-leave" id="leave_<%= userSeatOrders[index].order_id %>">暂离
                                         </div>
+                                        <div class="operation-log" id="log_<%= userSeatOrders[index].order_id %>">暂离
+                                        </div>
                                     <% } else if (userSeatOrders[index].status == 3) { %>
                                         <div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
                                             退座
@@ -433,7 +425,7 @@
                                         <div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到
                                         </div>
                                     <% } %>
-                                </li>-->
+                                </li>
                                 <div style="clear: both"></div>
                             </ul>
                             <% if (userSeatOrders[index].status == 3) {%>
@@ -445,14 +437,6 @@
                                 <p class="seat-message"><!--<i class="icon icon-warn"  style="color: #A00000; padding-right: .5rem" ></i>--><b>注意:  </b>请于<%= userSeatOrders[index].schedule_recover_time.toLocaleString('en-US', {hour12:false})%>前扫码签到，过时座位将被系统回收</p>
                             </div>
                             <%}%>
-                            <div class="card-footer date-row">
-                                <ul class="seat-operation">
-                                    <li class="seat-operation-item"><div class="operation-release" id="release_<%= userSeatOrders[index].order_id %>">
-                                            退座
-                                        </div></li><li class="seat-operation-item"></li><li class="seat-operation-item"><div class="operation-sign" id="leave_<%= userSeatOrders[index].order_id %>">签到
-                                        </div></li>
-                                </ul>
-                            </div>
                         </div>
                     </li>
                     <% } %>
