@@ -389,7 +389,7 @@ seat.release = function (orderID, openid, callback) {
  * */
 seat.queue = function(openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime, callback){
     var insertQuery = "insert into user_seat_order (openid, classroom_id, seat_code, row_no, column_no, start_time, end_time, schedule_recover_time, status, lock_code) values "+
-            "(?, ?, ?, ?, ?, ?, ?, ?, 0, -4)",
+            "(?, ?, ?, ?, ?, ?, ?, ?, 0, 0)",
         insertParams = [openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime];
     db.insertQuery(insertQuery, insertParams, function(err, id){
         if(err){

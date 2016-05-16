@@ -28,12 +28,12 @@ schedule.scheduleJob(rule, function(){
                 //log('系统释放'+orders[index].full_name+' '+orders[index].seat_code+' '+(new Date()).toLocaleString());
                 seatModel.getQueue(orders[index].classroom_id, orders[index].seat_code, function(err, queueOrders){
                     for (var rindex = 0; rindex < queueOrders.length; rindex++){
-                        seatModel.isValidLibraryOrderRequest(orders[index].openid, orders[index].classroom_id, orders[index].seat_code,
-                            orders[index].start_time, orders[index].end_time, function(err, result){
+                        seatModel.isValidLibraryOrderRequest(queueOrders[index].openid, queueOrders[index].classroom_id, queueOrders[index].seat_code,
+                            queueOrders[index].start_time, queueOrders[index].end_time, function(err, result){
                                 if(err){
 
                                 }else{
-                                    seatModel.sign(orders[index].order_id, function(err, result){
+                                    seatModel.sign(queueOrders[index].order_id, function(err, result){
 
                                     });
                                 }
