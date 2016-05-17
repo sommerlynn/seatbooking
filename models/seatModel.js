@@ -168,8 +168,8 @@ seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startT
 };
 
 seat.isValidEnQueueRequest = function(openid, classroomID, seatCode, callback){
-    var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and openid = ? and classroom_id = ? and status = 0 order by order_time asc",
-        params = [new Date(), new Date(), openid, classroomID];
+    var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ? and seat_code = ? and status = 0 order by order_time asc",
+        params = [new Date(), new Date(), openid, classroomID, seatCode];
     db.executeQuery(selectQuery, params, function(err, results){
         if(err){
             err.type = 'exception';
@@ -177,9 +177,14 @@ seat.isValidEnQueueRequest = function(openid, classroomID, seatCode, callback){
         }
         else
         if(results.length > 0){
-            err = new Error('你已在('+results[0].full_name + ' ' +results[0].seat_code +'号)的等候队列, 如果原座位主人未能按时返回签到, 将根据等候队列的次序由最先开始等待的小伙伴获得座位使用权。');
-            err.type = 'prompt';
-            callback(err);
+            if(results[0].openid == openid){
+                err = new Error('你已获得此座位的优先权, 可暂在此座学习, 如果原座位主人未在'+results[0].schedule_recover_time.toLocaleTimeString('en-US', {hour12:false})+'之前返回签到, 七玥自动将此座使用权分配给你。如果你未能在此座等候, 则优先权被下一位扫码的小伙伴获得。');
+                err.type = 'prompt';
+                callback(err);
+            }
+            else{
+
+            }
         }
         else
         {
@@ -433,8 +438,6 @@ seat.release = function (orderID, openid, callback) {
     });
 };
 
-
-
 /**
  * 排队轮候
  * 2016-05-15 CHEN PU 新建
@@ -467,6 +470,16 @@ seat.enQueue = function(openid, classroomID, seatCode, row, column, startTime, e
             });
         }
     });
+};
+
+
+/**
+ * 取销座位等待 （本人或他人操作）
+ * 2016-05-17 CHEN PU 新建
+ *
+ * */
+seat.dequeue = function (orderID, self) {
+
 };
 
 /**
