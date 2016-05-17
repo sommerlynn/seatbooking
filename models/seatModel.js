@@ -167,28 +167,57 @@ seat.isValidLibraryOrderRequest = function(openid, classroomID, seatCode, startT
     });
 };
 
+/**
+ * 检查是否满足座位的临时使用权条件
+ * 一个人 只能获得临时座位一个；一个座位只能有一个临时使用人
+ *
+ *
+ * */
 seat.isValidEnQueueRequest = function(openid, classroomID, seatCode, callback){
     var selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and classroom_id = ? and seat_code = ? and status = 0 order by order_time asc",
         params = [new Date(), new Date(), openid, classroomID, seatCode];
     db.executeQuery(selectQuery, params, function(err, results){
-        if(err){
+        if(err)
+        {
             err.type = 'exception';
             callback(err);
         }
-        else
-        if(results.length > 0){
+        else if(results.length > 0)
+        {
             if(results[0].openid == openid){
-                err = new Error('你已获得此座位的优先权, 可暂在此座学习, 如果原座位主人未在'+results[0].schedule_recover_time.toLocaleTimeString('en-US', {hour12:false})+'之前返回签到, 七玥自动将此座使用权分配给你。如果你未能在此座等候, 则优先权被下一位扫码的小伙伴获得。');
+                err = new Error('你已获得此座的临时使用权, 如原主人未在'+results[0].schedule_recover_time.toLocaleTimeString('en-US', {hour12:false})+'之前返回签到, 你将获得该座位的正式使用权。');
                 err.type = 'prompt';
                 callback(err);
             }
             else{
-
+                err = new Error('该座位已有其他临时使用人, 不能再选了, 我们来重新找一个位子吧。');
+                err.type = 'prompt';
+                callback(err);
             }
         }
         else
         {
-            callback(null);
+            // 检查是否有其他临时使用座位
+            selectQuery = "select * from user_seat_order_view where start_time < ? and end_time > ? and status = 0 order by order_time asc",
+            params = [new Date(), new Date(), openid];
+
+            db.executeQuery(selectQuery, params, function(err, results) {
+                if (err)
+                {
+                    err.type = 'exception';
+                    callback(err);
+                }
+                else if(results.length > 0)
+                {
+                    err = new Error('你已有一个临时座位,'+ results[0].full_name + ' ' + results[0].seat_code+ '不能再选此座了。');
+                    err.type = 'prompt';
+                    callback(err);
+                }
+                else
+                {
+                    callback(null);
+                }
+            });
         }
     });
 };
@@ -479,7 +508,7 @@ seat.enQueue = function(openid, classroomID, seatCode, row, column, startTime, e
  *
  * */
 seat.dequeue = function (orderID, self) {
-
+    var updatQuery = "update user_seat_order set status = ";
 };
 
 /**
