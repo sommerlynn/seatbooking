@@ -388,7 +388,7 @@ router.post('/order', function (req, res) {
 });
 
 router.get('/loadcourse', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data.xlsx');
     var data = dataFromFile[0]['data'];
     var msg = '执行完毕';
 
@@ -415,7 +415,7 @@ router.get('/loadcourse', function (req, res, next) {
 // 6 上课地点
 
 router.get('/loadbuilding', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data.xlsx');
     var datas = dataFromFile[0]['data'];
     var msg;
 
@@ -432,7 +432,7 @@ router.get('/loadbuilding', function (req, res, next) {
 
 
 router.get('/loadclassroom', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data.xlsx');
     var datas = dataFromFile[0]['data'];
     var msg;
 
@@ -448,7 +448,7 @@ router.get('/loadclassroom', function (req, res, next) {
 });
 
 router.get('/loadclasstime', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data.xlsx');
     var datas = dataFromFile[0]['data'];
     var msg;
     async.eachSeries(datas, function (item, callback) {

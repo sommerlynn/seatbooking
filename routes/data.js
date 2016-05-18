@@ -17,7 +17,7 @@ var express = require('express'),
 //var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 router.get('/data/loadcourse', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data.xlsx');
     var data = dataFromFile[0]['data'];
     var msg = '执行完毕';
 
@@ -44,7 +44,7 @@ router.get('/data/loadcourse', function (req, res, next) {
 // 6 上课地点
 
 router.get('/data/loadbuilding', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data.xlsx');
     var datas = dataFromFile[0]['data'];
     var msg;
 
@@ -61,7 +61,7 @@ router.get('/data/loadbuilding', function (req, res, next) {
 
 
 router.get('/data/loadclassroom', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data.xlsx');
     var datas = dataFromFile[0]['data'];
     var msg;
 
@@ -77,7 +77,7 @@ router.get('/data/loadclassroom', function (req, res, next) {
 });
 
 router.get('/data/loadclasstime', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./bak/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data.xlsx');
     var datas = dataFromFile[0]['data'];
     var msg;
     async.eachSeries(datas, function (item, callback) {
