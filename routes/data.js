@@ -157,4 +157,21 @@ router.post('/data/classroom/setPosition', function(req, res){
         });
 });
 
+router.get('/data/loadDepartmentClass', function(req, res){
+    var dataFromFile = xlsx.parse('./1234/readers.xlsx');
+    var data = dataFromFile[0]['data'];
+    var msg = '执行完毕';
+
+    async.eachSeries(data, function (item, callback) {
+        var departmenClassInfo = {
+            'department_class': item[3],
+            'department_name': item[10]
+        }
+        models.parseModel.parseDepartmentClass(departmenClassInfo, callback);
+    }, function (err) {
+        msg = err;
+    });
+    res.render('messageView', {title: '导入班级', message: msg, openid:''});
+});
+
 module.exports = router;
