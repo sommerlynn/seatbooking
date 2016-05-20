@@ -296,7 +296,9 @@ parse.parseDepartmentClass = function(departmentClassInfo, callback){
                if(err){
                    /*console.log(err.message);*/
                    callback(null);
-               }else{
+               }
+               else
+               {
                    if(selectResults.length == 0){
                        var insertQuery = "insert into class (school_id, class_name, department_id, type) values (1, ?, (select department_id from department where department_name = ?), 1)",
                            insertParams = [className, departmentClassInfo['department_name']];
@@ -310,9 +312,18 @@ parse.parseDepartmentClass = function(departmentClassInfo, callback){
                            }
                        });
                    }
+                   else{
+                       callback(null);
+                   }
                }
            });
         }
+        else{
+            callback(null);
+        }
+    }
+    else{
+        callback(null);
     }
 };
 
