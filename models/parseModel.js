@@ -287,36 +287,43 @@ parse.parseDepartmentClass = function(departmentClassInfo, callback){
     if(departmentClassInfo['department_name'] != null &&
        departmentClassInfo['department_class'] != departmentClassInfo['department_name'] &&
        departmentClassInfo['department_class'] != '学生'+departmentClassInfo['department_name']){
+        var className = '';
         if(departmentClassInfo['department_class'].startsWith('学生') &&
            departmentClassInfo['department_class'].indexOf(departmentClassInfo['department_name']) > -1){
-           var className = departmentClassInfo['department_class'].replace('学生'+departmentClassInfo['department_name'], '');
-           var selectQuery = "select * from class where class_name = ?",
-               selectParams = [className];
-           db.executeQuery(selectQuery, selectParams, function(err, selectResults){
-               if(err){
-                   /*console.log(err.message);*/
-                   callback(null);
-               }
-               else
-               {
-                   if(selectResults.length == 0){
-                       var insertQuery = "insert into class (school_id, class_name, department_id, type) values (1, ?, (select department_id from department where department_name = ?), 1)",
-                           insertParams = [className, departmentClassInfo['department_name']];
-                       db.executeQuery(insertQuery, insertParams, function(err, insertResults){
-                           if(err){
-                               /*console.log(err.message);*/
-                               callback(null);
-                           }
-                           else{
-                               callback(null);
-                           }
-                       });
-                   }
-                   else{
-                       callback(null);
-                   }
-               }
-           });
+           className = departmentClassInfo['department_class'].replace('学生'+departmentClassInfo['department_name'], '');
+        }
+        else if(departmentClassInfo['department_class'].startsWith(departmentClassInfo['department_name']))
+        {
+            className = departmentClassInfo['department_class'].replace(departmentClassInfo['department_name'], '').replace(' ','').replace('班', '');
+        }
+
+        if(className != ''){
+            var selectQuery = "select * from class where class_name = ?",
+                selectParams = [className];
+            db.executeQuery(selectQuery, selectParams, function(err, selectResults){
+                if(err){
+                    callback(null);
+                }
+                else
+                {
+                    if(selectResults.length == 0){
+                        console.log(className);
+                        var insertQuery = "insert into class (school_id, class_name, department_id, type) values (1, ?, (select department_id from department where department_name = ?), 1)",
+                            insertParams = [className, departmentClassInfo['department_name']];
+                        db.executeQuery(insertQuery, insertParams, function(err, insertResults){
+                            if(err){
+                                callback(null);
+                            }
+                            else{
+                                callback(null);
+                            }
+                        });
+                    }
+                    else{
+                        callback(null);
+                    }
+                }
+            });
         }
         else{
             callback(null);
