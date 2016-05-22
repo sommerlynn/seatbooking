@@ -55,7 +55,7 @@
   content:"\e60b";
 }
 
-.icon-windows{
+.icon-windows:before{
   content:"\e611";
 }
 
@@ -183,6 +183,14 @@ span.seatCharts-seat.power-seat{
 
 span.seatCharts-seat.windows-power-seat{
   background: url('../images/blankseatwithwindow&power.png') no-repeat;
+}
+
+span.seatCharts-seat.windows{
+  background: url('../images/windows.png') no-repeat;
+}
+
+span.seatCharts-seat.power{
+  background: url('../images/power.png') no-repeat;
 }
 
 div.seatCharts-legend{
