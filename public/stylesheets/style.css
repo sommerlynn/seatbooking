@@ -186,11 +186,11 @@ span.seatCharts-seat.windows-power-seat{
 }
 
 span.seatCharts-seat.windows{
-  background: url('../images/windows.png') no-repeat;
+  background: url('../images/windows.png') no-repeat center;
 }
 
 span.seatCharts-seat.power{
-  background: url('../images/power.png') no-repeat;
+  background: url('../images/power.png') no-repeat center;
 }
 
 div.seatCharts-legend{
