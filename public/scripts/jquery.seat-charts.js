@@ -77,7 +77,7 @@
             }, setup);
 
             fn.settings.$node = $('<a></a>');
-            fn.settings.$node = $('<span></span>');
+            fn.settings.$node.append($('<span></span>'));
 
             fn.settings.$node
                 .attr({
