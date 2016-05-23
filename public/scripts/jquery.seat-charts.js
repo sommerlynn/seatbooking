@@ -77,7 +77,7 @@
             }, setup);
 
             fn.settings.$node = $('<a></a>');
-            fn.settings.$node.append($('<span></span>'));
+            fn.settings.$node.append($('<span></span>').text(fn.settings.label));
 
             fn.settings.$node
                 .attr({
@@ -87,7 +87,6 @@
                   focusable      : true,
                   tabIndex       : -1 //manual focus
                 })
-                .text(fn.settings.label)
                 .addClass(['seatCharts-seat', 'seatCharts-cell', fn.settings.style].concat(
                     //let's merge custom user defined classes with standard JSC ones
                     fn.settings.classes,
