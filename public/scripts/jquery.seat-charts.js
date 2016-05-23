@@ -416,7 +416,7 @@
         //label param should be second
             overrideLabel   = params.length === 2 ? params[1] : null;
 
-        $row.append(character != 'e' ?
+        $row.append(character != '_' ?
               //if the character is not an underscore (empty space)
                 (function(naming) {
 
