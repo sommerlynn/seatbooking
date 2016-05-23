@@ -93,8 +93,7 @@ a.seatCharts-seat{
 }
 
 li.seatCharts-row{
-  display: -webkit-inline-flex; /* Safari */
-  display: inline-flex;
+
 }
 
 .front-indicator{
