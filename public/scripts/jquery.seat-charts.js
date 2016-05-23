@@ -316,9 +316,11 @@
     //Generate default row ids unless user passed his own
     settings.naming.rows = settings.naming.rows || (function(length) {
           var rows = [];
+          rows.push(0);
           for (var i = 1; i <= length; i++) {
             rows.push(i);
           }
+          rows.push(0);
           return rows;
         })(settings.map.length);
 

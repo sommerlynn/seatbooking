@@ -303,27 +303,32 @@
                         left: false,
                         // 2015-12-26 CHEN PU: 重写座位编号算法为行号+列号
                         getLabel: function (character, row, column) {
-                            if(row != rowIndex){
-                                rowIndex = row;
-                                rowSeatIndex = 1;
-                            }
-                            if (row < 10) {
-                                row = '0' + row;
-                            }
-                            else {
-                                row = row + '';
-                            }
-
-                            if(character != 'e'){
-                                if (rowSeatIndex < 10) {
-                                    column = '0' + rowSeatIndex++;
+                            if(row != 0){
+                                if(row != rowIndex){
+                                    rowIndex = row;
+                                    rowSeatIndex = 1;
+                                }
+                                if (row < 10) {
+                                    row = '0' + row;
                                 }
                                 else {
-                                    column = rowSeatIndex++ + '';
+                                    row = row + '';
                                 }
 
-                                return row + column;
-                            }else{
+                                if(character != 'e'){
+                                    if (rowSeatIndex < 10) {
+                                        column = '0' + rowSeatIndex++;
+                                    }
+                                    else {
+                                        column = rowSeatIndex++ + '';
+                                    }
+
+                                    return row + column;
+                                }else{
+                                    return '';
+                                }
+                            }
+                            else{
                                 return '';
                             }
                         },
