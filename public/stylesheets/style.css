@@ -93,7 +93,8 @@ a.seatCharts-seat{
 }
 
 li.seatCharts-row{
-
+  width: 100%;
+  display: block;
 }
 
 .front-indicator{
