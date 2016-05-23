@@ -76,7 +76,7 @@
               //anything goes here?
             }, setup);
 
-            fn.settings.$node.append($('<li style="float: left"></li>').addClass('seatCharts-seat'));
+            fn.settings.$node=$('<li style="float: left"></li>').addClass('seatCharts-seat');
             fn.settings.$node.append($('<span></span>').addClass(['seat-img', fn.settings.style].concat(
                 //let's merge custom user defined classes with standard JSC ones
                 fn.settings.classes,
