@@ -76,7 +76,7 @@
               //anything goes here?
             }, setup);
 
-            fn.settings.$node = $('<a></a>').addClass('seatCharts-seat');
+            fn.settings.$node = $('<li style="float: left"></li>').addClass('seatCharts-seat');
             fn.settings.$node.append($('<span></span>').addClass(['seat-img', fn.settings.style].concat(
                 //let's merge custom user defined classes with standard JSC ones
                 fn.settings.classes,
@@ -370,7 +370,7 @@
         emptyRow += 'e';
       }
 
-      var $row = $('<li></li>').addClass('seatCharts-row');
+      var $row = $('<li></li>').addClass('seatCharts-row').append('<ul style="list-style: none"></ul>');
       if(characters == emptyRow){
         $row = $('<li style="height: 0"></li>').addClass('seatCharts-row');
       }
