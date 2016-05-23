@@ -101,10 +101,10 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
                         if (orders[orderIndex].sex == 1) {
                             order_seat_sex = 'b';
                         }
-                        seatMapArr[orders[orderIndex].row_no - 1] =
-                            str.substring(0, orders[orderIndex].column_no - 1)
+                        seatMapArr[orders[orderIndex].row_no] =
+                            str.substring(0, orders[orderIndex].column_no)
                             + order_seat_sex
-                            + str.substring(orders[orderIndex].column_no, str.length);
+                            + str.substring(orders[orderIndex].column_no+1, str.length);
                     }
                     seatMapArr.pop();
 
