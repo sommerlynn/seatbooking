@@ -76,8 +76,8 @@
               //anything goes here?
             }, setup);
 
-            fn.settings.$node = $('<a></a>');
-            fn.settings.$node.append($('<span></span>').addClass(['seatCharts-seat', 'seat-img', fn.settings.style].concat(
+            fn.settings.$node = $('<a></a>').addClass('seatCharts-seat');
+            fn.settings.$node.append($('<span></span>').addClass(['seat-img', fn.settings.style].concat(
                 //let's merge custom user defined classes with standard JSC ones
                 fn.settings.classes,
                 typeof seatChartsSettings.seats[fn.settings.character] == "undefined" ?
