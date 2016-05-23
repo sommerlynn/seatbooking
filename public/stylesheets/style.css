@@ -88,7 +88,6 @@ div#seat-map{
   border-width: 1px 0px 0px 0px;*/
 }
 
-
 li.seatCharts-row{
   display: inline-block;
 }
@@ -191,6 +190,10 @@ span.seatCharts-seat.windows{
 
 span.seatCharts-seat.power{
   background: url('../images/power.png') no-repeat center;
+}
+
+span.seatCharts-seat.windows-power{
+  background: url('../images/windows&power.png') no-repeat center;
 }
 
 div.seatCharts-legend{
