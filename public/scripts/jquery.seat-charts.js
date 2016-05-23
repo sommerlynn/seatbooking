@@ -83,7 +83,7 @@
                 typeof seatChartsSettings.seats[fn.settings.character] == "undefined" ?
                     [] : seatChartsSettings.seats[fn.settings.character].classes
             ).join(' ')));
-            fn.settings.$node.append($('<span></span>').text(fn.settings.label));
+            fn.settings.$node.append($('<span></span>').addClass('seat-label').text(fn.settings.label));
 
             fn.settings.$node
                 .attr({

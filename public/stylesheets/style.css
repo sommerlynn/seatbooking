@@ -108,6 +108,10 @@ span.seat-img{
   line-height: 1.2rem;
 }
 
+span.seat-label{
+  display: block;
+}
+
 span.seatCharts-cell {
   height: 32px;
   width: 32px;
