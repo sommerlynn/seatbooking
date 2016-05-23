@@ -317,7 +317,7 @@
     settings.naming.rows = settings.naming.rows || (function(length) {
           var rows = [];
           rows.push(0);
-          for (var i = 1; i <= length; i++) {
+          for (var i = 1; i <= length-2; i++) {
             rows.push(i);
           }
           rows.push(0);
