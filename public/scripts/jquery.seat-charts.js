@@ -365,8 +365,15 @@
 
     //do this for each map row
     $.each(settings.map, function(row, characters) {
+      var emptyRow = '';
+      for(var index = 0; index < settings.naming.columns.length; index++){
+        emptyRow += 'e';
+      }
 
       var $row = $('<li></li>').addClass('seatCharts-row');
+      if(characters == emptyRow){
+        $row = $('<li style="height: 0"></li>').addClass('seatCharts-row');
+      }
 
       // whether display row header, true to display, false not to display
       // 是否显示行头列，true 显示， false 不显示
