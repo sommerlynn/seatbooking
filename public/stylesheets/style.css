@@ -51,19 +51,21 @@
   content:"\e610";
 }
 
-.icon-blank-seat:before{
+.icon-blank-seat-large:before{
   content: "\e606";
+  font-size: .75rem;
+  color: #33475f;
 }
 
 .icon-book:before{
   content:"\e60b";
 }
 
-.icon-windows:before{
+.icon-windows-large:before{
   content:"\e611";
 }
 
-.icon-power:before{
+.icon-power-large:before{
   content:"\e612";
 }
 
