@@ -381,7 +381,7 @@
         // 行头列
         $row.append(
             $('<span></span>')
-                .addClass('seatCharts-cell seatCharts-space')
+                .addClass('seatCharts-space')
                 .text(settings.naming.rows[row])
                 .attr('title', '第'+settings.naming.rows[row]+'排')
         );
