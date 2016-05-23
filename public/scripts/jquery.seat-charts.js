@@ -372,7 +372,7 @@
 
       var $row = $('<li></li>').addClass('seatCharts-row');
       if(characters == emptyRow){
-        $row = $('<li style="height: 0"></li>').addClass('seatCharts-row');
+        $row = $('<li style="display: none"></li>').addClass('seatCharts-row');
       }
 
       // whether display row header, true to display, false not to display

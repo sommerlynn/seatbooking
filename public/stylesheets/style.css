@@ -138,6 +138,7 @@ span.seat-label{
   margin-top: .15rem;
   font-size: .65rem;
   color: #000000;
+  height: 1rem;
 }
 
 span.seatCharts-cell {
