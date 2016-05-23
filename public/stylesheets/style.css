@@ -88,6 +88,10 @@ div#seat-map{
   border-width: 1px 0px 0px 0px;*/
 }
 
+a.seatCharts-seat{
+  display: inline-block;
+}
+
 li.seatCharts-row{
   display: -webkit-inline-flex; /* Safari */
   display: inline-flex;
