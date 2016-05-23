@@ -114,6 +114,7 @@ a.seatCharts-seat{
 
 li.seatCharts-row{
   text-align: center;
+  height: 2.5rem;
 }
 
 .front-indicator{
@@ -173,9 +174,6 @@ span.seatCharts-space {
   visibility: hidden;
 }
 
-li.seatCharts-row {
-  /*height: 50px;*/
-}
 
 span.seatCharts-row:after {
   clear: both;

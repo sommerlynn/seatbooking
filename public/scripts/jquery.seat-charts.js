@@ -439,7 +439,7 @@
                 })(settings.naming)
                 :
                 //this is just an empty space (_)
-                $('<a></a>').addClass('seatCharts-seat').append($('<span></span>').addClass('seatCharts-space'))
+                $('<a style="width: 2rem; height: 2.5rem"></a>').addClass('seatCharts-seat').append($('<span></span>').addClass('seatCharts-space'))
         );
       });
 
