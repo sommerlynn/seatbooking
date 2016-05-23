@@ -370,7 +370,7 @@
         emptyRow += 'e';
       }
 
-      var $row = $('<li></li>').addClass('seatCharts-row').append($('<ul style="list-style: none"></ul>'));
+      var $row = $('<li></li>').addClass('seatCharts-row').append($('<ul></ul>'));
       if(characters == emptyRow){
         $row = $('<li style="height: 0"></li>').addClass('seatCharts-row');
       }
