@@ -416,7 +416,7 @@
         //label param should be second
             overrideLabel   = params.length === 2 ? params[1] : null;
 
-        $row.append(character != '_' ?
+        $row.append(character != 'e' ?
               //if the character is not an underscore (empty space)
                 (function(naming) {
 
@@ -439,7 +439,7 @@
                 })(settings.naming)
                 :
                 //this is just an empty space (_)
-                $('<a></a>').addClass('seatCharts-seat').append($('<span></span>').addClass('seatCharts-space'))
+                $('<a style="height: 2rem"></a>').addClass('seatCharts-seat').append($('<span></span>').addClass('seatCharts-space'))
         );
       });
 
