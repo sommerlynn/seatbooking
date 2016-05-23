@@ -90,6 +90,7 @@ div#seat-map{
 
 li.seatCharts-row{
   display: flex;
+  display: -webkit-box;
 }
 
 .front-indicator{
