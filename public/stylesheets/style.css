@@ -51,12 +51,20 @@
   content:"\e610";
 }
 
+.icon-blank-seat:before{
+  content: "\e606";
+}
+
 .icon-book:before{
   content:"\e60b";
 }
 
 .icon-windows:before{
   content:"\e611";
+}
+
+.icon-power:before{
+  content:"\e612";
 }
 
 body {
