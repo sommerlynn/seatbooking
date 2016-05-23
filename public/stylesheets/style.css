@@ -89,7 +89,7 @@ div#seat-map{
 }
 
 a.seatCharts-seat{
-  display: inline-block;
+  float: left;
 }
 
 li.seatCharts-row{
@@ -151,7 +151,7 @@ span.seatCharts-space {
 }
 
 li.seatCharts-row {
-  height: 50px;
+  /*height: 50px;*/
 }
 
 span.seatCharts-row:after {
