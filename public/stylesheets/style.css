@@ -89,8 +89,7 @@ div#seat-map{
 }
 
 li.seatCharts-row{
-  display: flex;
-  display: -webkit-box;
+  display: inline-grid;
 }
 
 .front-indicator{
