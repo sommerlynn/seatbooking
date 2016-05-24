@@ -109,7 +109,7 @@
                   break;
               }
               fn.settings.$node.append($('<span></span>').addClass('seat-status').text(status));
-              fn.settings.$node.append($('<span></span>').addClass('seat-label icon icon-power-large').text(fn.settings.label));
+              fn.settings.$node.append($('<span></span>').addClass('seat-label').text(fn.settings.label));
             }
 
             fn.settings.$node
