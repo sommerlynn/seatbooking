@@ -61,9 +61,21 @@
   color: #33475f;
 }
 
+.icon-blank-seat-large:before{
+  content: "\e606";
+  font-size: .65rem;
+  color: #33475f;
+}
+
 .icon-windows-large:before{
   content:"\e617";
   font-size: 1rem;
+  color: #6B8424;
+}
+
+.icon-windows-small:before{
+  content:"\e617";
+  font-size: .65rem;
   color: #6B8424;
 }
 
