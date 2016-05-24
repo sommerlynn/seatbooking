@@ -349,7 +349,7 @@
                      ]
                      },*/
                     click: function () {
-                        if (this.status() == 'available') {
+                        if (this.style() == 'available') {
                             //let's create a new <li> which we'll add to the cart items
                             //$('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
                             //        .attr('id', 'cart-item-'+this.settings.id)
@@ -365,7 +365,7 @@
                             //$counter.text(sc.find('selected').length+1);
                             //$total.text(recalculateTotal(sc)+this.data().price);
 
-                            sc.find('selected').status('available');
+                            sc.find('selected').style('available');
                             var selectedSeatID = this.node()[0].id;
                             selectedSeatCode = this.node()[0].children[2].innerText;
                             var selectedSeatInfo = selectedSeatID.split('_');
@@ -377,7 +377,7 @@
                             $.openPanel();
 
                             return 'selected';
-                        } else if (this.status() == 'selected') {
+                        } else if (this.style() == 'selected') {
                             //update the counter
                             //$counter.text(sc.find('selected').length-1);
                             //and total
@@ -388,7 +388,7 @@
 
                             //seat has been vacated
                             return 'available';
-                        } else if (this.status() == 'unavailable') {
+                        } else if (this.style() == 'unavailable') {
                             //seat has been already booked
                             return 'unavailable';
                         } else {
