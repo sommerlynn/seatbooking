@@ -403,7 +403,8 @@
       {
         $row = $('<li style="display: none"></li>').addClass('seatCharts-row');
       }
-      else if(row == 0){
+      else if(row == 0)
+      {
         $row = $('<li style="height: 1.2rem"></li>').addClass('seatCharts-row');
       }
 
