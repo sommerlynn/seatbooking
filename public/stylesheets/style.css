@@ -135,6 +135,12 @@ span.seat-img{
   line-height: 1.2rem;
 }
 
+span.seat-img-half{
+  height: 1.1rem;
+  font-size: 1.1rem;
+  line-height: 1.1rem;
+}
+
 span.seat-label{
   display: block;
   margin-top: .15rem;
