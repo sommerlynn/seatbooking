@@ -127,7 +127,7 @@ a.seatCharts-seat{
 
 li.seatCharts-row{
   text-align: center;
-  height: 2.5rem;
+  height: 3.5rem;
 }
 
 .front-indicator{
@@ -147,9 +147,9 @@ span.seat-img{
 }
 
 span.seat-img-half{
-  height: .8rem;
-  font-size: .8rem;
-  line-height:.8rem;
+  height: 1.3rem;
+  font-size: 1.3rem;
+  line-height:1.3rem;
 }
 
 span.seat-label{

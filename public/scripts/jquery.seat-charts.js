@@ -77,10 +77,22 @@
             }, setup);
 
             fn.settings.$node=$('<a></a>').addClass('seatCharts-seat');
-            if(setup.character == 'm'){
+            if(setup.character == 'm')
+            {
               fn.settings.$node.append($('<span></span>').addClass(['seat-img-half', 'unavailable', 'icon', 'icon-windows-large'].join(' ')));
               fn.settings.$node.append($('<span style="display: block"></span>').addClass(['seat-img-half', 'unavailable', 'icon', 'icon-power-large'].join(' ')));
-            }else{
+            }
+            else if(setup.character == 'm' || setup.character == 'p')
+            {
+              fn.settings.$node.append($('<span></span>').addClass(['seat-img', fn.settings.style].concat(
+                  //let's merge custom user defined classes with standard JSC ones
+                  fn.settings.classes,
+                  typeof seatChartsSettings.seats[fn.settings.character] == "undefined" ?
+                      [] : seatChartsSettings.seats[fn.settings.character].classes
+              ).join(' ')));
+              fn.settings.$node.append($('<span></span>').addClass('seat-label').text(fn.settings.label));
+            }
+            else{
               fn.settings.$node.append($('<span></span>').addClass(['seat-img', fn.settings.style].concat(
                   //let's merge custom user defined classes with standard JSC ones
                   fn.settings.classes,
