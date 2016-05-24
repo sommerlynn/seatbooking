@@ -398,9 +398,13 @@
         emptyRow += 'e';
       }
 
-      var $row = $('<li style="height: 1.2rem"></li>').addClass('seatCharts-row');
-      if(characters == emptyRow){
+      var $row = $('<li></li>').addClass('seatCharts-row');
+      if(characters == emptyRow)
+      {
         $row = $('<li style="display: none"></li>').addClass('seatCharts-row');
+      }
+      else if(row == 0){
+        $row = $('<li style="height: 1.2rem"></li>').addClass('seatCharts-row');
       }
 
       // whether display row header, true to display, false not to display
