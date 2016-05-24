@@ -96,7 +96,7 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
                     var seatMapStr = classroom['seat_map'];
                     var seatMapArr = seatMapStr.split(';');
                     for (var orderIndex = 0; orderIndex < orders.length; orderIndex++) {
-                        var str = seatMapArr[orders[orderIndex].row_no];
+                        var str = seatMapArr[orders[orderIndex].row_no*2];
                         var order_seat_sex = 'g';
                         if (orders[orderIndex].sex == 1) {
                             order_seat_sex = 'b';
