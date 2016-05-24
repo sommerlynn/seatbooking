@@ -110,6 +110,7 @@ div#seat-map{
 
 a.seatCharts-seat{
   float: left;
+  width: 32px;
 }
 
 li.seatCharts-row{
