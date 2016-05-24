@@ -87,6 +87,7 @@
                   typeof seatChartsSettings.seats[fn.settings.character] == "undefined" ?
                       [] : seatChartsSettings.seats[fn.settings.character].classes
               ).join(' ')));
+              fn.settings.$node.append($('<span></span>').addClass('seat-status').text('暂离'));
               fn.settings.$node.append($('<span></span>').addClass('seat-label').text(fn.settings.label));
             }
 

@@ -160,6 +160,12 @@ span.seat-label{
   height: 1rem;
 }
 
+span.seat-status{
+  z-index: 999;
+  font-size: .5rem;
+  color: #7B0A23;
+}
+
 span.seatCharts-cell {
   height: 32px;
   width: 32px;
