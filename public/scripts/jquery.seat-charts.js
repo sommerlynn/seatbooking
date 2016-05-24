@@ -398,7 +398,7 @@
         emptyRow += 'e';
       }
 
-      var $row = $('<li></li>').addClass('seatCharts-row');
+      var $row = $('<li style="height: 1.2rem"></li>').addClass('seatCharts-row');
       if(characters == emptyRow){
         $row = $('<li style="display: none"></li>').addClass('seatCharts-row');
       }
