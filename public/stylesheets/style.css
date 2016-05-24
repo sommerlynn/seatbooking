@@ -161,8 +161,8 @@ span.seat-label{
 }
 
 span.seat-status{
-  z-index: 999;
   font-size: .5rem;
+  height: 1rem;
   color: #7B0A23;
 }
 
