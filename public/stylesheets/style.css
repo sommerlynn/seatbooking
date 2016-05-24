@@ -80,15 +80,15 @@
 }
 
 .icon-boy-booked-large:before{
-  content: "\e615";
+  content: "\e614";
   font-size: 1.35rem;
-  color: #33475f;
+  color: #CEA33F;
 }
 
 .icon-girl-booked-large:before{
   content: "\e615";
   font-size: 1.35rem;
-  color: #33475f;
+  color: #CE3F9A;
 }
 
 body {
