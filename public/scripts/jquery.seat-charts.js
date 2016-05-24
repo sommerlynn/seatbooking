@@ -345,6 +345,7 @@
           var rows = [];
           rows.push(0);
           for (var i = 1; i <= length-2; i++) {
+            rows.push(0);
             rows.push(i);
           }
           rows.push(0);
