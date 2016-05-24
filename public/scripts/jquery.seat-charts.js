@@ -108,7 +108,7 @@
                   status = '预约';
                   break;
               }
-
+              fn.settings.$node.append($('<span></span>').addClass('icon icon-power-large'));
               fn.settings.$node.append($('<span></span>').addClass('seat-status').text(status));
               fn.settings.$node.append($('<span></span>').addClass('seat-label').text(fn.settings.label));
             }
