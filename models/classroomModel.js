@@ -24,7 +24,7 @@ classroom.getByID = function(classroomID, callback){
 };
 
 classroom.getByAreaID = function (areaID, callback) {
-  var selectQuery = "select * from classroom_today_order_detail_view where area_id = ? and status = 1 order by classroom_name",
+  var selectQuery = "select * from classroom_today_order_detail_view where area_id = ? and classroom_status = 1 order by classroom_name",
       params = [areaID];
   db.executeQuery(selectQuery, params, callback);
 };
