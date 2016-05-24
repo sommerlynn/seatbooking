@@ -77,12 +77,13 @@
             }, setup);
 
             fn.settings.$node=$('<a></a>').addClass('seatCharts-seat');
-            if(setup.character == 'm')
+            /*if(setup.character == 'm')
             {
               fn.settings.$node.append($('<span></span>').addClass(['seat-img-half', 'unavailable', 'icon', 'icon-windows-large'].join(' ')));
               fn.settings.$node.append($('<span style="display: block"></span>').addClass(['seat-img-half', 'unavailable', 'icon', 'icon-power-large'].join(' ')));
             }
-            else if(setup.character == 'w' || setup.character == 'p' || setup.character == 'e')
+            else*/
+            if(setup.character == 'w' || setup.character == 'p' || setup.character == 'e')
             {
               fn.settings.$node.append($('<span></span>').addClass(['seat-img', fn.settings.style].concat(
                   //let's merge custom user defined classes with standard JSC ones
@@ -403,7 +404,7 @@
       {
         $row = $('<li style="display: none"></li>').addClass('seatCharts-row');
       }
-      else if(row == 0)
+      else if(characters.indexOf('p')>0)
       {
         $row = $('<li style="height: 1.2rem"></li>').addClass('seatCharts-row');
       }
