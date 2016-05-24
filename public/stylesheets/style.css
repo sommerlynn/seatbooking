@@ -63,19 +63,13 @@
 
 .icon-windows-large:before{
   content:"\e611";
-  font-size: .75rem;
+  font-size: 1rem;
   color: #6B8424;
 }
 
 .icon-power-large:before{
   content:"\e612";
-  font-size: .75rem;
-  color: #7B0A23;
-}
-
-.icon-window-power-large:before{
-  content:"\e612";
-  font-size: .75rem;
+  font-size: .5rem;
   color: #7B0A23;
 }
 
