@@ -367,7 +367,7 @@
 
                             sc.find('selected').status('available');
                             var selectedSeatID = this.node()[0].id;
-                            selectedSeatCode = this.node()[0].innerText;
+                            selectedSeatCode = this.node()[0].children[2].innerText;
                             var selectedSeatInfo = selectedSeatID.split('_');
                             selectedSeatRowID = selectedSeatInfo[0];
                             selectedSeatColumnID = selectedSeatInfo[1];
