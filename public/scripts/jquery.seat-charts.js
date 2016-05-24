@@ -77,12 +77,12 @@
             }, setup);
 
             fn.settings.$node=$('<a></a>').addClass('seatCharts-seat');
-            /*if(setup.character == 'm')
+            if(setup.character == 'm')
             {
               fn.settings.$node.append($('<span></span>').addClass(['seat-img-half', 'unavailable', 'icon', 'icon-windows-large'].join(' ')));
               fn.settings.$node.append($('<span style="display: block"></span>').addClass(['seat-img-half', 'unavailable', 'icon', 'icon-power-large'].join(' ')));
             }
-            else*/
+            else
             if(setup.character == 'w' || setup.character == 'p' || setup.character == 'e')
             {
               fn.settings.$node.append($('<span></span>').addClass(['seat-img', fn.settings.style].concat(
