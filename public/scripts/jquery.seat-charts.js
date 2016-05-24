@@ -109,7 +109,7 @@
                   break;
               }
 
-              fn.settings.$node.append($('<span></span>').addClass('seat-status').text('暂离'));
+              fn.settings.$node.append($('<span></span>').addClass('seat-status').text(status));
               fn.settings.$node.append($('<span></span>').addClass('seat-label').text(fn.settings.label));
             }
 
