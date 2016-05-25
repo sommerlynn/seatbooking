@@ -80,13 +80,13 @@
 }
 
 .icon-power-large:before{
-  content:"\e619";
+  content:"\e612";
   font-size: .5rem;
   color: #0D653D;
 }
 
 .icon-power-small:before{
-  content:"\e619";
+  content:"\e612";
   font-size: .55rem;
   color: #0D653D;
 }
