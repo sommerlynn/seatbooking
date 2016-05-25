@@ -113,7 +113,8 @@
               fn.settings.$node.append($('<span></span>').addClass('seat-label').text(fn.settings.label));
             }
 
-            if(setup.character != 'w' && setup.character != 'p' && setup.character != 'm')
+            if(setup.character != 'w' && setup.character != 'p' &&
+               setup.character != 'm' && setup.character != 'e')
             {
               fn.settings.$node
                   .attr({
