@@ -113,14 +113,18 @@
               fn.settings.$node.append($('<span></span>').addClass('seat-label').text(fn.settings.label));
             }
 
-            fn.settings.$node
-                .attr({
-                  id             : fn.settings.id,
-                  role           : 'checkbox',
-                  'aria-checked' : false,
-                  focusable      : true,
-                  tabIndex       : -1 //manual focus
-                });
+            if(setup.character != 'w' && setup.character != 'p' && setup.character != 'm')
+            {
+              fn.settings.$node
+                  .attr({
+                    id             : fn.settings.id,
+                    role           : 'checkbox',
+                    'aria-checked' : false,
+                    focusable      : true,
+                    tabIndex       : -1 //manual focus
+                  });
+            }
+            
 
             //basically a wrapper function
             fn.data = function() {
