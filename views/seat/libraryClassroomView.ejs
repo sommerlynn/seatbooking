@@ -149,11 +149,15 @@
     .user-header-img img {
         vertical-align: middle;
         border-radius: 10px;
-        margin: 0 .7rem;
+        margin: 0 .3rem;
     }
 
     .log-time {
-        margin-right: .5rem;
+
+    }
+
+    span.time{
+        margin-right: .3rem;
     }
 
     .log-msg {
@@ -487,6 +491,7 @@
                                         $('#seat_booked_card').css('display', 'none');
                                         $('#seat_log_list').css('display', 'block');
                                         var logJson = JSON.parse(response);
+                                        $('#seat_log_list').remove();
                                         for(var index = 0; index < logJson.length; index++){
                                             $('#seat_log_list').append("<li><ul class='seat-log'>" +
                                                     "<li class='user-header-img'><img width='20' height='20' src='"+ logJson[index].headimgurl.replace('/0','/46')+"'/></li>"+
