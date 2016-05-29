@@ -386,7 +386,7 @@
                                             <% if (userSeatOrders[index].status == -1) { %>
                                                 已退座
                                             <% } else if(userSeatOrders[index].status == 1) { %>
-                                                预约
+                                                <%= userSeatOrders[index].order_time.toLocaleTimeString('en-US', {hour12:false}) %> 预约
                                             <% } else if(userSeatOrders[index].status == -2) { %>
                                                 系统回收
                                             <% } else if(userSeatOrders[index].status == 2) { %>
