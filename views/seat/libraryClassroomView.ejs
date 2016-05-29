@@ -193,9 +193,9 @@
     </div>
 </div>
 
-<div id="seat_book_card" class="panel panel-right panel-reveal" style="background-color: #1D2025">
+<div class="panel panel-right panel-reveal" style="background-color: #1D2025">
     <div class="content-block">
-        <div class="list-block cards-list">
+        <div id="seat_booked_card" class="list-block cards-list">
             <ul id="seat_tickets">
                 <li class="card">
                     <div class="card-header">
@@ -213,6 +213,9 @@
                     <div class="card-footer" id="order-operation">仅限本人使用 点击领取</div>
                 </li>
             </ul>
+        </div>
+        <div id="seat_log_list">
+            座位日志
         </div>
         <p style="text-align: center"><b>《文明用座规范》</b></p>
         <p>
@@ -246,13 +249,6 @@
         </p>
     </div>
 </div>
-
-<div id="seat_log_card" class="panel panel-left panel-reveal" style="background-color: #1D2025">
-    <div class="content-block">
-        座位日志
-    </div>
-</div>
-
 
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
@@ -411,7 +407,9 @@
 
                             //$('#selectedSeatInfo').text(selectedSeatCode + '号 [' + '第' + selectedSeatRowID + '排，第' + selectedSeatColumnID + '列]');
                             $('#selectedSeatInfo').text(selectedSeatCode + '号');
-                            $.openPanel('#seat_book_card');
+                            $('#seat_booked_card').attr('visible', 'true');
+                            $('#seat_log_list').attr('visible', 'false');
+                            $.openPanel();
 
                             return 'selected';
                         } else if (this.style() == 'selected') {
@@ -428,7 +426,9 @@
                         } else if (this.style() == 'unavailable') {
                             //seat has been already booked
 
-                            $.openPanel('#seat_log_card');
+                            $('#seat_booked_card').attr('visible', 'false');
+                            $('#seat_log_list').attr('visible', 'true');
+                            $.openPanel();
 
                             return 'unavailable';
                         } else {
