@@ -211,7 +211,11 @@ span.seat-label{
 span.seat-status{
   font-size: .5rem;
   height: 1rem;
-  color: #7B0A23;
+  color: #000000;
+}
+
+span.special{
+  color:#7B0A23;
 }
 
 span.seatCharts-cell {

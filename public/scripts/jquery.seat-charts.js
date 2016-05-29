@@ -100,16 +100,20 @@
                   typeof seatChartsSettings.seats[fn.settings.character] == "undefined" ?
                       [] : seatChartsSettings.seats[fn.settings.character].classes
               ).join(' ')));
-              var status = '';
+              var status = '空座';
+              var statusClass = 'seat-label';
               switch (setup.character.toLowerCase()){
                 case 'b':
                   status = '预约';
+                  statusClass = 'seat-label special';
                   break;
                 case 's':
                   status = '签到';
+                  statusClass = 'seat-label special';
                   break;
                 case 'l':
                   status = '暂离';
+                  statusClass = 'seat-label special';
                   break;
               }
               fn.settings.$node.append($('<span></span>').addClass('seat-status').text(status));
