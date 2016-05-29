@@ -153,6 +153,7 @@
     }
 
     .log-time {
+        margin-right: .5rem;
     }
 
     .log-msg {
@@ -235,7 +236,7 @@
     </div>
 </div>
 
-<div class="panel panel-right panel-reveal" style="background-color: #1D2025">
+<div id="panel_right" class="panel panel-right panel-reveal" style="background-color: #1D2025">
     <div class="content-block">
         <div id="seat_booked_card" class="list-block cards-list">
             <ul id="seat_tickets">
@@ -520,6 +521,10 @@
             $('#content-wrapper').attr('style', '-webkit-transform:scale(' + clientWidth / initialContentWidth + ');-webkit-transform-origin:top left;');
             //$('front-indicator').width(clientWidth);
         }
+    });
+
+    $(document).on('closed', '#panel_right', function () {
+        $('#seat_log_list').remove();
     });
 
 
