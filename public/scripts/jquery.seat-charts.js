@@ -101,22 +101,22 @@
                       [] : seatChartsSettings.seats[fn.settings.character].classes
               ).join(' ')));
               var status = '空座';
-              var statusClass = 'seat-label';
+              var statusClass = 'seat-status';
               switch (setup.character.toLowerCase()){
                 case 'b':
                   status = '预约';
-                  statusClass = 'seat-label special';
+                  statusClass = 'seat-status special';
                   break;
                 case 's':
                   status = '签到';
-                  statusClass = 'seat-label special';
+                  statusClass = 'seat-status special';
                   break;
                 case 'l':
                   status = '暂离';
-                  statusClass = 'seat-label special';
+                  statusClass = 'seat-status special';
                   break;
               }
-              fn.settings.$node.append($('<span></span>').addClass('seat-status').text(status));
+              fn.settings.$node.append($('<span></span>').addClass(statusClass).text(status));
               fn.settings.$node.append($('<span></span>').addClass('seat-label').text(fn.settings.label));
             }
 
