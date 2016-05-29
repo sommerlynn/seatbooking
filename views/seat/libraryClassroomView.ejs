@@ -77,18 +77,18 @@
         bottom: 4rem;
     }
 
-    .bar-tab~.content{
+    .bar-tab ~ .content {
         bottom: 4rem;
     }
 
-    div.date-nav{
+    div.date-nav {
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
         height: 2rem;
     }
 
-    A.date-item{
+    A.date-item {
         width: 50%;
         text-align: center;
         height: 2rem;
@@ -98,47 +98,63 @@
         position: relative;
     }
 
-    .date-nav .active{
-        color:#00B7FF;
-        border-bottom:1px solid #0894ec;
+    .date-nav .active {
+        color: #00B7FF;
+        border-bottom: 1px solid #0894ec;
     }
 
-    .rules{
+    .rules {
         list-style-type: georgian;
     }
 
-    .rule{
+    .rule {
 
     }
 
-    .direction-row{
+    .direction-row {
         text-align: center;
-        color:#A00000;
+        color: #A00000;
     }
 </style>
 <div class="page">
     <div class="date-nav">
         <% if (type == 'tomorrow') { %>
-        <a href="?t=today" class="date-item">今天 <%= today.toLocaleDateString('en-US', {year: 'numeric', month: 'numeric', day: 'numeric'}) %></a>
-        <a href="?t=tomorrow" class="active date-item">明天 <%= nextDay.toLocaleDateString('en-US', {year: 'numeric', month: 'numeric', day: 'numeric'}) %></a>
+        <a href="?t=today" class="date-item">今天 <%= today.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
+        <a href="?t=tomorrow" class="active date-item">明天 <%= nextDay.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
         <% } else { %>
-        <a href="?t=today" class="active date-item">今天 <%= today.toLocaleDateString('en-US', {year: 'numeric', month: 'numeric', day: 'numeric'}) %></a>
-        <a href="?t=tomorrow" class="date-item">明天 <%= nextDay.toLocaleDateString('en-US', {year: 'numeric', month: 'numeric', day: 'numeric'}) %></a>
+        <a href="?t=today" class="active date-item">今天 <%= today.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
+        <a href="?t=tomorrow" class="date-item">明天 <%= nextDay.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
 
         <% } %>
     </div>
 
     <!-- 工具栏 -->
     <nav class="bar bar-tab">
-        <a class="tab-item active" id="buildingTab" href="/building/<%=openid%>" external>
+        <a class="tab-item active" id="buildingTab" href="/building/<%= openid %>" external>
             <span class="icon icon-building"></span>
             <span class="tab-label">预约座位</span>
         </a>
-        <a class="tab-item" id="skyTab" href="/reading/<%=openid%>" external>
+        <a class="tab-item" id="skyTab" href="/reading/<%= openid %>" external>
             <span class="icon icon-book"></span>
             <span class="tab-label">七玥书斋</span>
         </a>
-        <a class="tab-item" id="meTab" href="/me/<%=openid%>" external>
+        <a class="tab-item" id="meTab" href="/me/<%= openid %>" external>
             <span class="icon icon-me"></span>
             <span class="tab-label">我的</span>
         </a>
@@ -146,7 +162,7 @@
     <div class="content">
         <div id="content-wrapper">
             <div class="direction-row">
-                <span class="icon icon-direction"></span><span><%= classroom.direction%></span>
+                <span class="icon icon-direction"></span><span><%= classroom.direction %></span>
             </div>
 
             <div id="seat-map">
@@ -176,65 +192,64 @@
         </ul>
     </div>
 </div>
-<div class="page">
-    <div id="seat_book_card" class="panel panel-right panel-reveal" style="background-color: #1D2025">
-        <div class="content-block">
-            <div class="list-block cards-list">
-                <ul id="seat_tickets">
-                    <li class="card">
-                        <div class="card-header">
-                            <div style="width: 50%">座位券</div>
-                            <% if (type == 'tomorrow') { %>
-                            <div style="width: 50%"><%= nextDay.toLocaleDateString() %></div>
-                            <% } else { %>
-                            <div style="width: 50%"><%= today.toLocaleDateString() %></div>
-                            <% } %>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-content-inner"><%= classroom['full_name'] %></div>
-                            <div class="card-content-inner"><span id="selectedSeatInfo"></span></div>
-                        </div>
-                        <div class="card-footer" id="order-operation">仅限本人使用 点击领取</div>
-                    </li>
-                </ul>
-            </div>
-            <p style="text-align: center"><b>《文明用座规范》</b></p>
-            <p>
-                1、<b>预约</b>座位后请在指定时间之前扫码签到, 过时未签到，系统回收座位重新分配。预约签到时间规定如下:
-            </p>
-            <p>
-            <ul class="rules">
-                <li class="rule">8:00前预约当日座位, 需8:30前扫码签到</li>
-                <li class="rule">8:00后预约当日座位, 需30分钟内扫码签到</li>
-                <li class="rule">预约次日座位, 需次日8:30之前扫码签到</li>
-            </ul>
-            </p>
-            <p>
-                2、暂离请扫码设置暂离, 并在指定时间之前返回扫码签到, 过时未签到, 系统回收座位重新分配。未扫码暂离, 他人可扫码获得此座, 你将被记录违规一次。暂离签到时间规定如下:
-            </p>
-            <p>
-            <ul class="rules">
-                <li class="rule">午餐午休时段: 11:00 ~ 14:00 暂离, 需14:00 前扫码签到</li>
-                <li class="rule">晚餐洗浴时段: 17:00 ~ 19:00 暂离, 需19:00 前扫码签到</li>
-                <li class="rule">其它时段暂离, 需半小时内扫码签到</li>
-            </ul>
-            </p>
-            <p>
-                3、座位不再使用, 请扫码退座。未退座, 他人可扫码获得此座, 你将被记录违规一次。
-            </p>
-            <p>
-                4、累计三次违规, 禁用本系统一个星期。
-            </p>
-            <p>
-                5、七玥请各位小伙伴自觉遵守《规范》, 珍惜同学缘分, 文明使用座位, 共享资源, 快乐学习。您有任何建议可发送至2858212885@qq.com。
-            </p>
-        </div>
-    </div>
 
-    <div id="seat_log_card" class="panel panel-right panel-reveal" style="background-color: #1D2025">
-        <div class="content-block">
-            座位日志
+<div id="seat_book_card" class="panel panel-right panel-reveal" style="background-color: #1D2025">
+    <div class="content-block">
+        <div class="list-block cards-list">
+            <ul id="seat_tickets">
+                <li class="card">
+                    <div class="card-header">
+                        <div style="width: 50%">座位券</div>
+                        <% if (type == 'tomorrow') { %>
+                        <div style="width: 50%"><%= nextDay.toLocaleDateString() %></div>
+                        <% } else { %>
+                        <div style="width: 50%"><%= today.toLocaleDateString() %></div>
+                        <% } %>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-content-inner"><%= classroom['full_name'] %></div>
+                        <div class="card-content-inner"><span id="selectedSeatInfo"></span></div>
+                    </div>
+                    <div class="card-footer" id="order-operation">仅限本人使用 点击领取</div>
+                </li>
+            </ul>
         </div>
+        <p style="text-align: center"><b>《文明用座规范》</b></p>
+        <p>
+            1、<b>预约</b>座位后请在指定时间之前扫码签到, 过时未签到，系统回收座位重新分配。预约签到时间规定如下:
+        </p>
+        <p>
+        <ul class="rules">
+            <li class="rule">8:00前预约当日座位, 需8:30前扫码签到</li>
+            <li class="rule">8:00后预约当日座位, 需30分钟内扫码签到</li>
+            <li class="rule">预约次日座位, 需次日8:30之前扫码签到</li>
+        </ul>
+        </p>
+        <p>
+            2、暂离请扫码设置暂离, 并在指定时间之前返回扫码签到, 过时未签到, 系统回收座位重新分配。未扫码暂离, 他人可扫码获得此座, 你将被记录违规一次。暂离签到时间规定如下:
+        </p>
+        <p>
+        <ul class="rules">
+            <li class="rule">午餐午休时段: 11:00 ~ 14:00 暂离, 需14:00 前扫码签到</li>
+            <li class="rule">晚餐洗浴时段: 17:00 ~ 19:00 暂离, 需19:00 前扫码签到</li>
+            <li class="rule">其它时段暂离, 需半小时内扫码签到</li>
+        </ul>
+        </p>
+        <p>
+            3、座位不再使用, 请扫码退座。未退座, 他人可扫码获得此座, 你将被记录违规一次。
+        </p>
+        <p>
+            4、累计三次违规, 禁用本系统一个星期。
+        </p>
+        <p>
+            5、七玥请各位小伙伴自觉遵守《规范》, 珍惜同学缘分, 文明使用座位, 共享资源, 快乐学习。您有任何建议可发送至2858212885@qq.com。
+        </p>
+    </div>
+</div>
+
+<div id="seat_log_card" class="panel panel-right panel-reveal" style="background-color: #1D2025">
+    <div class="content-block">
+        座位日志
     </div>
 </div>
 
@@ -253,11 +268,11 @@
 <script type="text/javascript" src="/scripts/jquery.seat-charts.js?v=201605291810"></script>
 <script>
     var columnIndex = 1,
-        rowIndex = 1,
-        rowSeatIndex = 1,
-        selectedSeatRowID = 0,
-        selectedSeatColumnID = 0,
-        selectedSeatCode='';
+            rowIndex = 1,
+            rowSeatIndex = 1,
+            selectedSeatRowID = 0,
+            selectedSeatColumnID = 0,
+            selectedSeatCode = '';
 
     $(document).ready(function () {
         var //$cart = $('#selected-seats'),
@@ -307,17 +322,17 @@
                             classes: 'icon icon-boy-leaved-large',
                             category: 'booked-seat-boy'
                         },
-                        w:{
-                            classes:'icon icon-windows-large',
-                            category:'windows'
+                        w: {
+                            classes: 'icon icon-windows-large',
+                            category: 'windows'
                         },
-                        p:{
-                            classes:'icon icon-power-large',
-                            category:'power'
+                        p: {
+                            classes: 'icon icon-power-large',
+                            category: 'power'
                         },
-                        e:{
-                            classes:'icon icon-empty',
-                            category:'empty'
+                        e: {
+                            classes: 'icon icon-empty',
+                            category: 'empty'
                         }
                     },
                     naming: {
@@ -329,8 +344,8 @@
                         left: false,
                         // 2015-12-26 CHEN PU: 重写座位编号算法为行号+列号
                         getLabel: function (character, row, column) {
-                            if(row != 0){
-                                if(row != rowIndex){
+                            if (row != 0) {
+                                if (row != rowIndex) {
                                     rowIndex = row;
                                     rowSeatIndex = 1;
                                 }
@@ -341,9 +356,9 @@
                                     row = row + '';
                                 }
 
-                                if(character !=  'w' &&
-                                   character !=  'p' &&
-                                   character !=  'e'){
+                                if (character != 'w' &&
+                                        character != 'p' &&
+                                        character != 'e') {
                                     if (rowSeatIndex < 10) {
                                         column = '0' + rowSeatIndex++;
                                     }
@@ -352,11 +367,11 @@
                                     }
 
                                     return row + column;
-                                }else{
+                                } else {
                                     return '';
                                 }
                             }
-                            else{
+                            else {
                                 return '';
                             }
                         },
@@ -446,11 +461,11 @@
                 selectedSeatColumnID > 0) {
             $.showPreloader('提交预约申请...');
             $.post('/seat/order', {
-                openid:'<%=openid%>',
+                openid: '<%= openid %>',
                 classroom: '<%= cid %>',
                 row: selectedSeatRowID,
                 column: selectedSeatColumnID,
-                seatCode:selectedSeatCode,
+                seatCode: selectedSeatCode,
                 type: '<%= type %>'
             }, function (response) {
                 $.hidePreloader();
