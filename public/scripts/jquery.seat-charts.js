@@ -100,7 +100,7 @@
                   typeof seatChartsSettings.seats[fn.settings.character] == "undefined" ?
                       [] : seatChartsSettings.seats[fn.settings.character].classes
               ).join(' ')));
-              var status = '空座';
+              var status = '';
               switch (setup.character.toLowerCase()){
                 case 'b':
                   status = '预约';
