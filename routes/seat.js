@@ -158,7 +158,7 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
 
 router.post('/libraryClassroom/seat/log', function(req, res) {
     models.seatModel.getLog(req.body.classroomID, req.body.seatCode, function (err, seatLogs) {
-        res.send(seatLogs.toJSON());
+        res.send(JSON.stringify(seatLogs));
     });
 });
 
