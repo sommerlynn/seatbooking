@@ -443,6 +443,11 @@
                                         $('#seat_booked_card').css('display', 'none');
                                         $('#seat_log_list').css('display', 'block');
                                         var logJson = JSON.parse(response);
+                                        for(var index = 0; index < logJson.length; index++){
+                                            $('#seat_log_list').append('<li><ul><li>' +
+                                                    logJson[index].nickname +
+                                                    '<li><ul></li>');
+                                        }
                                         $('#seat_log_list').text(response);
                                         $.hidePreloader();
                                         $.openPanel();
