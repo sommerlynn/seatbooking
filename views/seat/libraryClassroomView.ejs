@@ -407,8 +407,8 @@
 
                             //$('#selectedSeatInfo').text(selectedSeatCode + '号 [' + '第' + selectedSeatRowID + '排，第' + selectedSeatColumnID + '列]');
                             $('#selectedSeatInfo').text(selectedSeatCode + '号');
-                            $('#seat_booked_card').attr('visible', 'true');
-                            $('#seat_log_list').attr('visible', 'false');
+                            $('#seat_booked_card').css('visibility', 'visible');
+                            $('#seat_log_list').css('visibility', 'hidden');
                             $.openPanel();
 
                             return 'selected';
@@ -426,8 +426,8 @@
                         } else if (this.style() == 'unavailable') {
                             //seat has been already booked
 
-                            $('#seat_booked_card').attr('visible', 'false');
-                            $('#seat_log_list').attr('visible', 'true');
+                            $('#seat_booked_card').css('visibility', 'hidden');
+                            $('#seat_log_list').css('visibility', 'visible');
                             $.openPanel();
 
                             return 'unavailable';
