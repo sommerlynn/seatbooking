@@ -425,13 +425,18 @@
                             return 'available';
                         } else if (this.style() == 'unavailable') {
                             //seat has been already booked
+                            var selectedSeatID = this.node()[0].id;
+                            selectedSeatCode = this.node()[0].children[2].innerText;
+                            var selectedSeatInfo = selectedSeatID.split('_');
+                            selectedSeatRowID = selectedSeatInfo[0];
+                            selectedSeatColumnID = selectedSeatInfo[1];
 
                             $.showPreloader('获取信息...');
 
                             $.post('/libraryClassroom/seat/log',
                                     {
-                                        classroomID:'',
-                                        seatCode:''
+                                        classroomID:'<%= cid %>',
+                                        seatCode:selectedSeatCode
                                     },
                                     function(response){
 
