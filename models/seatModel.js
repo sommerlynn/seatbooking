@@ -337,7 +337,7 @@ seat.getActiveLibrary = function(openid, callback){
  * 
  * **/
 seat.getActiveLibraryIncludeWaitQueue = function(openid, callback){
-    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status >= 0 and classroom_type_name = ? order by start_time asc, order_time desc",
+    var selectQuery = "select * from user_seat_order_view where openid = ? and end_time > ? and status > 0 and classroom_type_name = ? order by start_time asc, order_time desc",
         params = [openid, new Date(), '图书馆'];
     db.executeQuery(selectQuery, params, callback);
 };
