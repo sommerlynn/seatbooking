@@ -115,6 +115,48 @@
         text-align: center;
         color: #A00000;
     }
+
+    .seat-log-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .seat-log {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .seat-log-card li {
+        display: table-cell;
+        line-height: 2rem;
+        height: 2rem;
+        text-align: center;
+        font-size: .75rem;
+    }
+
+    .user-header-img {
+        margin: 0 auto;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0px;
+        display: table-cell;
+    }
+
+    .user-header-img img {
+        vertical-align: middle;
+        border-radius: 10px;
+        margin: 0 .7rem;
+    }
+
+    .log-time {
+    }
+
+    .log-msg {
+    }
 </style>
 <div class="page">
     <div class="date-nav">
@@ -214,7 +256,7 @@
                 </li>
             </ul>
         </div>
-        <ul id="seat_log_list">
+        <ul id="seat_log_list" class="seat-log-list">
 
         </ul>
         <p style="text-align: center"><b>《文明用座规范》</b></p>
@@ -444,9 +486,9 @@
                                         $('#seat_log_list').css('display', 'block');
                                         var logJson = JSON.parse(response);
                                         for(var index = 0; index < logJson.length; index++){
-                                            $('#seat_log_list').append('<li><ul><li>' +
+                                            $('#seat_log_list').append("<li><ul class='seat-log'><li>" +
                                                     logJson[index].nickname +
-                                                    '<li><ul></li>');
+                                                    '</li></ul></li>');
                                         }
                                         /*$('#seat_log_list').text(response)*/
                                         $.hidePreloader();
