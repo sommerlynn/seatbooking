@@ -255,40 +255,41 @@
                     <div class="card-footer" id="order-operation">仅限本人使用 点击领取</div>
                 </li>
             </ul>
+
+            <p style="text-align: center"><b>《文明用座规范》</b></p>
+            <p>
+                1、<b>预约</b>座位后请在指定时间之前扫码签到, 过时未签到，系统回收座位重新分配。预约签到时间规定如下:
+            </p>
+            <p>
+            <ul class="rules">
+                <li class="rule">8:00前预约当日座位, 需8:30前扫码签到</li>
+                <li class="rule">8:00后预约当日座位, 需30分钟内扫码签到</li>
+                <li class="rule">预约次日座位, 需次日8:30之前扫码签到</li>
+            </ul>
+            </p>
+            <p>
+                2、暂离请扫码设置暂离, 并在指定时间之前返回扫码签到, 过时未签到, 系统回收座位重新分配。未扫码暂离, 他人可扫码获得此座, 你将被记录违规一次。暂离签到时间规定如下:
+            </p>
+            <p>
+            <ul class="rules">
+                <li class="rule">午餐午休时段: 11:00 ~ 14:00 暂离, 需14:00 前扫码签到</li>
+                <li class="rule">晚餐洗浴时段: 17:00 ~ 19:00 暂离, 需19:00 前扫码签到</li>
+                <li class="rule">其它时段暂离, 需半小时内扫码签到</li>
+            </ul>
+            </p>
+            <p>
+                3、座位不再使用, 请扫码退座。未退座, 他人可扫码获得此座, 你将被记录违规一次。
+            </p>
+            <p>
+                4、累计三次违规, 禁用本系统一个星期。
+            </p>
+            <p>
+                5、七玥请各位小伙伴自觉遵守《规范》, 珍惜同学缘分, 文明使用座位, 共享资源, 快乐学习。您有任何建议可发送至2858212885@qq.com。
+            </p>
         </div>
         <ul id="seat_log_list" class="seat-log-list">
 
         </ul>
-        <p style="text-align: center"><b>《文明用座规范》</b></p>
-        <p>
-            1、<b>预约</b>座位后请在指定时间之前扫码签到, 过时未签到，系统回收座位重新分配。预约签到时间规定如下:
-        </p>
-        <p>
-        <ul class="rules">
-            <li class="rule">8:00前预约当日座位, 需8:30前扫码签到</li>
-            <li class="rule">8:00后预约当日座位, 需30分钟内扫码签到</li>
-            <li class="rule">预约次日座位, 需次日8:30之前扫码签到</li>
-        </ul>
-        </p>
-        <p>
-            2、暂离请扫码设置暂离, 并在指定时间之前返回扫码签到, 过时未签到, 系统回收座位重新分配。未扫码暂离, 他人可扫码获得此座, 你将被记录违规一次。暂离签到时间规定如下:
-        </p>
-        <p>
-        <ul class="rules">
-            <li class="rule">午餐午休时段: 11:00 ~ 14:00 暂离, 需14:00 前扫码签到</li>
-            <li class="rule">晚餐洗浴时段: 17:00 ~ 19:00 暂离, 需19:00 前扫码签到</li>
-            <li class="rule">其它时段暂离, 需半小时内扫码签到</li>
-        </ul>
-        </p>
-        <p>
-            3、座位不再使用, 请扫码退座。未退座, 他人可扫码获得此座, 你将被记录违规一次。
-        </p>
-        <p>
-            4、累计三次违规, 禁用本系统一个星期。
-        </p>
-        <p>
-            5、七玥请各位小伙伴自觉遵守《规范》, 珍惜同学缘分, 文明使用座位, 共享资源, 快乐学习。您有任何建议可发送至2858212885@qq.com。
-        </p>
     </div>
 </div>
 
@@ -486,9 +487,11 @@
                                         $('#seat_log_list').css('display', 'block');
                                         var logJson = JSON.parse(response);
                                         for(var index = 0; index < logJson.length; index++){
-                                            $('#seat_log_list').append("<li><ul class='seat-log'><li>" +
-                                                    logJson[index].nickname +
-                                                    '</li></ul></li>');
+                                            $('#seat_log_list').append("<li><ul class='seat-log'>" +
+                                                    "<li class='user-header-img'><img width='20' height='20' src='"+ logJson[index].headimgurl.replace('/0','/46')+"'/></li>"+
+                                                    "<li class='log-time'><span class='time'>"+logJson[index].log_time.toLocaleTimeString('en-US', {hour12:false})+"</span></li>"+
+                                                    "<li class='log-msg'><span class='msg'>"+ logJson[index].log_msg +"</span></li>"+
+                                                    '</ul></li>');
                                         }
                                         /*$('#seat_log_list').text(response)*/
                                         $.hidePreloader();
