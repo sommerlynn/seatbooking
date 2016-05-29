@@ -442,6 +442,7 @@
 
                                         $('#seat_booked_card').css('display', 'none');
                                         $('#seat_log_list').css('display', 'block');
+                                        var logJson = response.toJSON();
                                         $('#seat_log_list').text(response);
                                         $.hidePreloader();
                                         $.openPanel();
