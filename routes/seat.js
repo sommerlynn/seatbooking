@@ -101,9 +101,27 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
                         if (orders[orderIndex].sex == 1) {
                             order_seat_sex = 'b';
                         }
+                        var statusChar = '';
+                        if(orders[orderIndex].status == 1)
+                        {
+                            statusChar = 'b';
+                        }
+                        else if(orders[orderIndex].status == 2)
+                        {
+                            statusChar = 's';
+                        }
+                        else if(orders[orderIndex].status == 3)
+                        {
+                            statusChar = 'l';
+                        }
+
+                        if (orders[orderIndex].sex == 1) {
+                            statusChar = statusChar.toUpperCase();
+                        }
+
                         seatMapArr[orders[orderIndex].row_no*2] =
                             str.substring(0, orders[orderIndex].column_no-1)
-                            + order_seat_sex
+                            + statusChar
                             + str.substring(orders[orderIndex].column_no, str.length);
                     }
                     seatMapArr.pop();

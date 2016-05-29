@@ -101,12 +101,15 @@
                       [] : seatChartsSettings.seats[fn.settings.character].classes
               ).join(' ')));
               var status = '空座';
-              switch (setup.character){
+              switch (setup.character.toLowerCase()){
                 case 'b':
                   status = '预约';
                   break;
-                case 'g':
-                  status = '预约';
+                case 's':
+                  status = '签到';
+                  break;
+                case 'l':
+                  status = '暂离';
                   break;
               }
               fn.settings.$node.append($('<span></span>').addClass('seat-status').text(status));
