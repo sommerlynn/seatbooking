@@ -94,7 +94,19 @@
 .icon-boy-booked-large:before{
   content: "\e614";
   font-size: 1.35rem;
+  color: #a9b7b7;
+}
+
+.icon-boy-signed-large:before{
+  content: "\e614";
+  font-size: 1.35rem;
   color: #CEA33F;
+}
+
+.icon-boy-leaved-large:before{
+  content: "\e614";
+  font-size: 1.35rem;
+  color: #a9b7b7;
 }
 
 .icon-boy-booked-small:before{
@@ -106,7 +118,19 @@
 .icon-girl-booked-large:before{
   content: "\e615";
   font-size: 1.35rem;
+  color: #a9b7b7;
+}
+
+.icon-girl-signed-large:before{
+  content: "\e615";
+  font-size: 1.35rem;
   color: #CE3F9A;
+}
+
+.icon-girl-leaved-large:before{
+  content: "\e615";
+  font-size: 1.35rem;
+  color: #a9b7b7;
 }
 
 .icon-girl-booked-small:before{
