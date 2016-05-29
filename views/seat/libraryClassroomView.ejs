@@ -491,9 +491,9 @@
                                         $('#seat_booked_card').css('display', 'none');
                                         $('#seat_log_list').css('display', 'block');
                                         var logJson = JSON.parse(response);
-                                        $('#seat_log_list').remove();
+                                        $('.seat-log-wrapper').remove();
                                         for(var index = 0; index < logJson.length; index++){
-                                            $('#seat_log_list').append("<li><ul class='seat-log'>" +
+                                            $('#seat_log_list').append("<li class='seat-log-wrapper'><ul class='seat-log'>" +
                                                     "<li class='user-header-img'><img width='20' height='20' src='"+ logJson[index].headimgurl.replace('/0','/46')+"'/></li>"+
                                                     "<li class='log-time'><span class='time'>"+logJson[index].log_time+"</span></li>"+
                                                     "<li class='log-msg'><span class='msg'>"+ logJson[index].log_msg +"</span></li>"+
@@ -527,11 +527,6 @@
             //$('front-indicator').width(clientWidth);
         }
     });
-
-    $(document).on('closed', '#panel_right', function () {
-        $('#seat_log_list').remove();
-    });
-
 
     $("#order-operation").tap(function () {
         if (selectedSeatRowID > 0 &&
