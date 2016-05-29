@@ -214,9 +214,9 @@
                 </li>
             </ul>
         </div>
-        <div id="seat_log_list">
-            座位日志
-        </div>
+        <ul id="seat_log_list">
+
+        </ul>
         <p style="text-align: center"><b>《文明用座规范》</b></p>
         <p>
             1、<b>预约</b>座位后请在指定时间之前扫码签到, 过时未签到，系统回收座位重新分配。预约签到时间规定如下:
@@ -426,11 +426,22 @@
                         } else if (this.style() == 'unavailable') {
                             //seat has been already booked
 
-                            $('#seat_booked_card').css('display', 'none');
-                            $('#seat_log_list').css('display', 'block');
-                            $.openPanel();
+                            $.showPreloader('获取信息...');
 
-                            return 'unavailable';
+                            $.post('/seat/log',
+                                    {
+                                        classroomID:'',
+                                        seatCode:''
+                                    },
+                                    function(response){
+
+                                        $('#seat_booked_card').css('display', 'none');
+                                        $('#seat_log_list').css('display', 'block');
+                                        $('#seat_log_list').text(response);
+                                        $.hidePreloader();
+                                        $.openPanel();
+                                        return 'unavailable';
+                                    });
                         } else {
                             return this.style();
                         }

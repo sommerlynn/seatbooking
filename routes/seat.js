@@ -156,6 +156,12 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
 
 });
 
+router.post('/libraryClassroom/seat/log', function(req, res) {
+    models.seatModel.getLog(req.body.classroomID, req.body.seatCode, function (err, seatLogs) {
+        res.send(seatLogs.toJSON());
+    });
+});
+
 /*
  * 提交订座申请
  * 2016-04-08 CHEN PU 新建
