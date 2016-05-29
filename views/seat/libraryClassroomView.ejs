@@ -176,7 +176,7 @@
         </ul>
     </div>
 </div>
-<div class="panel panel-right panel-reveal" style="background-color: #1D2025">
+<div id="seat_book_card" class="panel panel-right panel-reveal" style="background-color: #1D2025">
     <div class="content-block">
         <div class="list-block cards-list">
             <ul id="seat_tickets">
@@ -227,6 +227,12 @@
         <p>
             5、七玥请各位小伙伴自觉遵守《规范》, 珍惜同学缘分, 文明使用座位, 共享资源, 快乐学习。您有任何建议可发送至2858212885@qq.com。
         </p>
+    </div>
+</div>
+
+<div id="seat_log_card" class="panel panel-right panel-reveal" style="background-color: #1D2025">
+    <div class="content-block">
+        座位日志
     </div>
 </div>
 
@@ -403,6 +409,9 @@
                             return 'available';
                         } else if (this.style() == 'unavailable') {
                             //seat has been already booked
+
+                            $.openPanel('#seat_log_card');
+
                             return 'unavailable';
                         } else {
                             return this.style();
