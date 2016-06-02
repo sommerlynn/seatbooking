@@ -17,7 +17,7 @@
        "button":[
        {
             "type":"view",
-            "name":"预约座位",
+            "name":"查找座位",
             "url":"http://campus.julyangel.cn/oAuth/1/building"
        },
        {
@@ -36,12 +36,12 @@
  {
         "button":[
         {
-             "name":"预约座位",
+             "name":"自习座位",
              "sub_button":
              [
                 {
                     "type": "view",
-                    "name": "预约",
+                    "name": "找座",
                     "url":"http://campus.julyangel.cn/oAuth/1/building"
                 },
                 {

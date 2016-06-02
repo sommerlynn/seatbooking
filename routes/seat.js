@@ -48,7 +48,7 @@ router.get('/building/:openid', function (req, res) {
                         {
                             ip: req.query.ip,
                             openid: req.params.openid,
-                            title: '自习室导航',
+                            title: '自习座位',
                             classroomList: classroomList
                         });
                 }
