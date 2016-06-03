@@ -620,7 +620,7 @@ seat.logBySpecificUser = function(orderID, openid, logType, logMsg, callback){
 };
 
 seat.getLog = function(classroomID, seatCode, callback){
-    var selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? ",
+    var selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? order by log_id asc",
         params = [seatCode, classroomID];
     db.executeQuery(selectQuery, params, callback);
 };
