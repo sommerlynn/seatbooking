@@ -243,6 +243,8 @@
 <div id="panel_right" class="panel panel-right panel-reveal" style="background-color: #1D2025">
     <div class="content-block">
         <div id="seat_booked_card" class="list-block cards-list">
+            <% if ( (type == 'today' && (new Date()).getHours() < 8) ||
+                     type == 'tomorrow') {%>
             <ul id="seat_tickets">
                 <li class="card">
                     <div class="card-header">
@@ -260,20 +262,14 @@
                     <div class="card-footer" id="order-operation">仅限本人使用 点击领取</div>
                 </li>
             </ul>
+            <%}%>
 
             <p style="text-align: center"><b>《文明用座规范》</b></p>
             <p>
-                1、<b>预约</b>座位后请在指定时间之前扫码签到, 过时未签到，系统回收座位重新分配。预约签到时间规定如下:
+                1、前一日至当日8点之前可预约座位, 预约之后需在8点之前入座扫码签到, 过时系统自动回收;
             </p>
             <p>
-            <ul class="rules">
-                <li class="rule">8:00前预约当日座位, 需8:30前扫码签到</li>
-                <li class="rule">8:00后预约当日座位, 需30分钟内扫码签到</li>
-                <li class="rule">预约次日座位, 需次日8:30之前扫码签到</li>
-            </ul>
-            </p>
-            <p>
-                2、暂离请扫码设置暂离, 并在指定时间之前返回扫码签到, 过时未签到, 系统回收座位重新分配。未扫码暂离, 他人可扫码获得此座, 你将被记录违规一次。暂离签到时间规定如下:
+                2、暂离时请扫码标示状态, 并在指定时间之前返回扫码取消暂离, 过时系统自动回收。没有扫码离开的, 其他小伙伴扫码可代为设置暂离, 并将你记录违规一次:
             </p>
             <p>
             <ul class="rules">
@@ -283,10 +279,10 @@
             </ul>
             </p>
             <p>
-                3、座位不再使用, 请扫码退座。未退座, 他人可扫码获得此座, 你将被记录违规一次。
+                3、座位不再使用时, 请扫码或者在【我的座位】里退座;
             </p>
             <p>
-                4、累计三次违规, 禁用本系统一个星期。
+                4、累计三次违规, 禁用本系统一个星期;
             </p>
             <p>
                 5、七玥请各位小伙伴自觉遵守《规范》, 珍惜同学缘分, 文明使用座位, 共享资源, 快乐学习。您有任何建议可发送至2858212885@qq.com。
