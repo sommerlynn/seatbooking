@@ -176,7 +176,32 @@ router.post('/seat/order', function (req, res) {
     //var today = new Date();
     //var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
 
-    models.seatModel.getOrderRelatedDateByDayType(req.body.type, function (startTime, endTime, scheduleRecoverTime) {
+    models.seatModel.tryCreateLibraryOrder(req.body.type, req.body.openid, req.body.classroom, req.body.seatCode, req.query.row, req.query.column, 'order', function (err, scheduleRecoverTime) {
+        // 此学生有其他座位
+        if (err)
+        {
+            if (err.type == 'prompt') {
+                var promptMsg = err.message;
+                res.send(promptMsg);
+            }else if(err.code == 'ER_DUP_ENTRY'){
+                res.send('哎呀, 就在上一秒这个座位被其他小伙伴约去了, 咱们来重新选一个位子吧');
+            }else{
+                res.send('哎呀, 出错了, 咱们再来一次试试, 如果还不行, 赶紧找管理员2858212885@qq.com');
+            }
+        }
+        // 此学生没有其他座位
+        else
+        {
+            var promptMsg = '你已成功预订座位'+req.body.seatCode+', 请于'+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前扫码签到, 过时座位将被系统自动回收。';
+
+            res.send(promptMsg);
+        }
+    });
+
+
+
+
+    /*models.seatModel.getOrderRelatedDateByDayType(req.body.type, function (startTime, endTime, scheduleRecoverTime) {
         models.seatModel.isValidLibraryOrderRequest(req.body.openid, req.body.classroom, req.body.seatCode, startTime, endTime, function (err) {
             if (err) {
                 res.send(err.message);
@@ -195,7 +220,7 @@ router.post('/seat/order', function (req, res) {
                     });
             }
         });
-    });
+    });*/
 });
 
 /*
@@ -659,7 +684,7 @@ router.get('/scanseat/seatoperation', function(req, res){
                 // 无人预约
                 else
                 {
-                    models.seatModel.tryCreateLibraryOrder('today', openid, req.query.cid, req.query.seat, req.query.row, req.query.column, function (err, newOrderId) {
+                    models.seatModel.tryCreateLibraryOrder('today', openid, req.query.cid, req.query.seat, req.query.row, req.query.column, 'scene', function (err, newOrderId) {
                         // 此学生有其他座位
                         if (err)
                         {
@@ -687,21 +712,19 @@ router.get('/scanseat/seatoperation', function(req, res){
                         // 此学生没有其他座位
                         else
                         {
-                            models.seatModel.sign(newOrderId, function (err, scheduleRecoverDate) {
-                                var promptMsg = '你已成功签到, 请遵守座位使用规则, 暂离请扫码(如未扫码暂离, 其它同学可扫码设置暂离, 你将被记录违规一次), 用完请退座。';
-                                models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
-                                    res.render('./seat/scanSeatView',
-                                        {
-                                            openid: openid,
-                                            title: '座位状态',
-                                            statusType: 'signed',
-                                            classroom: seatLogs[0].full_name,
-                                            seat: req.query.seat,
-                                            orderID:newOrderId,
-                                            seatLogs: seatLogs,
-                                            promptMsg: promptMsg
-                                        });
-                                });
+                            var promptMsg = '你已成功选座, 请遵守座位使用规则, 暂离请扫码(如未扫码暂离, 其它同学可扫码设置暂离, 你将被记录违规一次), 用完请退座。';
+                            models.seatModel.getLog(req.query.cid, req.query.seat, function (err, seatLogs) {
+                                res.render('./seat/scanSeatView',
+                                    {
+                                        openid: openid,
+                                        title: '座位状态',
+                                        statusType: 'signed',
+                                        classroom: seatLogs[0].full_name,
+                                        seat: req.query.seat,
+                                        orderID:newOrderId,
+                                        seatLogs: seatLogs,
+                                        promptMsg: promptMsg
+                                    });
                             });
                         }
                     });
