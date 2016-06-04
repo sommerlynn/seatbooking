@@ -17,7 +17,7 @@ var express = require('express'),
 //var weiJSAPI = new WeiJSAPI('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
 router.get('/data/loadcourse', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./1234/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data20160603.xls');
     var data = dataFromFile[0]['data'];
     var msg = '执行完毕';
 
@@ -32,7 +32,13 @@ router.get('/data/loadcourse', function (req, res, next) {
     }, function (err) {
         msg = err;
     });
-    res.render('parseView', {title: '解析数据', msg: msg});
+    res.render( 'messageView',
+        {
+            title: '加载课程信息',
+            message: msg,
+            openid:''
+        }
+    );
 });
 
 // 0 课程名
@@ -61,9 +67,9 @@ router.get('/data/loadbuilding', function (req, res, next) {
 
 
 router.get('/data/loadclassroom', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./1234/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data20160603.xls');
     var datas = dataFromFile[0]['data'];
-    var msg;
+    var msg = '';
 
     async.eachSeries(datas, function (item, callback) {
         console.log(item);
@@ -73,22 +79,34 @@ router.get('/data/loadclassroom', function (req, res, next) {
         console.log(err);
     });
 
-    res.render('parseView', {title: '加载教室信息', msg: msg});
+    res.render( 'messageView',
+                {
+                    title: '加载教室信息',
+                    message: msg,
+                    openid:''
+                }
+              );
 });
 
 router.get('/data/loadclasstime', function (req, res, next) {
-    var dataFromFile = xlsx.parse('./1234/data.xlsx');
+    var dataFromFile = xlsx.parse('./1234/data20160603.xls');
     var datas = dataFromFile[0]['data'];
-    var msg;
+    var msg = '';
     async.eachSeries(datas, function (item, callback) {
-            //console.log(item);
+            console.log(item);
             models.parseModel.parseClassTime(item, callback);
         },
         function (err) {
             msg = err;
             console.log(err);
         });
-    res.render('parseView', {title: '加载教室信息', msg: msg});
+    res.render( 'messageView',
+        {
+            title: '加载课程信息',
+            message: msg,
+            openid:''
+        }
+    );
 });
 
 /*根据行、列数计算教室的默认标准地图数据*/

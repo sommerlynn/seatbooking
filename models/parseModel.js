@@ -215,27 +215,33 @@ parse.parseOneClassTime = function(classroomtime, callback){
                     }
 
                     var time = timeArr[0]; // 匹配 1,2 3,4 5,6 7,8 9,10 等上课节次
-                    var start_time = 0, end_time = 0;
+                    //var start_time = 0, end_time = 0;
+                    var section = 1;
                     switch (time){
                         case "1,2":
-                            start_time = 8;
-                            end_time = 10;
+                            section = 1;
+                            //start_time = 8;
+                            //end_time = 10;
                             break;
                         case "3,4":
-                            start_time = 10;
-                            end_time = 12;
+                            section = 2;
+                            //start_time = 10;
+                            //end_time = 12;
                             break;
                         case "5,6":
-                            start_time = 14;
-                            end_time = 16;
+                            section = 3;
+                            //start_time = 14;
+                            //end_time = 16;
                             break;
                         case "7,8":
-                            start_time = 16;
-                            end_time = 18;
+                            section = 4;
+                            //start_time = 16;
+                            //end_time = 18;
                             break;
                         case "9,10":
-                            start_time = 19;
-                            end_time = 21;
+                            section = 5;
+                            //start_time = 19;
+                            //end_time = 21;
                             break;
                     }
 
@@ -257,10 +263,10 @@ parse.parseOneClassTime = function(classroomtime, callback){
                     }
 
                     var insertClassroomCourseQuery = "INSERT INTO classroom_course "+
-                        "(course_id, classroom_id, start_week, end_week, week_property, weekday, start_time, end_time) "+
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                        "(course_id, classroom_id, start_week, end_week, week_property, weekday, section) "+
+                        "VALUES (?, ?, ?, ?, ?, ?, ?)",
                         insertClassroomCourseParams =
-                        [courseID, classroomId, start_week, end_week, weekProperty, weekdayNo, start_time, end_time];
+                        [courseID, classroomId, start_week, end_week, weekProperty, weekdayNo, section];
 
                     db.insertQuery(insertClassroomCourseQuery, insertClassroomCourseParams, function(err, id){
                         if(err){
