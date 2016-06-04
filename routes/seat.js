@@ -186,7 +186,7 @@ router.post('/seat/order', function (req, res) {
             }else if(err.code == 'ER_DUP_ENTRY'){
                 res.send('哎呀, 就在上一秒这个座位被其他小伙伴约去了, 咱们来重新选一个位子吧');
             }else{
-                res.send('哎呀, 出错了, 咱们再来一次试试, 如果还不行, 赶紧找管理员2858212885@qq.com');
+                res.send('哎呀, 出错了, 咱们再来一次试试, 如果还不行, 请将错误信息截图并通过订阅号发给我');
             }
         }
         // 此学生没有其他座位
