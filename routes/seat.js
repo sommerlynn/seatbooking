@@ -176,7 +176,7 @@ router.post('/seat/order', function (req, res) {
     //var today = new Date();
     //var orderTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute);
 
-    models.seatModel.tryCreateLibraryOrder(req.body.type, req.body.openid, req.body.classroom, req.body.seatCode, req.query.row, req.query.column, 'order', function (err, scheduleRecoverTime) {
+    models.seatModel.tryCreateLibraryOrder(req.body.type, req.body.openid, req.body.classroom, req.body.seatCode, req.body.row, req.body.column, 'order', function (err, scheduleRecoverTime) {
         // 此学生有其他座位
         if (err)
         {
