@@ -118,7 +118,7 @@ seat.getOrderRelatedDateByDayType = function(dayType, callback){
     if (dayType == 'tomorrow') {
         var nextDay = new Date(now.getTime() + 24 * 60 * 60 * 1000);
         startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
-        scheduleRecoverTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 8, 30);
+        scheduleRecoverTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 8, 0, 0);
     } else {
         startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         var lunchTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0),
@@ -128,7 +128,7 @@ seat.getOrderRelatedDateByDayType = function(dayType, callback){
 
         // 八点前预约的 系统回收时间统一定为8:30
         if(now.getHours() < 8){
-            scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 30);
+            scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0);
         }
         else
         if(now >= lunchTimeStart && now <= lunchTimeEnd){
