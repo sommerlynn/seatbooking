@@ -248,7 +248,7 @@ seat.createOrder = function(openid, classroomID, seatCode, row, column, startTim
                         }
                     });
 
-                    callback(null, id);
+                    callback(null, scheduleRecoverTime);
                 }
             });
         }
