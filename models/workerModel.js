@@ -47,7 +47,13 @@ schedule.scheduleJob(seatRule, function(){
     });
 });
 
-schedule.scheduleJob({minute: 52}, function(){
+var classroomRule = new schedule.RecurrenceRule();
+var classroomMinutes = [50,51,52];
+var classroomHours = [16];
+classroomRule.minute = classroomMinutes;
+classroomRule.hour = classroomHours;
+
+schedule.scheduleJob(classroomRule, function(){
     log('课程时间');
     classroomModel.getByType(1, '普通排课教室', function(err, classroomList){
         async.forEachSeries(classroomList, function (classroom) {
