@@ -47,23 +47,22 @@ schedule.scheduleJob(seatRule, function(){
     });
 });
 
-
-var classroomRule = new schedule.RecurrenceRule();
-var classroomMinutes = [55,56,57];
-var classroomHours = [16];
-classroomRule.minute = classroomMinutes;
-classroomRule.hour = classroomHours;
-
-schedule.scheduleJob('08 20 * * *', function(){
+/**
+ * 每天0点计算次日教室课程时间 填充classroom_time表
+ *
+ * 2016-06-05 CHEN PU 创建
+ *
+ * */
+schedule.scheduleJob('1 0 * * *', function(){
     var now = new Date(),
-        nextDay = new Date(now.getTime()+24 * 60 * 60 * 1000),
+        nextDay = new Date(now.getTime()+ 48 * 60 * 60 * 1000),
         nextDayDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
     classroomModel.getByType(1, '普通排课教室', function(err, classroomList){
         async.forEachSeries(classroomList,
             function (item, callback) {
                 classroomModel.insertClassTimeItem(1, item.classroom_id, nextDayDate, callback);
             },
-            function (err) {
+            function () {
 
             }
         );
