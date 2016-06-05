@@ -11,26 +11,6 @@ var schedule = require("node-schedule"),
     classroomModel = require('./classroomModel');
     async = require('async');
 
-var classroomRule = new schedule.RecurrenceRule();
-var classroomMinutes = [55,56,57];
-var classroomHours = [16];
-classroomRule.minute = classroomMinutes;
-classroomRule.hour = classroomHours;
-
-schedule.scheduleJob(classroomRule, function(){
-    log('课程时间');
-    classroomModel.getByType(1, '普通排课教室', function(err, classroomList){
-        async.forEachSeries(classroomList, function (classroom) {
-            var now = new Date(),
-                nextDay = new Date(now.getTime()+24 * 60 * 60 * 1000);
-            classroomModel.insertClassTimeItem(1, classroom.classroom_id, nextDay, function (err) {
-
-            });
-        });
-    });
-});
-
-
 var seatRule = new schedule.RecurrenceRule();
 var seatMinutes = [];
 var seatHours = [];
@@ -45,8 +25,8 @@ seatRule.hour = seatHours;
 
 schedule.scheduleJob(seatRule, function(){
     seatModel.getOrderNeedToRecycle(function(err, orders){
-        async.forEachSeries(orders, function(item){
-            seatModel.sysReleaseAsNotSign(item.order_id, function(err, result){
+        async.forEachSeries(orders, function(item, callback){
+            seatModel.sysReleaseAsNotSign(item.order_id, callback);
                 //log('系统释放'+orders[index].full_name+' '+orders[index].seat_code+' '+(new Date()).toLocaleString());
                 /*seatModel.getQueue(item.classroom_id, item.seat_code, function(err, queueOrders){
                  async.forEachSeries(queueOrders, function(queueOrder){
@@ -62,8 +42,31 @@ schedule.scheduleJob(seatRule, function(){
                  });
                  });
                  });*/
-            });
+
         });
+    });
+});
+
+
+var classroomRule = new schedule.RecurrenceRule();
+var classroomMinutes = [55,56,57];
+var classroomHours = [16];
+classroomRule.minute = classroomMinutes;
+classroomRule.hour = classroomHours;
+
+schedule.scheduleJob('08 20 * * *', function(){
+    var now = new Date(),
+        nextDay = new Date(now.getTime()+24 * 60 * 60 * 1000),
+        nextDayDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
+    classroomModel.getByType(1, '普通排课教室', function(err, classroomList){
+        async.forEachSeries(classroomList,
+            function (item, callback) {
+                classroomModel.insertClassTimeItem(1, item.classroom_id, nextDayDate, callback);
+            },
+            function (err) {
+
+            }
+        );
     });
 });
 

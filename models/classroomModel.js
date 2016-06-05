@@ -3,7 +3,8 @@
  */
 
 var classroom = {},
-    db = require('./db');
+    db = require('./db'),
+    schoolModel = require('./schoolModel');
 
 classroom.getAll = function(schoolID, callback){
   var selectQuery = "select * from area_classroom_view where area_status = 1 and school_id = ?",
@@ -113,16 +114,48 @@ classroom.setPosition = function (classroomID, latitude, longitude, callback) {
 * */
 classroom.insertClassTimeItem = function (schoolID, classroomID, date, callback) {
     var insertQuery = 'insert into classroom_time (classroom_id, area_id, date, section_arr) values ' +
-        '(?, (select area_id from classroom where classroom_id = ?) ,?, (select setting_value from school_setting where school_id = ? and setting_name = "Term_Start"))',
+        '(?, (select area_id from classroom where classroom_id = ?) ,?, (select setting_value from school_setting where school_id = ? and setting_name = "Class_Time_Default"))',
         insertParams = [classroomID, classroomID, date, schoolID];
-    db.executeQuery(insertQuery, insertParams, function (err, insertedID) {
+    db.insertQuery(insertQuery, insertParams, function (err, insertedID) {
         if(err)
         {
             callback(err);
         }
         else
         {
-            callback(null);    
+            schoolModel.getSettingValue(schoolID, 'Term_Start', function (termStart) {
+                var termStartDate = new Date(termStart);
+                var weekNO = ((date.getTime()-termStartDate.getTime())/(1000*24*60*60)+termStartDate.getDay()-1)/7 + 1;
+                var weekProperty = weekNO%2 == 0? '2':'1';
+                var weekDay = date.getDay() == 0 ? 7 : date.getDay();
+
+                var selectQuery = 'select * from classroom_course where classroom_id = ? and '+
+                    '((? >= start_week and ? <= end_week and week_property = 0 and weekday = ?) or '+
+                    '(? >= start_week and ? <= end_week and week_property = ? and weekday = ?))',
+                    selectParams = [classroomID, weekNO, weekNO, weekDay, weekNO, weekNO, weekProperty, weekDay];
+
+                db.executeQuery(selectQuery, selectParams, function (err, classroomCourses) {
+                    if(classroomCourses.length > 0){
+                        async.forEachSeries(classroomCourses, function (classroomCourse, callback1) {
+                            selectQuery = 'select * from classroom_time where classroom_time_id = ?',
+                            selectParams = [insertedID];
+                            db.executeQuery(selectQuery, selectParams, function (err, classroomTime) {
+                                var sectionArr = ''+classroomTime[0].section_arr;
+                                sectionArr = sectionArr.substring(0, classroomCourse.section-1)+'1'+sectionArr.substring(classroomCourse.section, sectionArr.length);
+
+                                var updateQuery = 'update classroom_time set section_arr = ? where classroom_time_id = ?',
+                                    updateParams = [sectionArr, insertedID];
+                                db.executeQuery(updateQuery, updateParams, function (err, results) {
+                                    callback1(null);
+                                });
+                            });
+                        });
+                    }
+                    else{
+                        callback(null);
+                    }
+                });
+            });      
         }
     });
 };
