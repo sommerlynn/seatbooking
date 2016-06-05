@@ -239,20 +239,26 @@
                         $.hidePreloader();
 
                         var departmentArray = response.split(',');
+                        try{
+
 
                         $("#department-picker").picker({
-                            toolbarTemplate: '<header class="bar bar-nav">\
-                          <button class="button button-link pull-left"></button>\
-                          <button class="button button-link pull-right close-picker">确定</button>\
-                          <h1 class="title">亲，请选择你所在的学院</h1>\
-                          </header>',
-                            cols: [
+                            toolbarTemplate:
+                            '<header class="bar bar-nav">\
+                            <button class="button button-link pull-left"></button>\
+                            <button class="button button-link pull-right close-picker">确定</button>\
+                            <h1 class="title">亲，请选择你所在的学院</h1>\
+                            </header>',
+                            cols:
+                            [
                                 {
                                     textAlign: 'center',
                                     values: departmentArray
                                 }
                             ],
-                            onClose: function () {
+                            onClose:
+                            function ()
+                            {
                                 if($("#type-picker")[0].value == '老师'){
                                     $.showPreloader('获取科室列表...');
                                 }else{
@@ -285,6 +291,10 @@
                                         });
                             }
                         });
+                        }
+                        catch (e){
+                            alert(e.message);
+                        }
                     });
         }
     });
