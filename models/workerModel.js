@@ -8,26 +8,27 @@ var schedule = require("node-schedule"),
     debug = require('debug'),
     log = debug('worker'),
     seatModel = require('./seatModel'),
+    classroomModel = require('./classroomModel');
     async = require('async');
 
-var rule = new schedule.RecurrenceRule();
-var minutes = [];
-var hours = [];
+var seatRule = new schedule.RecurrenceRule();
+var seatMinutes = [];
+var seatHours = [];
 for(var index = 0; index < 60; index++){
-    minutes.push(index);
+    seatMinutes.push(index);
 }
 for(var index = 8; index < 22; index++){
-    hours.push(index);
+    seatHours.push(index);
 }
-rule.minute = minutes;
-rule.hour = hours;
+seatRule.minute = seatMinutes;
+seatRule.hour = seatHours;
 
-schedule.scheduleJob(rule, function(){
+schedule.scheduleJob(seatRule, function(){
     seatModel.getOrderNeedToRecycle(function(err, orders){
         async.forEachSeries(orders, function(item){
             seatModel.sysReleaseAsNotSign(item.order_id, function(err, result){
                 //log('系统释放'+orders[index].full_name+' '+orders[index].seat_code+' '+(new Date()).toLocaleString());
-                seatModel.getQueue(item.classroom_id, item.seat_code, function(err, queueOrders){
+                /*seatModel.getQueue(item.classroom_id, item.seat_code, function(err, queueOrders){
                     async.forEachSeries(queueOrders, function(queueOrder){
                         seatModel.isValidLibraryOrderRequest(queueOrder.openid, queueOrder.classroom_id, queueOrder.seat_code,
                             queueOrder.start_time, queueOrder.end_time, function(err, result){
@@ -40,8 +41,16 @@ schedule.scheduleJob(rule, function(){
                                 }
                             });
                     });
-                });
+                });*/
             });
+        });
+    });
+});
+
+schedule.scheduleJob('0 0 0 * *', function(){
+    classroomModel.getByType(1, '普通排课教室', function(err, classroomList){
+        async.forEachSeries(classroomList, function (classroom) {
+
         });
     });
 });

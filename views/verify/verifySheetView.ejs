@@ -254,10 +254,11 @@
                                 if($("#type-picker")[0].value == '老师'){
                                     $.showPreloader('获取科室列表...');
                                 }else{
-                                    $.showPreloader('获取班级列表...');
+                                    //$.showPreloader('获取班级列表...');
                                 }
                                 $("#class-picker").data('picker', null);
                                 $("#class-picker")[0].value = '';
+
                                 $.post('class',
                                         {
                                             department: $('#department-picker')[0].value
