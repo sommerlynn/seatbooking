@@ -48,6 +48,7 @@ schedule.scheduleJob(seatRule, function(){
 });
 
 schedule.scheduleJob('0 * * * *', function(){
+    log('课程时间');
     classroomModel.getByType(1, '普通排课教室', function(err, classroomList){
         async.forEachSeries(classroomList, function (classroom) {
             var now = new Date(),
