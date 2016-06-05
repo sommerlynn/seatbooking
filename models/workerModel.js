@@ -49,7 +49,7 @@ schedule.scheduleJob(seatRule, function(){
 
 var classroomRule = new schedule.RecurrenceRule();
 var classroomMinutes = [50,51,52];
-var classroomHours = [16];
+var classroomHours = [8];
 classroomRule.minute = classroomMinutes;
 classroomRule.hour = classroomHours;
 
