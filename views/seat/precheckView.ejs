@@ -163,7 +163,7 @@
     }
 
     wx.config({
-        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: '<%= weiJSConfig.appId %>', // 必填，公众号的唯一标识
         timestamp: '<%= weiJSConfig.timestamp %>', // 必填，生成签名的时间戳
         nonceStr: '<%= weiJSConfig.nonceStr %>', // 必填，生成签名的随机串
@@ -196,6 +196,9 @@
                             }
                         }
                 );
+            },
+            fail:function(err){
+                $.alert('这里需要获取你的地理位置已确定你是在合法区域内扫码, 请打开你的定位服务。IPhone 在 隐私->定位服务内打开。Android 在 设置 -> 位置信息 内打开。');
             }
         });
     });
