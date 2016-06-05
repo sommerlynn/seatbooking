@@ -12,7 +12,7 @@ var schedule = require("node-schedule"),
     async = require('async');
 
 var classroomRule = new schedule.RecurrenceRule();
-var classroomMinutes = [50,51,52, 53, 54];
+var classroomMinutes = [55,56,57];
 var classroomHours = [16];
 classroomRule.minute = classroomMinutes;
 classroomRule.hour = classroomHours;
