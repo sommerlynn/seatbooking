@@ -273,7 +273,7 @@
                                         },
                                         function (response) {
                                             var classArray = response.split(',');
-
+                                            $.hidePreloader();
                                             $("#class-picker").picker({
                                                 toolbarTemplate: '<header class="bar bar-nav">\
                                               <button class="button button-link pull-left"></button>\
@@ -287,7 +287,6 @@
                                                     }
                                                 ]
                                             });
-                                            $.hidePreloader();
                                         });
                             }
                         });
