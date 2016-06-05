@@ -111,10 +111,20 @@ classroom.setPosition = function (classroomID, latitude, longitude, callback) {
 * 计算课程时间，填充classroom_time表单
 * 2016-06-05 CHEN PU 创建
 * */
-classroom.insertClassTimeItem = function (classroomID, date) {
-    var insertQuery = 'insert into classroom_time (classroom_id, date, section_arr) values ' +
-        '(?, ?, (select setting_value from school_setting where school_id = ? and setting_name = "Term_Start"))',
-        insertParams = [classroomID, date];
+classroom.insertClassTimeItem = function (schoolID, classroomID, date, callback) {
+    var insertQuery = 'insert into classroom_time (classroom_id, area_id, date, section_arr) values ' +
+        '(?, (select area_id from classroom where classroom_id = ?) ,?, (select setting_value from school_setting where school_id = ? and setting_name = "Term_Start"))',
+        insertParams = [classroomID, classroomID, date, schoolID];
+    db.executeQuery(insertQuery, insertParams, function (err, insertedID) {
+        if(err)
+        {
+            callback(err);
+        }
+        else
+        {
+            callback(null);    
+        }
+    });
 };
 
 module.exports = classroom;

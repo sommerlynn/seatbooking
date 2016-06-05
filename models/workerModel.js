@@ -47,10 +47,14 @@ schedule.scheduleJob(seatRule, function(){
     });
 });
 
-schedule.scheduleJob('0 0 0 * *', function(){
+schedule.scheduleJob('0 * * * *', function(){
     classroomModel.getByType(1, '普通排课教室', function(err, classroomList){
         async.forEachSeries(classroomList, function (classroom) {
+            var now = new Date(),
+                nextDay = new Date(now.getTime()+24 * 60 * 60 * 1000);
+            classroomModel.insertClassTimeItem(1, classroom.classroom_id, nextDay, function (err) {
 
+            });
         });
     });
 });

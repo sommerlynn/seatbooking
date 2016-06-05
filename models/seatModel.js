@@ -126,7 +126,7 @@ seat.getOrderRelatedDateByDayType = function(dayType, callback){
             supperTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0),
             supperTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 30, 0);
 
-        // 八点前预约的 系统回收时间统一定为8:30
+        // 八点前预约的 系统回收时间统一定为8:00
         if(now.getHours() < 8){
             scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0);
         }
