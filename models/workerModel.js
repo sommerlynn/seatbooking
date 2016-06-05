@@ -47,7 +47,7 @@ schedule.scheduleJob(seatRule, function(){
     });
 });
 
-schedule.scheduleJob('0 * * * *', function(){
+schedule.scheduleJob('*/2 * * * *', function(){
     log('课程时间');
     classroomModel.getByType(1, '普通排课教室', function(err, classroomList){
         async.forEachSeries(classroomList, function (classroom) {
