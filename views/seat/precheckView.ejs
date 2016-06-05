@@ -145,7 +145,7 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-content-inner">
-                    <p>正在提交数据 请不要关闭和跳转页面</p>
+                    <p id="msg_lbl">正在提交数据 请不要关闭和跳转页面</p>
                 </div>
             </div>
         </div>
@@ -199,6 +199,7 @@
             },
             fail:function(err){
                 $.alert('这里需要获取你的地理位置以确定你是在合法区域内扫码, 请打开你的定位服务。苹果手机在【设置】->【隐私】->【定位服务】打开。安卓手机在【设置】->【位置信息】打开。');
+                $('#msg_lbl').innerText = '未能获取位置信息, 请打开位置服务后再重新扫码。';
             }
         });
     });
