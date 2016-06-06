@@ -93,7 +93,8 @@ router.get('/emptyClassroom/:school/:area/:sectionStr/:openid', function (req, r
                     openid: req.params.openid,
                     title: '空教室',
                     classroomList: classrooms,
-                    zones: zonesArr
+                    zones: zonesArr,
+                    schoolID:school
                 });
         });
 
