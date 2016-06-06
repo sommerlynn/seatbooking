@@ -44,6 +44,7 @@ router.get('/building/:openid', function (req, res) {
                     {
                         ip: req.query.ip,
                         openid: req.params.openid,
+                        schoolID:userInfo[0].school_id,
                         title: '自习座位',
                         zones: zonesArr
                     });
@@ -73,19 +74,29 @@ router.get('/building/:openid', function (req, res) {
 
 });
 
-router.get('/emptyClassroom/:area/:sectionStr/:openid', function (req, res) {
-    var area = req.params.area,
+router.get('/emptyClassroom/:school/:area/:sectionStr/:openid', function (req, res) {
+    var school = req.params.school,
+        area = req.params.area,
         sectionStr = req.params.sectionStr,
         now = new Date(),
         today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     models.classroomModel.getEmptyClassroom(area, sectionStr, today, function(err, classrooms){
 
-        res.render('./seat/emptyClassroomView',
-            {
-                openid: req.params.openid,
-                title: '空教室',
-                classroomList: classrooms
-            });
+        models.classroomModel.getNormalBuilding(school, function (err, zones) {
+            var zonesArr = [];
+            for(var index = 0; index < zones.length; index++){
+                zonesArr[index] = zones[index].area_name;
+            }
+
+            res.render('./seat/emptyClassroomView',
+                {
+                    openid: req.params.openid,
+                    title: '空教室',
+                    classroomList: classrooms,
+                    zones: zonesArr
+                });
+        });
+
     });
 });
 
