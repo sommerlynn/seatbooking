@@ -184,7 +184,7 @@ classroom.getNormalBuilding = function (schoolID, callback) {
 };
 
 classroom.getEmptyClassroom = function (areaName, sectionStr, date, callback) {
-    var selectQuery = 'select * from classroom_time_view where area_name = ? and TO_DAYS(date) = TO_DAYS(?) and section_arr regexp ? order by classroom_name',
+    var selectQuery = 'select * from classroom_time_view where area_name = ? and date = ? and section_arr regexp ? order by classroom_name',
         selectParams = [areaName, date, sectionStr];
     db.executeQuery(selectQuery, selectParams, function (err, classrooms) {
        if(err){
