@@ -74,10 +74,12 @@ router.get('/building/:openid', function (req, res) {
 });
 
 router.get('/emptyClassroom/:area/:sectionStr/:openid', function (req, res) {
-    var area = req.params.area;
-    var sectionStr = req.params.sectionStr;
+    var area = req.params.area,
+        sectionStr = req.params.sectionStr,
+        now = new Date(),
+        today = new Date(now.getFullYear(), now.getMonth(), now.getDay());
+    models.classroomModel.getEmptyClassroom(area, sectionStr, today, function(err, classrooms){
 
-    models.classroomModel.getEmptyClassroom(area, sectionStr, function(err, classrooms){
         res.render('./seat/emptyClassroomView',
             {
                 openid: req.params.openid,
