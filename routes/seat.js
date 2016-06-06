@@ -78,7 +78,7 @@ router.get('/emptyClassroom/:area/:sectionStr', function (req, res) {
     var sectionStr = req.params.sectionStr;
 
     models.classroomModel.getEmptyClassroom(area, sectionStr, function(err, classrooms){
-        res.render('./seat/buildingClassroomView',
+        res.render('./seat/EmptyClassroomView',
             {
                 openid: req.params.openid,
                 title: '空教室',
