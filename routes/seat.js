@@ -73,7 +73,7 @@ router.get('/building/:openid', function (req, res) {
 
 });
 
-router.get('/emptyClassroom/:area/:sectionStr', function (req, res) {
+router.get('/emptyClassroom/:area/:sectionStr/:openid', function (req, res) {
     var area = req.params.area;
     var sectionStr = req.params.sectionStr;
 
