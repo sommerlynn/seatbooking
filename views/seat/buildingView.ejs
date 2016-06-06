@@ -244,35 +244,35 @@
                 <ul class="section-radio-group">
                     <li class="section-checkbox-item">
                         <label class="label-checkbox item-content" style="margin: 0">
-                            <input type="checkbox" name="section_radio">
+                            <input type="checkbox" name="section_radio" id="section1_chkBox">
                             <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                             <div class="section-name">8:00 - 10:00</div>
                         </label>
                     </li>
                     <li class="section-checkbox-item">
                         <label class="label-checkbox item-content" style="margin: 0">
-                            <input type="checkbox" name="section_radio">
+                            <input type="checkbox" name="section_radio" id="section2_chkBox">
                             <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                             <div class="section-name">10:00 - 12:00</div>
                         </label>
                     </li>
                     <li class="section-checkbox-item">
                         <label class="label-checkbox item-content" style="margin: 0">
-                            <input type="checkbox" name="section_radio">
+                            <input type="checkbox" name="section_radio" id="section3_chkBox">
                             <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                             <div class="section-name">14:00 - 16:00</div>
                         </label>
                     </li>
                     <li class="section-checkbox-item">
                         <label class="label-checkbox item-content" style="margin: 0">
-                            <input type="checkbox" name="section_radio">
+                            <input type="checkbox" name="section_radio" id="section4_chkBox">
                             <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                             <div class="section-name">16:00 - 18:00</div>
                         </label>
                     </li>
                     <li class="section-checkbox-item">
                         <label class="label-checkbox item-content" style="margin: 0">
-                            <input type="checkbox" name="section_radio">
+                            <input type="checkbox" name="section_radio" id="section5_chkBox">
                             <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                             <div class="section-name">19:00 - 21:00</div>
                         </label>
@@ -281,11 +281,11 @@
                         <label class="label-checkbox item-content" style="margin: 0"></label>
                     </li>
                 </ul>
-                <!-- <ul class="operation-card">
+                <ul class="operation-card">
                      <li class="operation">
                          <div class="operation-btn" id="search-btn">查找</div>
                      </li>
-                 </ul>-->
+                 </ul>
             </div>
 
         </div>
@@ -316,8 +316,57 @@
                     <% } %>
                     ]
             }
-        ]
+        ],
+        onClose:function(){
+
+        }
     });
+
+    $(document).on('click', '#search-btn', function () {
+        var msg = new Array();
+        if(!$('#zone-picker')[0].value){
+            msg.push('请选择教学楼区域');
+        }
+        if(!$('#section1_chkBox')[0].checked &&
+           !$('#section2_chkBox')[0].checked &&
+           !$('#section3_chkBox')[0].checked &&
+           !$('#section4_chkBox')[0].checked &&
+           !$('#section5_chkBox')[0].checked){
+            msg.push('至少要选择一个时间段');
+        }
+        if(msg.length>0){
+            $.alert(msg.join('<br/>'),'请根据下面的提示修改之后再提交');
+        }else{
+            var sectionStr = '';
+            if($('#section1_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section2_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section3_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section4_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section5_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+
+            $.alert(sectionStr);
+        }
+    }
 </script>
 
 <!--<script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
