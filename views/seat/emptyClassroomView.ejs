@@ -370,6 +370,10 @@
         router: false
     }
 
+    $(document).ready(function(){
+        $("#zone-picker").picker('setValue', '<%zone%>');
+    });
+
     $("#zone-picker").picker({
         toolbarTemplate: '<header class="bar bar-nav">\
                           <button class="button button-link pull-left"></button>\
@@ -435,6 +439,6 @@
 
             window.location.assign('/emptyClassroom/'+'<%=schoolID%>'+'/'+$('#zone-picker')[0].value+'/'+sectionStr+'/'+'<%=openid%>');
         }
-    })
+    });
 </script>
 <% include ../footer.html %>
