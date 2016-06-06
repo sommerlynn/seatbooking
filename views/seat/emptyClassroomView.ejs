@@ -372,6 +372,13 @@
 
     $(document).ready(function(){
         $("#zone-picker")[0].value = '<%=zone%>';
+        var sectionStr = '<%= sectionStr%>';
+        for(var index = 0; index < sectionStr.length; index++){
+            if(sectionStr.charAt(0) == '0'){
+                var sectionID=index+1;
+                $('#section'+sectionID+'_chkBox')[0].checked = 1;
+            }
+        }
     });
 
     $("#zone-picker").picker({

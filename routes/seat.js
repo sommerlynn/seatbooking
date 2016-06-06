@@ -95,7 +95,8 @@ router.get('/emptyClassroom/:school/:area/:sectionStr/:openid', function (req, r
                     classroomList: classrooms,
                     zones: zonesArr,
                     schoolID:school,
-                    zone:area
+                    zone:area,
+                    sectionStr:sectionStr
                 });
         });
 
