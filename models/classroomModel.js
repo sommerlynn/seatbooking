@@ -183,4 +183,16 @@ classroom.getNormalBuilding = function (schoolID, callback) {
     });
 };
 
+classroom.getEmptyClassroom = function (areaName, sectionStr, callback) {
+    var selectQuery = 'select * from classroom_time_view where area_name = ? and section_arr like ? order by classroom_name',
+        selectParams = [areaName, sectionStr];
+    db.executeQuery(selectQuery, selectParams, function (err, classrooms) {
+       if(err){
+           callback(err);
+       } else{
+           callback(null, classrooms);
+       }
+    });
+};
+
 module.exports = classroom;

@@ -73,6 +73,20 @@ router.get('/building/:openid', function (req, res) {
 
 });
 
+router.get('/emptyClassroom/:area/:sectionStr', function (req, res) {
+    var area = req.params.area;
+    var sectionStr = req.params.sectionStr;
+
+    models.classroomModel.getEmptyClassroom(area, sectionStr, function(err, classrooms){
+        res.render('./seat/buildingClassroomView',
+            {
+                openid: req.params.openid,
+                title: '空教室',
+                classroomList: classrooms
+            });
+    });
+});
+
 /*
  * Get buildings of a school
  * 获取教学楼内教室列表

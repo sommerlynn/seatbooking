@@ -199,6 +199,12 @@ ALTER VIEW seat_log_view AS
         WHERE TO_DAYS(log_time) = TO_DAYS(NOW())
         ORDER BY log_time DESC, log_id DESC
 
+ALTER VIEW classroom_time_view AS
+        SELECT classroom_time.*, building_area.area_name, classroom.classroom_name
+        FROM classroom_time LEFT JOIN building_area ON
+        classroom_time.area_id = building_area.area_id
+        LEFT JOIN classroom ON classroom_time.classroom_id = classroom.classroom_id
+
 
 
 // 获取各教室今天的订座状态
