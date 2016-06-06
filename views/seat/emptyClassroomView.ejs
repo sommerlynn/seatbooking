@@ -240,6 +240,70 @@
     </nav>
     <div class="content">
         <div class="content-block">
+
+            <div class="content-block-title">空教室查询</div>
+            <div class="list-block cards-list" >
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">区域</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="选择教学楼区域" id="zone-picker" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="section-radio-group">
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section1_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">8:00 - 10:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section2_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">10:00 - 12:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section3_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">14:00 - 16:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section4_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">16:00 - 18:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section5_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">19:00 - 21:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0"></label>
+                    </li>
+                </ul>
+                <div class="operation-card">
+                    <div class="operation">
+                        <div class="operation-btn" id="search-btn">重新查找</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="classroom-list">
                 <ul>
                     <% for ( var index = 0; index < classroomList.length; index++) { %>
