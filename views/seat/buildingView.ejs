@@ -32,15 +32,15 @@
         background-color: #EFD4D4;
     }
 
-    .content{
+    .content {
         background-color: #E7E9ED;
     }
 
-    .content-block{
+    .content-block {
         padding: 0;
     }
 
-    .item-content{
+    .item-content {
         background-color: #FFFFFF;
         margin: 0 1rem 0 1rem;
     }
@@ -51,15 +51,15 @@
     </header>-->
     <!-- 工具栏 -->
     <nav class="bar bar-tab">
-        <a class="tab-item active" id="buildingTab" href="/building/<%=openid%>" external>
+        <a class="tab-item active" id="buildingTab" href="/building/<%= openid %>" external>
             <span class="icon icon-building"></span>
             <span class="tab-label">自习座位</span>
         </a>
-        <a class="tab-item" id="skyTab" href="/reading/<%=openid%>" external>
+        <a class="tab-item" id="skyTab" href="/reading/<%= openid %>" external>
             <span class="icon icon-book"></span>
             <span class="tab-label">七玥书斋</span>
         </a>
-        <a class="tab-item" id="meTab" href="/me/<%=openid%>" external>
+        <a class="tab-item" id="meTab" href="/me/<%= openid %>" external>
             <span class="icon icon-me"></span>
             <span class="tab-label">我的</span>
         </a>
@@ -69,7 +69,8 @@
             <div class="list-block cards-list">
                 <ul>
                     <li>
-                        <a class="item-link item-content" href="/buildingClassroom/429/<%=openid%>?ip=<%=ip%>" external>
+                        <a class="item-link item-content" href="/buildingClassroom/429/<%= openid %>?ip=<%= ip %>"
+                           external>
                             <div class="item-inner">
                                 <div class="item-title">图书馆主馆</div>
                                 <div class="item-title"></div>
@@ -77,7 +78,8 @@
                         </a>
                     </li>
                     <li>
-                        <a class="item-link item-content" href="/buildingClassroom/435/<%=openid%>?ip=<%=ip%>" external>
+                        <a class="item-link item-content" href="/buildingClassroom/435/<%= openid %>?ip=<%= ip %>"
+                           external>
                             <div class="item-inner">
                                 <div class="item-title">图书馆分馆</div>
                                 <div class="item-title"></div>
@@ -89,22 +91,22 @@
 
             <div class="content-block-title">空教室查询</div>
             <div class="list-block cards-list">
-                <div class="item-content">
-                    <ul class="building-radio-group">
-                        <li class="building-radio-item">
-                            <label class="label-checkbox item-content">
-                                <input type="radio" name="building_radio">
-                                <div class="item-media"><i class="icon icon-form-checkbox"></i></div><div>教一楼</div>
-                            </label>
-                        </li>
-                        <li>
-                            <label class="label-checkbox item-content">
-                                <input type="radio" name="building_radio">
-                                <div class="item-media"><i class="icon icon-form-checkbox"></i></div><div>教3A</div>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="building-radio-group">
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div>教一楼</div>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-checkbox item-content">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div>教3A</div>
+                        </label>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
