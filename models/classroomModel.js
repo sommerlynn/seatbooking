@@ -170,7 +170,7 @@ classroom.insertClassTimeItem = function (schoolID, classroomID, date, callback)
 *
 * */
 classroom.getNormalBuilding = function (schoolID, callback) {
-    var selectQuery = 'select * from building_area where school_id = ? and status = 1 order by order_no',
+    var selectQuery = 'select * from building_area where school_id = ? and status = 1 and area_name not like \'图书馆%\'order by order_no',
         selectParams = [schoolID];
 
     db.executeQuery(selectQuery, selectParams, function(err, zones){

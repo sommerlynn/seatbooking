@@ -34,13 +34,18 @@ router.get('/building/:openid', function (req, res) {
             });
         } else {
 
-            models.classroomModel.getNormalBuilding(userInfo.school_id, function (err, zones) {
+            models.classroomModel.getNormalBuilding(userInfo[0].school_id, function (err, zones) {
+                var zonesArr = [];
+                for(var index = 0; index < zones.length; index++){
+                    zonesArr[index] = zones[index].area_name;
+                }
+
                 res.render('./seat/buildingView',
                     {
                         ip: req.query.ip,
                         openid: req.params.openid,
                         title: '自习座位',
-                        zones: zones
+                        zones: zonesArr
                     });
             });
             
