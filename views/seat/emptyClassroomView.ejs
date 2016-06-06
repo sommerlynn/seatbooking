@@ -370,8 +370,71 @@
         router: false
     }
 
-    $(".seat-operation").tap(function () {
-        window.location.assign("/libraryClassroom/" + this.getAttribute('id')+'/'+'<%=openid%>'+'?t=today');
+    $("#zone-picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+                          <button class="button button-link pull-left"></button>\
+                          <button class="button button-link pull-right close-picker">确定</button>\
+                          <h1 class="title">请选择教学楼区域</h1>\
+                          </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: [
+                    <% for (var i = 0; i < zones.length; i++){ %>
+                    '<%= zones[i] %>',
+                    <% } %>
+                ]
+            }
+        ],
+        onClose:function(){
+
+        }
     });
+
+    $(document).on('click', '#search-btn', function () {
+        var msg = new Array();
+        if(!$('#zone-picker')[0].value){
+            msg.push('请选择教学楼区域');
+        }
+        if(!$('#section1_chkBox')[0].checked &&
+                !$('#section2_chkBox')[0].checked &&
+                !$('#section3_chkBox')[0].checked &&
+                !$('#section4_chkBox')[0].checked &&
+                !$('#section5_chkBox')[0].checked){
+            msg.push('至少要选择一个时间段');
+        }
+        if(msg.length>0){
+            $.alert(msg.join('<br/>'),'请根据下面的提示修改之后再提交');
+        }else{
+            var sectionStr = '';
+            if($('#section1_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section2_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section3_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section4_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section5_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+
+            window.location.assign('/emptyClassroom/'+$('#zone-picker')[0].value+'/'+sectionStr+'/'+'<%=openid%>');
+        }
+    })
 </script>
 <% include ../footer.html %>
