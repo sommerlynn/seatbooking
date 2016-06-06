@@ -34,7 +34,17 @@ router.get('/building/:openid', function (req, res) {
             });
         } else {
 
-            models.classroomModel.getAll(userInfo.school_id, function (err, classroomList) {
+            models.classroomModel.getNormalBuilding(userInfo.school_id, function (err, zones) {
+                res.render('./seat/buildingView',
+                    {
+                        ip: req.query.ip,
+                        openid: req.params.openid,
+                        title: '自习座位',
+                        zones: zones
+                    });
+            });
+            
+            /*models.classroomModel.getAll(userInfo.school_id, function (err, classroomList) {
                 if (err) {
                     res.render('errorView', {
                         openid: req.params.openid,
@@ -52,7 +62,7 @@ router.get('/building/:openid', function (req, res) {
                             classroomList: classroomList
                         });
                 }
-            });
+            });*/
         }
     });
 

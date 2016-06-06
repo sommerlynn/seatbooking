@@ -246,7 +246,7 @@
                             <div class="item-inner">
                                 <div class="item-title label">区域</div>
                                 <div class="item-input">
-                                    <input type="text" placeholder="选择区域" id="type-picker" readonly="readonly">
+                                    <input type="text" placeholder="选择教学楼区域" id="zone-picker" readonly="readonly">
                                 </div>
                             </div>
                         </div>
@@ -265,6 +265,27 @@
         autoInit: true,
         router: false
     }
+
+    $("#type-picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+                          <button class="button button-link pull-left"></button>\
+                          <button class="button button-link pull-right close-picker">确定</button>\
+                          <h1 class="title">请选择您的身份类别</h1>\
+                          </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: [
+                    <% for (var i = 0; i < zones.length; i++){ %>
+                    '<%= zones[i] %>',
+                    <% } %>
+                    ]
+            }
+        ],
+        onClose: function () {
+
+        }
+    });
 </script>
 
 <!--<script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>

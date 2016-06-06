@@ -164,4 +164,23 @@ classroom.insertClassTimeItem = function (schoolID, classroomID, date, callback)
     });
 };
 
+/*
+* 获取普通教学楼列表（图书馆之外的）
+* 2016-06-06 CHEN PU 创建
+*
+* */
+classroom.getNormalBuilding = function (schoolID, callback) {
+    var selectQuery = 'select * from building where school_id = ? and status = 1 order by order_no',
+        selectParams = [schoolID];
+
+    db.executeQuery(selectQuery, selectParams, function(err, zones){
+        if(err){
+            callback(err);
+        }
+        else{
+            callback(null, zones);
+        }
+    });
+};
+
 module.exports = classroom;
