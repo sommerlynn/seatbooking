@@ -669,7 +669,13 @@ seat.getLogByDateType = function(classroomID, seatCode, dateType, callback){
     }
     var selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? and TO_DAYS(order_date) = TO_DAYS(?) order by log_time asc",
         params = [seatCode, classroomID, date];
-    db.executeQuery(selectQuery, params, callback);
+    db.executeQuery(selectQuery, params, function(err, results){
+        if(err){
+            callback(err);
+        }else{
+            callback(null, results);
+        }
+    });
 };
 
 seat.getLog = function(classroomID, seatCode, callback){
