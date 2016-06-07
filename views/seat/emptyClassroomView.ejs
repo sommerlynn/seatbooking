@@ -1,0 +1,462 @@
+<% include ../header.html %>
+<style>
+    .bar {
+        /*background-color: #FFFFFF;*/
+    }
+
+    .bar:after {
+        height: 0;
+        background-color: #1D2025;
+    }
+
+    .bar-tab:before {
+        /*background-color: #33475F;*/
+    }
+
+    .content {
+        /*background-color: #E7EEE6;*/
+        position: absolute;
+        /*top: 2.8rem;*/
+        top:0;
+    }
+
+    .content-block {
+        padding: 0;
+        margin: 0;
+    }
+
+    .list-block .item-content{
+        -webkit-justify-content:flex-start;
+        justify-content: flex-start;
+        padding-right: .75rem;
+    }
+
+    .list-block .item-media{
+        margin-right: .25rem;
+    }
+
+    .classroom-list {
+        margin: 0;
+        padding: 0;
+    }
+
+    .classroom-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .classroom-list ul li {
+        margin: 0.1rem 0 0 0;
+        background-color: #FFFFFF;
+        border-radius: 0 0 0.1rem 0.1rem;
+    }
+
+    .classroom-title {
+        line-height: 1.25rem;
+        font-family: 华文中宋;
+        border-radius: 0 0 0.1rem 0.1rem;
+        padding: 0.25rem 0.75rem;
+        color:#000000;
+    }
+
+
+    .status-nav {
+        font-size: 0.75rem;
+        margin: 0px auto;
+        padding: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        background-color: #FFFFFF;
+    }
+
+    .status-nav:after{
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        top: auto;
+        height: 1px;
+        width: 100%;
+        background-color: #33475F;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+    .status-row-cell {
+        width: 20%;
+        float: left;
+        text-align: center;
+        line-height: 1.25rem;
+    }
+
+    .status-row-item {
+        width: 20%;
+        float: left;
+        text-align: center;
+        line-height: 1.25rem;
+        padding: 0.25rem 0rem;
+        color: #79D9CF;
+    }
+
+    .status-row-spliter {
+        width: 20%;
+        float: left;
+        text-align: center;
+        line-height: 0.3rem;
+    }
+
+    .status-item{
+        line-height: 16px;
+        display: inline-block;
+    }
+
+    .status-icon{
+        height: 16px;
+        width: 16px;
+        margin: 0px;
+        float: left;
+        text-align: center;
+        outline: none;
+        font-size: 0.75em;
+        line-height:16px;
+        color: blue;
+
+        color: white;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        cursor: default;
+        margin: 0px auto;
+        padding: 0px;
+    }
+
+    .status-description{
+        color: #000000;
+        font-size: 0.75em;
+        height: 16px;
+        line-height: 16px;
+        margin: 0px 0px 0px 2px;
+    }
+
+    .seat-status{
+        padding: 0.3125rem 0;
+
+        z-index: 20;
+
+        list-style: none;
+        padding: 0;
+        text-align: center;
+    }
+
+
+    .seat-operation{
+        padding: 0.3125rem 0;
+
+        right:0;
+
+        z-index: 20;
+
+        list-style: none;
+        padding: 0;
+        text-align: center;
+    }
+
+    .operation-select{
+        display: inline-block;
+        padding: 0.1875rem 0.3125rem;
+        width: 3.75rem;
+        border: 0.0625rem solid #A00000;
+        color: #A00000;
+    }
+
+    .card-footer{
+        padding: 0rem 0.75rem;
+    }
+
+    .card-footer:before{
+        height: 0px;
+    }
+
+    .classroom-time-status{
+        margin: 0px auto;
+        padding: 0.25rem 0rem;
+    }
+
+    .cell-1{
+        background-color: #7C8489;
+    }
+
+    .cell-2{
+        background-color: #4FB3A4;
+    }
+
+    .cell-3{
+        background-color: #FF7073;
+    }
+
+    .cell-4{
+        background-color: #F5B977;
+    }
+
+    .cell-5{
+        background-color: #FDFC7F;
+    }
+
+    .section-checkbox-item{
+        width: 50%;
+        float: left;
+    }
+
+    .operation-card {
+        /*background-color: #E2E1D0;*/
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .operation {
+        display: inline-block;
+        line-height: 2.5rem;
+        height: 2.5rem;
+        text-align: center;
+    }
+
+    .operation {
+        width: 100%;
+    }
+
+    .operation-btn {
+        display: inline-block;
+        /*width: 3.75rem;*/
+        border: 0.0625rem solid #DCC6C6;
+        color: #A00000;
+        text-align: center;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        padding: 0rem .75rem;
+    }
+</style>
+<div class="page">
+    <!--<header class="bar bar-nav theme-dark">
+        <h1 class="title">教室导航</h1>
+    </header>-->
+
+    <!--<div class="status-nav">
+        <div class="status-row-cell cell-1">08:00</div>
+        <div class="status-row-cell cell-2">10:00</div>
+        <div class="status-row-cell cell-3">14:00</div>
+        <div class="status-row-cell cell-4">16:00</div>
+        <div class="status-row-cell cell-5">19:00</div>
+
+        <div class="status-row-spliter cell-1">-</div>
+        <div class="status-row-spliter cell-2">-</div>
+        <div class="status-row-spliter cell-3">-</div>
+        <div class="status-row-spliter cell-4">-</div>
+        <div class="status-row-spliter cell-5">-</div>
+
+        <div class="status-row-cell cell-1">10:00</div>
+        <div class="status-row-cell cell-2">12:00</div>
+        <div class="status-row-cell cell-3">16:00</div>
+        <div class="status-row-cell cell-4">18:00</div>
+        <div class="status-row-cell cell-5">21:00</div>
+    </div>-->
+
+    <!-- 工具栏 -->
+    <nav class="bar bar-tab">
+        <a class="tab-item active" id="buildingTab" href="/building/<%=openid%>" external>
+            <span class="icon icon-building"></span>
+            <span class="tab-label">自习座位</span>
+        </a>
+        <a class="tab-item" id="skyTab" href="/reading/<%=openid%>" external>
+            <span class="icon icon-book"></span>
+            <span class="tab-label">七玥书斋</span>
+        </a>
+        <a class="tab-item" id="meTab" href="/me/<%=openid%>" external>
+            <span class="icon icon-me"></span>
+            <span class="tab-label">我的</span>
+        </a>
+    </nav>
+    <div class="content">
+        <div class="content-block">
+            <div class="list-block cards-list" >
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">教学楼区域</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="选择教学楼区域" id="zone-picker" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="section-radio-group">
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section1_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">8:00 - 10:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section2_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">10:00 - 12:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section3_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">14:00 - 16:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section4_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">16:00 - 18:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section5_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">19:00 - 21:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0"></label>
+                    </li>
+                </ul>
+                <div class="operation-card">
+                    <div class="operation">
+                        <div class="operation-btn" id="search-btn">重新查找</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="classroom-list">
+                <ul>
+                    <% for ( var index = 0; index < classroomList.length; index++) { %>
+                    <li>
+                        <div class="classroom-title">
+                            <div class="classroom-name"><%= classroomList[index].area_name %> <%= classroomList[index].classroom_name %></div>
+                        </div>
+                        <!--<div class="classroom-time-status">
+                            <div class="status-row-item">空闲</div>
+                            <div class="status-row-item">空闲</div>
+                            <div class="status-row-item">空闲</div>
+                            <div class="status-row-item">空闲</div>
+                            <div class="status-row-item">空闲</div>
+                        </div>-->
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+<script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
+<script>
+    $.config = {
+        autoInit: true,
+        router: false
+    }
+
+    $(document).ready(function(){
+        $("#zone-picker")[0].value = '<%=zone%>';
+        var sectionStr = '<%= sectionStr%>';
+        for(var index = 0; index < sectionStr.length; index++){
+            if(sectionStr.charAt(index) == '0'){
+                var sectionID=index+1;
+                $('#section'+sectionID+'_chkBox')[0].checked = 1;
+            }
+        }
+    });
+
+    $("#zone-picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+                          <button class="button button-link pull-left"></button>\
+                          <button class="button button-link pull-right close-picker">确定</button>\
+                          <h1 class="title">请选择教学楼区域</h1>\
+                          </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: [
+                    <% for (var i = 0; i < zones.length; i++){ %>
+                    '<%= zones[i] %>',
+                    <% } %>
+                ]
+            }
+        ],
+        onClose:function(){
+
+        }
+    });
+
+    $(document).on('click', '#search-btn', function () {
+        var msg = new Array();
+        if(!$('#zone-picker')[0].value){
+            msg.push('请选择教学楼区域');
+        }
+        if(!$('#section1_chkBox')[0].checked &&
+                !$('#section2_chkBox')[0].checked &&
+                !$('#section3_chkBox')[0].checked &&
+                !$('#section4_chkBox')[0].checked &&
+                !$('#section5_chkBox')[0].checked){
+            msg.push('至少要选择一个时间段');
+        }
+        if(msg.length>0){
+            $.alert(msg.join('<br/>'),'请根据下面的提示修改之后再提交');
+        }else{
+            var sectionStr = '';
+            if($('#section1_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section2_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section3_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section4_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+            if($('#section5_chkBox')[0].checked){
+                sectionStr += '0';
+            }else{
+                sectionStr += '.';
+            }
+
+            window.location.assign('/emptyClassroom/'+'<%=schoolID%>'+'/'+$('#zone-picker')[0].value+'/'+sectionStr+'/'+'<%=openid%>');
+        }
+    });
+</script>
+<% include ../footer.html %>

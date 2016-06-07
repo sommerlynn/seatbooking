@@ -164,4 +164,35 @@ classroom.insertClassTimeItem = function (schoolID, classroomID, date, callback)
     });
 };
 
+/*
+* 获取普通教学楼列表（图书馆之外的）
+* 2016-06-06 CHEN PU 创建
+*
+* */
+classroom.getNormalBuilding = function (schoolID, callback) {
+    var selectQuery = 'select * from building_area where school_id = ? and status = 1 and area_name not like \'图书馆%\'order by order_no',
+        selectParams = [schoolID];
+
+    db.executeQuery(selectQuery, selectParams, function(err, zones){
+        if(err){
+            callback(err);
+        }
+        else{
+            callback(null, zones);
+        }
+    });
+};
+
+classroom.getEmptyClassroom = function (areaName, sectionStr, date, callback) {
+    var selectQuery = 'select * from classroom_time_view where area_name = ? and date = ? and section_arr regexp ? order by classroom_name',
+        selectParams = [areaName, date, sectionStr];
+    db.executeQuery(selectQuery, selectParams, function (err, classrooms) {
+       if(err){
+           callback(err);
+       } else{
+           callback(null, classrooms);
+       }
+    });
+};
+
 module.exports = classroom;

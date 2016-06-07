@@ -53,7 +53,7 @@ router.get('/oAuthGetInfo', function (req, res) {
                 }
             });*/
             weixinAPIClient.jsAPIClient.getUserInfo(openid, function (err, userInfo) {
-                if(userInfo.subscribe == 1){
+                /*if(userInfo.subscribe == 1){*/
                     models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
                         if (err) {
                             res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
@@ -61,9 +61,9 @@ router.get('/oAuthGetInfo', function (req, res) {
                             res.redirect(req.query.from + '/' + openid);
                         }
                     });
-                }else{
+                /*}else{
                     res.render('indexView', {openid: openid, title: '七玥校园', message: '请先关注七玥天使微信公众号。'});
-                }
+                }*/
             });
         }
     });
