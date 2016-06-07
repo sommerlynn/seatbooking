@@ -202,7 +202,7 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
 });
 
 router.post('/libraryClassroom/seat/log', function(req, res) {
-    models.seatModel.getLog(req.body.classroomID, req.body.seatCode, req.body.type, function (err, seatLogs) {
+    models.seatModel.getLogByDateType(req.body.classroomID, req.body.seatCode, req.body.type, function (err, seatLogs) {
         for(var index = 0; index < seatLogs.length; index++){
             seatLogs[index].log_time = seatLogs[index].log_time.toLocaleTimeString('en-US', {hour12:false});
         }
