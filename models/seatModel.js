@@ -662,10 +662,18 @@ seat.logBySpecificUser = function(orderID, openid, logType, logMsg, callback){
     });
 };
 
-seat.getLog = function(classroomID, seatCode, callback){
-    var selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? order by log_time asc",
-        params = [seatCode, classroomID];
+seat.getLogByDateType = function(classroomID, seatCode, dateType, callback){
+    var date = new Date();
+    if(dateType == 'tomorrow'){
+        date = new Date(date.getTime() + 24 * 60 * 60 * 1000);
+    }
+    var selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? and TO_DAYS(order_date) = TO_DAYS(?) order by log_time asc",
+        params = [seatCode, classroomID, date];
     db.executeQuery(selectQuery, params, callback);
+};
+
+seat.getLog = function(classroomID, seatCode, callback){
+    seat.getLogByDateType(classroomID, seatCode, 'today', callback);
 };
 
 module.exports = seat;
