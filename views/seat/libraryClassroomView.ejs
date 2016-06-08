@@ -493,7 +493,8 @@
                             $.post('/libraryClassroom/seat/log',
                                     {
                                         classroomID:'<%= cid %>',
-                                        seatCode:selectedSeatCode
+                                        seatCode:selectedSeatCode,
+                                        type:'<%= type %>'
                                     },
                                     function(response){
 
