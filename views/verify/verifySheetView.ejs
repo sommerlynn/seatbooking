@@ -260,12 +260,10 @@
                             function ()
                             {
                                 if($("#type-picker")[0].value == '老师'){
-                                    //$.showPreloader('获取科室列表...');
+                                    $.showPreloader('获取科室列表...');
                                 }else{
-                                    //$.showPreloader('获取班级列表...');
+                                    $.showPreloader('获取班级列表...');
                                 }
-                                $("#class-picker").data('picker', null);
-                                $("#class-picker")[0].value = '';
 
                                 $.post('class',
                                         {
@@ -273,7 +271,9 @@
                                         },
                                         function (response) {
                                             var classArray = response.split(',');
-                                            //$.hidePreloader();
+                                            $.hidePreloader();
+                                            $("#class-picker").data('picker', null);
+                                            $("#class-picker")[0].value = '';
                                             $("#class-picker").picker({
                                                 toolbarTemplate: '<header class="bar bar-nav">\
                                               <button class="button button-link pull-left"></button>\
@@ -292,7 +292,7 @@
                         });
                         }
                         catch (e){
-                            alert(e.stack);
+                            //alert(e.stack);
                         }
                     });
         }
