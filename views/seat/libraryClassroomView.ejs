@@ -214,8 +214,8 @@
     </nav>
     <div class="content">
         <div class="open-time-row">
-            <% if(openType = 1) {%>
-            <span>开馆时间</span><span><%= openTime %></span><span>闭馆时间</span><span><%= closeTime %></span>
+            <% if(openType == 1) {%>
+            <span style="margin-right: .5rem">开门:</span><span style="margin-right: .5rem"><%= openTime %></span><span style="margin-right: .5rem">关门:</span><span><%= closeTime %></span>
             <%} else{%>
             <span><%=msg%></span>
             <%}%>
