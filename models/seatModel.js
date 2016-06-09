@@ -126,8 +126,10 @@ seat.getOrderRelatedDateByDayType = function(classroomID, dayType, callback){
         var nextDayDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
         // 能执行到此步 正常情况下 openType 都应该是1 即教室是开放的
         classroom.getOpenTime(classroomID, nextDayDate, function(openType, openTime){
-            // 开馆半小时内
-            scheduleRecoverTime = new Date(openTime.getTime() + 0.5*60*60*1000);
+            if(openType == 1){
+                // 开馆半小时内
+                scheduleRecoverTime = new Date(openTime.getTime() + 0.5*60*60*1000);
+            }
         });
     } else {
         startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -135,7 +137,10 @@ seat.getOrderRelatedDateByDayType = function(classroomID, dayType, callback){
 
         classroom.getOpenTime(classroomID, nowDate, function(openType, openTime){
             // 开馆半小时内
-            scheduleRecoverTime = new Date(openTime.getTime() + 0.5*60*60*1000);
+            if(openType == 1){
+                // 开馆半小时内
+                scheduleRecoverTime = new Date(openTime.getTime() + 0.5*60*60*1000);
+            }
         });
 
         /*var supperTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 30, 0);

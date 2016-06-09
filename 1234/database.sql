@@ -196,7 +196,7 @@ ALTER VIEW seat_log_view AS
         ON seat_log.openid = user.openid
         LEFT JOIN area_classroom_view
         ON seat_log.classroom_id = area_classroom_view.classroom_id
-        WHERE TO_DAYS(log_time) = TO_DAYS(NOW())
+        WHERE TO_DAYS(NOW()) - TO_DAYS(log_time) <= 1
         ORDER BY log_time DESC, log_id DESC
 
 ALTER VIEW classroom_time_view AS
