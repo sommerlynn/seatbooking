@@ -3,7 +3,7 @@
     .content-block {
         margin: 0;
         padding: 0;
-        top: 2.2rem;
+        /*top: 2.2rem;*/
         position: relative;
     }
 
@@ -90,29 +90,34 @@
     </nav>
     <div class="content" style="background-color: #FFFFFF">
         <div class="content-block">
-            <div class="list-block cards-list">
-                <div class="content-block-title">
-                    <div class="item-media">
-                        <i class="icon icon-arbitration"></i>
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title">申请请求</div>
-                        <div><a href="/me/oldArbitration/<%= openid %>">已处理申诉 ></a></div>
-                    </div>
-                </div>
-
-                <% for(var index = 0; index < arbitrationList.length; index++) {%>
-                <li class="card" style="height: auto; background-color: #FFFFFF; ">
-                    <div class="card-content">
-                        <div class="card-content-inner"
-                             style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
-                            <%= arbitrationList[index].applier_name%> 提交了一个申诉请求, 申诉地点: <%= arbitrationList[index].classroom_full_name%> <%= arbitrationList[index].seat_code%>,
-                            申诉事由:<%= arbitrationList[index].description%>, 申诉时间: <%= arbitrationList[index].apply_date.toLocaleString('en-US', {hour12:false})%>
+            <ul id="seat_tickets">
+                <div class="list-block cards-list">
+                    <div class="content-block-title">
+                        <div class="item-media">
+                            <i class="icon icon-arbitration"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">申请请求</div>
+                            <div><a href="/me/oldArbitration/<%= openid %>">已处理申诉 ></a></div>
                         </div>
                     </div>
-                </li>
-                <%}%>
-            </div>
+
+                    <% for(var index = 0; index < arbitrationList.length; index++) { %>
+                    <li class="card" style="height: auto; background-color: #FFFFFF; ">
+                        <div class="card-content">
+                            <div class="card-content-inner"
+                                 style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
+                                <%= arbitrationList[index].applier_name %> 提交了一个申诉请求,
+                                申诉地点: <%= arbitrationList[index].classroom_full_name %> <%= arbitrationList[index].seat_code %>
+                                ,
+                                申诉事由:<%= arbitrationList[index].description %>,
+                                申诉时间: <%= arbitrationList[index].apply_date.toLocaleString('en-US', {hour12: false}) %>
+                            </div>
+                        </div>
+                    </li>
+                    <% } %>
+                </div>
+            </ul>
         </div>
     </div>
 </div>
