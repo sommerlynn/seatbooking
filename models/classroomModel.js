@@ -24,6 +24,38 @@ classroom.getByID = function (classroomID, callback) {
     db.executeQuery(selectQuery, params, callback);
 };
 
+/**
+ * 获取教室的开放时间
+ * 2016-06-09 CHEN PU 创建
+ *
+ * */
+classroom.getOpenTime = function(classroomID, date, callback){
+    var selectQuery = 'select * from classroom_holiday_time where classroom_id = ? and holiday_date = ?',
+        selectParams = [classroomID, date];
+    db.executeQuery(selectQuery, selectParams, function(err, classroomHoliday){
+       if(classroomHoliday.length > 0)
+       {
+           callback(classroomHoliday[0].open_type, classroomHoliday[0].open_time);
+       }
+       else
+       {
+           selectQuery = 'select * from classroom where classroom_id = ?';
+           selectParams = [classroomID];
+           db.executeQuery(selectQuery, selectParams, function(err, classroom){
+                // 周末
+                if(date.getDay() == 0 || date.getDay() == 6)
+                {
+                    callback(1, classroom[0].weekend_open_time);
+                }
+                else
+                {
+                    callback(1, classroom[0].open_time);
+                }
+           });
+       }
+    });
+};
+
 classroom.getByAreaID = function (areaID, callback) {
     var selectQuery = "select * from classroom_today_order_detail_view where area_id = ? and classroom_status = 1 order by classroom_name",
         params = [areaID];

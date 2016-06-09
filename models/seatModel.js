@@ -4,7 +4,8 @@
 
 var seat = {},
     db = require('./db'),
-    weixinMessage = require('./weixinMessageModel');
+    weixinMessage = require('./weixinMessageModel'),
+    classroom = require('./classroomModel');
 
 /**
  * 2016-04-24: CHEN PU 新增逻辑 将时间逻辑从页面逻辑移到业务逻辑
@@ -109,25 +110,41 @@ var seat = {},
 /**
  * 根据日期类型（今天/明天）获取新增预约的开始时间、结束时间、座位系统预计回收时间
  * TODO: 当天预约 午餐时段、晚餐时段
- * 2016-04-28： CHEN Pu 从newOrder方法中抽取出来
+ * 2016-04-28：CHEN Pu 从newOrder方法中抽取出来
+ * 2016-06-09: CHEN PU 计划回收时间根据开馆时间来计算 开馆半小时内 同时考虑假期开馆时间
+ *                     预约当日座位只能在开馆时间半小时内
+ *
  * */
-seat.getOrderRelatedDateByDayType = function(dayType, callback){
+seat.getOrderRelatedDateByDayType = function(classroomID, dayType, callback){
     var startTime;
     var now = new Date();
     var scheduleRecoverTime =  new Date(now.getTime() + 30*60*1000);// 当天预约，需在半小时内到现场签到
     if (dayType == 'tomorrow') {
         var nextDay = new Date(now.getTime() + 24 * 60 * 60 * 1000);
         startTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
-        scheduleRecoverTime = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 8, 0, 0);
+
+        var nextDayDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
+        // 能执行到此步 正常情况下 openType 都应该是1 即教室是开放的
+        classroom.getOpenTime(classroomID, nextDayDate, function(openType, openTime){
+            // 开馆半小时内
+            scheduleRecoverTime = new Date(openTime.getTime() + 0.5*60*60*1000);
+        });
     } else {
         startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        var lunchTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0),
+        var nowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+        classroom.getOpenTime(classroomID, nowDate, function(openType, openTime){
+            // 开馆半小时内
+            scheduleRecoverTime = new Date(openTime.getTime() + 0.5*60*60*1000);
+        });
+
+        /*var supperTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 30, 0);
+            lunchTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0),
             lunchTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30, 0),
-            supperTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0),
-            supperTimeEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 30, 0);
+            supperTimeStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0),*/
 
         // 八点前预约的 系统回收时间统一定为8:00
-        if(now.getHours() < 8){
+        /*if(now.getHours() < 8){
             scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0);
         }
         else
@@ -137,11 +154,13 @@ seat.getOrderRelatedDateByDayType = function(dayType, callback){
         else
         if(now >= supperTimeStart && now <= supperTimeEnd){
             scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 0, 0);
-        }
+        }*/
     }
     var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
     callback(startTime, endTime, scheduleRecoverTime);
 };
+
+
 
 /**
 * 是否合法的图书馆座位预约申请，在图书馆各楼层间只能预约一个座位
@@ -295,7 +314,7 @@ seat.getOrder = function(orderID, callback){
  *
  * */
 seat.tryCreateLibraryOrder = function(dayType, openid, classroomID, seatCode, row, column, type, callback){
-    seat.getOrderRelatedDateByDayType(dayType, function(startTime, endTime, scheduleRecoverTime){
+    seat.getOrderRelatedDateByDayType(classroomID, dayType, function(startTime, endTime, scheduleRecoverTime){
         seat.isValidLibraryOrderRequest(openid, classroomID, seatCode, startTime, endTime, function(err){
             if(err)
             {
@@ -315,6 +334,7 @@ seat.tryCreateLibraryOrder = function(dayType, openid, classroomID, seatCode, ro
                         });
                 }
                 else if (type == 'scene'){
+                    // 现场选座
                     seat.chooseSetAtScene(openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime,
                         function(err, newOrderId){
                             if(err){
