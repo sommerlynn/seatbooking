@@ -128,7 +128,8 @@ seat.getOrderRelatedDateByDayType = function(classroomID, dayType, callback){
         classroom.getOpenTime(classroomID, nextDayDate, function(openType, openTime){
             if(openType == 1){
                 // 开馆半小时内
-                scheduleRecoverTime = new Date(nextDayDate.getFullYear(), nextDayDate.getMonth(), nextDayDate.getDate(), openTime.getHours(), openTime.getMinutes());
+                var openTimeArr = openTime.split(':');
+                scheduleRecoverTime = new Date(nextDayDate.getFullYear(), nextDayDate.getMonth(), nextDayDate.getDate(), openTimeArr[0], openTimeArr[1]);
                 scheduleRecoverTime = new Date(scheduleRecoverTime.getTime()+0.5*60*60*1000);
             }
         });
@@ -140,7 +141,8 @@ seat.getOrderRelatedDateByDayType = function(classroomID, dayType, callback){
             // 开馆半小时内
             if(openType == 1){
                 // 开馆半小时内
-                scheduleRecoverTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), openTime.getHours(), openTime.getMinutes());
+                var openTimeArr = openTime.split(':');
+                scheduleRecoverTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), openTimeArr[0], openTimeArr[1]);
                 scheduleRecoverTime = new Date(scheduleRecoverTime.getTime()+0.5*60*60*1000);
             }
         });
