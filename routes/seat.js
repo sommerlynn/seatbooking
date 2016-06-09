@@ -189,7 +189,7 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
                         orderDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
                     }
 
-                    models.seatModel.canOrder(classroom, orderDate, function(canOrder, msg, openTime, closeTime){
+                    models.seatModel.canOrder(req.params.openid, classroom, orderDate, function(canOrder, msg, openTime, closeTime){
                         res.render('./seat/libraryClassroomView', {
                             openid: req.params.openid,
                             title: classroom['full_name'],
