@@ -35,7 +35,7 @@ classroom.getOpenTime = function(classroomID, date, callback){
     db.executeQuery(selectQuery, selectParams, function(err, classroomHoliday){
        if(classroomHoliday.length > 0)
        {
-           callback(classroomHoliday[0].open_type, classroomHoliday[0].open_time);
+           callback(classroomHoliday[0].open_type, classroomHoliday[0].open_time, classroomHoliday[0].close_time, classroomHoliday[0].holiday_comment);
        }
        else
        {
@@ -45,11 +45,11 @@ classroom.getOpenTime = function(classroomID, date, callback){
                 // 周末
                 if(date.getDay() == 0 || date.getDay() == 6)
                 {
-                    callback(1, classroom[0].weekend_open_time);
+                    callback(1, classroom[0].weekend_open_time, classroom[0].weekend_close_time);
                 }
                 else
                 {
-                    callback(1, classroom[0].open_time);
+                    callback(1, classroom[0].open_time, classroom[0].close_time);
                 }
            });
        }
