@@ -131,6 +131,8 @@ seat.getOrderRelatedDateByDayType = function(classroomID, dayType, callback){
                 var openTimeArr = openTime.split(':');
                 scheduleRecoverTime = new Date(nextDayDate.getFullYear(), nextDayDate.getMonth(), nextDayDate.getDate(), openTimeArr[0], openTimeArr[1]);
                 scheduleRecoverTime = new Date(scheduleRecoverTime.getTime()+0.5*60*60*1000);
+                var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
+                callback(startTime, endTime, scheduleRecoverTime);
             }
         });
     } else {
@@ -144,6 +146,8 @@ seat.getOrderRelatedDateByDayType = function(classroomID, dayType, callback){
                 var openTimeArr = openTime.split(':');
                 scheduleRecoverTime = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), openTimeArr[0], openTimeArr[1]);
                 scheduleRecoverTime = new Date(scheduleRecoverTime.getTime()+0.5*60*60*1000);
+                var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
+                callback(startTime, endTime, scheduleRecoverTime);
             }
         });
 
@@ -165,8 +169,6 @@ seat.getOrderRelatedDateByDayType = function(classroomID, dayType, callback){
             scheduleRecoverTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 0, 0);
         }*/
     }
-    var endTime = new Date(startTime.getTime() + 24 * 60 * 60 * 1000);
-    callback(startTime, endTime, scheduleRecoverTime);
 };
 
 
