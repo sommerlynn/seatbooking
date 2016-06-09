@@ -113,6 +113,8 @@
 
     .open-time-row{
         text-align: center;
+        font-size:.75rem;
+        margin-bottom: .75rem;
     }
 
     .direction-row {
@@ -211,14 +213,14 @@
         </a>
     </nav>
     <div class="content">
+        <div class="open-time-row">
+            <% if(openType = 1) {%>
+            <span>开馆时间</span><span><%= openTime %></span><span>闭馆时间</span><span><%= closeTime %></span>
+            <%} else{%>
+            <span><%=msg%></span>
+            <%}%>
+        </div>
         <div id="content-wrapper">
-            <div class="open-time-row">
-                <% if(openType = 1) {%>
-                <span>开馆时间</span><span><%= openTime %></span><span>闭馆时间</span><span><%= closeTime %></span>
-                <%} else{%>
-                <span><%=msg%></span>
-                <%}%>
-            </div>
             <div class="direction-row">
                 <span class="icon icon-direction"></span><span><%= classroom.direction %></span>
             </div>

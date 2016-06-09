@@ -188,17 +188,17 @@ seat.canOrder = function (openid, classroomID, orderDate, callback) {
                         openTimeMore30Minutes = new Date(openTimeDate.getTime() + 0.5 * 60 * 60 * 1000);
                     var now = new Date();
                     if (now <= openTimeMore30Minutes) {
-                        callback(1, '', openTime, closeTime);
+                        callback(1, '', openType, openTime, closeTime);
                     } else {
-                        callback(0, '开馆半小时后需在现场选座, 不能在线预约当日座位。', openTime, closeTime);
+                        callback(0, '开馆半小时后需在现场选座, 不能在线预约当日座位。', openType, openTime, closeTime);
                     }
                 }
                 else{
-                    callback(0, holidayComment, openTime, closeTime);
+                    callback(0, holidayComment, openType, openTime, closeTime);
                 }
             }
             else{
-                callback(0, '你的信用分已被扣完, 不能再继续预约座位, 请到图书馆相关部门办理信用分恢复。', openTime, closeTime);
+                callback(0, '你的信用分已被扣完, 不能再继续预约座位, 请到图书馆相关部门办理信用分恢复。', openType, openTime, closeTime);
             }
         });
     });
