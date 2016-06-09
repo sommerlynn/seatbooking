@@ -111,6 +111,10 @@
 
     }
 
+    .open-time-row{
+        text-align: center;
+    }
+
     .direction-row {
         text-align: center;
         color: #A00000;
@@ -208,10 +212,16 @@
     </nav>
     <div class="content">
         <div id="content-wrapper">
+            <div class="open-time-row">
+                <% if(openType = 1) {%>
+                <span>开馆时间</span><span><%= openTime %></span><span>闭馆时间</span><span><%= closeTime %></span>
+                <%} else{%>
+                <span><%=msg%></span>
+                <%}%>
+            </div>
             <div class="direction-row">
                 <span class="icon icon-direction"></span><span><%= classroom.direction %></span>
             </div>
-
             <div id="seat-map">
                 <ul id="seat-list">
 
