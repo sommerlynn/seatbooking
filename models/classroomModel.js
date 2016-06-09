@@ -45,7 +45,12 @@ classroom.getOpenTime = function(classroomID, date, callback){
                 // 周末
                 if(date.getDay() == 0 || date.getDay() == 6)
                 {
-                    callback(1, classroom[0].weekend_open_time, classroom[0].weekend_close_time, '');
+                    if(classroom[0].weekend_open_time == null){
+                        callback(0, '', '', '此阅览室周末不开门');
+                    }
+                    else{
+                        callback(1, classroom[0].weekend_open_time, classroom[0].weekend_close_time, '');
+                    }
                 }
                 else
                 {
