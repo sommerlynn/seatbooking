@@ -45,11 +45,11 @@ classroom.getOpenTime = function(classroomID, date, callback){
                 // 周末
                 if(date.getDay() == 0 || date.getDay() == 6)
                 {
-                    callback(1, classroom[0].weekend_open_time, classroom[0].weekend_close_time);
+                    callback(1, classroom[0].weekend_open_time, classroom[0].weekend_close_time, '');
                 }
                 else
                 {
-                    callback(1, classroom[0].open_time, classroom[0].close_time);
+                    callback(1, classroom[0].open_time, classroom[0].close_time, '');
                 }
            });
        }
