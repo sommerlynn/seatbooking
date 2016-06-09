@@ -190,7 +190,7 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
                     }
                     models.seatModel.canOrder(req.params.openid, classroom.classroom_id, orderDate, function(canOrder, msg, openType, openTime, closeTime){
 
-                        if(canOrder){
+                        if(openType == 1){
                            var openTimeArr = openTime.split(':'),
                                closeTimeArr = closeTime.split(':');
                            openTime = openTimeArr[0]+':'+openTimeArr[1],
