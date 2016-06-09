@@ -395,60 +395,6 @@ router.get('/leave/:openid', function(req, res){
 });
 
 /**
- * 申请仲裁
- * 2016-05-15 CHEN PU 新建
- *
- *
- * */
-router.get('/arbitration/:openid', function(req, res){
-    var openid = req.params.openid;
-    models.userModel.getUser(openid, function(err, user){
-        models.classroomModel.getByType(user[0].school_id, '图书馆', function(err, classrooms){
-            var classroomIDArr = [],
-                classroomNameArr =[];
-            for(var index = 0; index < classrooms.length; index++){
-                /*classroomIDArr += ''+classrooms[index].classroom_id+'';
-                classroomNameArr += ''+classrooms[index].full_name+'';
-                if(index < classrooms.length -1){
-                    classroomIDArr += ',';
-                    classroomNameArr += ',';
-                }*/
-                classroomIDArr.push(classrooms[index].classroom_id);
-                classroomNameArr.push(classrooms[index].full_name);
-            }
-            res.render('./arbitration/arbitrationSheetView',
-                {
-                    title:'仲裁申请',
-                    openid:openid,
-                    classroomIDArr:classroomIDArr,
-                    classroomNameArr:classroomNameArr
-                }
-            );
-        });
-    });
-
-
-});
-
-/**
- * 提交仲裁
- * 2016-05-15 CHEN PU 新建
- * 2016-05-15 CHEN PU
- *
- * */
-router.post('/arbitration/submitInfo', function(req, res){
-    models.arbitrationModel.new(req.body.openid, req.body.classroomName, req.body.seatCode, req.body.description, function(err, result){
-        if(err)
-        {
-            res.send(err.message);
-        }
-        else{
-            res.send('你的仲裁申请已成功提交, 管理员会马上前来处理。七玥提醒你, 珍惜同学情谊, 快乐学习, 给彼此留下美好的回忆。');
-        }
-    });
-});
-
-/**
  * 历史座位
  *
  * */

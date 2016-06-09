@@ -205,6 +205,12 @@ ALTER VIEW classroom_time_view AS
         classroom_time.area_id = building_area.area_id
         LEFT JOIN classroom ON classroom_time.classroom_id = classroom.classroom_id
 
+ALTER VIEW arbitration_view AS
+        SELECT arbitration.*, appiler.real_name as applier_name, area_classroom_view.full_name as classroom_full_name
+        FROM arbitration LEFT JOIN user appiler ON
+        arbitration.applier_openid = appiler.openid
+        LEFT JOIN area_classroom_view ON
+        arbitration.classroom_id = area_classroom_view.classroom_id
 
 
 // 获取各教室今天的订座状态
