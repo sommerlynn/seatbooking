@@ -198,7 +198,7 @@ seat.canOrder = function (openid, classroomID, orderDate, callback) {
                 }
             }
             else{
-                callback(0, '你的文明分已被扣完, 不能再继续预约座位, 如需重新开通请到图书馆307房间办理。', openTime, closeTime);
+                callback(0, '你的信用分已被扣完, 不能再继续预约座位, 请到图书馆相关部门办理信用分恢复。', openTime, closeTime);
             }
         });
     });
