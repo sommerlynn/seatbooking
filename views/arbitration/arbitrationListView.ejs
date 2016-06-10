@@ -82,6 +82,10 @@
     .list-block .item-inner:after {
         height: 0px;
     }
+
+    span.important {
+        text-decoration: underline;
+    }
 </style>
 <div class="page">
     <nav class="bar bar-tab">
@@ -118,11 +122,11 @@
                         <div class="card-content">
                             <div class="card-content-inner"
                                  style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
-                                <%= arbitrationList[index].applier_name %> 提交了一个申诉请求,
-                                申诉地点: <%= arbitrationList[index].classroom_full_name %> <%= arbitrationList[index].seat_code %>
+                                <span class="important"><%= arbitrationList[index].applier_name %></span> 提交了一个申诉请求,
+                                <span class="important">申诉地点:</span> <%= arbitrationList[index].classroom_full_name %> <%= arbitrationList[index].seat_code %>
                                 ,
-                                申诉事由:<%= arbitrationList[index].description %>,
-                                申诉时间: <%= arbitrationList[index].apply_date.toLocaleString('en-US', {hour12: false}) %>
+                                <span class="important">申诉事由:</span><%= arbitrationList[index].description %>,
+                                <span class="important">申诉时间:</span><%= arbitrationList[index].apply_date.toLocaleString('en-US', {hour12: false}) %>
                             </div>
                         </div>
                     </li>
