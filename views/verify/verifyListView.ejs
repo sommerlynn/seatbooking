@@ -103,6 +103,32 @@
         /*margin-bottom: 0.55rem;*/
     }
 
+    .verify-content{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        display: -webkit-flex; /* Safari */
+        display: inline-flex;
+    }
+
+    .left_part {
+        width: 72%;
+        line-height: 1rem;
+        padding: 0.3125rem;
+        font-family: 华文中宋;
+
+        background-color: #FFFFFF;
+        float: left;
+    }
+
+    .right_part {
+        width: 28%;
+        padding: 0.55rem 0 0 0;
+        text-align: center;
+        background-color: #E2E1D0;
+        float: left;
+        border-left: 1px dashed #332331;
+    }
 </style>
 <div class="page">
     <nav class="bar bar-tab">
@@ -138,7 +164,7 @@
                     <li class="card" style="height: auto; background-color: #FFFFFF; margin: 0">
 
                         <div class="card-content">
-                            <ul class="seat-content">
+                            <ul class="verify-content">
                                 <li class="left_part" style="padding: 0">
                                     <%= users[index].real_name %>, <%= users[index].department_name %>, <%= users[index].class_name %>, <%= users[index].verify_date.toLocaleString('en-US', {hour12: false}) %>
                                 </li><li class="right_part">
