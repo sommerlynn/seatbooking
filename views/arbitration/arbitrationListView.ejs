@@ -109,15 +109,15 @@
         <a class="tab-item" id="buildingTab" href="/building/<%= openid %>"
            external>
             <span class="icon icon-building"></span>
-            <span class="tab-label">自习座位</span>
+            <span class="tab-label">座位状态</span>
         </a>
-        <a class="tab-item" id="skyTab" href="/reading/<%= openid %>" external>
-            <span class="icon icon-book"></span>
-            <span class="tab-label">七玥书斋</span>
+        <a class="tab-item active" id="skyTab" href="/arbitrationList/<%= openid %>" external>
+            <span class="icon icon-arbitration"></span>
+            <span class="tab-label">仲裁申请</span>
         </a>
-        <a class="tab-item active" id="meTab" href="/me/<%= openid %>" external>
+        <a class="tab-item" id="meTab" href="/verifyList/<%= openid %>" external>
             <span class="icon icon-me"></span>
-            <span class="tab-label">我的</span>
+            <span class="tab-label">实名认证</span>
         </a>
     </nav>
     <div class="content" style="background-color: #FFFFFF">

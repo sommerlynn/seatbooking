@@ -85,24 +85,14 @@
                   [
                      {
                          "type": "view",
-                         "name": "找座",
+                         "name": "状态",
                          "url":"http://campus.julyangel.cn/oAuth/1/building"
                      },
                      {
                          "type": "scancode_push",
-                         "name": "签到",
+                         "name": "代暂离",
                          "key": "rselfmenu_0_0",
                          "sub_button": [ ]
-                     },
-                     {
-                         "type": "view",
-                         "name": "暂离",
-                         "url":"http://campus.julyangel.cn/oAuth/1/leave"
-                     },
-                     {
-                         "type": "view",
-                         "name": "申请仲裁",
-                         "url":"http://campus.julyangel.cn/oAuth/1/arbitration"
                      }
                   ]
              },
