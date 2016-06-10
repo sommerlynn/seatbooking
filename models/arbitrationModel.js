@@ -23,7 +23,7 @@ arbitration.new = function(applier_openid, classroom_full_name, seat_code, descr
  */
 arbitration.listNew = function(openid, callback){
     var selectQuery = 'select * from arbitration_view where classroom_id in '+
-        '(select classroom_id from classroom_manager left join user on classroom_manager.user_id = user.user_id where openid = ? and status = 1)',
+        '(select classroom_id from classroom_manager left join user on classroom_manager.user_id = user.user_id where openid = ?) and status = 1',
         selectParams = [openid];
     db.executeQuery(selectQuery, selectParams, callback);
 };
