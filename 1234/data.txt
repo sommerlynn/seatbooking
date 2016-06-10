@@ -98,12 +98,12 @@
              },
              {
                   "type":"view",
-                  "name":"仲裁申请",
+                  "name":"仲裁处理",
                   "url":"http://campus.julyangel.cn/oAuth/1/arbitrationList"
              },
              {
                   "type":"view",
-                  "name":"实名认证",
+                  "name":"认证审核",
                   "url":"http://campus.julyangel.cn/oAuth/1/verifyList"
              }
              ],

@@ -216,7 +216,7 @@ router.get('/verifyDetail/:applierOpenid/:adminOpenid', function(req, res){
                         error: err
                     });
                 } else {
-                    res.render('./verify/infoView', {
+                    res.render('./verify/verifyDetailView', {
                         openid: req.params.adminOpenid,
                         weiJSConfig: weiJSConfig,
                         title: '身份信息',
