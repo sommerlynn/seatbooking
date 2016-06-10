@@ -30,7 +30,7 @@
                         <div class="item-inner">
                             <div class="item-title label">申诉人</div>
                             <div class="item-input">
-                                <%= arbitration[0].applier_name%>
+                                <%= arbitration.applier_name%>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <div class="item-inner">
                             <div class="item-title label">申诉时间</div>
                             <div class="item-input">
-                                <%= arbitration[0].apply_date.toLocaleString('en-US', {hour12:false})%>
+                                <%= arbitration.apply_date.toLocaleString('en-US', {hour12:false})%>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         <div class="item-inner">
                             <div class="item-title label">申诉地点</div>
                             <div class="item-input">
-                                <%= arbitration[0].classroom_full_name%> <%= arbitration[0].seat_code%>
+                                <%= arbitration.classroom_full_name%> <%= arbitration.seat_code%>
                             </div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         <div class="item-inner">
                             <div class="item-title label">申诉事由</div>
                             <div class="item-input">
-                                <%= arbitration[0].description%>
+                                <%= arbitration.description%>
                             </div>
                         </div>
                     </div>
