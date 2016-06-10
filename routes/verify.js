@@ -177,7 +177,10 @@ router.get('/me/info/:openid', function (req, res) {
     });
 });
 
-
+/**
+ * 待审核的用户列表
+ * 2016-06-10 CHEN PU 新建
+ */
 router.get('/verifyList/:openid', function(req, res){
     models.userModel.getWaitForConfirmList(function(err, users){
         res.render('./verify/verifyListView',
@@ -186,6 +189,42 @@ router.get('/verifyList/:openid', function(req, res){
                 title: '实名认证',
                 users:users
             });
+    });
+});
+
+/**
+ * 审核用户
+ * 2016-06-10 CHEN PU 新建
+ */
+router.get('/verifyDetail/:applierOpenid/:adminOpenid', function(req, res){
+    models.userModel.getUser(req.params.applierOpenid, function (err, userInfo) {
+        if (err) {
+            res.render('errorView', {
+                openid: req.params.adminOpenid,
+                title: '服务器故障',
+                message: '服务器故障',
+                error: err
+            });
+        } else {
+            var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
+            weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
+                if (err) {
+                    res.render('errorView', {
+                        openid: 'wxeec4313f49704ee2',
+                        title: '服务器故障',
+                        message: '服务器故障',
+                        error: err
+                    });
+                } else {
+                    res.render('./verify/infoView', {
+                        openid: req.params.adminOpenid,
+                        weiJSConfig: weiJSConfig,
+                        title: '身份信息',
+                        userInfo: userInfo[0]
+                    });
+                }
+            });
+        }
     });
 });
 

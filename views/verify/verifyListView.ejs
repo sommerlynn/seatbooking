@@ -142,11 +142,11 @@
         </a>
         <a class="tab-item" id="skyTab" href="/arbitrationList/<%= openid %>" external>
             <span class="icon icon-arbitration"></span>
-            <span class="tab-label">仲裁申请</span>
+            <span class="tab-label">仲裁处理</span>
         </a>
         <a class="tab-item active" id="meTab" href="/verifyList/<%= openid %>" external>
             <span class="icon icon-me"></span>
-            <span class="tab-label">实名认证</span>
+            <span class="tab-label">认证审核</span>
         </a>
     </nav>
     <div class="content" style="background-color: #FFFFFF">
@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="right_part">
                                     <div style="clear: both"></div>
-                                    <div class="operation" id="arbitrationDealWith_<%= users[index].openid %>">
+                                    <div class="operation" id="verifyOperation_<%= users[index].openid %>">
                                         认证
                                     </div>
                                 </div>
@@ -200,9 +200,9 @@
     }
 
     $(document).on('click', '.operation', function () {
-        var application_arr = this.id.split('_');
-        var application_id = application_arr[1];
-        window.location.assign('/arbitrationDealWith/' + application_id + '/' + '<%= openid %>')
+        var applier_arr = this.id.split('_');
+        var applier_openid = application_arr[1];
+        window.location.assign('/verifyDetail/' + applier_openid + '/' + '<%= openid %>')
     });
 </script>
 <% include ../footer.html %>
