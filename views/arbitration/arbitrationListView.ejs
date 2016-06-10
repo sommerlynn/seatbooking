@@ -129,7 +129,7 @@
                             <i class="icon icon-arbitration"></i>
                         </div>
                         <div class="item-inner">
-                            <div class="item-title">申请请求</div>
+                            <div class="item-title">申诉请求</div>
                             <div><a href="/me/oldArbitration/<%= openid %>">已处理申诉 ></a></div>
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                             <ul class="operation-list" style="width: 100%; margin: 0; padding: 0">
                                 <li class="operation">
                                     <span class="operation-deal-with"
-                                          id="dealWithArbitration_<%= arbitrationList[index].arbitration_id %>">处理
+                                          id="arbitrationDealWith/<%= arbitrationList[index].arbitration_id %>/<%= openid%>">处理
                                     </span>
                                 </li>
                             </ul>

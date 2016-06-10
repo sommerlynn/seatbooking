@@ -1,0 +1,101 @@
+<% include ../header.html %>
+<style>
+</style>
+<div class="page">
+    <header class="bar bar-nav">
+        <h1 class='title'>申诉处理</h1>
+    </header>
+    <nav class="bar bar-tab">
+        <a class="tab-item" id="buildingTab" href="/building/<%= openid %>"
+           external>
+            <span class="icon icon-building"></span>
+            <span class="tab-label">自习座位</span>
+        </a>
+        <a class="tab-item" id="skyTab" href="/reading/<%= openid %>" external>
+            <span class="icon icon-book"></span>
+            <span class="tab-label">七玥书斋</span>
+        </a>
+        <a class="tab-item active" id="meTab" href="/me/<%= openid %>" external>
+            <span class="icon icon-me"></span>
+            <span class="tab-label">我的</span>
+        </a>
+    </nav>
+    <div class="content">
+        <div class="list-block">
+            <ul>
+                <!-- Text inputs -->
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">申诉人</div>
+                            <div class="item-input">
+                                <%= arbitration[0].applier_name%>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">申诉时间</div>
+                            <div class="item-input">
+                                <%= arbitration[0].apply_date.toLocaleString('en-US', {hour12:false})%>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">申诉地点</div>
+                            <div class="item-input">
+                                <%= arbitration[0].classroom_full_name%> <%= arbitration[0].seat_code%>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">申诉事由</div>
+                            <div class="item-input">
+                                <%= arbitration[0].description%>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">处理结果</div>
+                            <div class="item-input">
+                                <textarea placeholder="处理结果" id="operate-comment-input"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="content-block">
+                <div class="row">
+                    <div class="col-50"><a href="/arbitrationList/<%=openid%>" class="button button-big button-fill button-danger">取消</a></div>
+                    <div class="col-50"><a href="#" class="button button-big button-fill button-success" id="submit-btn">提交</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script>
+    $.config = {
+        autoInit: true,
+        router: false
+    }
+</script>
+<% include ../footer.html %>

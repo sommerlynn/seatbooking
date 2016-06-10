@@ -28,4 +28,25 @@ arbitration.listNew = function(openid, callback){
     db.executeQuery(selectQuery, selectParams, callback);
 };
 
+/**
+ * 获取指定的申诉请求
+ * 2016-06-10： CHEN　PU 创建
+ * */
+arbitration.get = function(arbitrationID, callback){
+    var selectQuery = 'select * from arbitration_view where arbitration_id = ? ',
+        selectParams = [arbitrationID];
+    db.executeQuery(selectQuery, selectParams, callback);
+};
+
+/**
+ * 处理申诉请求
+ * 2016-06-10: CHEN PU 创建
+ *
+ * */
+arbitration.dealWith = function(arbitrationID, operatorOpenid, operationComment, callback){
+    var updateQuery = 'update arbitration set operator_openid = ?, operate_date = ?, operate_comment = ? where arbitration_id = ?',
+        updateParams = [operatorOpenid, new Date(), operationComment, arbitrationID];
+    db.executeQuery(updateQuery, updateParams, callback);
+};
+
 module.exports = arbitration;
