@@ -201,7 +201,7 @@
 
     $(document).on('click', '.operation', function () {
         var applier_arr = this.id.split('_');
-        var applier_openid = application_arr[1];
+        var applier_openid = applier_arr[1];
         window.location.assign('/verifyDetail/' + applier_openid + '/' + '<%= openid %>')
     });
 </script>
