@@ -1,5 +1,8 @@
 <% include ../header.html %>
 <style>
+    .list-block{
+        margin: 0;
+    }
 </style>
 <div class="page">
     <header class="bar bar-nav">
@@ -97,5 +100,19 @@
         autoInit: true,
         router: false
     }
+
+    $(document).on('click', '#submit-btn', function () {
+        $.showPreloader('亲,我们正在提交请求,请稍候...');
+        $.post('submitOperateComment',
+                {
+                    arbitrationID:'<%=arbitration.arbitration_id%>',
+                    operatorOpenid:'<%=openid%>',
+                    operationComment:$('#operate-comment-input')[0].value
+                },
+                function (response) {
+                    $.hidePreloader();
+                    $.alert(response);
+                });
+    });
 </script>
 <% include ../footer.html %>

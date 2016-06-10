@@ -44,7 +44,7 @@ arbitration.get = function(arbitrationID, callback){
  *
  * */
 arbitration.dealWith = function(arbitrationID, operatorOpenid, operationComment, callback){
-    var updateQuery = 'update arbitration set operator_openid = ?, operate_date = ?, operate_comment = ? where arbitration_id = ?',
+    var updateQuery = 'update arbitration set operator_openid = ?, operate_date = ?, operate_comment = ?, status = 2 where arbitration_id = ?',
         updateParams = [operatorOpenid, new Date(), operationComment, arbitrationID];
     db.executeQuery(updateQuery, updateParams, callback);
 };

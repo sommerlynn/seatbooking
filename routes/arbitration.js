@@ -91,4 +91,14 @@ router.get('/arbitrationDealWith/:arbitrationID/:openid', function(req, res){
     });
 });
 
+router.post('/arbitrationDealWith/submitOperateComment', function(req, res){
+    models.arbitrationModel.dealWith(req.body.arbitrationID, req.body.operatorOpenid, operationComment, function(err, result){
+        if(err){
+            res.send('亲，出错了额，请重试一下' + err.message);
+        }else{
+            res.send('亲，您的申请已提交');
+        }
+    });
+});
+
 module.exports = router;
