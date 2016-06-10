@@ -122,6 +122,12 @@
                     </div>
                 </li>
             </ul>
+            <div class="content-block">
+                <div class="row">
+                    <div class="col-50"><a href="/verifyList/<%=openid%>" class="button button-big button-fill button-danger">取消</a></div>
+                    <div class="col-50"><a href="#" class="button button-big button-fill button-success" id="submit-btn">通过</a></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -133,5 +139,18 @@
         autoInit: true,
         router: false
     }
+
+    $(document).on('click', '#submit-btn', function () {
+        $.showPreloader('亲,我们正在提交请求,请稍候...');
+        $.post('/verifyDetail/pass',
+                {
+                    applierOpenid:'<%=userInfo.openid%>',
+                    adminOpenid:'<%=openid%>'
+                },
+                function (response) {
+                    $.hidePreloader();
+                    $.alert(response);
+                });
+    });
 </script>
 <% include ../footer.html %>

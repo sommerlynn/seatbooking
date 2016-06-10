@@ -288,4 +288,43 @@ weixinMessage.recycleAsNotSetLeaveNotice = function(openid, schoolID, classroom,
     });
 };
 
+/**
+ * 通过实名认证时的提醒消息
+ * 2016-06-10: CHEN PU 创建
+ *
+ * */
+weixinMessage.passVerification = function(openid){
+    weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
+        var sendData = {
+            "touser":openid,
+            "template_id":"WNlYcFrQx_ilCcgf65fxE4kNGTQH0EOw0N8mawMN4T4",
+            "url":"http://campus.julyangel.cn/me/info/"+openid,
+            "data":{
+                "first":{
+                    "value":''
+                },
+                "keyword1":{
+                    "value":实名认证
+                },
+                "keyword2":{
+                    "value":(new Date()).toLocaleString('en-US', {hour12:false})
+                },
+                "keyword3":{
+                    "value":'已通过',
+                    "color":"#A00000"
+                }
+            }
+        };
+        var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
+        var options = {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            content: JSON.stringify(sendData)
+        };
+        urllib.request(url, options);
+    });
+};
+
 module.exports = weixinMessage;

@@ -3,7 +3,8 @@
  */
 
 var user = {},
-    db = require('./db');
+    db = require('./db'),
+    weixinMessage = require('./weixinMessageModel');
 
 user.getUser = function(openid, callback){
      var selectQuery = "select * from user_info_view where openid = ?",
@@ -48,6 +49,19 @@ user.getWaitForConfirmList = function(callback){
     var selectQuery = 'select * from user_info_view where status = 1'
         selectParams = [];
     db.executeQuery(selectQuery, selectParams, callback);
+};
+
+user.passVerification = function(appilerOpenid, adminOpenid, callback){
+   var updateQuery = 'update user set status = 2, approve_by = ?, approve_date = ? where openid = ?',
+       updateParams = [adminOpenid, new Date(), appilerOpenid];
+    db.executeQuery(updateQuery, updateParams, function(err, results){
+       if(err){
+           callback(err);
+       } else{
+           weixinMessage.passVerification(appilerOpenid);
+           callback(null, results);
+       }
+    });
 };
 
 module.exports = user;
