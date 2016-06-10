@@ -166,7 +166,9 @@
                         <div class="card-content">
                             <ul class="verify-content">
                                 <li class="left_part" style="padding: 0">
-                                    <%= users[index].real_name %>, <%= users[index].department_name %>, <%= users[index].class_name %>, <%= users[index].verify_date.toLocaleString('en-US', {hour12: false}) %>
+                                    <div class="date-row">
+                                        <%= users[index].real_name %>, <%= users[index].department_name %>, <%= users[index].class_name %>, <%= users[index].verify_date.toLocaleString('en-US', {hour12: false}) %>
+                                    </div>
                                 </li><li class="right_part">
                                     <div class="operation" id="arbitrationDealWith_<%= users[index].openid %>">
                                         认证
