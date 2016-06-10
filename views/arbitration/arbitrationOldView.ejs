@@ -70,6 +70,22 @@
         height: 0;
     }
 
+    .list-block li:after{
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        top: auto;
+        height: 1px;
+        width: 100%;
+        background-color: #EFEFF4;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
     .list-block .item-media {
         padding: 0;
     }
