@@ -103,7 +103,7 @@
         /*margin-bottom: 0.55rem;*/
     }
 
-    .verify-content{
+    .verify-content {
         width: 100%;
         margin: 0;
         padding: 0;
@@ -148,8 +148,8 @@
     </nav>
     <div class="content" style="background-color: #FFFFFF">
         <div class="content-block">
-            <ul style="padding: 0; margin: 0">
-                <div class="list-block cards-list">
+            <div class="list-block cards-list">
+                <ul style="padding: 0; margin: 0">
                     <div class="content-block-title">
                         <div class="item-media">
                             <i class="icon icon-arbitration"></i>
@@ -162,24 +162,27 @@
 
                     <% for(var index = 0; index < users.length; index++) { %>
                     <li class="card" style="height: auto; background-color: #FFFFFF; margin: 0">
-
                         <div class="card-content">
                             <ul class="verify-content">
                                 <li class="left_part" style="padding: 0">
                                     <div class="date-row">
-                                        <%= users[index].real_name %>, <%= users[index].department_name %>, <%= users[index].class_name %>, <%= users[index].verify_date.toLocaleString('en-US', {hour12: false}) %>
+                                        <%= users[index].real_name %>, <%= users[index].department_name %>
+                                        , <%= users[index].class_name %>
+                                        , <%= users[index].verify_date.toLocaleString('en-US', {hour12: false}) %>
                                     </div>
-                                </li><li class="right_part">
+                                </li>
+                                <li class="right_part">
                                     <div class="operation" id="arbitrationDealWith_<%= users[index].openid %>">
                                         认证
                                     </div>
                                 </li>
-                             </ul>
+                            </ul>
                         </div>
                     </li>
                     <% } %>
-                </div>
-            </ul>
+                </ul>
+            </div>
+
         </div>
     </div>
 </div>
@@ -195,7 +198,7 @@
     $(document).on('click', '.operation', function () {
         var application_arr = this.id.split('_');
         var application_id = application_arr[1];
-        window.location.assign('/arbitrationDealWith/'+application_id+'/'+'<%= openid%>')
+        window.location.assign('/arbitrationDealWith/' + application_id + '/' + '<%= openid %>')
     });
 </script>
 <% include ../footer.html %>
