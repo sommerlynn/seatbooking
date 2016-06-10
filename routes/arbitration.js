@@ -92,7 +92,7 @@ router.get('/arbitrationDealWith/:arbitrationID/:openid', function(req, res){
 });
 
 router.post('/arbitrationDealWith/submitOperateComment', function(req, res){
-    models.arbitrationModel.dealWith(req.body.arbitrationID, req.body.operatorOpenid, operationComment, function(err, result){
+    models.arbitrationModel.dealWith(req.body.arbitrationID, req.body.operatorOpenid, req.body.operationComment, function(err, result){
         if(err){
             res.send('亲，出错了额，请重试一下' + err.message);
         }else{
