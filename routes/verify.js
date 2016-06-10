@@ -219,7 +219,7 @@ router.get('/verifyDetail/:applierOpenid/:adminOpenid', function(req, res){
                     res.render('./verify/verifyDetailView', {
                         openid: req.params.adminOpenid,
                         weiJSConfig: weiJSConfig,
-                        title: '身份信息',
+                        title: '认证审核',
                         userInfo: userInfo[0]
                     });
                 }

@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="right_part">
                                     <div style="clear: both"></div>
-                                    <div class="operation" id="verifyOperation_<%= users[index].openid %>">
+                                    <div class="operation" id="<%= users[index].openid %>">
                                         认证
                                     </div>
                                 </div>
@@ -200,9 +200,7 @@
     }
 
     $(document).on('click', '.operation', function () {
-        var applier_arr = this.id.split('_');
-        var applier_openid = applier_arr[1];
-        window.location.assign('/verifyDetail/' + applier_openid + '/' + '<%= openid %>')
+        window.location.assign('/verifyDetail/' + this.id + '/' + '<%= openid %>')
     });
 </script>
 <% include ../footer.html %>
