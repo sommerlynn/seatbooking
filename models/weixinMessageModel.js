@@ -304,7 +304,7 @@ weixinMessage.passVerification = function(openid){
                     "value":''
                 },
                 "keyword1":{
-                    "value":实名认证
+                    "value":'实名认证'
                 },
                 "keyword2":{
                     "value":(new Date()).toLocaleString('en-US', {hour12:false})
