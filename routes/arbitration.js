@@ -82,7 +82,7 @@ router.get('/arbitrationList/:openid', function(req, res){
 
 router.get('/arbitrationDealWith/:arbitrationID/:openid', function(req, res){
     models.arbitrationModel.get(req.params.arbitrationID, function(err, arbitration){
-        res.render('./arbitration/arbitrationListView',
+        res.render('./arbitration/arbitrationDealWithView',
             {
                 openid:req.params.openid,
                 title: '申诉处理',
