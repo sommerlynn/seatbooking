@@ -129,8 +129,8 @@
                             <i class="icon icon-arbitration"></i>
                         </div>
                         <div class="item-inner">
-                            <div class="item-title">仲裁请求</div>
-                            <div><a href="/arbitrationOld/<%= openid %>">已处理仲裁 ></a></div>
+                            <div class="item-title">已处理申诉</div>
+                            <div><a href="/arbitrationList/<%= openid %>">返回 ></a></div>
                         </div>
                     </div>
 
@@ -139,21 +139,14 @@
                         <div class="card-content">
                             <div class="card-content-inner"
                                  style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
-                                <span class="important"><%= arbitrationList[index].applier_name %></span> 提交了一个申诉请求,
-                                <span class="important">申诉地点:</span> <%= arbitrationList[index].classroom_full_name %> <%= arbitrationList[index].seat_code %>
-                                ,
-                                <span class="important">申诉事由:</span><%= arbitrationList[index].description %>,
-                                <span class="important">申诉时间:</span><%= arbitrationList[index].apply_date.toLocaleString('en-US', {hour12: false}) %>
+                                <span class="important">申诉信息:</span><%= arbitrationList[index].apply_date.toLocaleString('en-US', {hour12: false}) %>, <%= arbitrationList[index].applier_name %> ,
+                                <%= arbitrationList[index].classroom_full_name %> <%= arbitrationList[index].seat_code %>,
+                                <%= arbitrationList[index].description %>。
                             </div>
-                        </div>
-                        <div class="card-footer" style="text-align: center; margin: 0 auto; background-color: #E2E1D0">
-                            <ul class="operation-list" style="width: 100%; margin: 0; padding: 0">
-                                <li class="operation">
-                                    <span class="operation-deal-with"
-                                          id="arbitrationDealWith_<%= arbitrationList[index].arbitration_id %>">处理
-                                    </span>
-                                </li>
-                            </ul>
+                            <div class="card-content-inner"
+                                 style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
+                                <span class="important">处理信息:</span><%= arbitrationList[index].operate_date.toLocaleString('en-US', {hour12: false}) %>, <%= arbitrationList[index].operate_comment %>。
+                            </div>
                         </div>
                     </li>
                     <% } %>
@@ -170,11 +163,5 @@
         autoInit: true,
         router: false
     }
-
-    $(document).on('click', '.operation-deal-with', function () {
-        var application_arr = this.id.split('_');
-        var application_id = application_arr[1];
-        window.location.assign('/arbitrationDealWith/'+application_id+'/'+'<%= openid%>')
-    });
 </script>
 <% include ../footer.html %>

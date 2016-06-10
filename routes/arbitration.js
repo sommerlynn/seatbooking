@@ -69,28 +69,46 @@ router.post('/arbitration/submitInfo', function(req, res){
     });
 });
 
+/**
+ * 待处理仲裁申请
+ * 2016-06-10 CHEN PU 新建
+ *
+ *
+ * */
 router.get('/arbitrationList/:openid', function(req, res){
     models.arbitrationModel.listNew(req.params.openid, function(err, arbitrationList){
         res.render('./arbitration/arbitrationListView',
             {
                 openid:req.params.openid,
-                title: '申诉请求',
+                title: '仲裁请求',
                 arbitrationList:arbitrationList
             });
     });
 });
 
+/**
+ * 处理仲裁申请
+ * 2016-06-10 CHEN PU 新建
+ *
+ *
+ * */
 router.get('/arbitrationDealWith/:arbitrationID/:openid', function(req, res){
     models.arbitrationModel.get(req.params.arbitrationID, function(err, arbitration){
         res.render('./arbitration/arbitrationDealWithView',
             {
                 openid:req.params.openid,
-                title: '申诉处理',
+                title: '仲裁处理',
                 arbitration:arbitration[0]
             });
     });
 });
 
+/**
+ * 提交仲裁申请的处理结果
+ * 2016-06-10 CHEN PU 新建
+ *
+ *
+ * */
 router.post('/arbitrationDealWith/submitOperateComment', function(req, res){
     models.arbitrationModel.dealWith(req.body.arbitrationID, req.body.operatorOpenid, req.body.operationComment, function(err, result){
         if(err){
@@ -98,6 +116,40 @@ router.post('/arbitrationDealWith/submitOperateComment', function(req, res){
         }else{
             res.send('已成功提交');
         }
+    });
+});
+
+/**
+ * 处理仲裁申请
+ * 2016-06-10 CHEN PU 新建
+ *
+ *
+ * */
+router.get('/arbitrationDealWith/:arbitrationID/:openid', function(req, res){
+    models.arbitrationModel.get(req.params.arbitrationID, function(err, arbitration){
+        res.render('./arbitration/arbitrationDealWithView',
+            {
+                openid:req.params.openid,
+                title: '仲裁处理',
+                arbitration:arbitration[0]
+            });
+    });
+});
+
+/**
+ * 已处理仲裁申请
+ * 2016-06-10 CHEN PU 新建
+ *
+ *
+ * */
+router.get('/arbitrationOld/:openid', function(req, res){
+    models.arbitrationModel.listOld(req.params.openid, function(err, arbitrationList){
+        res.render('./arbitration/arbitrationDealWithView',
+            {
+                openid:req.params.openid,
+                title: '已处理仲裁',
+                arbitrationList:arbitrationList
+            });
     });
 });
 

@@ -29,6 +29,17 @@ arbitration.listNew = function(openid, callback){
 };
 
 /**
+ * 获取指定管理员所管理阅览室的已处理的申诉请求
+ * 2016-06-10： CHEN PU 创建
+ */
+arbitration.listOld = function(openid, callback){
+    var selectQuery = 'select * from arbitration_view where classroom_id in '+
+            '(select classroom_id from classroom_manager left join user on classroom_manager.user_id = user.user_id where openid = ?) and status <> 1',
+        selectParams = [openid];
+    db.executeQuery(selectQuery, selectParams, callback);
+};
+
+/**
  * 获取指定的申诉请求
  * 2016-06-10： CHEN　PU 创建
  * */
