@@ -144,7 +144,7 @@ router.get('/arbitrationDealWith/:arbitrationID/:openid', function(req, res){
  * */
 router.get('/arbitrationOld/:openid', function(req, res){
     models.arbitrationModel.listOld(req.params.openid, function(err, arbitrationList){
-        res.render('./arbitration/arbitrationDealWithView',
+        res.render('./arbitration/arbitrationOldView',
             {
                 openid:req.params.openid,
                 title: '已处理仲裁',
