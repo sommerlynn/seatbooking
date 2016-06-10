@@ -139,14 +139,14 @@
                         <div class="card-content">
                             <div class="card-content-inner"
                                  style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
-                                <%= user[index].real_name %>, <%= user[index].department_name %>, <%= user[index].class_name %>, <%= user[index].verify_date.toLocaleString('en-US', {hour12: false}) %>
+                                <%= users[index].real_name %>, <%= users[index].department_name %>, <%= users[index].class_name %>, <%= users[index].verify_date.toLocaleString('en-US', {hour12: false}) %>
                             </div>
                         </div>
                         <div class="card-footer" style="text-align: center; margin: 0 auto; background-color: #E2E1D0">
                             <ul class="operation-list" style="width: 100%; margin: 0; padding: 0">
                                 <li class="operation">
                                     <span class="operation-deal-with"
-                                          id="arbitrationDealWith_<%= user[index].openid %>">认证
+                                          id="arbitrationDealWith_<%= users[index].openid %>">认证
                                     </span>
                                 </li>
                             </ul>
