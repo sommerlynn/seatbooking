@@ -30,10 +30,24 @@ user.getManager = function(openid, callback){
     db.executeQuery(selectQuery, params, callback);
 };
 
+/**
+ * 验证码 防止同一链接被复用多次
+ *
+ * */
 user.setAngelCode = function(openid, angelcode, callback){
     var updateQuery = "update user set angelcode = ? where openid = ?",
         params = [angelcode, openid];
     db.executeQuery(updateQuery, params, callback);
+};
+
+/**
+ * 获取待审批的实名认证列表
+ *
+ * */
+user.getWaitForConfirmList = function(callback){
+    var selectQuery = 'select * from user_info_view where status = 1'
+        selectParams = [];
+    db.executeQuery(selectQuery, selectParams, callback);
 };
 
 module.exports = user;

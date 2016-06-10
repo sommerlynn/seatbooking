@@ -177,4 +177,16 @@ router.get('/me/info/:openid', function (req, res) {
     });
 });
 
+
+router.get('/verifyList/:openid', function(req, res){
+    models.userModel.getWaitForConfirmList(function(err, users){
+        res.render('./verify/verifyListView',
+            {
+                openid:req.params.openid,
+                title: '实名认证',
+                users:users
+            });
+    });
+});
+
 module.exports = router;
