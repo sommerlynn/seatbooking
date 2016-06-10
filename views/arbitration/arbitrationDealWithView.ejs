@@ -103,7 +103,7 @@
 
     $(document).on('click', '#submit-btn', function () {
         $.showPreloader('亲,我们正在提交请求,请稍候...');
-        $.post('submitOperateComment',
+        $.post('/arbitrationDealWith/submitOperateComment',
                 {
                     arbitrationID:'<%=arbitration.arbitration_id%>',
                     operatorOpenid:'<%=openid%>',
