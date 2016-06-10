@@ -136,20 +136,17 @@
 
                     <% for(var index = 0; index < users.length; index++) { %>
                     <li class="card" style="height: auto; background-color: #FFFFFF; margin: 0">
+
                         <div class="card-content">
-                            <div class="card-content-inner"
-                                 style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
-                                <%= users[index].real_name %>, <%= users[index].department_name %>, <%= users[index].class_name %>, <%= users[index].verify_date.toLocaleString('en-US', {hour12: false}) %>
-                            </div>
-                        </div>
-                        <div class="card-footer" style="text-align: center; margin: 0 auto; background-color: #E2E1D0">
-                            <ul class="operation-list" style="width: 100%; margin: 0; padding: 0">
-                                <li class="operation">
-                                    <span class="operation-deal-with"
-                                          id="arbitrationDealWith_<%= users[index].openid %>">认证
-                                    </span>
+                            <ul class="seat-content">
+                                <li class="left_part" style="padding: 0">
+                                    <%= users[index].real_name %>, <%= users[index].department_name %>, <%= users[index].class_name %>, <%= users[index].verify_date.toLocaleString('en-US', {hour12: false}) %>
+                                </li><li class="right_part">
+                                    <div class="operation" id="arbitrationDealWith_<%= users[index].openid %>">
+                                        认证
+                                    </div>
                                 </li>
-                            </ul>
+                             </ul>
                         </div>
                     </li>
                     <% } %>
@@ -167,7 +164,7 @@
         router: false
     }
 
-    $(document).on('click', '.operation-deal-with', function () {
+    $(document).on('click', '.operation', function () {
         var application_arr = this.id.split('_');
         var application_id = application_arr[1];
         window.location.assign('/arbitrationDealWith/'+application_id+'/'+'<%= openid%>')
