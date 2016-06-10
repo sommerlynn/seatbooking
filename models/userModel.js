@@ -51,14 +51,14 @@ user.getWaitForConfirmList = function(callback){
     db.executeQuery(selectQuery, selectParams, callback);
 };
 
-user.passVerification = function(appilerOpenid, adminOpenid, callback){
+user.passVerification = function(applierOpenid, adminOpenid, callback){
    var updateQuery = 'update user set status = 2, approve_by = ?, approve_date = ? where openid = ?',
-       updateParams = [adminOpenid, new Date(), appilerOpenid];
+       updateParams = [adminOpenid, new Date(), applierOpenid];
     db.executeQuery(updateQuery, updateParams, function(err, results){
        if(err){
            callback(err);
        } else{
-           weixinMessage.passVerification(appilerOpenid);
+           weixinMessage.passVerification(applierOpenid);
            callback(null, results);
        }
     });

@@ -229,7 +229,7 @@ router.get('/verifyDetail/:applierOpenid/:adminOpenid', function(req, res){
 });
 
 router.post('/verifyDetail/pass', function(req, res){
-    models.userModel.passVerification(req.body.appilerOpenid, req.body.adminOpenid, function(err, results){
+    models.userModel.passVerification(req.body.applierOpenid, req.body.adminOpenid, function(err, results){
         if(err){
             res.send('出错了额，请重试一下' + err.message);
         }else{
