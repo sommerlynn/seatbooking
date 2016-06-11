@@ -1,0 +1,44 @@
+<% include ../header.html %>
+<style>
+    .content{
+        /*background:url('/images/sky.jpeg') #FFFFFF;*/
+        max-width: 25rem;
+        margin: 0 auto;
+    }
+
+    .bg-img{
+        display: block;
+        width: 100%;
+    }
+</style>
+<div class="page">
+    <div class="content" id="content">
+        <img class="bg-img" src="/images/sky.jpeg">
+    </div>
+</div>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js' charset='utf-8'></script>
+<script>var Zepto = jQuery</script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.1.0.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/jquery.barrager.js' charset='utf-8'></script>
+<script>
+    $.config = {
+        autoInit: true,
+        router: false
+    }
+
+    var item={
+        img:'', //图片
+        info:'弹幕文字信息', //文字
+        href:'http://www.yaseng.org', //链接
+        close:false, //显示关闭按钮
+        speed:60, //延迟,单位秒,默认6
+        //bottom:70, //距离底部高度,单位px,默认随机
+        color:'#fff', //颜色,默认白色
+        old_ie_color:'#000000', //ie低版兼容色,不能与网页背景相同,默认黑色
+    }
+    $('#content').barrager(item);
+</script>
+<% include ../footer.html %>

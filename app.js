@@ -75,6 +75,9 @@ app.use('/', data);
 var arbitration = require('./routes/arbitration');
 app.use('/', arbitration);
 
+var desire = require('./routes/desire');
+app.use('/', desire);
+
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
   var err = new Error('Not Found');
