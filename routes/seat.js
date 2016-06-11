@@ -40,14 +40,27 @@ router.get('/building/:openid', function (req, res) {
                     zonesArr[index] = zones[index].area_name;
                 }
 
-                res.render('./seat/buildingView',
-                    {
-                        ip: req.query.ip,
-                        openid: req.params.openid,
-                        schoolID:userInfo[0].school_id,
-                        title: '自习座位',
-                        zones: zonesArr
-                    });
+                var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
+                weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
+                    if (err) {
+                        res.render('errorView', {
+                            openid: 'wxeec4313f49704ee2',
+                            title: '服务器故障',
+                            message: '服务器故障',
+                            error: err
+                        });
+                    }else{
+                        res.render('./seat/buildingView',
+                            {
+                                ip: req.query.ip,
+                                openid: req.params.openid,
+                                schoolID:userInfo[0].school_id,
+                                title: '自习座位',
+                                zones: zonesArr,
+                                weiJSConfig: weiJSConfig,
+                            });    
+                    }
+                });
             });
             
             /*models.classroomModel.getAll(userInfo.school_id, function (err, classroomList) {
