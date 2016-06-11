@@ -83,14 +83,18 @@
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.1.0.js' charset='utf-8'></script>
-<!--<script type='text/javascript' src='/scripts/jquery.barrager.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/jquery.barrager.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
-<script type='text/javascript' src='/scripts/ajax.js' charset='utf-8'></script>-->
+<script type='text/javascript' src='/scripts/ajax.js' charset='utf-8'></script>
 <script>
     $.config = {
         autoInit: true,
         router: false
     }
+
+    $("#order-operation").tap(function () {
+        $.openPanel('#desire-panel');
+    });
 
     /*var item={
         img:'', //图片
