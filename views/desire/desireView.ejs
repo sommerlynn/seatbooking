@@ -7,6 +7,23 @@
         margin: 0 auto;
     }
 
+    .photo{
+        position: fixed;
+        right: 1rem;
+        bottom: 4rem;
+        z-index: 1000;
+    }
+
+    .icon-photo{
+        color: #A00000;
+        font-size: 2.4rem;
+        display: block;
+    }
+
+    .photo-txt{
+        color: #A00000;
+    }
+
     .bg-img{
         display: block;
         width: 100%;
@@ -41,10 +58,10 @@
     }
 </style>
 <div class="page">
-    <nav class="bar bar-tab">
-        <div class="desire-input-wrapper"><input class="desire-input" type="text"/></div>
-        <div class="desire-submit">提交</div>
-    </nav>
+    <div class="photo" id="photo">
+        <i class="icon icon-photo"></i>
+        <span class="photo-txt">星语心愿</span>
+    </div>
     <div class="content" id="content">
         <!--<img class="bg-img" src="/images/sky.jpeg">-->
     </div>
