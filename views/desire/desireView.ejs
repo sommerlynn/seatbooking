@@ -20,12 +20,23 @@
     }
 
     .bar{
-        background-color: rgba(150, 115, 177, 0.2);
+        background-color: transparent;
+    }
+
+    .desire-input-wrapper{
+        padding: .2rem;
+    }
+
+    .desire-input{
+        border: 1px solid;
+        background: transparent;
+        height: 1.5rem;
+        width: 80%;
     }
 </style>
 <div class="page">
     <nav class="bar bar-tab">
-        <div class="desire-input"><input type="text"/></div>
+        <div class="desire-input-wrapper"><input class="desire-input" type="text"/></div>
         <div class="desire-submit">提交</div>
     </nav>
     <div class="content" id="content">
