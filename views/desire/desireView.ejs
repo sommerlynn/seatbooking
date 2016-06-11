@@ -10,10 +10,23 @@
         display: block;
         width: 100%;
     }
+
+    .bar-tab~.content{
+        bottom: 0;
+    }
+
+    .bar-tab{
+        line-height: 2.5rem;
+    }
+
+    .bar{
+        background-color: rgba(150, 115, 177, 0.2);
+    }
 </style>
 <div class="page">
     <nav class="bar bar-tab">
-        心愿
+        <div class="desire-input"><input type="text"/></div>
+        <div class="desire-submit">提交</div>
     </nav>
     <div class="content" id="content">
         <img class="bg-img" src="/images/sky.jpeg">
