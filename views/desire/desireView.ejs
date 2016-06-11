@@ -91,9 +91,8 @@
         autoInit: true,
         router: false
     }
-
-    $("#order-operation").tap(function () {
-        $.openPanel('#desire-panel');
+    $(document).on("click", "#photo", function() {
+        $.openPanel("#desire-panel");
     });
 
     /*var item={
