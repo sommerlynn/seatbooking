@@ -88,7 +88,7 @@
             <textarea class="desire-input" placeholder="心语星愿" id="desire-input"></textarea>
         </div>
         <div class="desire-btn-wrapper">
-            <div class="desire-submit">发布</div>
+            <div class="desire-submit" id="desire-submit">发布</div>
         </div>
     </div>
 </div>
@@ -112,6 +112,21 @@
 
     $(document).on("click", "#photo", function() {
         $.openPanel("#desire-panel");
+    });
+
+    $(document).on("click", "#desire-submit", function() {
+        $.showPreloader('心语星愿正在送达...');
+        $.post('/desire/submit',
+                {
+                    openid:'<%= openid%>',
+                    desireType:1,
+                    desireText:'',
+                    desireImage:''
+                },
+                function(response){
+                    $.hidePreloader();
+                    $.alert(response);
+                });
     });
 
     var item={
