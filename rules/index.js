@@ -132,6 +132,6 @@ module.exports = exports = function(webot){
         // 你也可以将这些 message 存入数据库
         log('unhandled message: %s', info.text);
         info.flag = true;
-        return '你的留言已收到，小七玥会尽快给你答复。';
+        return '你的留言已收到，七玥会尽快给你答复。';
     });
 };
