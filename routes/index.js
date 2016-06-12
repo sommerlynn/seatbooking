@@ -24,6 +24,15 @@ router.get('/oAuth/:schoolID/:from', function (req, res) {
 });
 
 /*
+ * 获取用户信息2
+ * 2016-04-12 CHEN PU 获取用户信息 第一步
+ * */
+router.get('/oAuth/:schoolID/:from/:source', function (req, res) {
+    var url = weixinAPIClient.oAuthClient.getAuthorizeURL('http://campus.julyangel.cn/oAuthGetInfo?from=' + req.params.from + '&schoolID=' + req.params.schoolID, '123', 'snsapi_userinfo');
+    res.redirect(url);
+});
+
+/*
  * 获取用户信息 CHEN PU 获取用户信息 第二步
  * 2016-05-10 CHEN PU 获取用户的订阅状态信息 (是否有意义?)
  *
