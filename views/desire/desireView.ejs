@@ -1,33 +1,103 @@
 <% include ../header.html %>
 <style>
     .content{
-        /*background:url('/images/sky.jpeg') #FFFFFF;*/
+        background:url('/images/sky.jpeg') #FFFFFF;
+        background-size: 100% 100%;
         max-width: 25rem;
         margin: 0 auto;
+    }
+
+    .photo{
+        position: fixed;
+        right: 1rem;
+        bottom: 1rem;
+        z-index: 1000;
+        text-align: center;
+    }
+
+    .icon-heart{
+        color: #A00000;
+        font-size: 2.4rem;
+        display: block;
+        line-height: 3rem;
+    }
+
+    .photo-txt{
+        padding: .2rem;
+        background-color: rgba(200,200,200,.5);
+        color: #A00000;
     }
 
     .bg-img{
         display: block;
         width: 100%;
     }
+
+    .bar-tab~.content{
+        bottom: 0;
+    }
+
+    .bar-tab{
+        line-height: 2.5rem;
+    }
+
+    .bar{
+        background-color: transparent;
+    }
+
+    .desire-input-wrapper{
+        padding: .2rem;
+    }
+
+    .desire-input{
+        border: 1px solid #475456;
+        background: transparent;
+        height: 7rem;
+        width: 100%;
+        color: #FFF;
+    }
+
+    .bar-tab:before{
+        display: none;
+    }
 </style>
 <div class="page">
+    <div class="photo" id="photo">
+        <i class="icon icon-heart"></i>
+        <span class="photo-txt">心语星愿</span>
+    </div>
     <div class="content" id="content">
-        <img class="bg-img" src="/images/sky.jpeg">
+        <!--<img class="bg-img" src="/images/sky.jpeg">-->
+    </div>
+</div>
+<div class="panel panel-right panel-reveal" id="desire-panel">
+    <div class="content-block">
+        <div class="desire-input-wrapper">
+            <textarea class="desire-input" placeholder="心语星愿" id="desire-input"></textarea>
+        </div>
     </div>
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js' charset='utf-8'></script>
-<script>var Zepto = jQuery</script>
+<!--<script type='text/javascript' src='//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js' charset='utf-8'></script>
+<script>var Zepto = jQuery</script>-->
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.1.0.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/jquery.barrager.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/ajax.js' charset='utf-8'></script>
 <script>
+
     $.config = {
         autoInit: true,
-        router: false
+        router: false,
+        swipePanel:"left",
+        swipePanelOnlyClose:false
     }
+
+    $(document).on("click", "#photo", function() {
+        $.openPanel("#desire-panel");
+    });
 
     var item={
         img:'', //图片

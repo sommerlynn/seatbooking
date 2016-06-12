@@ -71,7 +71,7 @@ router.post('/me/verifySheet/submitInfo', function (req, res) {
         } else {
             models.weixinMessageModel.uploadToQiniu(fileName, filePath, function (err, fileName, filePath) {
                 if (err) {
-                    res.send('哎呀, 出了点小故障, 我们再来一次好不好');
+                    res.send('哎呀, 出了点小故障, 我们再来一次好不好'+err.message);
                 } else {
                     var personType = 1;
                     if(req.body.type == '老师'){
