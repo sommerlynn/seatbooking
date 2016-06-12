@@ -45,6 +45,10 @@
         background-color: transparent;
     }
 
+    .bar-tab:before{
+        display: none;
+    }
+
     .desire-input-wrapper{
         padding: .2rem;
     }
@@ -57,8 +61,16 @@
         color: #FFF;
     }
 
-    .bar-tab:before{
-        display: none;
+    .desire-btn-wrapper{
+        text-align: center;
+    }
+
+    .desire-submit{
+        width: 3rem;
+        display: block;
+        margin: 0 auto;
+        background-color: #731905;
+        color: #FFFFFF;
     }
 </style>
 <div class="page">
@@ -74,6 +86,9 @@
     <div class="content-block">
         <div class="desire-input-wrapper">
             <textarea class="desire-input" placeholder="心语星愿" id="desire-input"></textarea>
+        </div>
+        <div class="desire-btn-wrapper">
+            <div class="desire-submit">发布</div>
         </div>
     </div>
 </div>

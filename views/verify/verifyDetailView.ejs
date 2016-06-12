@@ -150,6 +150,7 @@
                 function (response) {
                     $.hidePreloader();
                     $.alert(response);
+                    window.location.assign('/verifyList/'+'<%=openid%>'+'?t='+(new Date()).getMilliseconds());
                 });
     });
 </script>

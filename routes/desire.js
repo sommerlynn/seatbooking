@@ -17,4 +17,8 @@ router.get('/desire', function (req, res) {
         });
 });
 
+router.post('/desire/submit', function(req, res){
+
+});
+
 module.exports = router;

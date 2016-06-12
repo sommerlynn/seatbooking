@@ -212,6 +212,11 @@ ALTER VIEW arbitration_view AS
         LEFT JOIN area_classroom_view ON
         arbitration.classroom_id = area_classroom_view.classroom_id
 
+ALTER VIEW desire_view AS
+        SELECT user.*, desire.desire_id, desire.desire_type, desire.desire_text, desire.desire_image, desire.desire_date
+        FROM desire LEFT JOIN user on
+        desire.openid = user.openid
+
 
 // 获取各教室今天的订座状态
 SELECT area_classroom.*,
