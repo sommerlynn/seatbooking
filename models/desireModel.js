@@ -12,7 +12,7 @@ desire.listDesirePaged = function(schoolID, page, pageCount, callback){
 
 desire.newDesire = function (openid, desireType, desireText, desireImage, callback) {
     var insertQuery = "insert into desire (openid, desire_type, desire_text, desire_image, desire_date) values(?, ?, ?, ?, ?)",
-        insertParams = [openid, desireType, desireText, desireImage];
+        insertParams = [openid, desireType, desireText, desireImage, new Date()];
     db.executeQuery(insertQuery, insertParams, callback);
 };
 

@@ -14,7 +14,8 @@ models = {
     readingModel:require('./readingModel'),
     weixinClient:require('./weixinTicketModel'),
     workerModel:require('./workerModel'),
-    arbitrationModel:require('./arbitrationModel')
+    arbitrationModel:require('./arbitrationModel'),
+    desireModel:require('./desireModel')
 };
 
 module.exports = models;
