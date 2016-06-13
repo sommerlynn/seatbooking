@@ -453,7 +453,7 @@ seat.getOrderNeedToRecycle = function (callback) {
  *
  **/
 seat.getOrderNeedToNotice = function (callback) {
-    var selectQuery = "select * from user_seat_order_view where '+" +
+    var selectQuery = "select * from user_seat_order_view where " +
         "((schedule_recover_time < ? and schedule_recover_time > ?) || (schedule_recover_time < ? and schedule_recover_time > ?)) "+
         "and end_time > ? and (status = 1 or status = 3)",
         now = new Date(),
