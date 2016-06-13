@@ -80,20 +80,9 @@
      {
              "button":[
              {
-                  "name":"自习座位",
-                  "sub_button":
-                  [
-                     {
-                         "type": "view",
-                         "name": "学生入口",
-                         "url":"http://campus.julyangel.cn/oAuth/1/building"
-                     },
-                     {
-                         "type": "view",
-                         "name": "管理入口",
-                         "url":"http://campus.julyangel.cn/oAuth/1/0125"
-                     }
-                  ]
+                 "type":"view",
+                 "name":"座位管理",
+                 "url":"http://campus.julyangel.cn/oAuth/1/0125"
              },
              {
                   "type":"view",
@@ -110,3 +99,38 @@
                 "tag_id":"100"
              }
          }
+
+         超级管理员
+          {
+                      "button":[
+                      {
+                           "name":"自习座位",
+                           "sub_button":
+                           [
+                              {
+                                  "type": "view",
+                                  "name": "学生入口",
+                                  "url":"http://campus.julyangel.cn/oAuth/1/building"
+                              },
+                              {
+                                  "type": "view",
+                                  "name": "管理入口",
+                                  "url":"http://campus.julyangel.cn/oAuth/1/0125"
+                              }
+                           ]
+                      },
+                      {
+                           "type":"view",
+                           "name":"仲裁处理",
+                           "url":"http://campus.julyangel.cn/oAuth/1/arbitrationList"
+                      },
+                      {
+                           "type":"view",
+                           "name":"认证审核",
+                           "url":"http://campus.julyangel.cn/oAuth/1/verifyList"
+                      }
+                      ],
+                      "matchrule":{
+                         "tag_id":"101"
+                      }
+                  }
