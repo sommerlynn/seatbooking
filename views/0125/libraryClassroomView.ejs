@@ -2,59 +2,78 @@
 <style>
     .card {
         background-color: #A61000;
-        color: #ffffff;
+        color: #f7f7f8;
     }
 
+    .seat-status-card {
+        /*background-color: #f7f7f8;*/
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        display: -webkit-inline-flex; /* Safari */
+        display: inline-flex;
+        /*border-left: 4px solid #A00000;*/
+    }
+
+    .seat-status-card li {
+        display: inline-block;
+        line-height: 2.5rem;
+        height: 2.5rem;
+        text-align: center;
+    }
+
+    .seat-operation-card {
+        /*background-color: #E2E1D0;*/
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .seat-operation-card li {
+        display: inline-block;
+        line-height: 2.5rem;
+        height: 2.5rem;
+        text-align: center;
+    }
+
+    .seat-operation {
+        width: 100%;
+    }
+
+    .seat-opertion-btn {
+        display: inline-block;
+        width: 50%;
+        border: 0.0625rem solid #DCC6C6;
+        color: #A00000;
+        background-color: #f7f7f8;
+        text-align: center;
+        height: 1.5rem;
+        line-height: 1.5rem;
+    }
+
+
     .card-header {
+        padding: 0 .75rem;
         font-size: 0.6rem;
     }
+
 
     .card-content-inner {
         padding: 0.35rem;
         text-align: center;
     }
 
-    .card-footer {
-        color: #4C3517;
-        background-color: #EFD4D4;
+    .seat {
+        width: 50%;
     }
 
-    div.card-time:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: auto;
-        top: 0;
-        height: 1px;
-        width: 100%;
-        background-color: #924A4A;
-        display: block;
-        z-index: 15;
-        -webkit-transform-origin: 50% 100%;
-        transform-origin: 50% 100%;
+    .status {
+        width: 50%;
     }
 
-    div.card-time {
-        position: relative;
-        padding: 0.625rem 0;
-    }
-
-    div.card-time-header {
-        width: 20%;
-        float: left;
-        text-align: center;
-        font-size: 0.5rem;
-        color: #FFCEA6;
-    }
-
-    div.card-time-status {
-        width: 20%;
-        float: left;
-        text-align: center;
-        font-size: 0.5rem;
-        line-height: 1.25rem;
-        color: #FFCEA6;
-    }
 
     .bar {
         /*background-color: #FFFFFF;*/
@@ -104,13 +123,6 @@
         border-bottom: 1px solid #0894ec;
     }
 
-    .rules {
-        list-style-type: georgian;
-    }
-
-    .rule {
-
-    }
 
     .open-time-row{
         text-align: center;
@@ -255,34 +267,25 @@
 
 <div id="panel_right" class="panel panel-right panel-reveal" style="background-color: #1D2025">
     <div class="content-block">
-        <div id="seat_booked_card" class="list-block cards-list">
-            <% if ( canOrder ) {%>
-            <ul id="seat_tickets">
-                <li class="card">
-                    <div class="card-header">
-                        <div style="width: 50%">座位券</div>
-                        <% if (type == 'tomorrow') { %>
-                        <div style="width: 50%"><%= nextDay.toLocaleDateString() %></div>
-                        <% } else { %>
-                        <div style="width: 50%"><%= today.toLocaleDateString() %></div>
-                        <% } %>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-content-inner"><%= classroom['full_name'] %></div>
-                        <div class="card-content-inner"><span id="selectedSeatInfo"></span></div>
-                    </div>
-                    <div class="card-footer" id="order-operation">点击代设暂离</div>
-                </li>
-            </ul>
-            <%} else {%>
-
-            <div class="card" >
-                <div class="card-content">
-                    <div class="card-content-inner" style="line-height: 1.5rem; text-align: justify;"><%= msg %></div>
+         <div class="card">
+                <div class="card-header">
+                    <ul class="seat-status-card">
+                        <li class="seat">
+                            <span id="seat-no-span"></span>
+                        </li><li class="status">
+                            <span id="seat-status-span"></span>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-
-            <%}%>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                         <ul class="seat-operation-card">
+                             <li class="seat-operation">
+                                 <div class="seat-opertion-btn" id="admin-leave-btn">代暂离</div>
+                             </li>
+                         </ul>
+                    </div>
+                </div>
         </div>
         <ul id="seat_log_list" class="seat-log-list">
 
@@ -304,11 +307,12 @@
 <script type="text/javascript" src="/scripts/jquery.seat-charts.js?v=201605291810"></script>
 <script>
     var columnIndex = 1,
-            rowIndex = 1,
-            rowSeatIndex = 1,
-            selectedSeatRowID = 0,
-            selectedSeatColumnID = 0,
-            selectedSeatCode = '';
+        rowIndex = 1,
+        rowSeatIndex = 1,
+        selectedSeatRowID = 0,
+        selectedSeatColumnID = 0,
+        selectedSeatCode = '',
+        orderID = 0;
 
     $(document).ready(function () {
         var //$cart = $('#selected-seats'),
@@ -413,24 +417,16 @@
                             }
                         },
                     },
-                    /*legend: {
-                     //node : $('#legend'),
-                     items: [
-                     ['a', 'available16', '空座'],
-                     ['b', 'booked-seat-boy16', '已订（男生）'],
-                     ['g', 'booked-seat-girl16', '已订（女生）'],
-                     ['t', 'booked-seat-teaching16', '有课'],
-                     ]
-                     },*/
                     click: function () {
                         var selectedSeatID = this.node()[0].id;
                         selectedSeatCode = this.node()[0].children[2].innerText;
                         var selectedSeatInfo = selectedSeatID.split('_');
                         selectedSeatRowID = selectedSeatInfo[0];
                         selectedSeatColumnID = selectedSeatInfo[1];
+                        $("#seat-no-span").text(selectedSeatCode);
                         $.showPreloader('获取信息...');
 
-                        $.post('/libraryClassroom/seat/log',
+                        $.post('/0125/libraryClassroom/seat/status',
                                 {
                                     classroomID:'<%= cid %>',
                                     seatCode:selectedSeatCode,
@@ -438,9 +434,28 @@
                                 },
                                 function(response){
 
-                                    $('#seat_booked_card').css('display', 'none');
+                                    var responseArr = response.split('#'),
+                                        seatStatus =  responseArr[1];
+                                    orderID = responseArr[0];
+                                    if(seatStatus == 0){
+                                        $("#seat-status-span").text('空座');
+                                        $('.card-content').css('display', 'none');
+                                    }
+                                    if(seatStatus == 1){
+                                        $("#seat-status-span").text('预约');
+                                        $('.card-content').css('display', 'none');
+                                    }
+                                    if(seatStatus == 2){
+                                        $("#seat-status-span").text('签到');
+                                        $('.card-content').css('display', 'block');
+                                    }
+                                    if(seatStatus == 3){
+                                        $("#seat-status-span").text('暂离');
+                                        $('.card-content').css('display', 'none');
+                                    }
+
                                     $('#seat_log_list').css('display', 'block');
-                                    var logJson = JSON.parse(response);
+                                    var logJson = JSON.parse(responseArr[2]);
                                     $('.seat-log-wrapper').remove();
                                     for(var index = 0; index < logJson.length; index++){
                                         $('#seat_log_list').append("<li class='seat-log-wrapper'><ul class='seat-log'>" +
@@ -449,7 +464,6 @@
                                                 "<li class='log-msg'><span class='msg'>"+ logJson[index].log_msg +"</span></li>"+
                                                 '</ul></li>');
                                     }
-                                    /*$('#seat_log_list').text(response)*/
                                     $.hidePreloader();
                                     $.openPanel();
                                 });
@@ -468,31 +482,22 @@
         }
     });
 
-    $("#leave-operation").tap(function () {
+    $("#admin-leave-btn").tap(function () {
         if (selectedSeatRowID > 0 &&
                 selectedSeatColumnID > 0) {
-            $.showPreloader('提交预约申请...');
-            $.post('/seat/order', {
+            $.showPreloader('正在设置代暂离...');
+            $.post('/0125/libraryClassroom/seat/leave', {
                 openid: '<%= openid %>',
-                classroom: '<%= cid %>',
-                row: selectedSeatRowID,
-                column: selectedSeatColumnID,
-                seatCode: selectedSeatCode,
-                type: '<%= type %>'
+                orderID:orderID
             }, function (response) {
                 $.hidePreloader();
                 alert(response);
                 window.location.reload();
             });
-
         } else if (selectedSeatRowID == 0 ||
                 selectedSeatColumnID == 0) {
             $.alert('请用手指触摸选择您想预约的座位');
         }
-        else if (!$('#picker')[0].value) {
-            $.alert('请选择您计划的预约时间');
-        }
-
     });
 
 </script>

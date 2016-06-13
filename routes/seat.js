@@ -606,7 +606,7 @@ router.get('/scanseat/seatoperation', function(req, res){
             });
 
             // 检索该座位是否有人预约
-            models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, function (err, seatOrders) {
+            models.seatModel.checkOrderBySeatCode(req.query.cid, req.query.seat, 'today', function (err, seatOrders) {
                 // 有人预约
                 if (seatOrders.length > 0)
                 {

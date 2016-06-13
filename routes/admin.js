@@ -114,4 +114,38 @@ router.get('/0125/libraryClassroom/:cid/:openid', function(req, res){
     });
 });
 
+/**
+ * 管理员教室座位管理 获取座位状态
+ * 2016-06-13 CHEN PU 创建
+ *
+ * */
+router.post('/0125/libraryClassroom/seat/status', function(req, res) {
+    models.seatModel.checkOrderBySeatCode(req.body.classroomID, req.body.seatCode, req.body.type, function (err, seatOrders) {
+        var seatStatus = 0;
+        var orderID = 0;
+        if(seatOrders.length > 0){
+           seatStatus = seatOrders[0].status;
+           orderID = seatOrders[0].order_id;
+        }
+        models.seatModel.getLogByDateType(req.body.classroomID, req.body.seatCode, req.body.type, function (err, seatLogs) {
+            for (var index = 0; index < seatLogs.length; index++) {
+                seatLogs[index].log_time = (seatLogs[index].log_time.getMonth() + 1) + '-' + seatLogs[index].log_time.getDate() + ' ' + seatLogs[index].log_time.getHours() + ':' + seatLogs[index].log_time.getMinutes();
+                //seatLogs[index].log_time.toLocaleString('en-US', {hour12:false});
+            }
+            res.send(orderID+"#"+seatStatus+"#"+JSON.stringify(seatLogs));
+        });
+    });
+});
+
+/**
+ * 管理员教室座位管理 代暂离
+ * 2016-06-13 CHEN PU 创建
+ *
+ * */
+router.post('/0125/libraryClassroom/seat/leave', function(req, res) {
+    models.seatModel.leave(req.body.orderID, req.body.openid, false, function (err, scheduleRecoverDate) {
+        res.send('已成功设置代暂离');
+    });
+});
+
 module.exports = router;
