@@ -13,7 +13,7 @@ var express = require('express'),
 
 router.get('/0125/:openid', function(req, response){
     models.userModel.getUser(req.params.openid, function(err, user){
-        models.classroomModel.getAllActive(user[0].school_id, function (err, classroomList) {
+        models.classroomModel.getAllActiveLibrary(user[0].school_id, function (err, classroomList) {
             res.render('./0125/classroomListView', {
                 openid: req.params.openid,
                 title: '阅览室列表',
