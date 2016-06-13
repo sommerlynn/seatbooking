@@ -11,7 +11,7 @@ var express = require('express'),
     log = debug('index'),
     weixinAPIClient = models.weixinClient.getInstance('wxeec4313f49704ee2', '36012f4bbf7488518922ca5ae73aef8e');
 
-router.get('/0125/:openid', function(req, response){
+router.get('/0125/:openid', function(req, res){
     models.userModel.getUser(req.params.openid, function(err, user){
         models.classroomModel.getAllActiveLibrary(user[0].school_id, function (err, classroomList) {
             res.render('./0125/classroomListView', {
