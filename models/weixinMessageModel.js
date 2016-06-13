@@ -216,7 +216,7 @@ weixinMessage.leaveSeatNotice = function(openid, schoolID, classroom, seatCode, 
  * 2016-05-08 CHEN PU 创建
  * */
 weixinMessage.willRecycleNotice = function(openid, schoolID, classroom, seatCode, scheduleRecoverTime){
-    var remark = "你的座位将在"+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'回收, 请及时返回签到，若不能返回请在【我的】->【我的座位】退座，避免违规。';
+    var remark = "你的座位将在"+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'回收, 请及时返回签到，若不能返回请在【我的】->【我的座位】退座，避免违规。七玥天使提醒大家, 珍惜同窗情谊, 文明用座, 快乐学习。';
 
     weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
         var sendData = {
@@ -225,7 +225,7 @@ weixinMessage.willRecycleNotice = function(openid, schoolID, classroom, seatCode
             "url":"http://campus.julyangel.cn/oAuth/"+schoolID+'/me',
             "data":{
                 "first":{
-                    "value":remark
+                    "value":'你的座位即将到期，请及时扫码签到'
                 },
                 "keyword1":{
                     "value":classroom +' ' +seatCode
@@ -234,7 +234,7 @@ weixinMessage.willRecycleNotice = function(openid, schoolID, classroom, seatCode
                     "value":scheduleRecoverTime.toLocaleString('en-US', {hour12:false})
                 },
                 "remark":{
-                    "value":'七玥天使提醒大家, 珍惜同窗情谊, 文明用座, 快乐学习。',
+                    "value":remark,
                     "color":"#A00000"
                 }
             }

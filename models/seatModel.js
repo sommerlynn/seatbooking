@@ -453,11 +453,15 @@ seat.getOrderNeedToRecycle = function (callback) {
  *
  **/
 seat.getOrderNeedToNotice = function (callback) {
-    var selectQuery = "select * from user_seat_order_view where schedule_recover_time < ? and schedule_recover_time > ? and end_time > ? and (status = 1 or status = 3)",
+    var selectQuery = "select * from user_seat_order_view where '+" +
+        "((schedule_recover_time < ? and schedule_recover_time > ?) || (schedule_recover_time < ? and schedule_recover_time > ?)) "+
+        "and end_time > ? and (status = 1 or status = 3)",
         now = new Date(),
         tenMinutesLater = new Date(now.getTime()+10*60*1000),
-        eightMinutesLater = new Date(now.getTime()+8*60*1000),
-        params = [tenMinutesLater, eightMinutesLater, now];
+        nineMinutesLater = new Date(now.getTime()+9*60*1000),
+        threeMinutesLater = new Date(now.getTime()+3*60*1000),
+        twoMinutesLater = new Date(now.getTime()+2*60*1000),
+        params = [tenMinutesLater, nineMinutesLater, threeMinutesLater, twoMinutesLater, now];
     db.executeQuery(selectQuery, params, callback);
 };
 
