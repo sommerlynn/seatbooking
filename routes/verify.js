@@ -228,12 +228,32 @@ router.get('/verifyDetail/:applierOpenid/:adminOpenid', function(req, res){
     });
 });
 
+/**
+ * 通过实名认证
+ * 2016-06-13 CHEN PU 创建
+ * 
+ * */
 router.post('/verifyDetail/pass', function(req, res){
     models.userModel.passVerification(req.body.applierOpenid, req.body.adminOpenid, function(err, results){
         if(err){
             res.send('出错了额，请重试一下' + err.message);
         }else{
             res.send('已成功审批');
+        }
+    });
+});
+
+/**
+ * 驳回实名认证
+ * 2016-06-13 CHEN PU 创建
+ *
+ * */
+router.post('/verifyDetail/reject', function(req, res){
+    models.userModel.passVerification(req.body.applierOpenid, req.body.rejectMsg, function(err, results){
+        if(err){
+            res.send('出错了额，请重试一下' + err.message);
+        }else{
+            res.send('已成功驳回');
         }
     });
 });

@@ -51,6 +51,10 @@ user.getWaitForConfirmList = function(callback){
     db.executeQuery(selectQuery, selectParams, callback);
 };
 
+/**
+ * 通过用户审核
+ *
+ * */
 user.passVerification = function(applierOpenid, adminOpenid, callback){
    var updateQuery = 'update user set status = 2, approve_by = ?, approve_date = ? where openid = ?',
        updateParams = [adminOpenid, new Date(), applierOpenid];
@@ -61,6 +65,24 @@ user.passVerification = function(applierOpenid, adminOpenid, callback){
            weixinMessage.passVerification(applierOpenid);
            callback(null, results);
        }
+    });
+};
+
+/**
+ * 驳回用户审核
+ * 2016-06-13 CHEN PU 创建
+ *
+ * */
+user.rejectVerification = function(applierOpenid, rejectMsg, callback){
+    var updateQuery = 'update user set status = 0 where openid = ?',
+        updateParams = [applierOpenid];
+    db.executeQuery(updateQuery, updateParams, function(err, results){
+        if(err){
+            callback(err);
+        } else{
+            weixinMessage.passVerification(applierOpenid, rejectMsg);
+            callback(null, results);
+        }
     });
 };
 

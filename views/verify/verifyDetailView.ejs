@@ -124,7 +124,7 @@
             </ul>
             <div class="content-block">
                 <div class="row">
-                    <div class="col-50"><a href="/verifyList/<%=openid%>" class="button button-big button-fill button-danger">取消</a></div>
+                    <div class="col-50"><a href="#" class="button button-big button-fill button-danger" id="reject-btn">驳回</a></div>
                     <div class="col-50"><a href="#" class="button button-big button-fill button-success" id="submit-btn">通过</a></div>
                 </div>
             </div>
@@ -138,10 +138,26 @@
     $.config = {
         autoInit: true,
         router: false
-    }
+    };
+
+    $(document).on('click', '#reject-btn', function () {
+        $.prompt('驳回原因?', function (value) {
+            $.showPreloader('正在驳回,请稍候...');
+            $.post('/verifyDetail/reject',
+                    {
+                        applierOpenid:'<%=userInfo.openid%>',
+                        rejectMsg:value
+                    },
+                    function (response) {
+                        $.hidePreloader();
+                        $.alert(response);
+                        window.location.assign('/verifyList/'+'<%=openid%>'+'?t='+(new Date()).getMilliseconds());
+                    });
+        });
+    });
 
     $(document).on('click', '#submit-btn', function () {
-        $.showPreloader('亲,我们正在提交请求,请稍候...');
+        $.showPreloader('正在提交,请稍候...');
         $.post('/verifyDetail/pass',
                 {
                     applierOpenid:'<%=userInfo.openid%>',
