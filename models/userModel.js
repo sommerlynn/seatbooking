@@ -80,7 +80,7 @@ user.rejectVerification = function(applierOpenid, rejectMsg, callback){
         if(err){
             callback(err);
         } else{
-            weixinMessage.passVerification(applierOpenid, rejectMsg);
+            weixinMessage.rejectVerification(applierOpenid, rejectMsg);
             callback(null, results);
         }
     });

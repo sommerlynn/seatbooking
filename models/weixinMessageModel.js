@@ -372,7 +372,7 @@ weixinMessage.passVerification = function(openid){
  * 驳回实名认证时的提醒消息
  * 2016-06-13: CHEN PU 创建
  * */
-weixinMessage.passVerification = function(openid, rejectMsg){
+weixinMessage.rejectVerification = function(openid, rejectMsg){
     weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
         var sendData = {
             "touser":openid,

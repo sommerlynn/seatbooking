@@ -249,7 +249,7 @@ router.post('/verifyDetail/pass', function(req, res){
  *
  * */
 router.post('/verifyDetail/reject', function(req, res){
-    models.userModel.passVerification(req.body.applierOpenid, req.body.rejectMsg, function(err, results){
+    models.userModel.rejectVerification(req.body.applierOpenid, req.body.rejectMsg, function(err, results){
         if(err){
             res.send('出错了额，请重试一下' + err.message);
         }else{
