@@ -85,14 +85,13 @@
                   [
                      {
                          "type": "view",
-                         "name": "状态",
+                         "name": "学生入口",
                          "url":"http://campus.julyangel.cn/oAuth/1/building"
                      },
                      {
-                         "type": "scancode_push",
-                         "name": "代暂离",
-                         "key": "rselfmenu_0_0",
-                         "sub_button": [ ]
+                         "type": "view",
+                         "name": "管理入口",
+                         "url":"http://campus.julyangel.cn/oAuth/1/0125"
                      }
                   ]
              },

@@ -78,6 +78,9 @@ app.use('/', arbitration);
 var desire = require('./routes/desire');
 app.use('/', desire);
 
+var admin = require('./routes/admin');
+app.use('/', admin);
+
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
   var err = new Error('Not Found');

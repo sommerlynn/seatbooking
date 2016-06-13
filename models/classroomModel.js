@@ -12,6 +12,18 @@ classroom.getAll = function (schoolID, callback) {
     db.executeQuery(selectQuery, params, callback);
 };
 
+/**
+ * 获取所有活动的教室列表(status = 1)
+ * 2016-06-13 CHEN Pu 创建
+ *
+ * */
+classroom.getAllActiveLibrary = function (schoolID, callback) {
+    var selectQuery = "select * from area_classroom_view where area_status = 1 and school_id = ? and status = 1 and classroom_type_name = ?",
+        params = [schoolID, '图书馆'];
+    db.executeQuery(selectQuery, params, callback);
+};
+
+
 classroom.getByType = function (schoolID, type, callback) {
     var selectQuery = "select * from area_classroom_view where area_status = 1 and school_id = ? and classroom_type_name = ?",
         params = [schoolID, type];
