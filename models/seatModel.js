@@ -671,7 +671,7 @@ seat.sysReleaseAsNotSign = function (orderID, callback) {
         if (err) {
             callback(err);
         } else {
-            seat.logBySpecificUser(orderID, '0101010101', -2, '超时 系统回收', function (err) {
+            seat.logBySpecificUser(orderID, '0101010101', -2, '超时回收', function (err) {
                 if (err) {
                     callback(err);
                 } else {
