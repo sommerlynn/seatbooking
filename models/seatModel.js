@@ -438,9 +438,25 @@ seat.getActiveLibraryIncludeWaitQueue = function (openid, callback) {
     db.executeQuery(selectQuery, params, callback);
 };
 
+/**
+ * 需要释放的订单
+ *
+ * */
 seat.getOrderNeedToRecycle = function (callback) {
     var selectQuery = "select * from user_seat_order_view where schedule_recover_time < ? and end_time > ? and (status = 1 or status = 3)",
         params = [new Date(), new Date()];
+    db.executeQuery(selectQuery, params, callback);
+};
+
+/**
+ * 需要通知的订单
+ *
+ **/
+seat.getOrderNeedToNotice = function (callback) {
+    var selectQuery = "select * from user_seat_order_view where schedule_recover_time < ? and end_time > ? and (status = 1 or status = 3)",
+        now = new Date(),
+        tenMinutesLater = new Date(now.getTime()+10*60*1000),
+        params = [tenMinutesLater, now];
     db.executeQuery(selectQuery, params, callback);
 };
 

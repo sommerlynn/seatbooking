@@ -8,7 +8,8 @@ var schedule = require("node-schedule"),
     debug = require('debug'),
     log = debug('worker'),
     seatModel = require('./seatModel'),
-    classroomModel = require('./classroomModel');
+    classroomModel = require('./classroomModel'),
+    weixinMessageModel = require('./weixinMessageModel'),
     async = require('async');
 
 var seatRule = new schedule.RecurrenceRule();
@@ -42,7 +43,13 @@ schedule.scheduleJob(seatRule, function(){
                  });
                  });
                  });*/
+        });
+    });
 
+    seatModel.getOrderNeedToNotice(function (err, orders) {
+        async.forEachSeries(orders, function(item, callback){
+            weixinMessageModel.willRecycleNotice(item.openid, item.school_id, item.full_name, item.seat_code, item.schedule_recover_time);
+            callback(null);
         });
     });
 });

@@ -211,6 +211,47 @@ weixinMessage.leaveSeatNotice = function(openid, schoolID, classroom, seatCode, 
 };
 
 /**
+ * 提前十分钟发送即将回收座位的提醒
+ * https://mp.weixin.qq.com/advanced/tmplmsg?action=edit&id=sQoCHWBhCDTyO2eR0fgbghVWkSuPy1oBtwnxdNESNLY&token=223773654&lang=zh_CN
+ * 2016-05-08 CHEN PU 创建
+ * */
+weixinMessage.willRecycleNotice = function(openid, schoolID, classroom, seatCode, scheduleRecoverTime){
+    var remark = "你的座位将在"+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'回收, 请及时返回签到，若不能返回请在【我的】->【我的座位】退座，避免违规。';
+
+    weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
+        var sendData = {
+            "touser":openid,
+            "template_id":"zay1p-M3l6AB2w-PNudiUGf15B9hEfnzQr6A55Kk5rk",
+            "url":"http://campus.julyangel.cn/oAuth/"+schoolID+'/me',
+            "data":{
+                "first":{
+                    "value":remark
+                },
+                "keyword1":{
+                    "value":classroom +' ' +seatCode
+                },
+                "keyword2":{
+                    "value":scheduleRecoverTime.toLocaleString('en-US', {hour12:false})
+                },
+                "remark":{
+                    "value":'七玥天使提醒大家, 珍惜同窗情谊, 文明用座, 快乐学习。',
+                    "color":"#A00000"
+                }
+            }
+        };
+        var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
+        var options = {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            content: JSON.stringify(sendData)
+        };
+        urllib.request(url, options);
+    });
+};
+
+/**
 * 系统释放座位时发送的微信模板消息 （暂离、预约 未按时签到）
  *https://mp.weixin.qq.com/advanced/tmplmsg?action=edit&id=AcUdNRYIr2g2SKMF5yTcGbdW0Q3x_UE7f7fVyN8NFOU&token=1206403495&lang=zh_CN
  * 2016-05-11 CHEN PU 创建
