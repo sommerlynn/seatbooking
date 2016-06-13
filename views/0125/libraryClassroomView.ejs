@@ -1,0 +1,502 @@
+<% include ../header.html %>
+<style>
+    .card {
+        background-color: #A61000;
+        color: #ffffff;
+    }
+
+    .card-header {
+        font-size: 0.6rem;
+    }
+
+    .card-content-inner {
+        padding: 0.35rem;
+        text-align: center;
+    }
+
+    .card-footer {
+        color: #4C3517;
+        background-color: #EFD4D4;
+    }
+
+    div.card-time:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: auto;
+        top: 0;
+        height: 1px;
+        width: 100%;
+        background-color: #924A4A;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+    div.card-time {
+        position: relative;
+        padding: 0.625rem 0;
+    }
+
+    div.card-time-header {
+        width: 20%;
+        float: left;
+        text-align: center;
+        font-size: 0.5rem;
+        color: #FFCEA6;
+    }
+
+    div.card-time-status {
+        width: 20%;
+        float: left;
+        text-align: center;
+        font-size: 0.5rem;
+        line-height: 1.25rem;
+        color: #FFCEA6;
+    }
+
+    .bar {
+        /*background-color: #FFFFFF;*/
+    }
+
+    .bar:after {
+        height: 0;
+        background-color: #1D2025;
+    }
+
+    .bar-tab:before {
+        /*background-color: #33475F;*/
+    }
+
+    .content {
+        /*background-color: #7A9665;*/
+        padding: 1rem 0 0 0;
+        background-color: #E7E9ED;
+        top: 2rem;
+        bottom: 4rem;
+    }
+
+    .bar-tab ~ .content {
+        bottom: 4rem;
+        padding: 0;
+    }
+
+    div.date-nav {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        height: 2rem;
+    }
+
+    A.date-item {
+        width: 50%;
+        text-align: center;
+        height: 2rem;
+        line-height: 2rem;
+        color: #000000;
+        display: block;
+        position: relative;
+    }
+
+    .date-nav .active {
+        color: #00B7FF;
+        border-bottom: 1px solid #0894ec;
+    }
+
+    .rules {
+        list-style-type: georgian;
+    }
+
+    .rule {
+
+    }
+
+    .open-time-row{
+        text-align: center;
+        font-size:.75rem;
+        padding: .45rem 0;
+    }
+
+    .direction-row {
+        text-align: center;
+        color: #A00000;
+    }
+
+    .seat-log-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .seat-log {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .seat-log li {
+        display: table-cell;
+        line-height: 2rem;
+        height: 2rem;
+        text-align: center;
+        font-size: .75rem;
+    }
+
+    .user-header-img {
+        margin: 0 auto;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0px;
+        display: table-cell;
+    }
+
+    .user-header-img img {
+        vertical-align: middle;
+        border-radius: 10px;
+        margin: 0 .3rem;
+    }
+
+    .log-time {
+
+    }
+
+    span.time{
+        margin-right: .3rem;
+    }
+
+    .log-msg {
+    }
+</style>
+<div class="page">
+    <div class="date-nav">
+        <% if (type == 'tomorrow') { %>
+        <a href="?t=today" class="date-item">今天 <%= today.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
+        <a href="?t=tomorrow" class="active date-item">明天 <%= nextDay.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
+        <% } else { %>
+        <a href="?t=today" class="active date-item">今天 <%= today.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
+        <a href="?t=tomorrow" class="date-item">明天 <%= nextDay.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
+
+        <% } %>
+    </div>
+
+    <!-- 工具栏 -->
+    <nav class="bar bar-tab">
+        <a class="tab-item active" id="buildingTab" href="/building/<%= openid %>" external>
+            <span class="icon icon-building"></span>
+            <span class="tab-label">自习座位</span>
+        </a>
+        <a class="tab-item" id="skyTab" href="/reading/<%= openid %>" external>
+            <span class="icon icon-book"></span>
+            <span class="tab-label">七玥书斋</span>
+        </a>
+        <a class="tab-item" id="meTab" href="/me/<%= openid %>" external>
+            <span class="icon icon-me"></span>
+            <span class="tab-label">我的</span>
+        </a>
+    </nav>
+    <div class="content">
+        <div class="open-time-row">
+            <% if(openType == 1) {%>
+            <span style="margin-right: .5rem">开门:</span><span style="margin-right: .5rem"><%= openTime %></span><span style="margin-right: .5rem">关门:</span><span><%= closeTime %></span>
+            <%} else{%>
+            <span><%=msg%></span>
+            <%}%>
+        </div>
+        <div id="content-wrapper">
+            <div class="direction-row">
+                <span class="icon icon-direction"></span><span><%= classroom.direction %></span>
+            </div>
+            <div id="seat-map">
+                <ul id="seat-list">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="seatCharts-legend">
+        <ul class="seatCharts-legendList">
+            <li class="seatCharts-legendItem"><span
+                        class="seatCharts-seat-legend seatCharts-cell-legend icon icon-blank-seat-small"></span><span
+                        class="seatCharts-legendDescription">座位</span></li>
+            <li class="seatCharts-legendItem"><span
+                        class="seatCharts-seat-legend seatCharts-cell-legend icon icon-windows-small"></span><span
+                        class="seatCharts-legendDescription">窗子</span></li>
+            <li class="seatCharts-legendItem"><span
+                        class="seatCharts-seat-legend seatCharts-cell-legend icon icon-power-small"></span><span
+                        class="seatCharts-legendDescription">插座</span></li>
+            <li class="seatCharts-legendItem"><span
+                        class="seatCharts-seat-legend seatCharts-cell-legend icon icon-boy-booked-small"></span><span
+                        class="seatCharts-legendDescription">男生</span></li>
+            <li class="seatCharts-legendItem"><span
+                        class="seatCharts-seat-legend seatCharts-cell-legend icon icon-girl-booked-small"></span><span
+                        class="seatCharts-legendDescription">女生</span></li>
+        </ul>
+    </div>
+</div>
+
+<div id="panel_right" class="panel panel-right panel-reveal" style="background-color: #1D2025">
+    <div class="content-block">
+        <div id="seat_booked_card" class="list-block cards-list">
+            <% if ( canOrder ) {%>
+            <ul id="seat_tickets">
+                <li class="card">
+                    <div class="card-header">
+                        <div style="width: 50%">座位券</div>
+                        <% if (type == 'tomorrow') { %>
+                        <div style="width: 50%"><%= nextDay.toLocaleDateString() %></div>
+                        <% } else { %>
+                        <div style="width: 50%"><%= today.toLocaleDateString() %></div>
+                        <% } %>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-content-inner"><%= classroom['full_name'] %></div>
+                        <div class="card-content-inner"><span id="selectedSeatInfo"></span></div>
+                    </div>
+                    <div class="card-footer" id="order-operation">点击代设暂离</div>
+                </li>
+            </ul>
+            <%} else {%>
+
+            <div class="card" >
+                <div class="card-content">
+                    <div class="card-content-inner" style="line-height: 1.5rem; text-align: justify;"><%= msg %></div>
+                </div>
+            </div>
+
+            <%}%>
+        </div>
+        <ul id="seat_log_list" class="seat-log-list">
+
+        </ul>
+    </div>
+</div>
+
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
+<script type='text/javascript' src='/scripts/ajax.js' charset='utf-8'></script>
+<script>
+    $.config = {
+        autoInit: true,
+        router: false
+    }
+</script>
+<script type="text/javascript" src="/scripts/jquery.seat-charts.js?v=201605291810"></script>
+<script>
+    var columnIndex = 1,
+            rowIndex = 1,
+            rowSeatIndex = 1,
+            selectedSeatRowID = 0,
+            selectedSeatColumnID = 0,
+            selectedSeatCode = '';
+
+    $(document).ready(function () {
+        var //$cart = $('#selected-seats'),
+        // $counter = $('#counter'),
+        // $total = $('#total'),
+                sc = $('#seat-list').seatCharts({
+                    map: [
+                        <% for (var i = 0; i < map.length; i++){ %>
+                        '<%= map[i] %>',
+                        <% } %>
+                    ],
+                    seats: {
+                        a: {
+                            //price   : 100,
+                            classes: 'icon icon-blank-seat-large', //your custom CSS class
+                            category: 'normal-seat'
+                        },
+                        m: {
+                            classes: 'icon icon-window-power-large', //your custom CSS class
+                            category: 'windows-power'
+                        },
+                        t: {
+                            classes: 'booked-seat-teaching',
+                            category: 'booked-seat-teaching'
+                        },
+                        b: {
+                            classes: 'icon icon-girl-booked-large',
+                            category: 'booked-seat-girl'
+                        },
+                        B: {
+                            classes: 'icon icon-boy-booked-large',
+                            category: 'booked-seat-boy'
+                        },
+                        s: {
+                            classes: 'icon icon-girl-signed-large',
+                            category: 'booked-seat-girl'
+                        },
+                        S: {
+                            classes: 'icon icon-boy-signed-large',
+                            category: 'booked-seat-boy'
+                        },
+                        l: {
+                            classes: 'icon icon-girl-leaved-large',
+                            category: 'booked-seat-girl'
+                        },
+                        L: {
+                            classes: 'icon icon-boy-leaved-large',
+                            category: 'booked-seat-boy'
+                        },
+                        w: {
+                            classes: 'icon icon-windows-large',
+                            category: 'windows'
+                        },
+                        p: {
+                            classes: 'icon icon-power-large',
+                            category: 'power'
+                        },
+                        e: {
+                            classes: 'icon icon-empty',
+                            category: 'empty'
+                        }
+                    },
+                    naming: {
+                        // whether display cloumn header, true to display, false not to display
+                        // 是否显示列头行，true 显示， false 不显示
+                        top: false,
+                        // whether display row header, true to display, false not to display
+                        // 是否显示行头列，true 显示， false 不显示
+                        left: false,
+                        // 2015-12-26 CHEN PU: 重写座位编号算法为行号+列号
+                        getLabel: function (character, row, column) {
+                            if (row != 0) {
+                                if (row != rowIndex) {
+                                    rowIndex = row;
+                                    rowSeatIndex = 1;
+                                }
+                                if (row < 10) {
+                                    row = '0' + row;
+                                }
+                                else {
+                                    row = row + '';
+                                }
+
+                                if (character != 'w' &&
+                                    character != 'p' &&
+                                    character != 'e' &&
+                                    character != 'm') {
+                                    if (rowSeatIndex < 10) {
+                                        column = '0' + rowSeatIndex++;
+                                    }
+                                    else {
+                                        column = rowSeatIndex++ + '';
+                                    }
+
+                                    return row + column;
+                                } else {
+                                    return '';
+                                }
+                            }
+                            else {
+                                return '';
+                            }
+                        },
+                    },
+                    /*legend: {
+                     //node : $('#legend'),
+                     items: [
+                     ['a', 'available16', '空座'],
+                     ['b', 'booked-seat-boy16', '已订（男生）'],
+                     ['g', 'booked-seat-girl16', '已订（女生）'],
+                     ['t', 'booked-seat-teaching16', '有课'],
+                     ]
+                     },*/
+                    click: function () {
+                        var selectedSeatID = this.node()[0].id;
+                        selectedSeatCode = this.node()[0].children[2].innerText;
+                        var selectedSeatInfo = selectedSeatID.split('_');
+                        selectedSeatRowID = selectedSeatInfo[0];
+                        selectedSeatColumnID = selectedSeatInfo[1];
+                        $.showPreloader('获取信息...');
+
+                        $.post('/libraryClassroom/seat/log',
+                                {
+                                    classroomID:'<%= cid %>',
+                                    seatCode:selectedSeatCode,
+                                    type:'<%= type %>'
+                                },
+                                function(response){
+
+                                    $('#seat_booked_card').css('display', 'none');
+                                    $('#seat_log_list').css('display', 'block');
+                                    var logJson = JSON.parse(response);
+                                    $('.seat-log-wrapper').remove();
+                                    for(var index = 0; index < logJson.length; index++){
+                                        $('#seat_log_list').append("<li class='seat-log-wrapper'><ul class='seat-log'>" +
+                                                "<li class='user-header-img'><img width='20' height='20' src='"+ logJson[index].headimgurl.replace('/0','/46')+"'/></li>"+
+                                                "<li class='log-time'><span class='time'>"+logJson[index].log_time+"</span></li>"+
+                                                "<li class='log-msg'><span class='msg'>"+ logJson[index].log_msg +"</span></li>"+
+                                                '</ul></li>');
+                                    }
+                                    /*$('#seat_log_list').text(response)*/
+                                    $.hidePreloader();
+                                    $.openPanel();
+                                });
+
+                        return this.style();
+                    }
+                });
+
+
+        //根据手机屏幕自适应缩放
+        var clientWidth = document.documentElement.clientWidth;
+        var initialContentWidth = $('#content-wrapper').width();
+        if (initialContentWidth > clientWidth) {
+            $('#content-wrapper').attr('style', '-webkit-transform:scale(' + clientWidth / initialContentWidth + ');-webkit-transform-origin:top left;');
+            //$('front-indicator').width(clientWidth);
+        }
+    });
+
+    $("#leave-operation").tap(function () {
+        if (selectedSeatRowID > 0 &&
+                selectedSeatColumnID > 0) {
+            $.showPreloader('提交预约申请...');
+            $.post('/seat/order', {
+                openid: '<%= openid %>',
+                classroom: '<%= cid %>',
+                row: selectedSeatRowID,
+                column: selectedSeatColumnID,
+                seatCode: selectedSeatCode,
+                type: '<%= type %>'
+            }, function (response) {
+                $.hidePreloader();
+                alert(response);
+                window.location.reload();
+            });
+
+        } else if (selectedSeatRowID == 0 ||
+                selectedSeatColumnID == 0) {
+            $.alert('请用手指触摸选择您想预约的座位');
+        }
+        else if (!$('#picker')[0].value) {
+            $.alert('请选择您计划的预约时间');
+        }
+
+    });
+
+</script>
+
+<% include ../footer.html %>
+
+
