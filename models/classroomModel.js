@@ -18,7 +18,7 @@ classroom.getAll = function (schoolID, callback) {
  *
  * */
 classroom.getAllActiveLibrary = function (schoolID, callback) {
-    var selectQuery = "select * from area_classroom_view where area_status = 1 and school_id = ? and status = 1 and classroom_type_name = ?",
+    var selectQuery = "select * from area_classroom_view where area_status = 1 and school_id = ? and classroom_status = 1 and classroom_type_name = ?",
         params = [schoolID, '图书馆'];
     db.executeQuery(selectQuery, params, callback);
 };
