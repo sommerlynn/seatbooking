@@ -569,7 +569,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
     models.classroomModel.getByID(req.body.classroomID, function(err, classroom){
         var distance = support.distance(req.body.longitude, req.body.latitude, classroom[0].longitude, classroom[0].latitude);
         log('距离:'+distance);
-        if(distance <= 50000){
+        if(distance <= 500){
             var angelCode = support.random(5);
 
             models.userModel.setAngelCode(req.body.openid, angelCode, function(err, result){
@@ -578,7 +578,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
             });
         }
         else{
-            var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 不能进行该操作。 '};
+            var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 不能进行该操作, 如手机定位有问题请到图书馆307咨询老师。'};
             res.send(result);
         }
     });
