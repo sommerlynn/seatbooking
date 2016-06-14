@@ -650,7 +650,7 @@ seat.getLogByDateType = function (classroomID, seatCode, dateType, callback) {
     var today = new Date(),
         date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     if (dateType == 'tomorrow') {
-        date = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        date = new Date(date.getTime() + 24 * 60 * 60 * 1000);
     }
     var //selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? and TO_DAYS(order_date) = TO_DAYS(?) order by log_time asc",
         selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? and order_date = ? order by log_time asc",
