@@ -647,11 +647,13 @@ seat.logBySpecificUser = function (orderID, openid, logType, logMsg, callback) {
 };
 
 seat.getLogByDateType = function (classroomID, seatCode, dateType, callback) {
-    var date = new Date();
+    var today = new Date(),
+        date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     if (dateType == 'tomorrow') {
-        date = new Date(date.getTime() + 24 * 60 * 60 * 1000);
+        date = new Date(today.getTime() + 24 * 60 * 60 * 1000);
     }
-    var selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? and TO_DAYS(order_date) = TO_DAYS(?) order by log_time asc",
+    var //selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? and TO_DAYS(order_date) = TO_DAYS(?) order by log_time asc",
+        selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? and order_date = ? order by log_time asc",
         params = [seatCode, classroomID, date];
     db.executeQuery(selectQuery, params, function (err, results) {
         if (err) {
