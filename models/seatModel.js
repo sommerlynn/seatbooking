@@ -87,7 +87,7 @@ seat.canOrder = function (openid, classroomID, orderDate, callback) {
                             openTimeArr[0], openTimeArr[1]),
                         openTimeMore30Minutes = new Date(openTimeDate.getTime() + 0.5 * 60 * 60 * 1000);
                     var now = new Date();
-                    if (now <= openTimeMore30Minutes && now.getHours() >= 10) {
+                    if (now <= openTimeMore30Minutes && now.getHours() >= 22) {
                         callback(1, '', openType, openTime, closeTime);
                     } else {
                         callback(0, '当日至次日开馆半小时内可预约次日座位, 每日0:00 ~ 6:00不能进行预约。', openType, openTime, closeTime);
