@@ -4,7 +4,8 @@
 
 var classroom = {},
     db = require('./db'),
-    schoolModel = require('./schoolModel');
+    schoolModel = require('./schoolModel'),
+    async = require('async');
 
 classroom.getAll = function (schoolID, callback) {
     var selectQuery = "select * from area_classroom_view where area_status = 1 and school_id = ?",

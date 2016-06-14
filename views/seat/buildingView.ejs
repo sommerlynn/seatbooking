@@ -54,7 +54,7 @@
     }
 
     .list-block{
-        margin: .75rem 0;
+        margin: 0;
     }
 
     .list-block .item-content{
@@ -119,7 +119,7 @@
         display: block;
     }
 
-    .notice-wrapper{
+    .author-wrapper{
         padding: .25rem .75rem;
         text-align: right;
         position: absolute;
@@ -128,8 +128,21 @@
         background: rgba(200,200,200,.5);
     }
 
-    .notice{
+    .author{
         font-size: .5rem;
+        color:#000000;
+    }
+
+    .notice-wrapper{
+        padding: 0 .5rem .5rem .5rem;
+        /* text-align: right; */
+        width: 100%;
+        /* background: rgb(222, 139, 139); */
+        line-height: 1rem;
+    }
+
+    .notice{
+        font-size: .75rem;
         color:#000000;
     }
 </style>
@@ -155,8 +168,8 @@
     <div class="content">
         <div class="slide-img-wrapper">
             <img class="slide-img" src="/images/slide.jpg"/>
-            <div class="notice-wrapper">
-                <span class="notice">研控计1522班 刘虔 摄</span>
+            <div class="author-wrapper">
+                <span class="author">研控计1522班 刘虔 摄</span>
             </div>
         </div>
         <div class="content-block">
@@ -185,6 +198,9 @@
             </div>
 
             <div class="content-block-title">空教室查询</div>
+            <div class="notice-wrapper">
+                <div class="notice"><i class="icon icon-notice" style="color: #A20000;margin-right: .4rem;"></i>因四、六级考试, 教1、3、4, 主楼B、C自6月17日18:00 ~ 6月18日18:00 封闭, 请各位同学提前取走个人物品以免丢失, 并祝愿各位参加考试的同学顺利平安。</div>
+            </div>
             <div class="list-block cards-list" >
                 <!--<ul class="building-radio-group">
                     <li class="building-radio-item">

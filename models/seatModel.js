@@ -87,10 +87,10 @@ seat.canOrder = function (openid, classroomID, orderDate, callback) {
                             openTimeArr[0], openTimeArr[1]),
                         openTimeMore30Minutes = new Date(openTimeDate.getTime() + 0.5 * 60 * 60 * 1000);
                     var now = new Date();
-                    if (now <= openTimeMore30Minutes) {
+                    if (now <= openTimeMore30Minutes && now.getHours() >= 6) {
                         callback(1, '', openType, openTime, closeTime);
                     } else {
-                        callback(0, '开馆半小时后需在现场选座, 不能在线预约当日座位。', openType, openTime, closeTime);
+                        callback(0, '当日至次日开馆半小时内可预约次日座位, 每日0:00 ~ 6:00不能进行预约。', openType, openTime, closeTime);
                     }
                 }
                 else{
@@ -650,7 +650,7 @@ seat.getLogByDateType = function (classroomID, seatCode, dateType, callback) {
     var today = new Date(),
         date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     if (dateType == 'tomorrow') {
-        date = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        date = new Date(date.getTime() + 24 * 60 * 60 * 1000);
     }
     var //selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? and TO_DAYS(order_date) = TO_DAYS(?) order by log_time asc",
         selectQuery = "select * from seat_log_view where seat_code = ? and classroom_id = ? and order_date = ? order by log_time asc",
