@@ -5,78 +5,55 @@
         color: #ffffff;
     }
 
-    .card {
-        background-color: #A61000;
-        color: #f7f7f8;
-    }
-
-    .seat-status-card {
-        /*background-color: #f7f7f8;*/
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        width: 100%;
-        display: -webkit-inline-flex; /* Safari */
-        display: inline-flex;
-        /*border-left: 4px solid #A00000;*/
-    }
-
-    .seat-status-card li {
-        display: inline-block;
-        line-height: 2.5rem;
-        height: 2.5rem;
-        text-align: center;
-    }
-
-    .seat-operation-card {
-        /*background-color: #E2E1D0;*/
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        border: 0;
-    }
-
-    .seat-operation-card li {
-        display: inline-block;
-        line-height: 2.5rem;
-        height: 2.5rem;
-        text-align: center;
-    }
-
-    .seat-operation {
-        width: 100%;
-    }
-
-    .seat-opertion-btn {
-        display: inline-block;
-        width: 50%;
-        border: 0.0625rem solid #DCC6C6;
-        color: #A00000;
-        background-color: #f7f7f8;
-        text-align: center;
-        height: 1.5rem;
-        line-height: 1.5rem;
-    }
-
-
     .card-header {
-        padding: 0 .75rem;
         font-size: 0.6rem;
     }
-
 
     .card-content-inner {
         padding: 0.35rem;
         text-align: center;
     }
 
-    .seat {
-        width: 50%;
+    .card-footer {
+        color: #4C3517;
+        background-color: #EFD4D4;
     }
 
-    .status {
-        width: 50%;
+    div.card-time:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: auto;
+        top: 0;
+        height: 1px;
+        width: 100%;
+        background-color: #924A4A;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+    div.card-time {
+        position: relative;
+        padding: 0.625rem 0;
+    }
+
+    div.card-time-header {
+        width: 20%;
+        float: left;
+        text-align: center;
+        font-size: 0.5rem;
+        color: #FFCEA6;
+    }
+
+    div.card-time-status {
+        width: 20%;
+        float: left;
+        text-align: center;
+        font-size: 0.5rem;
+        line-height: 1.25rem;
+        color: #FFCEA6;
     }
 
     .bar {
@@ -135,9 +112,9 @@
 
     }
 
-    .open-time-row {
+    .open-time-row{
         text-align: center;
-        font-size: .75rem;
+        font-size:.75rem;
         padding: .45rem 0;
     }
 
@@ -186,7 +163,7 @@
 
     }
 
-    span.time {
+    span.time{
         margin-right: .3rem;
     }
 
@@ -238,12 +215,11 @@
     </nav>
     <div class="content">
         <div class="open-time-row">
-            <% if(openType == 1) { %>
-            <span style="margin-right: .5rem">开门:</span><span style="margin-right: .5rem"><%= openTime %></span><span
-                    style="margin-right: .5rem">关门:</span><span><%= closeTime %></span>
-            <% } else{ %>
-            <span><%= msg %></span>
-            <% } %>
+            <% if(openType == 1) {%>
+            <span style="margin-right: .5rem">开门:</span><span style="margin-right: .5rem"><%= openTime %></span><span style="margin-right: .5rem">关门:</span><span><%= closeTime %></span>
+            <%} else{%>
+            <span><%=msg%></span>
+            <%}%>
         </div>
         <div id="content-wrapper">
             <div class="direction-row">
@@ -279,8 +255,9 @@
 
 <div id="panel_right" class="panel panel-right panel-reveal" style="background-color: #1D2025">
     <div class="content-block">
-
-        <!--<ul id="seat_tickets">
+        <div id="seat_booked_card" class="list-block cards-list">
+            <% if ( canOrder ) {%>
+            <ul id="seat_tickets">
                 <li class="card">
                     <div class="card-header">
                         <div style="width: 50%">座位券</div>
@@ -296,32 +273,60 @@
                     </div>
                     <div class="card-footer" id="order-operation">仅限本人使用 点击领取</div>
                 </li>
-            </ul>-->
+            </ul>
+            <%} else {%>
 
-        <div class="card">
-            <div class="card-header">
-                <ul class="seat-status-card">
-                    <li class="seat">
-                        <span id="seat-no-span"></span>
-                    </li>
-                    <li class="status">
-                        <span id="seat-status-span"></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="card-content">
-                <div class="card-content-inner"  id="operation-content-wrapper">
-                    <ul class="seat-operation-card">
-                        <li class="seat-operation">
-                            <div class="seat-opertion-btn" id="order-btn">预约</div>
-                        </li>
-                    </ul>
+            <div class="card" >
+                <div class="card-content">
+                    <div class="card-content-inner" style="line-height: 1.5rem; text-align: justify;"><%= msg %></div>
                 </div>
-                <div class="card-content-inner" id="msg-content-wrapper" style="line-height: 1.5rem; text-align: justify;"><%= msg %></div>
             </div>
+
+            <%}%>
+
+            <p style="text-align: center"><b>《文明用座规范》</b></p>
+            <p>
+                1、<b>有效性:</b>  使用本系统需在【我的】进行实名认证， 未认证用户限10次预约权限，本系统的电子座位券为唯一有效使用凭证，以书占座或未扫码签到入座的均无效，其他读者可扫码获得座位有效使用权;
+            </p>
+            <p>
+                2、<b>信用分:</b> 每人初始拥有12分信用分，违规一次扣除相应分值，分值扣完时需到图书馆相关部门接受文明教育后办理信用恢复; 持续保持十次文明用座记录（当日未出现被系统回收座位记录且在座时间超过两小时算一次文明记录），奖励信用分1分;
+            </p>
+            <p>
+                3、<b>预约:</b> 当日至次日早晨开馆半小时内可预约次日座位，预约之后需在次日开馆半小时内扫描座位上的二维码进行签到，如不能到场，请及时在【我的】->【我的座位】进行退座。<b>过时未扫码签到，系统回收座位并扣除信用分1分</b>;
+            </p>
+            <p>
+                4、<b>现场选座:</b> 当日开馆半小时后，选当日座位的读者请在现场扫码选座;
+            </p>
+            <p>
+                5、<b>暂离:</b> 暂离时请扫码， 在规定时间内返回并扫码取消暂离。<b>过时未扫码取消暂离，系统回收座位并扣除信用分1分。</b>暂离时段规定如下:
+            </p>
+            <p>
+            <ul class="rules">
+                <li class="rule">午餐午休时段: 11:00 ~ 14:00 暂离， 需14:00 前扫码签到</li>
+                <li class="rule">晚餐洗浴时段: 17:00 ~ 19:00 暂离， 需19:00 前扫码签到</li>
+                <li class="rule">其它时段暂离， 需半小时内扫码签到</li>
+            </ul>
+            </p>
+            <p>
+                6、<b>违规离开:</b> 系统标识座位为“签到”状态， 而实际座位上无人时， 管理员或其他读者可扫码将此座设为“暂离”。暂离期限到，原座读者未返回，该座位由系统回收，其他读者可扫码获得此座使用权，<b>原座读者扣除信用分3分</b>;
+            </p>
+            <p>
+                7、<b>退座:</b> 座位不再使用时, 请扫码退座或在【我的座位】里退座，以方便其他读者选用。<b>未“退座”离开的属于“违规离开”，按“违规离开”处理；</b>
+            </p>
+
+            <p>
+                8、<b>仲裁:</b> 七玥请各位读者自觉遵守《规范》，珍惜同学缘分，文明使用座位，共享资源，快乐学习。当出现纠纷不能协调时，请使用本系统的【申请仲裁】， 管理员收到“申请仲裁”会及时到现场处理，请读者不要争执;
+            </p>
+            <p>
+                9、<b>关于试用:</b> 本学期此系统为试用期，试用区域为主馆三层和分馆三层，试用期间读者遇到任何问题可随时向公众号发送消息进行反映，我们期待你的意见和建议，共同营造轻松快乐的学习氛围。
+            </p>
+            <p>
+                <b>二零一六年六月十二日</b>
+            </p>
+            <p>
+                <b>华北电力大学图书馆</b>
+            </p>
         </div>
-
-
         <ul id="seat_log_list" class="seat-log-list">
 
         </ul>
@@ -431,9 +436,9 @@
                                 }
 
                                 if (character != 'w' &&
-                                        character != 'p' &&
-                                        character != 'e' &&
-                                        character != 'm') {
+                                    character != 'p' &&
+                                    character != 'e' &&
+                                    character != 'm') {
                                     if (rowSeatIndex < 10) {
                                         column = '0' + rowSeatIndex++;
                                     }
@@ -451,73 +456,112 @@
                             }
                         },
                     },
+                    /*legend: {
+                     //node : $('#legend'),
+                     items: [
+                     ['a', 'available16', '空座'],
+                     ['b', 'booked-seat-boy16', '已订（男生）'],
+                     ['g', 'booked-seat-girl16', '已订（女生）'],
+                     ['t', 'booked-seat-teaching16', '有课'],
+                     ]
+                     },*/
                     click: function () {
-                        var selectedSeatID = this.node()[0].id;
-                        selectedSeatCode = this.node()[0].children[2].innerText;
-                        var selectedSeatInfo = selectedSeatID.split('_');
-                        selectedSeatRowID = selectedSeatInfo[0];
-                        selectedSeatColumnID = selectedSeatInfo[1];
+                        if (this.style() == 'available') {
+                            //let's create a new <li> which we'll add to the cart items
+                            //$('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
+                            //        .attr('id', 'cart-item-'+this.settings.id)
+                            //        .data('seatId', this.settings.id)
+                            //        .appendTo($cart);
 
-                        $.showPreloader('获取信息...');
+                            /*
+                             * Lets update the counter and total
+                             *
+                             * .find function will not find the current seat, because it will change its stauts only after return
+                             * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
+                             */
+                            //$counter.text(sc.find('selected').length+1);
+                            //$total.text(recalculateTotal(sc)+this.data().price);
 
-                        $.post('/libraryClassroom/seat/log',
-                                {
-                                    classroomID: '<%= cid %>',
-                                    seatCode: selectedSeatCode,
-                                    type: '<%= type %>',
-                                    canOrder:'<%= canOrder%>'
-                                },
-                                function (response) {
+                            /*sc.find('selected').style('available');*/
+                            var selectedSeatID = this.node()[0].id;
+                            selectedSeatCode = this.node()[0].children[2].innerText;
+                            var selectedSeatInfo = selectedSeatID.split('_');
+                            selectedSeatRowID = selectedSeatInfo[0];
+                            selectedSeatColumnID = selectedSeatInfo[1];
 
-                                    var responseArr = response.split('#'),
-                                        seatStatus =  responseArr[1],
-                                        canOrder = responseArr[0];
-                                    if(seatStatus == 0){
-                                        $("#seat-status-span").text('空座');
-                                        if(canOrder){
-                                            $('#operation-content-wrapper').css('display', 'block');
+                            //$('#selectedSeatInfo').text(selectedSeatCode + '号 [' + '第' + selectedSeatRowID + '排，第' + selectedSeatColumnID + '列]');
+                            $('#selectedSeatInfo').text(selectedSeatCode + '号');
+                            $('#seat_booked_card').css('display', 'block');
+                            $('#seat_log_list').css('display', 'none');
+                            $.openPanel();
+
+                            return 'selected';
+                        } else if (this.style() == 'selected') {
+                            //update the counter
+                            //$counter.text(sc.find('selected').length-1);
+                            //and total
+                            //$total.text(recalculateTotal(sc)-this.data().price);
+
+                            //remove the item from our cart
+                            //$('#cart-item-'+this.settings.id).remove();
+
+                            //seat has been vacated
+                            return 'available';
+                        } else if (this.style() == 'unavailable') {
+                            //seat has been already booked
+                            var selectedSeatID = this.node()[0].id;
+                            selectedSeatCode = this.node()[0].children[2].innerText;
+                            var selectedSeatInfo = selectedSeatID.split('_');
+                            selectedSeatRowID = selectedSeatInfo[0];
+                            selectedSeatColumnID = selectedSeatInfo[1];
+
+                            $.showPreloader('获取信息...');
+
+                            $.post('/libraryClassroom/seat/log',
+                                    {
+                                        classroomID:'<%= cid %>',
+                                        seatCode:selectedSeatCode,
+                                        type:'<%= type %>'
+                                    },
+                                    function(response){
+
+                                        $('#seat_booked_card').css('display', 'none');
+                                        $('#seat_log_list').css('display', 'block');
+                                        var logJson = JSON.parse(response);
+                                        $('.seat-log-wrapper').remove();
+                                        for(var index = 0; index < logJson.length; index++){
+                                            $('#seat_log_list').append("<li class='seat-log-wrapper'><ul class='seat-log'>" +
+                                                    "<li class='user-header-img'><img width='20' height='20' src='"+ logJson[index].headimgurl.replace('/0','/46')+"'/></li>"+
+                                                    "<li class='log-time'><span class='time'>"+logJson[index].log_time+"</span></li>"+
+                                                    "<li class='log-msg'><span class='msg'>"+ logJson[index].log_msg +"</span></li>"+
+                                                    '</ul></li>');
                                         }
-                                    }
-                                    if(seatStatus == 1){
-                                        $("#seat-status-span").text('预约');
-                                        $('.operation-content-wrapper').css('display', 'none');
-                                    }
-                                    if(seatStatus == 2){
-                                        $("#seat-status-span").text('签到');
-                                        $('.operation-content-wrapper').css('display', 'none');
-                                    }
-                                    if(seatStatus == 3){
-                                        $("#seat-status-span").text('暂离');
-                                        $('.operation-content-wrapper').css('display', 'none');
-                                    }
-                                    if(!canOrder){
-                                        $('#msg-content-wrapper').css('display', 'block');
-                                    }else{
-                                        $('#msg-content-wrapper').css('display', 'none');
-                                    }
-
-                                    $('#seat_log_list').css('display', 'block');
-                                    var logJson = JSON.parse(responseArr[2]);
-                                    $('.seat-log-wrapper').remove();
-                                    for(var index = 0; index < logJson.length; index++){
-                                        $('#seat_log_list').append("<li class='seat-log-wrapper'><ul class='seat-log'>" +
-                                                "<li class='user-header-img'><img width='20' height='20' src='"+ logJson[index].headimgurl.replace('/0','/46')+"'/></li>"+
-                                                "<li class='log-time'><span class='time'>"+logJson[index].log_time+"</span></li>"+
-                                                "<li class='log-msg'><span class='msg'>"+ logJson[index].log_msg +"</span></li>"+
-                                                '</ul></li>');
-                                    }
-                                    $.hidePreloader();
-                                    $.openPanel();
-                                });
-                        return this.style();
+                                        /*$('#seat_log_list').text(response)*/
+                                        $.hidePreloader();
+                                        $.openPanel();
+                                    });
+                            return 'unavailable';
+                        } else {
+                            return this.style();
+                        }
                     }
                 });
+
+        //this will handle "[cancel]" link clicks
+        //$('#selected-seats').on('click', '.cancel-cart-item', function () {
+        //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
+        //sc.get($(this).parents('li:first').data('seatId')).click();
+        //});
+
+        //let's pretend some seats have already been booked
+        //sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
 
         //根据手机屏幕自适应缩放
         var clientWidth = document.documentElement.clientWidth;
         var initialContentWidth = $('#content-wrapper').width();
         if (initialContentWidth > clientWidth) {
             $('#content-wrapper').attr('style', '-webkit-transform:scale(' + clientWidth / initialContentWidth + ');-webkit-transform-origin:top left;');
+            //$('front-indicator').width(clientWidth);
         }
     });
 
@@ -542,6 +586,10 @@
                 selectedSeatColumnID == 0) {
             $.alert('请用手指触摸选择您想预约的座位');
         }
+        else if (!$('#picker')[0].value) {
+            $.alert('请选择您计划的预约时间');
+        }
+
     });
 
 </script>

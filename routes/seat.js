@@ -233,14 +233,35 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
 
 });
 
-router.post('/libraryClassroom/seat/log', function(req, res) {
-    models.seatModel.getLogByDateType(req.body.classroomID, req.body.seatCode, req.body.type, function (err, seatLogs) {
+router.post('/libraryClassroom/seat/status', function(req, res) {
+
+    models.seatModel.checkOrderBySeatCode(req.body.classroomID, req.body.seatCode, req.body.type, function (err, seatOrders) {
+        var seatStatus = 0;
+        var orderID = 0;
+        if(seatOrders.length > 0){
+            seatStatus = seatOrders[0].status;
+            orderID = seatOrders[0].order_id;
+        }
+        models.seatModel.getLogByDateType(req.body.classroomID, req.body.seatCode, req.body.type, function (err, seatLogs) {
+            for (var index = 0; index < seatLogs.length; index++) {
+                seatLogs[index].log_time = (seatLogs[index].log_time.getMonth() + 1) + '-' + seatLogs[index].log_time.getDate() + ' ' + seatLogs[index].log_time.getHours() + ':' + seatLogs[index].log_time.getMinutes();
+                //seatLogs[index].log_time.toLocaleString('en-US', {hour12:false});
+            }
+            var canOrder = req.body.canOrder;
+            if(orderID > 0){
+                canOrder = 0;
+            }
+            res.send(canOrder+"#"+seatStatus+"#"+JSON.stringify(seatLogs));
+        });
+    });
+
+    /*models.seatModel.getLogByDateType(req.body.classroomID, req.body.seatCode, req.body.type, function (err, seatLogs) {
         for(var index = 0; index < seatLogs.length; index++){
             seatLogs[index].log_time = (seatLogs[index].log_time.getMonth()+1)+'月'+seatLogs[index].log_time.getDate()+ '日 ' + seatLogs[index].log_time.getHours() + '点' +seatLogs[index].log_time.getMinutes();
             //seatLogs[index].log_time.toLocaleString('en-US', {hour12:false});
         }
         res.send(JSON.stringify(seatLogs));
-    });
+    });*/
 });
 
 /*
