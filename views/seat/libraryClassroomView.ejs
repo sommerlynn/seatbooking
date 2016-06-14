@@ -498,8 +498,11 @@
                                         if($('#msg-content-wrapper')[0].innerHTML == ''){
                                             $('#msg-content-wrapper').css('display', 'none');
                                         }
-                                        else{
+                                        else if(seatStatus == 0){
                                             $('#msg-content-wrapper').css('display', 'block');
+                                        }
+                                        else{
+                                            $('#msg-content-wrapper').css('display', 'none');
                                         }
                                     }else{
                                         $('#msg-content-wrapper').css('display', 'none');
