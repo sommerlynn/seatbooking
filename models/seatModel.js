@@ -648,7 +648,7 @@ seat.logBySpecificUser = function (orderID, openid, logType, logMsg, callback) {
 
 seat.getLogByDateType = function (classroomID, seatCode, dateType, callback) {
     var today = new Date(),
-        date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     if (dateType == 'tomorrow') {
         date = new Date(today.getTime() + 24 * 60 * 60 * 1000);
     }
