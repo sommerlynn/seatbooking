@@ -494,7 +494,12 @@
                                         $('#operation-content-wrapper').css('display', 'none');
                                     }
                                     if(canOrder == 0){
-                                        $('#msg-content-wrapper').css('display', 'block');
+                                        if($('#msg-content-wrapper')[0].innerHTML == ''){
+                                            $('#msg-content-wrapper').css('display', 'none');
+                                        }
+                                        else{
+                                            $('#msg-content-wrapper').css('display', 'block');
+                                        }
                                     }else{
                                         $('#msg-content-wrapper').css('display', 'none');
                                     }
