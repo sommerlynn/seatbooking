@@ -493,7 +493,7 @@
                                         $("#seat-status-span").text('暂离');
                                         $('.operation-content-wrapper').css('display', 'none');
                                     }
-                                    if(!canOrder){
+                                    if(canOrder == 0){
                                         $('#msg-content-wrapper').css('display', 'block');
                                     }else{
                                         $('#msg-content-wrapper').css('display', 'none');
