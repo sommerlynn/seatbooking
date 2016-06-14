@@ -61,16 +61,15 @@ router.get('/oAuthGetInfo', function (req, res) {
                     });
                 }
             });*/
-            if(openid == null)
+            if(!openid)
             {
                 res.render('indexView', {title: '七玥校园'});
             }
             else
             {
                 weixinAPIClient.jsAPIClient.getUserInfo(openid, function (err, userInfo) {
-                    if(userInfo.subscribe == 1)
+                    if(!userInfo && userInfo.subscribe == 1)
                     {
-
                         models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
                             if (err) {
                                 res.render('errorView', {openid: openid, title: '服务器故障', message: '服务器故障', error: err});
