@@ -5,7 +5,8 @@
 var classroom = {},
     db = require('./db'),
     schoolModel = require('./schoolModel'),
-    async = require('async');
+    async = require('async'),
+    support = require('../lib/support');
 
 classroom.getAll = function (schoolID, callback) {
     var selectQuery = "select * from area_classroom_view where area_status = 1 and school_id = ?",
@@ -173,7 +174,8 @@ classroom.insertClassTimeItem = function (schoolID, classroomID, date, callback)
         else {
             schoolModel.getSettingValue(schoolID, 'Term_Start', function (termStart) {
                 var termStartDate = new Date(termStart);
-                var weekNO = ((date.getTime() - termStartDate.getTime()) / (1000 * 24 * 60 * 60) + termStartDate.getDay() - 1) / 7 + 1;
+                //var weekNO = ((date.getTime() - termStartDate.getTime()) / (1000 * 24 * 60 * 60) + termStartDate.getDay() - 1) / 7 + 1;
+                var weekNO = support.getWeekNO(date) - support.getWeekNO(termStartDate)+1;
                 var weekProperty = weekNO % 2 == 0 ? '2' : '1';
                 var weekDay = date.getDay() == 0 ? 7 : date.getDay();
 
