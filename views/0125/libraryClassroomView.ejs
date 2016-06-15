@@ -502,6 +502,9 @@
         }
     });
 
+    $(document).on('closed', '#panel_right', function (e) {
+        window.location.assign('/0125/libraryClassroom/'+'<%=classroom.classroom_id%>'+'/'+'<%=openid%>'+'?t='+(new Date()).getMilliseconds());
+    });
 </script>
 
 <% include ../footer.html %>
