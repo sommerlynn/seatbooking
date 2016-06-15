@@ -599,18 +599,20 @@ router.post('/scanseat/checkLocation', function (req, res) {
     models.classroomModel.getByID(req.body.classroomID, function(err, classroom){
         var distance = support.distance(req.body.longitude, req.body.latitude, classroom[0].longitude, classroom[0].latitude);
         log('距离:'+distance);
-        if(distance <= 50000){
-            var angelCode = support.random(5);
 
-            models.userModel.setAngelCode(req.body.openid, angelCode, function(err, result){
-                var result = {retcode:1, angelcode:angelCode, message:distance};
+        models.userModel.getUser(req.body.openid, function(err, user){
+            if(distance <= 500 || user[0].gps_exception_== 1){
+                var angelCode = support.random(5);
+
+                models.userModel.setAngelCode(req.body.openid, angelCode, function(err, result){
+                    var result = {retcode:1, angelcode:angelCode, message:distance};
+                    res.send(result);
+                });
+            }else{
+                var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 不能进行该操作, 如手机定位有问题请到图书馆楼307房间找陈老师解决, 联系电话010-61773253。'};
                 res.send(result);
-            });
-        }
-        else{
-            var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 不能进行该操作, 如手机定位有问题请到图书馆307咨询老师。'};
-            res.send(result);
-        }
+            }
+        });
     });
 });
 
