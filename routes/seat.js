@@ -561,11 +561,19 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
                     });                    
                 });
             });*/
-            weixinAPIClient.jsAPIClient.getUserInfo(openid, function (err, userInfo) {
-                if(userInfo.subscribe == 1){
-                    models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
-                        var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
-                        weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
+            if(!openid)
+            {
+                res.render('indexView', {title: '七玥校园'});
+            }else{
+                weixinAPIClient.jsAPIClient.getUserInfo(openid, function (err, userInfo) {
+                    if(!userInfo)
+                    {
+                        res.render('indexView', {openid: openid, title: '七玥校园', message: '请先关注七玥天使微信公众号。'});
+                    }
+                    else if(userInfo.subscribe == 1){
+                        models.weixinMessageModel.addUserInfo(req.query.schoolID, userInfo, function (err) {
+                            var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
+                            weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
 
                                 res.render('./seat/precheckView', {
                                     openid: openid,
@@ -576,12 +584,13 @@ router.get('/scanseat/oauthprecheck', function (req, res) {
                                     weiJSConfig: weiJSConfig,
                                     title: '座位状态'
                                 });
+                            });
                         });
-                    });
-                }else{
-                    res.render('indexView', {openid: openid, title: '七玥校园', message: '请先关注七玥天使微信公众号。'});
-                }
-            });
+                    }else{
+                        res.render('indexView', {openid: openid, title: '七玥校园', message: '请先关注七玥天使微信公众号。'});
+                    }
+                });
+            }
         }
     });
 });
