@@ -270,6 +270,9 @@ seat.tryCreateLibraryOrder = function (dayType, openid, classroomID, seatCode, r
                 }
                 else if (type == 'scene') {
                     // 现场选座
+                    var now = new Date(),
+                        tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                    scheduleRecoverTime = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate());
                     seat.chooseSetAtScene(openid, classroomID, seatCode, row, column, startTime, endTime, scheduleRecoverTime,
                         function (err, newOrderId) {
                             if (err) {
