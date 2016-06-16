@@ -193,6 +193,13 @@
 
     .log-msg {
     }
+
+    .date-title{
+        margin: .5rem;
+        text-align: center;
+        font-family: fantasy;
+        color: #B3B778;
+    }
 </style>
 <div class="page">
     <div class="date-nav">
@@ -299,6 +306,11 @@
                 </li>
             </ul>-->
 
+        <% if (type == 'tomorrow') { %>
+        <div class="date-title"><%= nextDay.toLocaleDateString() %></div>
+        <% } else { %>
+        <div class="date-title"><%= today.toLocaleDateString() %></div>
+        <% } %>
         <div class="card">
             <div class="card-header">
                 <ul class="seat-status-card">
