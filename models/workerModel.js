@@ -56,14 +56,15 @@ schedule.scheduleJob(seatRule, function(){
 
 /**
  * 每天0点计算次日教室课程时间 填充classroom_time表
- *
+ * 格式 * * * * * Minute(0-59), hour(0-23), date of Month (1-31), Month(1-12), day of week (0-7)
  * 2016-06-05 CHEN PU 创建
  *
  * */
-schedule.scheduleJob('1 0 * * *', function(){
+//schedule.scheduleJob('1 0 * * *', function(){
+schedule.scheduleJob('10 12 * * *', function(){
     var now = new Date(),
-        nextDay = new Date(now.getTime()+ 48 * 60 * 60 * 1000),
-        nextDayDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate());
+        nextDay = new Date(now.getTime()+ 24 * 60 * 60 * 1000),
+        nextDayDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 12, 0);
     classroomModel.getByType(1, '普通排课教室', function(err, classroomList){
         async.forEachSeries(classroomList,
             function (item, callback) {
