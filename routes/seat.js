@@ -601,7 +601,9 @@ router.post('/scanseat/checkLocation', function (req, res) {
         log('距离:'+distance);
 
         models.userModel.getUser(req.body.openid, function(err, user){
-            if(distance <= 300 || user[0].gps_exception == 1){
+            var now = new Date();
+            if(distance <= 300 || user[0].gps_exception == 1 ||
+               (now.getHours() >= 17) || (now.getDay() == 6 || now.getDay() == 0 )){
                 var angelCode = support.random(5);
 
                 models.userModel.setAngelCode(req.body.openid, angelCode, function(err, result){
