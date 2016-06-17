@@ -601,6 +601,10 @@ router.post('/scanseat/checkLocation', function (req, res) {
         log('距离:'+distance);
 
         models.userModel.getUser(req.body.openid, function(err, user){
+
+            models.classroomModel.logScanLocation(req.body.openid, req.body.latitude, req.body.longitude,
+                req.body.classroomID, classroom[0].latitude, classroom[0].longitude, distance);
+
             var now = new Date();
             if(distance <= 300 || user[0].gps_exception == 1 ||
                (now.getHours() >= 17) || (now.getDay() == 6 || now.getDay() == 0 )){
