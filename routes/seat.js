@@ -609,7 +609,14 @@ router.post('/scanseat/checkLocation', function (req, res) {
                     res.send(result);
                 });
             }else{
-                var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 你可切换至校园网ncepu-student试一下, 如仍有问题请到图书馆楼307房间找陈老师解决, 联系电话010-61773253。'};
+                var msg = 'true';
+                if(user[0].gps_exception_== 1){
+                    msg = 'true';
+                }
+                else{
+                    msg = 'false';
+                }
+                var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 你可切换至校园网ncepu-student试一下, 如仍有问题请到图书馆楼307房间找陈老师解决, 联系电话010-61773253。'+msg};
                 res.send(result);
             }
         });
