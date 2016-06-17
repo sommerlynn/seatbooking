@@ -610,7 +610,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
                 });
             }else{
                 var msg = 'true';
-                if(user[0].gps_exception_== 1){
+                if(user[0].gps_exception_== '1'){
                     msg = 'true';
                 }
                 else{
