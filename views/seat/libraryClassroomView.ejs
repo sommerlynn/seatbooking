@@ -486,7 +486,7 @@
                                         seatStatus =  responseArr[1],
                                         canOrder = responseArr[0];
                                     if(seatStatus == 0){
-                                        $("#seat-status-span").text('无人/空座');
+                                        $("#seat-status-span").text('空座');
                                         if(canOrder == 1){
                                             $('#operation-content-wrapper').css('display', 'block');
                                         }
@@ -495,15 +495,15 @@
                                         }
                                     }
                                     if(seatStatus == 1){
-                                        $("#seat-status-span").text('有人/预约');
+                                        $("#seat-status-span").text('预约');
                                         $('#operation-content-wrapper').css('display', 'none');
                                     }
                                     if(seatStatus == 2){
-                                        $("#seat-status-span").text('有人/签到');
+                                        $("#seat-status-span").text('签到');
                                         $('#operation-content-wrapper').css('display', 'none');
                                     }
                                     if(seatStatus == 3){
-                                        $("#seat-status-span").text('有人/暂离');
+                                        $("#seat-status-span").text('暂离');
                                         $('#operation-content-wrapper').css('display', 'none');
                                     }
                                     if(canOrder == 0){
