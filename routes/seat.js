@@ -601,22 +601,15 @@ router.post('/scanseat/checkLocation', function (req, res) {
         log('距离:'+distance);
 
         models.userModel.getUser(req.body.openid, function(err, user){
-            if(distance <= 300 || user[0].gps_exception_== 1){
+            if(distance <= 300 || user[0].gps_exception == 1){
                 var angelCode = support.random(5);
 
                 models.userModel.setAngelCode(req.body.openid, angelCode, function(err, result){
                     var result = {retcode:1, angelcode:angelCode, message:distance};
                     res.send(result);
                 });
-            }else{
-                var msg = 'true';
-                if(user[0].gps_exception_== '1'){
-                    msg = 'true';
-                }
-                else{
-                    msg = 'false';
-                }
-                var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 你可切换至校园网ncepu-student试一下, 如仍有问题请到图书馆楼307房间找陈老师解决, 联系电话010-61773253。'+msg};
+            }else{                
+                var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 你可切换至校园网ncepu-student试一下, 如仍有问题请到图书馆楼307房间找陈老师解决, 联系电话010-61773253。'};
                 res.send(result);
             }
         });
