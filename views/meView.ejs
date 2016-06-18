@@ -325,7 +325,7 @@
         </header>
 
         <div class="content-block">
-            <ul class="icon-list" style="padding: 1rem 0;padding: 0.7rem 0;margin: 0;">
+            <!--<ul class="icon-list" style="padding: 1rem 0;padding: 0.7rem 0;margin: 0;">
                 <% if(userInfo.status == 0) { %>
                 <li class="icon">
                     <a style="display: block" href="/me/verifySheet/<%= openid %>">
@@ -348,15 +348,29 @@
                     </a>
                 </li>
                 <li class="icon">
-                    <!--<a style="display: block" href="leaveSheet/<%= openid %>?ip=<%= ip %>">
+                    <a style="display: block" href="leaveSheet/<%= openid %>?ip=<%= ip %>">
                         <span class="icon icon-circle icon-leave-application"></span>
                         <span class="icon-desc">请假申请</span>
-                    </a>-->
+                    </a>
                 </li>
-            </ul>
+            </ul>-->
 
             <div class="list-block cards-list">
                 <ul id="seat_tickets">
+                    <div class="content-block-title">
+                        <div class="item-media">
+                            <i class="icon icon-credit-card"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">个人信息</div>
+                            <% if(userInfo.status == 0) { %>
+                                <div class="item-real-info"><a href="/me/verifySheet/<%= openid %>">实名认证 ></a></div>
+                            <% } else{%>
+                                <div class="item-real-info"><a href="/me/info/<%= openid %>">身份信息 ></a></div>
+                            <% }%>
+                        </div>
+                    </div>
+
 
                     <div class="content-block-title">
                         <div class="item-media">
@@ -367,7 +381,10 @@
                             <div class="item-real-info"><a href="/me/oldSeat/<%= openid %>">历史座位 ></a></div>
                         </div>
                     </div>
-
+                    <li class="card" style="background-color: #FFFFFF">
+                        <div class="card-content">
+                        </div>
+                    </li>
                     <% if (userSeatOrders.length > 0) { %>
 
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
