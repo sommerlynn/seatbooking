@@ -490,6 +490,7 @@
                                     if(seatStatus == 0){
                                         $("#seat-status-span").text('空座');
                                         if(canOrder == 1){
+                                            $('.seat-operation').innerHTML = '';
                                             $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"order-operation\">预约</div>");
                                             $('#operation-content-wrapper').css('display', 'block');
                                         }
