@@ -46,11 +46,42 @@
         /*margin: 0 1rem 0 1rem;*/
     }
 
-    .content-block-title{
+    /*.content-block-title{
         margin: 0.7rem 0.75rem;
         text-align: center;
         font-size: .8rem;
         color: #A00000;
+    }*/
+
+    .content-block-title {
+        margin: 0;
+        padding: .7rem;
+        background-color: #F7F7F8;
+        color: #A00000;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        border-left: 4px solid #A00000;
+    }
+
+    .content-block-title:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        top: auto;
+        height: 1px;
+        width: 100%;
+        background-color: #EFEFF4;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+    .content-block-title + .card {
+        margin-top: 0;
     }
 
     .list-block{
@@ -173,7 +204,15 @@
             </div>
         </div>
         <div class="content-block">
-            <div class="content-block-title">图书馆座位状态查询及预约</div>
+            <!--<div class="content-block-title">图书馆座位状态查询及预约</div>-->
+            <div class="content-block-title">
+                <div class="item-media">
+                    <i class="icon icon-order"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">图书馆座位状态查询及预约</div>
+                </div>
+            </div>
             <div class="list-block cards-list">
                 <ul>
                     <li>
@@ -197,7 +236,15 @@
                 </ul>
             </div>
 
-            <div class="content-block-title">空教室查询</div>
+            <!--<div class="content-block-title">空教室查询</div>-->
+            <div class="content-block-title">
+                <div class="item-media">
+                    <i class="icon icon-classroom"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">空教室查询</div>
+                </div>
+            </div>
             <!--<div class="notice-wrapper">
                 <div class="notice"><i class="icon icon-notice" style="color: #A20000;margin-right: .4rem;"></i>因四、六级考试, 教1、3、4, 主楼B、C自6月17日18:00 ~ 6月18日18:00 封闭, 请各位同学提前取走个人物品以免丢失, 并祝愿各位参加考试的同学顺利平安。</div>
             </div>-->
@@ -355,7 +402,6 @@
                      </div>
                  </div>
             </div>
-
         </div>
     </div>
 </div>
