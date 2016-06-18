@@ -493,6 +493,29 @@
                                             $('.seat-operation')[0].innerHTML = '';
                                             $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"order-operation\">预约</div>");
                                             $('#operation-content-wrapper').css('display', 'block');
+
+                                            $("#order-operation").tap(function () {
+                                                if (selectedSeatRowID > 0 &&
+                                                        selectedSeatColumnID > 0) {
+                                                    $.showPreloader('提交预约申请...');
+                                                    $.post('/seat/order', {
+                                                        openid: '<%= openid %>',
+                                                        classroom: '<%= cid %>',
+                                                        row: selectedSeatRowID,
+                                                        column: selectedSeatColumnID,
+                                                        seatCode: selectedSeatCode,
+                                                        type: '<%= type %>'
+                                                    }, function (response) {
+                                                        $.hidePreloader();
+                                                        alert(response);
+                                                        window.location.reload();
+                                                    });
+
+                                                } else if (selectedSeatRowID == 0 ||
+                                                        selectedSeatColumnID == 0) {
+                                                    $.alert('请用手指触摸选择您想预约的座位');
+                                                }
+                                            });
                                         }
                                         else{
                                             $('#operation-content-wrapper').css('display', 'none');
@@ -546,29 +569,6 @@
         var initialContentWidth = $('#content-wrapper').width();
         if (initialContentWidth > clientWidth) {
             $('#content-wrapper').attr('style', '-webkit-transform:scale(' + clientWidth / initialContentWidth + ');-webkit-transform-origin:top left;');
-        }
-    });
-
-    $("#order-operation").tap(function () {
-        if (selectedSeatRowID > 0 &&
-                selectedSeatColumnID > 0) {
-            $.showPreloader('提交预约申请...');
-            $.post('/seat/order', {
-                openid: '<%= openid %>',
-                classroom: '<%= cid %>',
-                row: selectedSeatRowID,
-                column: selectedSeatColumnID,
-                seatCode: selectedSeatCode,
-                type: '<%= type %>'
-            }, function (response) {
-                $.hidePreloader();
-                alert(response);
-                window.location.reload();
-            });
-
-        } else if (selectedSeatRowID == 0 ||
-                selectedSeatColumnID == 0) {
-            $.alert('请用手指触摸选择您想预约的座位');
         }
     });
 
