@@ -348,6 +348,8 @@
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/ajax.js' charset='utf-8'></script>
+<script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.1.0.js' charset='utf-8'></script>
+
 <script>
     $.config = {
         autoInit: true,
@@ -604,6 +606,7 @@
                                             });
                                         }
                                         else{
+                                            $('#msg-content-wrapper')[0].innerHTML = '';
                                             $('.seat-operation')[0].innerHTML = '';
                                             $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"sign-operation\">扫码入座</div>");
                                             $('#operation-content-wrapper').css('display', 'block');
