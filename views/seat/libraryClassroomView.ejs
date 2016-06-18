@@ -328,7 +328,7 @@
                 <div class="card-content-inner"  id="operation-content-wrapper">
                     <ul class="seat-operation-card">
                         <li class="seat-operation">
-                            <div class="seat-opertion-btn" id="order-operation">预约</div>
+
                         </li>
                     </ul>
                 </div>
@@ -490,6 +490,7 @@
                                     if(seatStatus == 0){
                                         $("#seat-status-span").text('空座');
                                         if(canOrder == 1){
+                                            $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"order-operation\">预约</div>");
                                             $('#operation-content-wrapper').css('display', 'block');
                                         }
                                         else{
