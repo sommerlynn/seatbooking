@@ -630,7 +630,7 @@
                                     if(seatStatus == 2){
                                         $("#seat-status-span").text('签到');
 
-                                        $('#msg-content-wrapper')[0].innerHTML = '若座位状态为签到, 实际座位主人不在, 其他读者可扫码将其设为暂离, 暂离时间到, 主人未归, 座位释放, 其他读者可扫码入座';
+                                        $('#msg-content-wrapper')[0].innerHTML = '若座位状态为签到, 而现场座位主人不在, 其他读者可扫码将其设为暂离, 暂离时间到, 主人未归, 座位释放, 其他读者可扫码入座。其他读者使用本座位时，可将原主人物品规整后放于座位一侧。';
                                         $('.seat-operation')[0].innerHTML = '';
                                         $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"leave-operation\">代暂离</div>");
                                         $('#operation-content-wrapper').css('display', 'block');
