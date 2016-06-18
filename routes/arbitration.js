@@ -59,7 +59,7 @@ router.post('/arbitration/submitInfo', function(req, res){
                     res.send(err.message);
                 }
                 else{
-                    res.send('你的仲裁申请已成功提交, 管理员会马上前来处理。七玥提醒你, 珍惜同学情谊, 快乐学习, 给彼此留下美好的回忆。');
+                    res.send('你的仲裁申请已成功提交, 管理员会马上前来处理。请珍惜同学情谊, 快乐学习, 给彼此留下美好的回忆。');
                 }
             });
         }
