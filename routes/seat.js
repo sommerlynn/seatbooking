@@ -605,19 +605,38 @@ router.post('/scanseat/checkLocation', function (req, res) {
             models.classroomModel.logScanLocation(req.body.openid, req.body.latitude, req.body.longitude,
                 req.body.classroomID, req.body.seat, classroom[0].latitude, classroom[0].longitude, distance);
 
-            var now = new Date();
-            if(distance <= 300 || user[0].gps_exception == 1 ||
-               (now.getHours() >= 17) || (now.getDay() == 6 || now.getDay() == 0 )){
-                var angelCode = support.random(5);
+            var now = new Date(),
+                nowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-                models.userModel.setAngelCode(req.body.openid, angelCode, function(err, result){
-                    var result = {retcode:1, angelcode:angelCode, message:distance};
+            models.classroomModel.getOpenTime(req.body.classroomID, nowDate, function (openType, openTimeStr, closeTime, holidayComment) {
+                var openTimeArr = openTimeStr.split(':');
+                var openTime  = new Date(now.getFullYear(), now.getMonth(), now.getDate(), openTimeArr[0], openTimeArr[1]);
+                var openTime15MinutesAgo = new Date(openTime.getTime() - 15 * 60 * 1000);
+                var openTime30MinutesAfter = new Date(openTime.getTime() + 30 * 60 * 1000);
+
+                if(openType == 1){
+                    if(distance <= 300 ||
+                       user[0].gps_exception == 1 ||
+                       now.getHours() >= 17 ||                      // 晚上五点以后不检查 因无老师解决
+                      (now.getDay() == 6 || now.getDay() == 0)      // 周末不检查
+                      (now >= openTime15MinutesAgo && now <= openTime30MinutesAfter ) // 开馆前15分钟到开馆30分钟之内不检查 因此时签到人员较多
+                      ){
+                        var angelCode = support.random(5);
+
+                        models.userModel.setAngelCode(req.body.openid, angelCode, function(err, result){
+                            var result = {retcode:1, angelcode:angelCode, message:distance};
+                            res.send(result);
+                        });
+                    }else{
+                        var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 你可切换至校园网ncepu-student试一下, 如仍有问题请到图书馆楼307房间找陈老师解决, 联系电话010-61773253。'};
+                        res.send(result);
+                    }
+                }
+                else{
+                    var result = {retcode:-1, angelcode:'', message:'你正在进行非法操作, 已被记录, 请到图书馆307找老师解释清楚。'};
                     res.send(result);
-                });
-            }else{                
-                var result = {retcode:-1, angelcode:'', message:'你所在区域不在规定的地理区域内('+distance+'), 你可切换至校园网ncepu-student试一下, 如仍有问题请到图书馆楼307房间找陈老师解决, 联系电话010-61773253。'};
-                res.send(result);
-            }
+                }
+            });
         });
     });
 });
