@@ -615,7 +615,7 @@ seat.log = function (orderID, logType, logMsg, callback) {
             '(select openid from user_seat_order_view where order_id = ?), ' +
             '(select start_time from user_seat_order_view where order_id = ?), ' +
             '?, ?)',
-        insertParams = [orderID, orderID, orderID, orderID, logType, logMsg];
+        insertParams = [orderID, orderID, orderID, orderID, orderID, logType, logMsg];
     db.insertQuery(insertQuery, insertParams, function (err, id) {
         if (err) {
             callback(err);
@@ -641,7 +641,7 @@ seat.logBySpecificUser = function (orderID, openid, logType, logMsg, callback) {
             '?, '+
             '(select openid from user_seat_order_view where order_id = ?), '+
             '?, ?)',
-        insertParams = [orderID, orderID, orderID, openid, logType, logMsg];
+        insertParams = [orderID, orderID, orderID, openid, orderID, logType, logMsg];
     db.insertQuery(insertQuery, insertParams, function (err, id) {
         if (err) {
             callback(err);
