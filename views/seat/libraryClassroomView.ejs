@@ -328,7 +328,7 @@
                 <div class="card-content-inner"  id="operation-content-wrapper">
                     <ul class="seat-operation-card">
                         <li class="seat-operation">
-                            <div class="seat-opertion-btn" id="order-operation">预约</div>
+
                         </li>
                     </ul>
                 </div>
@@ -348,11 +348,99 @@
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/touch.js' charset='utf-8'></script>
 <script type='text/javascript' src='/scripts/ajax.js' charset='utf-8'></script>
+<script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.1.0.js' charset='utf-8'></script>
+
 <script>
     $.config = {
         autoInit: true,
         router: false
     }
+
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '<%= weiJSConfig.appId %>', // 必填，公众号的唯一标识
+        timestamp: '<%= weiJSConfig.timestamp %>', // 必填，生成签名的时间戳
+        nonceStr: '<%= weiJSConfig.nonceStr %>', // 必填，生成签名的随机串
+        signature: '<%= weiJSConfig.signature %>',// 必填，签名，见附录1
+        jsApiList: ['hideMenuItems', 'scanQRCode', 'onMenuShareTimeline',
+            'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo',
+            'onMenuShareQZone'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    wx.ready(function () {
+        wx.hideMenuItems( {menuList: ['menuItem:copyUrl','menuItem:openWithQQBrowser','menuItem:openWithSafari', 'menuItem:favorite']} );
+
+        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        wx.onMenuShareTimeline({
+            title: '关注七玥天使 选座位 查教室 方便又快捷', // 分享标题
+            link: 'http://campus.julyangel.cn', // 分享链接
+            imgUrl: 'http://campus.julyangel.cn/images/subscribe-img.jpg', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareAppMessage({
+            title: '七玥天使', // 分享标题
+            desc: '选座位 查教室 方便又快捷', // 分享描述
+            link: 'http://campus.julyangel.cn', // 分享链接
+            imgUrl: 'http://campus.julyangel.cn/images/subscribe-img.jpg', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareQQ({
+            title: '七玥天使', // 分享标题
+            desc: '选座位 查教室 方便又快捷', // 分享描述
+            link: 'http://campus.julyangel.cn', // 分享链接
+            imgUrl: 'http://campus.julyangel.cn/images/subscribe-img.jpg', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareWeibo({
+            title: '七玥天使', // 分享标题
+            desc: '选座位 查教室 方便又快捷', // 分享描述
+            link: 'http://campus.julyangel.cn', // 分享链接
+            imgUrl: 'http://campus.julyangel.cn/images/subscribe-img.jpg', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareQZone({
+            title: '七玥天使', // 分享标题
+            desc: '选座位 查教室 方便又快捷', // 分享描述
+            link: 'http://campus.julyangel.cn', // 分享链接
+            imgUrl: 'http://campus.julyangel.cn/images/subscribe-img.jpg', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    });
+
+    wx.error(function (res) {
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+    });
 </script>
 <script type="text/javascript" src="/scripts/jquery.seat-charts.js?v=201605291810"></script>
 <script>
@@ -490,33 +578,84 @@
                                     if(seatStatus == 0){
                                         $("#seat-status-span").text('空座');
                                         if(canOrder == 1){
+                                            $('.seat-operation')[0].innerHTML = '';
+                                            $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"order-operation\">预约</div>");
                                             $('#operation-content-wrapper').css('display', 'block');
+
+                                            $("#order-operation").tap(function () {
+                                                if (selectedSeatRowID > 0 &&
+                                                        selectedSeatColumnID > 0) {
+                                                    $.showPreloader('提交预约申请...');
+                                                    $.post('/seat/order', {
+                                                        openid: '<%= openid %>',
+                                                        classroom: '<%= cid %>',
+                                                        row: selectedSeatRowID,
+                                                        column: selectedSeatColumnID,
+                                                        seatCode: selectedSeatCode,
+                                                        type: '<%= type %>'
+                                                    }, function (response) {
+                                                        $.hidePreloader();
+                                                        alert(response);
+                                                        window.location.reload();
+                                                    });
+
+                                                } else if (selectedSeatRowID == 0 ||
+                                                        selectedSeatColumnID == 0) {
+                                                    $.alert('请用手指触摸选择您想预约的座位');
+                                                }
+                                            });
                                         }
                                         else{
-                                            $('#operation-content-wrapper').css('display', 'none');
+                                            $('#msg-content-wrapper')[0].innerHTML = '请扫码签到入座, 未扫码入座无效, 离开时请扫码暂离或退座';
+                                            $('.seat-operation')[0].innerHTML = '';
+                                            $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"sign-operation\">扫码入座</div>");
+                                            $('#operation-content-wrapper').css('display', 'block');
+
+                                            $("#sign-operation").tap(function () {
+                                                wx.scanQRCode({
+                                                    needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                                                    scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                                                    success: function (res) {
+                                                        var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                                                    }
+                                                });
+                                            });
                                         }
                                     }
                                     if(seatStatus == 1){
                                         $("#seat-status-span").text('预约');
+
                                         $('#operation-content-wrapper').css('display', 'none');
                                     }
                                     if(seatStatus == 2){
                                         $("#seat-status-span").text('签到');
-                                        $('#operation-content-wrapper').css('display', 'none');
+
+                                        $('#msg-content-wrapper')[0].innerHTML = '若座位状态为签到, 而现场座位主人不在, 其他读者可扫码将其设为暂离, 暂离时间到（午餐、晚餐暂离时间分别到14:00和19:00, 其他时段暂离时间为30分钟）, 主人未归, 座位释放, 其他读者可扫码入座。其他读者使用本座位时，可将原主人物品规整后放于座位一侧。';
+                                        $('.seat-operation')[0].innerHTML = '';
+                                        $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"leave-operation\">代暂离</div>");
+                                        $('#operation-content-wrapper').css('display', 'block');
+
+                                        $("#leave-operation").tap(function () {
+                                            wx.scanQRCode({
+                                                needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                                                scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                                                success: function (res) {
+                                                    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                                                }
+                                            });
+                                        });
                                     }
                                     if(seatStatus == 3){
                                         $("#seat-status-span").text('暂离');
+                                        $('#msg-content-wrapper')[0].innerHTML = '午餐、晚餐时段暂离时间分别为截止到14:00和19:00, 其他时段暂离时限为半小时, 若原座主人在暂离时限到期未归, 座位释放, 其他读者可扫码入座。';
                                         $('#operation-content-wrapper').css('display', 'none');
                                     }
                                     if(canOrder == 0){
                                         if($('#msg-content-wrapper')[0].innerHTML == ''){
                                             $('#msg-content-wrapper').css('display', 'none');
                                         }
-                                        else if(seatStatus == 0){
+                                        else {
                                             $('#msg-content-wrapper').css('display', 'block');
-                                        }
-                                        else{
-                                            $('#msg-content-wrapper').css('display', 'none');
                                         }
                                     }else{
                                         $('#msg-content-wrapper').css('display', 'none');
@@ -544,29 +683,6 @@
         var initialContentWidth = $('#content-wrapper').width();
         if (initialContentWidth > clientWidth) {
             $('#content-wrapper').attr('style', '-webkit-transform:scale(' + clientWidth / initialContentWidth + ');-webkit-transform-origin:top left;');
-        }
-    });
-
-    $("#order-operation").tap(function () {
-        if (selectedSeatRowID > 0 &&
-                selectedSeatColumnID > 0) {
-            $.showPreloader('提交预约申请...');
-            $.post('/seat/order', {
-                openid: '<%= openid %>',
-                classroom: '<%= cid %>',
-                row: selectedSeatRowID,
-                column: selectedSeatColumnID,
-                seatCode: selectedSeatCode,
-                type: '<%= type %>'
-            }, function (response) {
-                $.hidePreloader();
-                alert(response);
-                window.location.reload();
-            });
-
-        } else if (selectedSeatRowID == 0 ||
-                selectedSeatColumnID == 0) {
-            $.alert('请用手指触摸选择您想预约的座位');
         }
     });
 

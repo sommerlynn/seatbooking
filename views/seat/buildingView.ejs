@@ -46,11 +46,42 @@
         /*margin: 0 1rem 0 1rem;*/
     }
 
-    .content-block-title{
+    /*.content-block-title{
         margin: 0.7rem 0.75rem;
         text-align: center;
         font-size: .8rem;
         color: #A00000;
+    }*/
+
+    .content-block-title {
+        margin: 0;
+        padding: .7rem;
+        background-color: #F7F7F8;
+        color: #A00000;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        border-left: 4px solid #A00000;
+    }
+
+    .content-block-title:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        top: auto;
+        height: 1px;
+        width: 100%;
+        background-color: #EFEFF4;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+    .content-block-title + .card {
+        margin-top: 0;
     }
 
     .list-block{
@@ -65,6 +96,31 @@
 
     .list-block .item-media{
         margin-right: .25rem;
+    }
+
+    .list-block {
+        margin: 0;
+    }
+
+    .list-block ul:before {
+        height: 0;
+    }
+
+    .list-block .item-media {
+        padding: 0;
+    }
+
+    .list-block .item-inner {
+        padding: 0;
+        min-height: 0;
+    }
+
+    .list-block .item-inner:after {
+        height: 0px;
+    }
+
+    .list-block ul ul{
+        padding: 0;
     }
 
     .building-radio-item{
@@ -173,9 +229,17 @@
             </div>
         </div>
         <div class="content-block">
-            <div class="content-block-title">图书馆座位状态查询及预约</div>
+            <!--<div class="content-block-title">图书馆座位状态查询及预约</div>-->
             <div class="list-block cards-list">
                 <ul>
+                    <div class="content-block-title">
+                        <div class="item-media">
+                            <i class="icon icon-order"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">图书馆座位状态查询及预约</div>
+                        </div>
+                    </div>
                     <li>
                         <a class="item-link item-content" href="/buildingClassroom/429/<%= openid %>?ip=<%= ip %>"
                            external>
@@ -197,10 +261,11 @@
                 </ul>
             </div>
 
-            <div class="content-block-title">空教室查询</div>
-            <div class="notice-wrapper">
+            <!--<div class="content-block-title">空教室查询</div>-->
+
+            <!--<div class="notice-wrapper">
                 <div class="notice"><i class="icon icon-notice" style="color: #A20000;margin-right: .4rem;"></i>因四、六级考试, 教1、3、4, 主楼B、C自6月17日18:00 ~ 6月18日18:00 封闭, 请各位同学提前取走个人物品以免丢失, 并祝愿各位参加考试的同学顺利平安。</div>
-            </div>
+            </div>-->
             <div class="list-block cards-list" >
                 <!--<ul class="building-radio-group">
                     <li class="building-radio-item">
@@ -295,7 +360,16 @@
                         </label>
                     </li>
                 </ul>-->
+
                 <ul>
+                    <div class="content-block-title">
+                        <div class="item-media">
+                            <i class="icon icon-classroom"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">空教室查询</div>
+                        </div>
+                    </div>
                     <li>
                         <div class="item-content">
                             <div class="item-media"><i class="icon icon-form-name"></i></div>
@@ -355,7 +429,6 @@
                      </div>
                  </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -387,7 +460,7 @@
 
         // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         wx.onMenuShareTimeline({
-            title: '关注七玥天使 选座位 查教室 方便又快捷', // 分享标题
+            title: '选座位 查教室', // 分享标题
             link: 'http://campus.julyangel.cn', // 分享链接
             imgUrl: 'http://campus.julyangel.cn/images/subscribe-img.jpg', // 分享图标
             success: function () {
@@ -400,7 +473,7 @@
 
         wx.onMenuShareAppMessage({
             title: '七玥天使', // 分享标题
-            desc: '关注七玥天使 选座位 查教室 方便又快捷', // 分享描述
+            desc: '选座位 查教室', // 分享描述
             link: 'http://campus.julyangel.cn', // 分享链接
             imgUrl: 'http://campus.julyangel.cn/images/subscribe-img.jpg', // 分享图标
             type: '', // 分享类型,music、video或link，不填默认为link
@@ -415,7 +488,7 @@
 
         wx.onMenuShareQQ({
             title: '七玥天使', // 分享标题
-            desc: '关注七玥天使 选座位 查教室 方便又快捷', // 分享描述
+            desc: '选座位 查教室', // 分享描述
             link: 'http://campus.julyangel.cn', // 分享链接
             imgUrl: 'http://campus.julyangel.cn/images/subscribe-img.jpg', // 分享图标
             success: function () {
@@ -428,7 +501,7 @@
 
         wx.onMenuShareWeibo({
             title: '七玥天使', // 分享标题
-            desc: '关注七玥天使 选座位 查教室 方便又快捷', // 分享描述
+            desc: '选座位 查教室', // 分享描述
             link: 'http://campus.julyangel.cn', // 分享链接
             imgUrl: 'http://campus.julyangel.cn/images/subscribe-img.jpg', // 分享图标
             success: function () {
@@ -441,7 +514,7 @@
 
         wx.onMenuShareQZone({
             title: '七玥天使', // 分享标题
-            desc: '关注七玥天使 选座位 查教室 方便又快捷', // 分享描述
+            desc: '选座位 查教室', // 分享描述
             link: 'http://campus.julyangel.cn', // 分享链接
             imgUrl: 'http://campus.julyangel.cn/images/subscribe-img.jpg', // 分享图标
             success: function () {
