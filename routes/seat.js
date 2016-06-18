@@ -618,7 +618,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
                     if(distance <= 300 ||
                        user[0].gps_exception == 1 ||
                        now.getHours() >= 17 ||                      // 晚上五点以后不检查 因无老师解决
-                      (now.getDay() == 6 || now.getDay() == 0)      // 周末不检查
+                      (now.getDay() == 6 || now.getDay() == 0)  ||     // 周末不检查
                       (now >= openTime10MinutesAgo && now <= openTime60MinutesAfter ) // 开馆前15分钟到开馆60分钟之内不检查 因此时签到人员较多
                       ){
                         var angelCode = support.random(5);
