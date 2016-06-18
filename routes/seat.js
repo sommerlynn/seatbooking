@@ -603,7 +603,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
         models.userModel.getUser(req.body.openid, function(err, user){
 
             models.classroomModel.logScanLocation(req.body.openid, req.body.latitude, req.body.longitude,
-                req.body.classroomID, classroom[0].latitude, classroom[0].longitude, distance);
+                req.body.classroomID, req.body.seat, classroom[0].latitude, classroom[0].longitude, distance);
 
             var now = new Date();
             if(distance <= 300 || user[0].gps_exception == 1 ||
