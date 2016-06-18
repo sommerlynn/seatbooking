@@ -612,7 +612,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
                 var openTimeArr = openTimeStr.split(':');
                 var openTime  = new Date(now.getFullYear(), now.getMonth(), now.getDate(), openTimeArr[0], openTimeArr[1]);
                 var openTime15MinutesAgo = new Date(openTime.getTime() - 15 * 60 * 1000);
-                var openTime30MinutesAfter = new Date(openTime.getTime() + 30 * 60 * 1000);
+                var openTime30MinutesAfter = new Date(openTime.getTime() + 60 * 60 * 1000);
 
                 if(openType == 1){
                     if(distance <= 300 ||
