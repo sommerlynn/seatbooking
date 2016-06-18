@@ -255,4 +255,10 @@ classroom.logScanLocation = function (openid, userLatitude, userLongitude, class
     });
 };
 
+classroom.getManager = function (classroomFullName, callback) {
+  var selectQuery = 'select * from classroom_manager where classroom_id = (select classroom_id from area_classroom_view where full_name = ?)',
+      selectParams = [classroomFullName];
+  db.executeQuery(selectQuery, selectParams, callback);  
+};
+
 module.exports = classroom;

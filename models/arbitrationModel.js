@@ -5,7 +5,9 @@
 
 var arbitration = {},
     db = require('./db'),
-    weixinMessage = require('./weixinMessageModel');
+    weixinMessage = require('./weixinMessageModel'),
+    classroomModel = require('./classroomModel'),
+    async = require('async');
 
 /**
  * 用户提交申诉请求
@@ -15,7 +17,15 @@ var arbitration = {},
 arbitration.new = function(applier_openid, classroom_full_name, seat_code, description, callback){
     var insertQuery = "insert into arbitration (applier_openid, classroom_id, seat_code, description) VALUES (?, (select classroom_id from area_classroom_view where full_name = ? ), ?, ?)",
         params = [applier_openid,classroom_full_name,seat_code,description];
-    db.executeQuery(insertQuery, params, callback);
+    //results.insertId
+    db.executeQuery(insertQuery, params, function (err, results) {
+        classroomModel.getManager(classroom_full_name, function(err, managers){
+            async.forEachSeries(managers, function(item, callback){
+                weixinMessageModel.noticeClassManagerArbitration(item.user_openid, classroom_full_name+' '+seat_code+' '+description);
+                callback(null);
+            });
+        });
+    });
 };
 
 /**
@@ -24,7 +34,7 @@ arbitration.new = function(applier_openid, classroom_full_name, seat_code, descr
  */
 arbitration.listNew = function(openid, callback){
     var selectQuery = 'select * from arbitration_view where classroom_id in '+
-        '(select classroom_id from classroom_manager left join user on classroom_manager.user_id = user.user_id where openid = ?) and status = 1',
+        '(select classroom_id from classroom_manager left join user on classroom_manager.user_openid = user.openid where openid = ?) and status = 1',
         selectParams = [openid];
     db.executeQuery(selectQuery, selectParams, callback);
 };
@@ -35,7 +45,7 @@ arbitration.listNew = function(openid, callback){
  */
 arbitration.listOld = function(openid, callback){
     var selectQuery = 'select * from arbitration_view where classroom_id in '+
-            '(select classroom_id from classroom_manager left join user on classroom_manager.user_id = user.user_id where openid = ?) and status <> 1',
+            '(select classroom_id from classroom_manager left join user on classroom_manager.user_openid = user.openid where openid = ?) and status <> 1',
         selectParams = [openid];
     db.executeQuery(selectQuery, selectParams, callback);
 };

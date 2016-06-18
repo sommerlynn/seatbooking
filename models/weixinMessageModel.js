@@ -407,6 +407,44 @@ weixinMessage.rejectVerification = function(openid, rejectMsg){
 };
 
 /**
+ * 通知教室管理员申诉请求
+ * 2016-06-18: CHEN PU 创建
+ * */
+weixinMessage.noticeClassManagerArbitration = function(openid, arbitrationMsg){
+    weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
+        var sendData = {
+            "touser":openid,
+            "template_id":"WNlYcFrQx_ilCcgf65fxE4kNGTQH0EOw0N8mawMN4T4",
+            "url":'',
+            "data":{
+                "first":{
+                    "value":arbitrationMsg
+                },
+                "keyword1":{
+                    "value":'申诉请求'
+                },
+                "keyword2":{
+                    "value":(new Date()).toLocaleString('en-US', {hour12:false})
+                },
+                "keyword3":{
+                    "value":'新提交',
+                    "color":"#A00000"
+                }
+            }
+        };
+        var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
+        var options = {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            content: JSON.stringify(sendData)
+        };
+        urllib.request(url, options);
+    });
+};
+
+/**
  * 处理完毕申诉请求时的消息
  * 2016-06-18: CHEN PU 创建
  * */
