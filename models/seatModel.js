@@ -608,9 +608,10 @@ seat.sysReleaseAsNotSign = function (orderID, callback) {
  * 2016-05-03: CHEN　PU 新建
  * */
 seat.log = function (orderID, logType, logMsg, callback) {
-    var insertQuery = 'insert into seat_log (classroom_id, seat_code, openid, order_date, log_type, log_msg) values ' +
+    var insertQuery = 'insert into seat_log (classroom_id, seat_code, openid, original_openid, order_date, log_type, log_msg) values ' +
             '((select classroom_id from user_seat_order_view where order_id = ?), ' +
             '(select seat_code from user_seat_order_view where order_id = ?), ' +
+            '(select openid from user_seat_order_view where order_id = ?), ' +
             '(select openid from user_seat_order_view where order_id = ?), ' +
             '(select start_time from user_seat_order_view where order_id = ?), ' +
             '?, ?)',
@@ -633,11 +634,13 @@ seat.log = function (orderID, logType, logMsg, callback) {
  *
  * */
 seat.logBySpecificUser = function (orderID, openid, logType, logMsg, callback) {
-    var insertQuery = 'insert into seat_log (classroom_id, seat_code, order_date, openid, log_type, log_msg) values ' +
+    var insertQuery = 'insert into seat_log (classroom_id, seat_code, order_date, openid, original_openid, log_type, log_msg) values ' +
             '((select classroom_id from user_seat_order_view where order_id = ?), ' +
             '(select seat_code from user_seat_order_view where order_id = ?), ' +
             '(select start_time from user_seat_order_view where order_id = ?), ' +
-            '?, ?, ?)',
+            '?, '+
+            '(select openid from user_seat_order_view where order_id = ?), '+
+            '?, ?)',
         insertParams = [orderID, orderID, orderID, openid, logType, logMsg];
     db.insertQuery(insertQuery, insertParams, function (err, id) {
         if (err) {
