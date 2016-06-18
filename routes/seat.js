@@ -210,21 +210,36 @@ router.get('/libraryClassroom/:cid/:openid', function (req, res) {
                            closeTime = closeTimeArr[0]+':'+closeTimeArr[1];
                         }
 
-                        res.render('./seat/libraryClassroomView', {
-                            openid: req.params.openid,
-                            title: classroom['full_name'],
-                            classroom: classroom,
-                            map: seatMapArr,
-                            cid: req.params.cid,
-                            today: today,
-                            nextDay: nextDay,
-                            type: req.query.t,
-                            canOrder:canOrder,
-                            msg:msg,
-                            openType:openType,
-                            openTime:openTime,
-                            closeTime:closeTime
+                        var url = decodeURIComponent('http://' + req.headers.host + req.originalUrl);
+                        weixinAPIClient.jsAPIClient.getJSConfig(url, function (err, weiJSConfig) {
+                            if (err) {
+                                res.render('errorView', {
+                                    openid: 'wxeec4313f49704ee2',
+                                    title: '服务器故障',
+                                    message: '服务器故障',
+                                    error: err
+                                });
+                            }else{
+                                res.render('./seat/libraryClassroomView', {
+                                    weiJSConfig: weiJSConfig,
+                                    openid: req.params.openid,
+                                    title: classroom['full_name'],
+                                    classroom: classroom,
+                                    map: seatMapArr,
+                                    cid: req.params.cid,
+                                    today: today,
+                                    nextDay: nextDay,
+                                    type: req.query.t,
+                                    canOrder:canOrder,
+                                    msg:msg,
+                                    openType:openType,
+                                    openTime:openTime,
+                                    closeTime:closeTime
+                                });
+                            }
                         });
+
+
                     });
                 }
             });
