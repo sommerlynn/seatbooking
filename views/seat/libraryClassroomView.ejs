@@ -647,7 +647,7 @@
                                     }
                                     if(seatStatus == 3){
                                         $("#seat-status-span").text('暂离');
-
+                                        $('#msg-content-wrapper')[0].innerHTML = '暂离时限未半小时, 午餐、晚餐时段暂离时间分别为截止到14:00和19:00, 若原座主人在暂离时限到期未归, 座位释放, 其他读者可扫码入座。';
                                         $('#operation-content-wrapper').css('display', 'none');
                                     }
                                     if(canOrder == 0){
