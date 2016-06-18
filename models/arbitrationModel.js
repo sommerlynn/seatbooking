@@ -4,7 +4,8 @@
 
 
 var arbitration = {},
-    db = require('./db');
+    db = require('./db'),
+    weixinMessage = require('./weixinMessageModel');
 
 /**
  * 用户提交申诉请求
@@ -57,6 +58,11 @@ arbitration.get = function(arbitrationID, callback){
 arbitration.dealWith = function(arbitrationID, operatorOpenid, operationComment, callback){
     var updateQuery = 'update arbitration set operator_openid = ?, operate_date = ?, operate_comment = ?, status = 2 where arbitration_id = ?',
         updateParams = [operatorOpenid, new Date(), operationComment, arbitrationID];
+
+    arbitration.get(arbitrationID, function (err, result) {
+        weixinMessage.dealWithArbitration(result[0].applier_openid, operationComment);
+    });
+
     db.executeQuery(updateQuery, updateParams, callback);
 };
 
