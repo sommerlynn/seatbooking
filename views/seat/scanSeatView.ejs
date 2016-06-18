@@ -267,7 +267,7 @@
     var closeTimer = setTimeout("closeWindow", 10000);
 
     function closeWindow(){
-        window.close();
+        window.location.assign('/me/'+'<%=openid%>');
     }
 </script>
 <% include ../footer.html %>
