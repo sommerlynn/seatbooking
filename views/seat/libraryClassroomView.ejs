@@ -630,11 +630,20 @@
                                     if(seatStatus == 2){
                                         $("#seat-status-span").text('签到');
 
+                                        $('#msg-content-wrapper')[0].innerHTML = '若座位状态为签到, 实际座位主人不在, 其他读者可扫码将其设为暂离, 暂离时间到, 主人未归, 座位释放, 其他读者可扫码入座';
                                         $('.seat-operation')[0].innerHTML = '';
-                                        $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"sign-operation\">代暂离</div>");
+                                        $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"leave-operation\">代暂离</div>");
                                         $('#operation-content-wrapper').css('display', 'block');
 
-                                        $('#operation-content-wrapper').css('display', 'none');
+                                        $("#leave-operation").tap(function () {
+                                            wx.scanQRCode({
+                                                needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                                                scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                                                success: function (res) {
+                                                    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                                                }
+                                            });
+                                        });
                                     }
                                     if(seatStatus == 3){
                                         $("#seat-status-span").text('暂离');
