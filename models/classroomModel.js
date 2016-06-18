@@ -248,7 +248,7 @@ classroom.getEmptyClassroom = function (areaName, sectionStr, date, callback) {
 };
 
 classroom.logScanLocation = function (openid, userLatitude, userLongitude, classroomID, classroomLatitude, classroomLongitude, distance) {
-    var insertQuery = 'insert into scan_location_log (openid, user_latitude, user_longitude, classroom_id, classroom_latitude, classroom_longitude, distance)',
+    var insertQuery = 'insert into scan_location_log (openid, user_latitude, user_longitude, classroom_id, classroom_latitude, classroom_longitude, distance) values (?,?,?,?,?,?,?)',
         insertParams = [openid, userLatitude, userLongitude, classroomID, classroomLatitude, classroomLongitude, distance];
     db.executeQuery(insertQuery, insertParams, function (err, result) {
         
