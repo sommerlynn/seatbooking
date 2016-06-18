@@ -21,7 +21,7 @@ arbitration.new = function(applier_openid, classroom_full_name, seat_code, descr
     db.executeQuery(insertQuery, params, function (err, results) {
         classroomModel.getManager(classroom_full_name, function(err, managers){
             async.forEachSeries(managers, function(item, callback){
-                weixinMessageModel.noticeClassManagerArbitration(item.user_openid, classroom_full_name+' '+seat_code+' '+description);
+                weixinMessage.noticeClassManagerArbitration(item.user_openid, classroom_full_name+' '+seat_code+' '+description);
                 callback(null);
             });
         });
