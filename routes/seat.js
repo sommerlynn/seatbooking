@@ -611,7 +611,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
             models.classroomModel.getOpenTime(req.body.classroomID, nowDate, function (openType, openTimeStr, closeTime, holidayComment) {
                 var openTimeArr = openTimeStr.split(':');
                 var openTime  = new Date(now.getFullYear(), now.getMonth(), now.getDate(), openTimeArr[0], openTimeArr[1]);
-                var openTime15MinutesAgo = new Date(openTime.getTime() - 15 * 60 * 1000);
+                var openTime10MinutesAgo = new Date(openTime.getTime() - 10 * 60 * 1000);
                 var openTime60MinutesAfter = new Date(openTime.getTime() + 60 * 60 * 1000);
 
                 if(openType == 1){
@@ -619,7 +619,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
                        user[0].gps_exception == 1 ||
                        now.getHours() >= 17 ||                      // 晚上五点以后不检查 因无老师解决
                       (now.getDay() == 6 || now.getDay() == 0)      // 周末不检查
-                      (now >= openTime15MinutesAgo && now <= openTime60MinutesAfter ) // 开馆前15分钟到开馆60分钟之内不检查 因此时签到人员较多
+                      (now >= openTime10MinutesAgo && now <= openTime60MinutesAfter ) // 开馆前15分钟到开馆60分钟之内不检查 因此时签到人员较多
                       ){
                         var angelCode = support.random(5);
 
