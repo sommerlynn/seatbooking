@@ -264,7 +264,9 @@
         );
     });
 
-    var closeTimer = setTimeout("closeWindow", 10000);
+    function setCloseTimer(){
+        setTimeout("closeWindow", 10000);
+    }
 
     function closeWindow(){
         window.location.assign('/me/'+'<%=openid%>');
