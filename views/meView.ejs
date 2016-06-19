@@ -370,7 +370,21 @@
                             <% }%>
                         </div>
                     </div>
-
+                    <li class="card" style="background-color: #FFFFFF">
+                        <div class="card-content">
+                            <ul class="seat-content">
+                                <li class="left_part" style="padding: 0">
+                                    <div class="date-row">
+                                        <span class="score-info"><%= userInfo.credit_score %>[初始为12分]</span>
+                                    </div>
+                                </li>
+                                <li class="right_part">
+                                    <div style="clear: both"></div>
+                                    <div class="level"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
                     <div class="content-block-title">
                         <div class="item-media">
@@ -381,10 +395,7 @@
                             <div class="item-real-info"><a href="/me/oldSeat/<%= openid %>">历史座位 ></a></div>
                         </div>
                     </div>
-                    <li class="card" style="background-color: #FFFFFF">
-                        <div class="card-content">
-                        </div>
-                    </li>
+
                     <% if (userSeatOrders.length > 0) { %>
 
                     <% for(var index = 0; index < userSeatOrders.length; index++){ %>
