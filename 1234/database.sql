@@ -191,7 +191,7 @@ ALTER VIEW reading_digest_view AS
         ORDER BY reading_digest.create_date desc
 
 ALTER VIEW seat_log_view AS
-        SELECT user.*, seat_log.classroom_id, seat_log.seat_code, seat_log.log_type, seat_log.log_time, seat_log.log_msg, seat_log.order_date, area_classroom_view.full_name
+        SELECT user.*, seat_log.classroom_id, seat_log.seat_code, seat_log.log_type, seat_log.log_time, seat_log.log_msg, seat_log.order_date, seat_log.original_openid, seat_log.order_id, area_classroom_view.full_name
         FROM seat_log LEFT JOIN user
         ON seat_log.openid = user.openid
         LEFT JOIN area_classroom_view

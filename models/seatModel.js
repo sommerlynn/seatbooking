@@ -675,7 +675,9 @@ seat.getLog = function (classroomID, seatCode, callback) {
 };
 
 seat.getLogNeedToCalculateCreditScore = function(callback){
-
+    var today = new Date(),
+        todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    var selectQuery = "select * from seat_log_view ";
 };
 
 module.exports = seat;
