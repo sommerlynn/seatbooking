@@ -37,9 +37,15 @@
         padding: 0.25rem 0.75rem;
     }
 
+    .credit-score-title{
+        line-height: 1.25rem;
+        padding: 0.25rem 0.75rem;
+    }
+
     .credit-score-info {
         line-height: 1.25rem;
         padding: 0.25rem 0.75rem;
+        font-weight: bold;
     }
 
     .selected-seat-info {
@@ -380,7 +386,7 @@
                             <ul class="seat-content">
                                 <li class="left_part" style="padding: 0">
                                     <div class="date-row">
-                                        <span class="credit-score-info"><%= userInfo.credit_score %>[初始为12分]</span>
+                                        <span class="credit-score-title">我的信用分:</span><span class="credit-score-info"><%= userInfo.credit_score %>分</span>
                                     </div>
                                 </li>
                                 <li class="right_part">
