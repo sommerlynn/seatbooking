@@ -206,11 +206,28 @@
 <div class="page">
     <div class="date-nav">
         <% if (type == 'tomorrow') { %>
-        <a href="?t=today" class="date-item">实时状态</a>
-        <a href="?t=tomorrow" class="active date-item">预约明日</a>
+        <a href="?t=today" class="date-item">今天 <%= today.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'1234
+            }) %></a>
+        <a href="?t=tomorrow" class="active date-item">明天 <%= nextDay.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
         <% } else { %>
-        <a href="?t=today" class="active date-item">实时状态</a>
-        <a href="?t=tomorrow" class="date-item">预约明日</a>
+        <a href="?t=today" class="active date-item">今天 <%= today.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
+        <a href="?t=tomorrow" class="date-item">明天 <%= nextDay.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) %></a>
+
         <% } %>
     </div>
 

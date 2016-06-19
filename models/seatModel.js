@@ -674,4 +674,8 @@ seat.getLog = function (classroomID, seatCode, callback) {
     seat.getLogByDateType(classroomID, seatCode, 'today', callback);
 };
 
+seat.getLogNeedToCalculateCreditScore = function(callback){
+
+};
+
 module.exports = seat;
