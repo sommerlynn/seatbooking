@@ -561,6 +561,10 @@
                                     if(seatStatus == 0){
                                         $("#seat-status-span").text('空座');
                                         if(canOrder == 1){
+                                            $('#msg-content-wrapper')[0].innerHTML = '未减少你早起排队等待的时间, 有更多的时间休息和学习, 故而提供此预约功能, 望严肃认真使用, 当时间安排有变时, 请及时退座供其他同窗使用。';
+
+                                            $('#msg-content-wrapper').css('display', 'block');
+
                                             $('.seat-operation')[0].innerHTML = '';
                                             $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"order-operation\">预约</div>");
                                             $('#operation-content-wrapper').css('display', 'block');
@@ -605,6 +609,9 @@
                                                     });
                                                 });
                                             }
+                                            else{
+                                                $('#operation-content-wrapper').css('display', 'none');
+                                            }
                                         }
                                     }
                                     if(seatStatus == 1){
@@ -642,8 +649,6 @@
                                         else {
                                             $('#msg-content-wrapper').css('display', 'block');
                                         }
-                                    }else{
-                                        $('#msg-content-wrapper').css('display', 'none');
                                     }
 
                                     $('#seat_log_list').css('display', 'block');

@@ -91,7 +91,7 @@ seat.canOrder = function (openid, classroomID, orderDate, callback) {
                     if (now <= openTimeMore30Minutes && now.getHours() >= 6) {
                         callback(1, '', openType, openTime, closeTime);
                     } else {
-                        callback(0, '当日至次日开馆半小时内可预约次日座位, 每日0:00 ~ 6:00不能进行预约。', openType, openTime, closeTime);
+                        callback(0, '今天6点至明天开馆时间半小时内可预约次日座位, 每日0:00 ~ 6:00请好好休息, 预约功能关闭。', openType, openTime, closeTime);
                     }
                 }
                 else{
