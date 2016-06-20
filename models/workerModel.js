@@ -18,7 +18,7 @@ var seatHours = [];
 for(var index = 0; index < 60; index++){
     seatMinutes.push(index);
 }
-for(var index = 8; index < 23; index++){
+for(var index = 8; index < 24; index++){
     seatHours.push(index);
 }
 seatRule.minute = seatMinutes;

@@ -699,7 +699,7 @@ seat.getLogNeedToCalculateCreditScore = function(callback){
 seat.calculateCreditRule = function(logID, openid){
    var now = new Date(),
        todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-       selectQuery = "select top 1 from seat_log_view where original_openid = ? and order_date = ? and log_id < ? order by log_id desc",
+       selectQuery = "select * from seat_log_view where original_openid = ? and order_date = ? and log_id < ? order by log_id desc limit 1",
        selectParams = [openid, todayDate, logID];
    db.executeQuery(selectQuery, selectParams, function(err, results){
        // 预约导致的超时 扣1分
@@ -707,7 +707,6 @@ seat.calculateCreditRule = function(logID, openid){
        {
           creditModel.updateScore(results[0].original_openid, -1);
           creditModel.log(results[0].order_id, results[0].original_openid, '0101010101', -1, 1, '预约未按时签到');
-
        }
        // 暂离导致的超时
        else
