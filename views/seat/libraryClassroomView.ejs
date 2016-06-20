@@ -589,20 +589,22 @@
                                             });
                                         }
                                         else{
-                                            $('#msg-content-wrapper')[0].innerHTML = '请扫码签到入座, 未扫码入座无效, 离开时请扫码暂离或退座。空座有物品占座时,其他读者可将物品规整后放在座位一侧, 扫码入座。';
-                                            $('.seat-operation')[0].innerHTML = '';
-                                            $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"sign-operation\">扫码入座</div>");
-                                            $('#operation-content-wrapper').css('display', 'block');
+                                            if($('#msg-content-wrapper')[0].innerHTML == ''){
+                                                $('#msg-content-wrapper')[0].innerHTML = '请扫码签到入座, 未扫码入座无效, 离开时请扫码暂离或退座。空座有物品占座时,其他读者可将物品规整后放在座位一侧, 扫码入座。';
+                                                $('.seat-operation')[0].innerHTML = '';
+                                                $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"sign-operation\">扫码入座</div>");
+                                                $('#operation-content-wrapper').css('display', 'block');
 
-                                            $("#sign-operation").tap(function () {
-                                                wx.scanQRCode({
-                                                    needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-                                                    scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
-                                                    success: function (res) {
-                                                        var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-                                                    }
+                                                $("#sign-operation").tap(function () {
+                                                    wx.scanQRCode({
+                                                        needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                                                        scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                                                        success: function (res) {
+                                                            var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                                                        }
+                                                    });
                                                 });
-                                            });
+                                            }
                                         }
                                     }
                                     if(seatStatus == 1){
