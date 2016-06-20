@@ -4,6 +4,8 @@
 var credit = {},
     db = require('./db'),
     schoolModel = require('./schoolModel'),
+    weixinMessage = require('./weixinMessageModel'),
+    userModel = require('./userModel'),
     async = require('async'),
     support = require('../lib/support');
 
@@ -21,10 +23,14 @@ credit.log = function(orderID, userOpenid, operatorOpenid, score, logType, logMs
  * 2016-06-20 CHEN PU 创建
  *
  * */
-credit.updateScore = function(openid, score){
+credit.updateScore = function(openid, score, reasonMsg){
     var updateQuery = 'update user set credit_score = credit_score + ? where openid = ?',
         updateParams = [score, openid];
-    db.executeQuery(updateQuery, updateParams, function(err, result){});
+    db.executeQuery(updateQuery, updateParams, function(err, result){
+        userModel.getUser(openid, function(err, userInfo){
+            weixinMessage.noticeCreditScore(openid, reasonMsg, score, userInfo[0].credit_score);
+        });
+    });
 };
 
 /**
@@ -48,16 +54,18 @@ credit.calculateCreditRule = function (logID, openid) {
     db.executeQuery(selectQuery, selectParams, function (err, results) {
         // 预约导致的超时 扣1分
         if (results[0].log_type == 1) {
-            credit.updateScore(results[0].original_openid, -1);
-            credit.log(results[0].order_id, results[0].original_openid, '0101010101', -1, 1, '预约未按时签到');
+            var reasonMsg = '预约未按时签到';
+            credit.updateScore(results[0].original_openid, -1, reasonMsg);
+            credit.log(results[0].order_id, results[0].original_openid, '0101010101', -1, 1, reasonMsg);
         }
         // 暂离导致的超时
         else
         {
             // 自己设置暂离 超时不扣分 被管理员或他人设置暂离 超时扣2分
             if (results[0].original_openid != results[0].openid) {
-                credit.updateScore(results[0].original_openid, -2);
-                credit.log(results[0].order_id, results[0].original_openid, '0101010101', -2, 2, '离开未设暂离且超时未归');
+                var reasonMsg = '离开未设暂离且超时未归';
+                credit.updateScore(results[0].original_openid, -2, reasonMsg);
+                credit.log(results[0].order_id, results[0].original_openid, '0101010101', -2, 2, reasonMsg);
             }
         }
     });

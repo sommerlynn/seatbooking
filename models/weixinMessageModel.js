@@ -486,25 +486,28 @@ weixinMessage.dealWithArbitration = function(openid, adminMsg){
  * 信用分变动通知
  * 2016-06-21: CHEN PU 创建
  * */
-weixinMessage.dealWithArbitration = function(openid, adminMsg){
+weixinMessage.noticeCreditScore = function(openid, reason, scoreChanged, scoreLeft){
     weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
         var sendData = {
             "touser":openid,
-            "template_id":"WNlYcFrQx_ilCcgf65fxE4kNGTQH0EOw0N8mawMN4T4",
+            "template_id":"YagMvV3AyZMrxml5NEV1EJDJxWRaWpFhLidjOk_M--0",
             "url":"http://campus.julyangel.cn/me/"+openid,
             "data":{
                 "first":{
-                    "value":adminMsg
+                    "value":''
                 },
                 "keyword1":{
-                    "value":'申诉请求'
+                    "value":reason
                 },
                 "keyword2":{
-                    "value":(new Date()).toLocaleString('en-US', {hour12:false})
+                    "value":scoreChanged,
+                    "color":"#A00000"
                 },
                 "keyword3":{
-                    "value":'已处理',
-                    "color":"#A00000"
+                    "value":scoreLeft
+                },
+                "remark":{
+                    "value":''
                 }
             }
         };
