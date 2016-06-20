@@ -8,7 +8,7 @@ var credit = {},
     support = require('../lib/support');
 
 credit.log = function(orderID, userOpenid, operatorOpenid, score, logType, logMsg){
-    var insertQuery = 'insert into credit_score_log (order_id, user_openid, operator_openid, score, log_type, logMsg) '+
+    var insertQuery = 'insert into credit_score_log (order_id, user_openid, operator_openid, score, log_type, log_msg) '+
                       'values (?,?,?,?,?,?)',
         insertParams = [orderID, userOpenid, operatorOpenid, score, logType, logMsg];
     db.executeQuery(insertQuery, insertParams, function(err, result){
