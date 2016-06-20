@@ -18,7 +18,7 @@ var seatHours = [];
 for(var index = 0; index < 60; index++){
     seatMinutes.push(index);
 }
-for(var index = 8; index < 22; index++){
+for(var index = 8; index < 23; index++){
     seatHours.push(index);
 }
 seatRule.minute = seatMinutes;
@@ -49,6 +49,13 @@ schedule.scheduleJob(seatRule, function(){
     seatModel.getOrderNeedToNotice(function (err, orders) {
         async.forEachSeries(orders, function(item, callback){
             weixinMessageModel.willRecycleNotice(item.openid, item.school_id, item.full_name, item.seat_code, item.schedule_recover_time);
+            callback(null);
+        });
+    });
+
+    seatModel.getLogNeedToCalculateCreditScore(function(err, logs){
+        async.forEachSeries(logs, function(item, callback){
+            seatModel.calculateCreditRule(item.log_id, item.original_openid);
             callback(null);
         });
     });

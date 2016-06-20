@@ -6,7 +6,8 @@ var seat = {},
     db = require('./db'),
     weixinMessage = require('./weixinMessageModel'),
     classroom = require('./classroomModel'),
-    userModel = require('./userModel');
+    userModel = require('./userModel'),
+    creditModel = require('./creditModel');
 
 /**
  * 根据日期类型（今天/明天）获取新增预约的开始时间、结束时间、座位系统预计回收时间
@@ -674,10 +675,51 @@ seat.getLog = function (classroomID, seatCode, callback) {
     seat.getLogByDateType(classroomID, seatCode, 'today', callback);
 };
 
+/**
+ * 获取十分钟之前被系统回收的座位日志
+ *
+ * 2016-06-20 CHEN PU 创建
+ *
+ * */
 seat.getLogNeedToCalculateCreditScore = function(callback){
-    var today = new Date(),
-        todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    var selectQuery = "select * from seat_log_view ";
+    var now = new Date(),
+        todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+        temMinutesAgo = new Date(now.getTime()-10*60*1000),
+        selectQuery = "select * from seat_log_view where log_type = -2 and order_date = ? and log_time < ?",
+        selectParams = [todayDate, temMinutesAgo];
+    db.executeQuery(selectQuery, selectParams, callback);
+};
+
+/**
+ * 计算信用分的扣减
+ * callback (retCode, score) retCode (0 不扣分 1 扣分 score 扣减的分数)
+ *
+ * 2016-06-20 CHEN PU 创建
+ * */
+seat.calculateCreditRule = function(logID, openid){
+   var now = new Date(),
+       todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+       selectQuery = "select top 1 from seat_log_view where original_openid = ? and order_date = ? and log_id < ? order by log_id desc",
+       selectParams = [openid, todayDate, logID];
+   db.executeQuery(selectQuery, selectParams, function(err, results){
+       // 预约导致的超时 扣1分
+       if(results[0].log_type == 1)
+       {
+          creditModel.updateScore(results[0].original_openid, -1);
+          creditModel.log(results[0].order_id, results[0].original_openid, '0101010101', -1, 1, '预约未按时签到');
+
+       }
+       // 暂离导致的超时
+       else
+       {
+          // 自己设置暂离 超时不扣分 被管理员或他人设置暂离 超时扣2分
+          if(results[0].original_openid != results[0].openid)
+          {
+              creditModel.updateScore(results[0].original_openid, -2);
+              creditModel.log(results[0].order_id, results[0].original_openid, '0101010101', -2, 2, '离开未设暂离且超时未归');
+          }
+       }
+   });
 };
 
 module.exports = seat;
