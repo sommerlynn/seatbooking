@@ -685,7 +685,7 @@ seat.getLogNeedToCalculateCreditScore = function(callback){
     var now = new Date(),
         todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
         temMinutesAgo = new Date(now.getTime()-10*60*1000),
-        selectQuery = "select * from seat_log_view where log_type = -2 and order_date = ? and log_time < ?",
+        selectQuery = "select * from seat_log_view where log_type = -2 and order_date = ? and log_time < ? and credit_status = 0",
         selectParams = [todayDate, temMinutesAgo];
     db.executeQuery(selectQuery, selectParams, callback);
 };
@@ -701,6 +701,13 @@ seat.calculateCreditRule = function(logID, openid){
        todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
        selectQuery = "select * from seat_log_view where original_openid = ? and order_date = ? and log_id < ? order by log_id desc limit 1",
        selectParams = [openid, todayDate, logID];
+
+   var updateQuery = 'update seat_log set credit_status = 1 where log_id = ?',
+       updateParams = [logID];
+   db.executeQuery(updateQuery, updateParams, function(err, result){
+
+   });
+
    db.executeQuery(selectQuery, selectParams, function(err, results){
        // 预约导致的超时 扣1分
        if(results[0].log_type == 1)
