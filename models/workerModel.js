@@ -10,6 +10,7 @@ var schedule = require("node-schedule"),
     seatModel = require('./seatModel'),
     classroomModel = require('./classroomModel'),
     weixinMessageModel = require('./weixinMessageModel'),
+    creditModel = require('./creditModel'),
     async = require('async');
 
 var seatRule = new schedule.RecurrenceRule();
@@ -55,7 +56,7 @@ schedule.scheduleJob(seatRule, function(){
 
     seatModel.getLogNeedToCalculateCreditScore(function(err, logs){
         async.forEachSeries(logs, function(item, callback){
-            seatModel.calculateCreditRule(item.log_id, item.original_openid);
+            creditModel.calculateCreditRule(item.log_id, item.original_openid);
             callback(null);
         });
     });

@@ -81,25 +81,31 @@ seat.getOrderRelatedDateByDayType = function (classroomID, dayType, callback) {
 seat.canOrder = function (openid, classroomID, orderDate, callback) {
     classroom.getOpenTime(classroomID, orderDate, function (openType, openTime, closeTime, holidayComment) {
         userModel.getUser(openid, function (err, user) {
-            if (user[0].credit_score > 0) {
-                if (openType == 1) {
-                    var openTimeArr = openTime.split(':'),
-                        openTimeDate = new Date(orderDate.getFullYear(), orderDate.getMonth(), orderDate.getDate(),
-                            openTimeArr[0], openTimeArr[1]),
-                        openTimeMore30Minutes = new Date(openTimeDate.getTime() + 0.5 * 60 * 60 * 1000);
-                    var now = new Date();
-                    if (now <= openTimeMore30Minutes && now.getHours() >= 6) {
-                        callback(1, '', openType, openTime, closeTime);
-                    } else {
-                        callback(0, '今天6点至明天开馆时间半小时内可预约次日座位, 每日0:00 ~ 6:00请好好休息, 预约功能关闭。', openType, openTime, closeTime);
+            // 通过实名认证的用户才能预约
+            if (user[0].status == 2) {
+                if (user[0].credit_score > 0) {
+                    if (openType == 1) {
+                        var openTimeArr = openTime.split(':'),
+                            openTimeDate = new Date(orderDate.getFullYear(), orderDate.getMonth(), orderDate.getDate(),
+                                openTimeArr[0], openTimeArr[1]),
+                            openTimeMore30Minutes = new Date(openTimeDate.getTime() + 0.5 * 60 * 60 * 1000);
+                        var now = new Date();
+                        if (now <= openTimeMore30Minutes && now.getHours() >= 6) {
+                            callback(1, '', openType, openTime, closeTime);
+                        } else {
+                            callback(0, '今天6点至明天开馆时间半小时内可预约次日座位, 每日0:00 ~ 6:00请好好休息, 预约功能关闭。', openType, openTime, closeTime);
+                        }
+                    }
+                    else {
+                        callback(0, holidayComment, openType, openTime, closeTime);
                     }
                 }
-                else{
-                    callback(0, holidayComment, openType, openTime, closeTime);
+                else {
+                    callback(0, '你的信用分已被扣完, 不能再继续预约座位, 请到图书馆相关部门办理信用分恢复。', openType, openTime, closeTime);
                 }
             }
             else{
-                callback(0, '你的信用分已被扣完, 不能再继续预约座位, 请到图书馆相关部门办理信用分恢复。', openType, openTime, closeTime);
+                callback(0, '预约功能需完成实名认证, 请在【我的】->【个人信息】根据要求提交个人真实信息。', openType, openTime, closeTime);
             }
         });
     });
@@ -317,15 +323,14 @@ seat.checkOrderBySeatCode = function (classroomID, seatCode, dayType, callback) 
     var selectQuery = "select * from user_seat_order_view where seat_code = ? and classroom_id = ? " +
             "and start_time < ? and end_time > ? and status > 0",
         today = new Date(),
-        tomorrow = new Date(today.getTime()+24*60*60*1000),
+        tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000),
         orderDate = today;
-    if(dayType == 'tomorrow'){
+    if (dayType == 'tomorrow') {
         orderDate = tomorrow;
     }
     var params = [seatCode, classroomID, orderDate, orderDate];
     db.executeQuery(selectQuery, params, callback);
 };
-
 
 
 /**
@@ -366,13 +371,13 @@ seat.getOrderNeedToRecycle = function (callback) {
  **/
 seat.getOrderNeedToNotice = function (callback) {
     var selectQuery = "select * from user_seat_order_view where " +
-        "((schedule_recover_time < ? and schedule_recover_time > ?) || (schedule_recover_time < ? and schedule_recover_time > ?)) "+
-        "and end_time > ? and (status = 1 or status = 3)",
+            "((schedule_recover_time < ? and schedule_recover_time > ?) || (schedule_recover_time < ? and schedule_recover_time > ?)) " +
+            "and end_time > ? and (status = 1 or status = 3)",
         now = new Date(),
-        tenMinutesLater = new Date(now.getTime()+10*60*1000),
-        nineMinutesLater = new Date(now.getTime()+9*60*1000),
-        threeMinutesLater = new Date(now.getTime()+3*60*1000),
-        twoMinutesLater = new Date(now.getTime()+2*60*1000),
+        tenMinutesLater = new Date(now.getTime() + 10 * 60 * 1000),
+        nineMinutesLater = new Date(now.getTime() + 9 * 60 * 1000),
+        threeMinutesLater = new Date(now.getTime() + 3 * 60 * 1000),
+        twoMinutesLater = new Date(now.getTime() + 2 * 60 * 1000),
         params = [tenMinutesLater, nineMinutesLater, threeMinutesLater, twoMinutesLater, now];
     db.executeQuery(selectQuery, params, callback);
 };
@@ -639,8 +644,8 @@ seat.logBySpecificUser = function (orderID, openid, logType, logMsg, callback) {
             '((select classroom_id from user_seat_order_view where order_id = ?), ?, ' +
             '(select seat_code from user_seat_order_view where order_id = ?), ' +
             '(select start_time from user_seat_order_view where order_id = ?), ' +
-            '?, '+
-            '(select openid from user_seat_order_view where order_id = ?), '+
+            '?, ' +
+            '(select openid from user_seat_order_view where order_id = ?), ' +
             '?, ?)',
         insertParams = [orderID, orderID, orderID, orderID, openid, orderID, logType, logMsg];
     db.insertQuery(insertQuery, insertParams, function (err, id) {
@@ -681,51 +686,15 @@ seat.getLog = function (classroomID, seatCode, callback) {
  * 2016-06-20 CHEN PU 创建
  *
  * */
-seat.getLogNeedToCalculateCreditScore = function(callback){
+seat.getLogNeedToCalculateCreditScore = function (callback) {
     var now = new Date(),
         todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-        temMinutesAgo = new Date(now.getTime()-10*60*1000),
+        temMinutesAgo = new Date(now.getTime() - 10 * 60 * 1000),
         selectQuery = "select * from seat_log_view where log_type = -2 and order_date = ? and log_time < ? and credit_status = 0",
         selectParams = [todayDate, temMinutesAgo];
     db.executeQuery(selectQuery, selectParams, callback);
 };
 
-/**
- * 计算信用分的扣减
- * callback (retCode, score) retCode (0 不扣分 1 扣分 score 扣减的分数)
- *
- * 2016-06-20 CHEN PU 创建
- * */
-seat.calculateCreditRule = function(logID, openid){
-   var now = new Date(),
-       todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-       selectQuery = "select * from seat_log_view where original_openid = ? and order_date = ? and log_id < ? order by log_id desc limit 1",
-       selectParams = [openid, todayDate, logID];
 
-   var updateQuery = 'update seat_log set credit_status = 1 where log_id = ?',
-       updateParams = [logID];
-   db.executeQuery(updateQuery, updateParams, function(err, result){
-
-   });
-
-   db.executeQuery(selectQuery, selectParams, function(err, results){
-       // 预约导致的超时 扣1分
-       if(results[0].log_type == 1)
-       {
-          creditModel.updateScore(results[0].original_openid, -1);
-          creditModel.log(results[0].order_id, results[0].original_openid, '0101010101', -1, 1, '预约未按时签到');
-       }
-       // 暂离导致的超时
-       else
-       {
-          // 自己设置暂离 超时不扣分 被管理员或他人设置暂离 超时扣2分
-          if(results[0].original_openid != results[0].openid)
-          {
-              creditModel.updateScore(results[0].original_openid, -2);
-              creditModel.log(results[0].order_id, results[0].original_openid, '0101010101', -2, 2, '离开未设暂离且超时未归');
-          }
-       }
-   });
-};
 
 module.exports = seat;

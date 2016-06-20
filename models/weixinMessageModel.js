@@ -481,4 +481,42 @@ weixinMessage.dealWithArbitration = function(openid, adminMsg){
         urllib.request(url, options);
     });
 };
+
+/**
+ * 信用分变动通知
+ * 2016-06-21: CHEN PU 创建
+ * */
+weixinMessage.dealWithArbitration = function(openid, adminMsg){
+    weixinAPIClient.jsAPIClient.getAccessToken(function(err, token){
+        var sendData = {
+            "touser":openid,
+            "template_id":"WNlYcFrQx_ilCcgf65fxE4kNGTQH0EOw0N8mawMN4T4",
+            "url":"http://campus.julyangel.cn/me/"+openid,
+            "data":{
+                "first":{
+                    "value":adminMsg
+                },
+                "keyword1":{
+                    "value":'申诉请求'
+                },
+                "keyword2":{
+                    "value":(new Date()).toLocaleString('en-US', {hour12:false})
+                },
+                "keyword3":{
+                    "value":'已处理',
+                    "color":"#A00000"
+                }
+            }
+        };
+        var url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token.data.access_token;
+        var options = {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            content: JSON.stringify(sendData)
+        };
+        urllib.request(url, options);
+    });
+};
 module.exports = weixinMessage;
