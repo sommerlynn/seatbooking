@@ -831,4 +831,11 @@ router.get('/scanseat/seatoperation', function(req, res){
     });
 });
 
+router.get('/seat/rules/:openid', function(req, res){
+    res.render('./seat/rulesView', {
+        title: '座位使用说明',
+        openid: req.params.openid
+    });
+});
+
 module.exports = router;
