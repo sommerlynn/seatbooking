@@ -164,6 +164,18 @@
   content: "\e61e";
 }
 
+.icon-credit-star:before{
+  content: "\e623";
+}
+
+.icon-blackboard-pen:before{
+   content: "\e621";
+}
+
+.icon-blackboard-list:before{
+  content: "\e622";
+}
+
 body {
   padding: 0px;
   margin: 0px auto;
