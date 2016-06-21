@@ -46,7 +46,7 @@ user.setAngelCode = function(openid, angelcode, callback){
  *
  * */
 user.getWaitForConfirmList = function(callback){
-    var selectQuery = 'select * from user_info_view where status = 1'
+    var selectQuery = 'select * from user_info_view where status = 1 order by last_modified'
         selectParams = [];
     db.executeQuery(selectQuery, selectParams, callback);
 };
