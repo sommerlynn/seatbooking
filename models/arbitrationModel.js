@@ -40,7 +40,8 @@ arbitration.new = function(applier_openid, classroom_full_name, seat_code, descr
  */
 arbitration.listNew = function(openid, callback){
     var selectQuery = 'select * from arbitration_view where classroom_id in '+
-        '(select classroom_id from classroom_manager left join user on classroom_manager.user_openid = user.openid where openid = ?) and status = 1',
+        '(select classroom_id from classroom_manager left join user on classroom_manager.user_openid = user.openid where openid = ?) and status = 1 '+
+        'order by apply_date desc',
         selectParams = [openid];
     db.executeQuery(selectQuery, selectParams, callback);
 };
@@ -51,7 +52,8 @@ arbitration.listNew = function(openid, callback){
  */
 arbitration.listOld = function(openid, callback){
     var selectQuery = 'select * from arbitration_view where classroom_id in '+
-            '(select classroom_id from classroom_manager left join user on classroom_manager.user_openid = user.openid where openid = ?) and status <> 1',
+            '(select classroom_id from classroom_manager left join user on classroom_manager.user_openid = user.openid where openid = ?) and status <> 1 '+
+            'order by apply_date desc',
         selectParams = [openid];
     db.executeQuery(selectQuery, selectParams, callback);
 };
