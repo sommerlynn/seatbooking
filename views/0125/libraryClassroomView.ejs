@@ -489,6 +489,7 @@
     $("#admin-leave-btn").tap(function () {
         if (selectedSeatRowID > 0 &&
                 selectedSeatColumnID > 0) {
+
             $.showPreloader('正在设置代暂离...');
             $.post('/0125/libraryClassroom/seat/leave', {
                 openid: '<%= openid %>',
