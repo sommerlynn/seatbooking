@@ -46,7 +46,7 @@ user.setAngelCode = function(openid, angelcode, callback){
  *
  * */
 user.getWaitForConfirmList = function(callback){
-    var selectQuery = 'select * from user_info_view where status = 1 order by approve_date',
+    var selectQuery = 'select * from user_info_view where status = 1 order by verify_date',
         selectParams = [];
     db.executeQuery(selectQuery, selectParams, callback);
 };
