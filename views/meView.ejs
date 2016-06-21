@@ -296,8 +296,16 @@
         min-height: unset;
     }
 
-    .credit-star-title, .credit-star-media, .credit-star-no{
+    .credit-star-media{
         line-height: 2rem;
+        font-size: 1.5rem;
+        color: #A00000;
+    }
+
+    .credit-star-title{
+        line-height: 2rem;
+        font-size: .5rem;
+        color: #A00000;
     }
 </style>
 
@@ -399,10 +407,10 @@
                                 <li class="right_part" style="padding: 0">
                                     <div style="clear: both"></div>
                                     <div class="date-row">
-                                        <span class="credit-star-media"><i class="icon icon-credit-star" style="padding-right: 1rem">0</i></span>
+                                        <span class="credit-star-media"><i class="icon icon-credit-star"></i></span>
                                     </div>
                                     <div class="date-row">
-                                        <span class="credit-star-title">文明星</span>
+                                        <span class="credit-star-title">文明星 <%= userInfo.credit_star%> 颗</span>
                                     </div>
                                 </li>
                                 <div style="clear: both"></div>
