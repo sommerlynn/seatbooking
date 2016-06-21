@@ -57,6 +57,11 @@
                 },
                 {
                     "type": "view",
+                    "name": "退座",
+                    "url":"http://campus.julyangel.cn/oAuth/1/me"
+                },
+                {
+                    "type": "view",
                     "name": "申请仲裁",
                     "url":"http://campus.julyangel.cn/oAuth/1/arbitration"
                 }
