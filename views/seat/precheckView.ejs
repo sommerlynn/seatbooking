@@ -194,7 +194,7 @@
                         },
                         function(response){
                             if(response.retcode == 1){
-                                window.location.assign('seatoperation?'+'openid='+'<%= openid %>'+'&cid='+'<%= classroomID%>'+'&seat='+'<%= seat %>'+'&row='+'<%= row %>'+'&column='+'<%= column%>'+'&angelcode='+response.angelcode);
+                                window.location.assign('seatoperation?'+'openid='+'<%= openid %>'+'&cid='+'<%= classroomID%>'+'&seat='+'<%= seat %>'+'&row='+'<%= row %>'+'&column='+'<%= column%>'+'&angelcode='+response.angelcode+'v='+timeStr);
                             }else{
                                 $.alert(response.message);
                             }
