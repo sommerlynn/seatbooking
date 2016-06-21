@@ -76,6 +76,7 @@ seat.getOrderRelatedDateByDayType = function (classroomID, dayType, callback) {
 /**
  * 检测是否可以进行预约指定日期的教室的座位
  * 2016-06-09: CHEN PU 创建
+ * 2016-06-21: CHEN PU 可预约时间从开馆时间半小时内改为开馆时间之前（因有学生申诉 一预约座位就被收回且扣分）
  *
  * */
 seat.canOrder = function (openid, classroomID, orderDate, callback) {
@@ -88,12 +89,12 @@ seat.canOrder = function (openid, classroomID, orderDate, callback) {
                         var openTimeArr = openTime.split(':'),
                             openTimeDate = new Date(orderDate.getFullYear(), orderDate.getMonth(), orderDate.getDate(),
                                 openTimeArr[0], openTimeArr[1]),
-                            openTimeMore30Minutes = new Date(openTimeDate.getTime() + 0.5 * 60 * 60 * 1000);
+                            openTimeMore10Minutes = new Date(openTimeDate.getTime() + 10 * 60 * 1000);
                         var now = new Date();
-                        if (now <= openTimeMore30Minutes && now.getHours() >= 6) {
+                        if (now <= openTimeDate && now.getHours() >= 6) {
                             callback(1, '', openType, openTime, closeTime);
                         } else {
-                            callback(0, '今天6点至明天开馆时间半小时内可预约次日座位, 每日0:00 ~ 6:00请好好休息, 预约功能关闭。', openType, openTime, closeTime);
+                            callback(0, '今天6点至明天开馆时间之前可预约次日座位, 每日0:00 ~ 6:00请好好休息, 预约功能关闭。', openType, openTime, closeTime);
                         }
                     }
                     else {
