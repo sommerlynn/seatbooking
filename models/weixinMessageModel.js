@@ -507,7 +507,7 @@ weixinMessage.noticeCreditScore = function(openid, reason, scoreChanged, scoreLe
                     "value":scoreLeft
                 },
                 "remark":{
-                    "value":'如果你有特殊原因可通过系统提起申诉 扣分不是目的 只是为了大家都能遵守公共秩序 共同营造一个和谐的学习环境 七玥相信你下一次一定会做得很棒'
+                    "value":'扣分不是目的 只是希望都能遵守公共秩序 共同营造一个和谐的学习环境 七玥相信你下一次一定会做得很棒'
                 }
             }
         };
