@@ -494,7 +494,7 @@ weixinMessage.noticeCreditScore = function(openid, reason, scoreChanged, scoreLe
             "url":"http://campus.julyangel.cn/me/"+openid,
             "data":{
                 "first":{
-                    "value":''
+                    "value":'哎呀~ 一个不小心犯了规 被扣分了'
                 },
                 "keyword1":{
                     "value":reason
@@ -507,7 +507,7 @@ weixinMessage.noticeCreditScore = function(openid, reason, scoreChanged, scoreLe
                     "value":scoreLeft
                 },
                 "remark":{
-                    "value":''
+                    "value":'如果你有特殊原因可通过系统提起申诉 扣分不是目的 只是为了大家都能遵守公共秩序 共同营造一个和谐的学习环境 七玥相信你下一次一定会做得很棒'
                 }
             }
         };
