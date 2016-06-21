@@ -494,7 +494,7 @@ weixinMessage.noticeCreditScore = function(openid, reason, scoreChanged, scoreLe
             "url":"http://campus.julyangel.cn/me/"+openid,
             "data":{
                 "first":{
-                    "value":'哎呀~ 一个不小心犯了规 被扣分了'
+                    "value":'哎呀~ 一个不小心被扣分了'
                 },
                 "keyword1":{
                     "value":reason
