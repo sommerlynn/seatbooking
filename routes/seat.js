@@ -649,7 +649,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
                     }
                 }
                 else{
-                    var result = {retcode:-1, angelcode:'', message:'你正在进行非法操作, 已被记录, 请到图书馆307找老师解释清楚。'};
+                    var result = {retcode:-1, angelcode:'', message:'非法访问, 请到图书馆307找陈老师。'};
                     res.send(result);
                 }
             });
