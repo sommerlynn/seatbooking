@@ -86,4 +86,15 @@ user.rejectVerification = function(applierOpenid, rejectMsg, callback){
     });
 };
 
+/**
+ * 检查是否存在同学号的
+ * 2016-06-21 CHEN PU 创建
+ *
+ * */
+user.getByCode = function(openid, code, callback){
+    var selectQuery = 'select * from user where school_id = (select school_id from user where openid = ?) and user_code = ? and openid <> ?',
+        selectParams = [openid, code, openid];
+    db.executeQuery(selectQuery, selectParams, callback);
+};
+
 module.exports = user;

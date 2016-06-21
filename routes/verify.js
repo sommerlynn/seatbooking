@@ -65,33 +65,39 @@ router.get('/me/verifySheet/:openid', function (req, res) {
 router.post('/me/verifySheet/submitInfo', function (req, res) {
     // Content-disposition: attachment; filename="MEDIA_ID.jpg"
 
-    models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.photoServerID, 'verify_', function (err, fileName, filePath) {
-        if (err) {
-            res.send('哎呀, 出了点小故障, 我们再来一次好不好');
-        } else {
-            models.weixinMessageModel.uploadToQiniu(fileName, filePath, function (err, fileName, filePath) {
+    models.userModel.getByCode(req.body.openid, req.body.code, function(err, result){
+        if(result.length > 0){
+            res.send('此学号已被其他学生注册, 请确认你是否填写正确, 如果确定无误, 请携带一卡通到图书馆307找老师办理。');
+        }else{
+            models.weixinMessageModel.downloadFromWeiXin(req.body.openid, req.body.photoServerID, 'verify_', function (err, fileName, filePath) {
                 if (err) {
-                    res.send('哎呀, 出了点小故障, 我们再来一次好不好'+err.message);
+                    res.send('哎呀, 出了点小故障, 我们再来一次好不好');
                 } else {
-                    var personType = 1;
-                    if(req.body.type == '老师'){
-                        personType = 2;
-                    }
-                    models.userModel.fillRealInfo(
-                        req.body.name,
-                        req.body.code,
-                        req.body.department,
-                        req.body.classs,
-                        req.body.openid,
-                        personType,
-                        fileName,
-                        function (err, result) {
-                            if (err) {
-                                res.send('出错了额，请重试一下' + err.message);
-                            } else {
-                                res.send('您的信息已成功提交');
+                    models.weixinMessageModel.uploadToQiniu(fileName, filePath, function (err, fileName, filePath) {
+                        if (err) {
+                            res.send('哎呀, 出了点小故障, 我们再来一次好不好'+err.message);
+                        } else {
+                            var personType = 1;
+                            if(req.body.type == '老师'){
+                                personType = 2;
                             }
-                        });
+                            models.userModel.fillRealInfo(
+                                req.body.name,
+                                req.body.code,
+                                req.body.department,
+                                req.body.classs,
+                                req.body.openid,
+                                personType,
+                                fileName,
+                                function (err, result) {
+                                    if (err) {
+                                        res.send('出错了额，请重试一下' + err.message);
+                                    } else {
+                                        res.send('您的信息已成功提交');
+                                    }
+                                });
+                        }
+                    });
                 }
             });
         }
