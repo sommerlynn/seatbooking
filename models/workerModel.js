@@ -46,7 +46,7 @@ schedule.scheduleJob(seatRule, function(){
         seatModel.getOrderNeedToRecycle(function(err, orders){
             async.forEachSeries(orders, function(item, callback){
                 seatModel.sysReleaseAsNotSign(item.order_id, callback);
-                worker.log('回收座位',item.order_id+' '+item.full_name+' '+item.seat_code);
+                worker.log('回收座位',item.order_id+' '+item.full_name+' '+item.seat_code+ ' '+item.openid);
             }, function () {
                recycleSeatWorkerBusy = 0;
                worker.log('回收座位','完成');
@@ -60,7 +60,7 @@ schedule.scheduleJob(seatRule, function(){
         seatModel.getOrderNeedToNotice(function (err, orders) {
             async.forEachSeries(orders, function(item, callback){
                 weixinMessageModel.willRecycleNotice(item.openid, item.school_id, item.full_name, item.seat_code, item.schedule_recover_time);
-                worker.log('发送座位回收提醒通知',item.order_id+' '+item.full_name+' '+item.seat_code);
+                worker.log('发送座位回收提醒通知',item.order_id+' '+item.full_name+' '+item.seat_code+' '+item.openid);
                 callback(null);
             }, function () {
                noticeOrderWorkerBusy = 0;
@@ -75,7 +75,7 @@ schedule.scheduleJob(seatRule, function(){
         seatModel.getLogNeedToCalculateCreditScore(function(err, logs){
             async.forEachSeries(logs, function(item, callback){
                 creditModel.calculateCreditRule(item.log_id, item.original_openid);
-                worker.log('计算信用分',item.log_id+' '+item.order_id+' '+item.full_name+' '+item.seat_code);
+                worker.log('计算信用分',item.log_id+' '+item.order_id+' '+item.full_name+' '+item.seat_code + ' ' + item.original_openid);
                 callback(null);
             }, function () {
                calculateCreditScoreBusy = 0;
