@@ -101,6 +101,10 @@ router.get('/emptyClassroom/:school/:area/:sectionStr/:openid', function (req, r
                 zonesArr[index] = zones[index].area_name;
             }
 
+            if(area == -1){
+               area = '';
+            }
+
             res.render('./seat/emptyClassroomView',
                 {
                     openid: req.params.openid,
@@ -133,6 +137,25 @@ router.get('/buildingClassroom/:areaId/:openid', function (req, res) {
                     classroomList: classroomList
                 });
         }
+    });
+});
+
+/*
+ * Get buildings of a school
+ * 获取所有图书馆教室列表
+ * 2016-06-22 CHEN PU 创建
+ *
+ * */
+router.get('/libraryZones/:openid', function (req, res) {
+
+    models.userModel.getUser(req.params.openid, function(err, user){
+        models.classroomModel.getAllActiveLibrary(user[0].school_id, function (err, classroomList) {
+            res.render('./seat/buildingClassroomView', {
+                openid: req.params.openid,
+                title: '阅览室列表',
+                classroomList:classroomList
+            });
+        });
     });
 });
 
@@ -269,14 +292,6 @@ router.post('/libraryClassroom/seat/status', function(req, res) {
             res.send(canOrder+"#"+seatStatus+"#"+JSON.stringify(seatLogs));
         });
     });
-
-    /*models.seatModel.getLogByDateType(req.body.classroomID, req.body.seatCode, req.body.type, function (err, seatLogs) {
-        for(var index = 0; index < seatLogs.length; index++){
-            seatLogs[index].log_time = (seatLogs[index].log_time.getMonth()+1)+'月'+seatLogs[index].log_time.getDate()+ '日 ' + seatLogs[index].log_time.getHours() + '点' +seatLogs[index].log_time.getMinutes();
-            //seatLogs[index].log_time.toLocaleString('en-US', {hour12:false});
-        }
-        res.send(JSON.stringify(seatLogs));
-    });*/
 });
 
 /*
@@ -311,30 +326,6 @@ router.post('/seat/order', function (req, res) {
             res.send(promptMsg);
         }
     });
-
-
-
-
-    /*models.seatModel.getOrderRelatedDateByDayType(req.body.type, function (startTime, endTime, scheduleRecoverTime) {
-        models.seatModel.isValidLibraryOrderRequest(req.body.openid, req.body.classroom, req.body.seatCode, startTime, endTime, function (err) {
-            if (err) {
-                res.send(err.message);
-            } else {
-                models.seatModel.createOrder(req.body.openid, req.body.classroom, req.body.seatCode, req.body.row, req.body.column, startTime, endTime, scheduleRecoverTime,
-                    function (err, newOrderId) {
-                        if (err) {
-                            if(err.code == 'ER_DUP_ENTRY'){
-                                res.send('哎呀, 就在上一秒这个座位被其他小伙伴约去了, 咱们来重新选一个位子吧');
-                            }else{
-                                res.send('哎呀, 出错了, 咱们再来一次试试, 如果还不行, 赶紧找管理员2858212885@qq.com');
-                            }
-                        } else {
-                            res.send('你已成功预订座位'+req.body.seatCode+', 请于'+scheduleRecoverTime.toLocaleString('en-US', {hour12:false})+'之前扫码签到, 过时座位将被系统自动回收。');
-                        }
-                    });
-            }
-        });
-    });*/
 });
 
 /*
@@ -831,9 +822,15 @@ router.get('/scanseat/seatoperation', function(req, res){
     });
 });
 
+/**
+ * 座位使用说明
+ *
+ * 2016-06-21 CHEN PU 创建
+ *
+ * **/
 router.get('/seat/rules/:openid', function(req, res){
     res.render('./seat/rulesView', {
-        title: '座位使用说明',
+        title: '用座规则',
         openid: req.params.openid
     });
 });

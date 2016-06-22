@@ -33,8 +33,7 @@
     }
 
     .content {
-        /*background-color: #E7E9ED;*/
-        background-color: #FFFFFF;
+        background-color: #E7E9ED;
     }
 
     .content-block {
@@ -194,7 +193,7 @@
         width: 100%;
         /* background: rgb(222, 139, 139); */
         line-height: 1rem;
-        background: #E7E9ED;
+        /*background: #A95F38;*/
     }
 
     .notice-message{
@@ -221,9 +220,9 @@
         border-radius: 10rem;
         text-align: center;
         line-height: 2rem;
-        font-size: 1rem;
-        color: #A00000;
-        background-color: #E7E9ED;
+        font-size: 1.3rem;
+        color: #20211B;
+        background-color: #E6DEB3;
     }
 
     .icon-list .icon-desc {
@@ -259,12 +258,40 @@
             </div>
         </div>
         <div class="content-block">
+            <!--<div class="content-block-title">图书馆座位状态查询及预约</div>-->
+
             <div class="list-block cards-list">
                 <ul>
                     <div class="notice-wrapper">
                         <p class="notice-message"><b>后勤管理处通知: </b>近期值用电高峰, 我校教一楼、一食堂、图书馆共用一个箱变, 由于箱变负荷总量的限制, 为保证学学生考试及饮食的正常供电, 自6月21日至放假, 每日11：00-12：00, 16：00-17：00, 图书馆楼空调关闭。
                         </p>
                     </div>
+                    <div class="content-block-title">
+                        <div class="item-media">
+                            <i class="icon icon-order"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">图书馆座位状态查询及预约</div>
+                        </div>
+                    </div>
+                    <li>
+                        <a class="item-link item-content" href="/buildingClassroom/429/<%= openid %>?ip=<%= ip %>"
+                           external>
+                            <div class="item-inner">
+                                <div class="item-title">图书馆主馆</div>
+                                <div class="item-title"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item-link item-content" href="/buildingClassroom/435/<%= openid %>?ip=<%= ip %>"
+                           external>
+                            <div class="item-inner">
+                                <div class="item-title">图书馆分馆</div>
+                                <div class="item-title"></div>
+                            </div>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -282,7 +309,7 @@
                     </a>
                 </li>
                 <li class="icon">
-                    <a style="display: block" href="/emptyClassroom/<%=schoolID%>/-1/111111/<%=openid%>">
+                    <a style="display: block" href="/libraryZones/<%= openid %>">
                         <span class="icon icon-circle icon-building"></span>
                         <span class="icon-desc">空教室</span>
                     </a>
@@ -293,6 +320,175 @@
                     </a>
                 </li>
             </ul>
+
+            <!--<div class="content-block-title">空教室查询</div>-->
+
+            <!--<div class="notice-wrapper">
+                <div class="notice"><i class="icon icon-notice" style="color: #A20000;margin-right: .4rem;"></i>因四、六级考试, 教1、3、4, 主楼B、C自6月17日18:00 ~ 6月18日18:00 封闭, 请各位同学提前取走个人物品以免丢失, 并祝愿各位参加考试的同学顺利平安。</div>
+            </div>-->
+            <!--<div class="list-block cards-list" >
+                <ul class="building-radio-group">
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">教3A</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">教3B</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">教3C</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">教4A</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">教4B</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">教4D</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">教5A</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">教5D</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">主楼B</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">主楼C</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">主楼E</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">主楼F</div>
+                        </label>
+                    </li>
+                    <li class="building-radio-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="radio" name="building_radio">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="building-name">教1楼</div>
+                        </label>
+                    </li>
+                </ul>
+
+                <ul>
+                    <div class="content-block-title">
+                        <div class="item-media">
+                            <i class="icon icon-classroom"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">空教室查询</div>
+                        </div>
+                    </div>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">教学楼区域</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="选择教学楼区域" id="zone-picker" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="section-radio-group">
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0; justify-content: ">
+                            <input type="checkbox" name="section_radio" id="section1_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">8:00 - 10:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section2_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">10:00 - 12:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section3_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">14:00 - 16:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section4_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">16:00 - 18:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0">
+                            <input type="checkbox" name="section_radio" id="section5_chkBox">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="section-name">19:00 - 21:00</div>
+                        </label>
+                    </li>
+                    <li class="section-checkbox-item">
+                        <label class="label-checkbox item-content" style="margin: 0"></label>
+                    </li>
+                </ul>
+                <div class="operation-card">
+                     <div class="operation">
+                         <div class="operation-btn" id="search-btn">查找</div>
+                     </div>
+                 </div>
+            </div>-->
         </div>
     </div>
 </div>
