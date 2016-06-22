@@ -4,14 +4,16 @@
  *
  */
 
-var schedule = require("node-schedule"),
+var worker = {},
+    schedule = require("node-schedule"),
     debug = require('debug'),
     log = debug('worker'),
     seatModel = require('./seatModel'),
     classroomModel = require('./classroomModel'),
     weixinMessageModel = require('./weixinMessageModel'),
     creditModel = require('./creditModel'),
-    async = require('async');
+    async = require('async'),
+    db = require('./db');
 
 var seatRule = new schedule.RecurrenceRule();
 var seatMinutes = [];
@@ -25,41 +27,59 @@ for(var index = 8; index < 22; index++){
 seatRule.minute = seatMinutes;
 seatRule.hour = seatHours;
 
+var recycleSeatWorkerBusy = 0,
+    noticeOrderWorkerBusy = 0,
+    calculateCreditScoreBusy = 0;
+
+/**
+ *
+ * 2016-06-22 CHEN PU 修改后台工作进程 增加日志记录 和 工作线程状态判断
+ *
+ *
+ * */
 schedule.scheduleJob(seatRule, function(){
-    seatModel.getOrderNeedToRecycle(function(err, orders){
-        async.forEachSeries(orders, function(item, callback){
-            seatModel.sysReleaseAsNotSign(item.order_id, callback);
-                //log('系统释放'+orders[index].full_name+' '+orders[index].seat_code+' '+(new Date()).toLocaleString());
-                /*seatModel.getQueue(item.classroom_id, item.seat_code, function(err, queueOrders){
-                 async.forEachSeries(queueOrders, function(queueOrder){
-                 seatModel.isValidLibraryOrderRequest(queueOrder.openid, queueOrder.classroom_id, queueOrder.seat_code,
-                 queueOrder.start_time, queueOrder.end_time, function(err, result){
-                 if(err){
+    if(recycleSeatWorkerBusy != 1){
+        recycleSeatWorkerBusy = 1;
 
-                 }else{
-                 seatModel.sign(queueOrder.order_id, function(err, result){
+        worker.log('回收座位','开始');
 
-                 });
-                 }
-                 });
-                 });
-                 });*/
+        seatModel.getOrderNeedToRecycle(function(err, orders){
+            async.forEachSeries(orders, function(item, callback){
+                seatModel.sysReleaseAsNotSign(item.order_id, callback);
+            }, function () {
+               recycleSeatWorkerBusy = 0;
+               worker.log('回收座位','完成');
+            });
         });
-    });
+    }
 
-    seatModel.getOrderNeedToNotice(function (err, orders) {
-        async.forEachSeries(orders, function(item, callback){
-            weixinMessageModel.willRecycleNotice(item.openid, item.school_id, item.full_name, item.seat_code, item.schedule_recover_time);
-            callback(null);
+    if(noticeOrderWorkerBusy != 1){
+        noticeOrderWorkerBusy = 1;
+        worker.log('发送座位回收提醒通知','开始');
+        seatModel.getOrderNeedToNotice(function (err, orders) {
+            async.forEachSeries(orders, function(item, callback){
+                weixinMessageModel.willRecycleNotice(item.openid, item.school_id, item.full_name, item.seat_code, item.schedule_recover_time);
+                callback(null);
+            }, function () {
+               noticeOrderWorkerBusy = 0;
+               worker.log('发送座位回收提醒通知','完成');
+            });
         });
-    });
+    }
 
-    seatModel.getLogNeedToCalculateCreditScore(function(err, logs){
-        async.forEachSeries(logs, function(item, callback){
-            creditModel.calculateCreditRule(item.log_id, item.original_openid);
-            callback(null);
+    if(calculateCreditScoreBusy != 1){
+        calculateCreditScoreBusy = 1;
+        worker.log('计算信用分','开始');
+        seatModel.getLogNeedToCalculateCreditScore(function(err, logs){
+            async.forEachSeries(logs, function(item, callback){
+                creditModel.calculateCreditRule(item.log_id, item.original_openid);
+                callback(null);
+            }, function () {
+               calculateCreditScoreBusy = 0;
+               worker.log('计算信用分','完成');
+            });
         });
-    });
+    }
 });
 
 /**
@@ -74,15 +94,26 @@ schedule.scheduleJob('10 12 * * *', function(){
         nextDay = new Date(now.getTime()+ 24 * 60 * 60 * 1000),
         nextDayDate = new Date(nextDay.getFullYear(), nextDay.getMonth(), nextDay.getDate(), 12, 0);
     classroomModel.getByType(1, '普通排课教室', function(err, classroomList){
+        worker.log('教室课程安排数据处理','开始');
         async.forEachSeries(classroomList,
             function (item, callback) {
                 classroomModel.insertClassTimeItem(1, item.classroom_id, nextDayDate, callback);
             },
             function () {
-
+                worker.log('教室课程安排数据处理','完成');
             }
         );
     });
 });
+
+worker.log = function (workerType, logType) {
+    var insertQuery = 'insert into worker_log (worker_type, log_type) values (?, ?)',
+        insertParams = [workerType, logType];
+    db.executeQuery(insertQuery, insertParams, function (err, results) {
+
+    });
+};
+
+module.exports = worker;
 
 
