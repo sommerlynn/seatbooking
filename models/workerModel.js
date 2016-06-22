@@ -46,11 +46,12 @@ schedule.scheduleJob(seatRule, function(){
         seatModel.getOrderNeedToRecycle(function(err, orders){
             async.forEachSeries(orders, function(item, callback){
                 seatModel.sysReleaseAsNotSign(item.order_id, function(err, result){
-                    worker.log('回收座位',item.order_id+' '+item.full_name+' '+item.seat_code+ ' '+item.openid, callback);
+                    worker.log('回收座位',item.order_id+' '+item.full_name+' '+item.seat_code+ ' '+item.openid);
+                    callback(null);
                 });
-            }, function (callback) {
+            }, function () {
                recycleSeatWorkerBusy = 0;
-               worker.log('回收座位','完成', callback);
+               worker.log('回收座位','完成');
             });
         });
     }
@@ -61,10 +62,11 @@ schedule.scheduleJob(seatRule, function(){
         seatModel.getOrderNeedToNotice(function (err, orders) {
             async.forEachSeries(orders, function(item, callback){
                 weixinMessageModel.willRecycleNotice(item.openid, item.school_id, item.full_name, item.seat_code, item.schedule_recover_time);
-                worker.log('发送座位回收提醒通知',item.order_id+' '+item.full_name+' '+item.seat_code+' '+item.openid, callback);
-            }, function (callback) {
+                worker.log('发送座位回收提醒通知',item.order_id+' '+item.full_name+' '+item.seat_code+' '+item.openid);
+                callback(null);
+            }, function () {
                noticeOrderWorkerBusy = 0;
-               worker.log('发送座位回收提醒通知','完成', callback);
+               worker.log('发送座位回收提醒通知','完成');
             });
         });
     }
@@ -78,9 +80,9 @@ schedule.scheduleJob(seatRule, function(){
                     worker.log('计算信用分',item.log_id+' '+item.order_id+' '+item.full_name+' '+item.seat_code + ' ' + item.original_openid, callback);
                 });
 
-            }, function (callback) {
+            }, function () {
                calculateCreditScoreBusy = 0;
-               worker.log('计算信用分','完成',callback);
+               worker.log('计算信用分','完成');
             });
         });
     }
@@ -110,10 +112,10 @@ schedule.scheduleJob('10 12 * * *', function(){
     });
 });
 
-worker.log = function (workerType, logType, callback) {
+worker.log = function (workerType, logType) {
     var insertQuery = 'insert into worker_log (worker_type, log_type) values (?, ?)',
         insertParams = [workerType, logType];
-    db.executeQuery(insertQuery, insertParams, callback);
+    db.executeQuery(insertQuery, insertParams);
 };
 
 module.exports = worker;
