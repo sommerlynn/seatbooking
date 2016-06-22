@@ -76,8 +76,9 @@ schedule.scheduleJob(seatRule, function(){
         worker.log('计算信用分','开始');
         seatModel.getLogNeedToCalculateCreditScore(function(err, logs){
             async.forEachSeries(logs, function(item, callback){
-                creditModel.calculateCreditRule(item.log_id, item.original_openid, function(err){
-                    worker.log('计算信用分',item.log_id+' '+item.order_id+' '+item.full_name+' '+item.seat_code + ' ' + item.original_openid, callback);
+                creditModel.calculateCreditRule(item.log_id, item.original_openid, function(err, result){
+                    worker.log('计算信用分',item.log_id+' '+item.order_id+' '+item.full_name+' '+item.seat_code + ' ' + item.original_openid);
+                    callback(null);
                 });
 
             }, function () {

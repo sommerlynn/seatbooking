@@ -53,8 +53,11 @@ credit.calculateCreditRule = function (logID, openid, callback) {
             // 预约导致的超时 扣1分
             if (results[0].log_type == 1) {
                 var reasonMsg = '预约未按时签到';
-                credit.updateScore(results[0].original_openid, -1, reasonMsg, callback);
-                credit.log(results[0].order_id, results[0].original_openid, '0101010101', -1, 1, reasonMsg);
+                credit.updateScore(results[0].original_openid, -1, reasonMsg, function(err, result){
+                    credit.log(results[0].order_id, results[0].original_openid, '0101010101', -1, 1, reasonMsg);
+                    callback(null);
+                });
+
             }
             // 暂离导致的超时
             else
@@ -62,8 +65,10 @@ credit.calculateCreditRule = function (logID, openid, callback) {
                 // 自己设置暂离 超时不扣分 被管理员或他人设置暂离 超时扣2分
                 if (results[0].original_openid != results[0].openid) {
                     var reasonMsg = '离开未设暂离且超时未归';
-                    credit.updateScore(results[0].original_openid, -2, reasonMsg, callback);
-                    credit.log(results[0].order_id, results[0].original_openid, '0101010101', -2, 2, reasonMsg);
+                    credit.updateScore(results[0].original_openid, -2, reasonMsg, function(err, result){
+                        credit.log(results[0].order_id, results[0].original_openid, '0101010101', -2, 2, reasonMsg);
+                        callback(null);
+                    });
                 }
                 else{
                     callback(null);
