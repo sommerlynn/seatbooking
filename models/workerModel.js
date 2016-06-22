@@ -116,7 +116,7 @@ schedule.scheduleJob('10 12 * * *', function(){
 worker.log = function (workerType, logType) {
     var insertQuery = 'insert into worker_log (worker_type, log_type) values (?, ?)',
         insertParams = [workerType, logType];
-    db.executeQuery(insertQuery, insertParams);
+    db.executeQuery(insertQuery, insertParams, function(err, result){});
 };
 
 module.exports = worker;
