@@ -45,8 +45,9 @@ schedule.scheduleJob(seatRule, function(){
 
         seatModel.getOrderNeedToRecycle(function(err, orders){
             async.forEachSeries(orders, function(item, callback){
-                seatModel.sysReleaseAsNotSign(item.order_id, callback);
-                worker.log('回收座位',item.order_id+' '+item.full_name+' '+item.seat_code+ ' '+item.openid);
+                seatModel.sysReleaseAsNotSign(item.order_id, function(err, result){
+                    worker.log('回收座位',item.order_id+' '+item.full_name+' '+item.seat_code+ ' '+item.openid, callback);
+                });
             }, function () {
                recycleSeatWorkerBusy = 0;
                worker.log('回收座位','完成');
@@ -73,9 +74,10 @@ schedule.scheduleJob(seatRule, function(){
         worker.log('计算信用分','开始');
         seatModel.getLogNeedToCalculateCreditScore(function(err, logs){
             async.forEachSeries(logs, function(item, callback){
-                creditModel.calculateCreditRule(item.log_id, item.original_openid);
-                worker.log('计算信用分',item.log_id+' '+item.order_id+' '+item.full_name+' '+item.seat_code + ' ' + item.original_openid);
-                callback(null);
+                creditModel.calculateCreditRule(item.log_id, item.original_openid, function(err){
+                    worker.log('计算信用分',item.log_id+' '+item.order_id+' '+item.full_name+' '+item.seat_code + ' ' + item.original_openid, callback);
+                });
+
             }, function () {
                calculateCreditScoreBusy = 0;
                worker.log('计算信用分','完成');
