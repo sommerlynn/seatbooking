@@ -48,9 +48,9 @@ schedule.scheduleJob(seatRule, function(){
                 seatModel.sysReleaseAsNotSign(item.order_id, function(err, result){
                     worker.log('回收座位',item.order_id+' '+item.full_name+' '+item.seat_code+ ' '+item.openid, callback);
                 });
-            }, function () {
+            }, function (callback) {
                recycleSeatWorkerBusy = 0;
-               worker.log('回收座位','完成');
+               worker.log('回收座位','完成', callback);
             });
         });
     }
@@ -62,9 +62,9 @@ schedule.scheduleJob(seatRule, function(){
             async.forEachSeries(orders, function(item, callback){
                 weixinMessageModel.willRecycleNotice(item.openid, item.school_id, item.full_name, item.seat_code, item.schedule_recover_time);
                 worker.log('发送座位回收提醒通知',item.order_id+' '+item.full_name+' '+item.seat_code+' '+item.openid, callback);
-            }, function () {
+            }, function (callback) {
                noticeOrderWorkerBusy = 0;
-               worker.log('发送座位回收提醒通知','完成');
+               worker.log('发送座位回收提醒通知','完成', callback);
             });
         });
     }
@@ -78,9 +78,9 @@ schedule.scheduleJob(seatRule, function(){
                     worker.log('计算信用分',item.log_id+' '+item.order_id+' '+item.full_name+' '+item.seat_code + ' ' + item.original_openid, callback);
                 });
 
-            }, function () {
+            }, function (callback) {
                calculateCreditScoreBusy = 0;
-               worker.log('计算信用分','完成');
+               worker.log('计算信用分','完成',callback);
             });
         });
     }
