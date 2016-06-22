@@ -60,8 +60,7 @@ schedule.scheduleJob(seatRule, function(){
         seatModel.getOrderNeedToNotice(function (err, orders) {
             async.forEachSeries(orders, function(item, callback){
                 weixinMessageModel.willRecycleNotice(item.openid, item.school_id, item.full_name, item.seat_code, item.schedule_recover_time);
-                worker.log('发送座位回收提醒通知',item.order_id+' '+item.full_name+' '+item.seat_code+' '+item.openid);
-                callback(null);
+                worker.log('发送座位回收提醒通知',item.order_id+' '+item.full_name+' '+item.seat_code+' '+item.openid, callback);
             }, function () {
                noticeOrderWorkerBusy = 0;
                worker.log('发送座位回收提醒通知','完成');
@@ -109,12 +108,10 @@ schedule.scheduleJob('10 12 * * *', function(){
     });
 });
 
-worker.log = function (workerType, logType) {
+worker.log = function (workerType, logType, callback) {
     var insertQuery = 'insert into worker_log (worker_type, log_type) values (?, ?)',
         insertParams = [workerType, logType];
-    db.executeQuery(insertQuery, insertParams, function (err, results) {
-
-    });
+    db.executeQuery(insertQuery, insertParams, callback);
 };
 
 module.exports = worker;
