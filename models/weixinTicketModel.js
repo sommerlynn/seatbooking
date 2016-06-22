@@ -5,7 +5,7 @@
  *
  * 2016-05-08：CHEN PU 集中控制oAuth 和 weixinJS 的票据信息
  */
-var oAuth = require('wechat-oauth'),
+var oAuth = require('../lib/wechat-oauth'),
     jSAPI = require('../lib/weixin-jssdk'),
     debug = require('debug'),
     log = debug('weixin');
