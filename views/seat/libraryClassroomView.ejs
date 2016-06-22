@@ -593,7 +593,7 @@
                                             });
                                         }
                                         else{
-                                            if($('#msg-content-wrapper')[0].innerHTML == ''){
+                                            if($('#msg-content-wrapper')[0].innerHTML == '' || type == 'today'){
                                                 $('#msg-content-wrapper')[0].innerHTML = '请扫码签到入座, 未扫码入座无效, 离开时请扫码暂离或退座。空座有物品占座时,其他读者可将物品规整后放在座位一侧, 扫码入座。';
                                                 $('.seat-operation')[0].innerHTML = '';
                                                 $('.seat-operation').append("<div class=\"seat-opertion-btn\" id=\"sign-operation\">扫码入座</div>");
