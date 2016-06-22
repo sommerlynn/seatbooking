@@ -621,7 +621,7 @@ router.post('/scanseat/checkLocation', function (req, res) {
                 var openTime60MinutesAfter = new Date(openTime.getTime() + 60 * 60 * 1000);
 
                 if(openType == 1){
-                    if( distance <= 300 ||
+                    if( distance <= 400 ||
                         user[0].gps_exception == 1 ||
                         ((now.getHours() >= 17 ||                      // 晚上五点以后不检查 因无老师解决
                         (now.getDay() == 6 || now.getDay() == 0)  ||     // 周末不检查
