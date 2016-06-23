@@ -22,12 +22,20 @@
 
     .card-content-inner {
         padding: 0.25rem 0.75rem;
-        text-align: center;
+        text-align: justify;
+        line-height: 1.25rem;
+        font-size:0.625rem;
+        color:#666;
     }
 
     .card-footer{
-        padding: 0;
         min-height: unset;
+        padding: 0.25rem 0.75rem;
+        display: block;
+        text-align: justify;
+        line-height: 1.25rem;
+        font-size:0.625rem;
+        color:#A00000;
     }
 
     .content-block-title {
@@ -82,7 +90,9 @@
         height: 0px;
     }
 
-
+    .list-block li{
+        margin: 0 0 .75rem 0;
+    }
 </style>
 <div class="page">
     <nav class="bar bar-tab">
@@ -116,8 +126,7 @@
                     <% for(var index = 0; index < arbitrationList.length; index++) { %>
                     <li class="card">
                         <div class="card-content">
-                            <div class="card-content-inner"
-                                 style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
+                            <div class="card-content-inner">
                                 <div class="data-row">
                                     <%= arbitrationList[index].classroom_full_name %> <%= arbitrationList[index].seat_code %>,
                                     <%= arbitrationList[index].description %>。
@@ -128,8 +137,7 @@
                             </div>
                         </div>
                         <% if(arbitrationList[index].status == 2) {%>
-                        <div class="card-footer"
-                             style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#A00000;background-color: #EAE9EA;">
+                        <div class="card-footer">
                             <div class="data-row">
                                 <%= arbitrationList[index].operate_comment %>
                             </div>
