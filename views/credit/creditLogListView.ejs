@@ -174,7 +174,7 @@
                                                                  src="<%= logs[index].headimgurl.replace('/0', '/46') %>">
                                 </li>
                                 <li class="log-time"><span
-                                            class="time"><%= logs[index].log_time.toLocaleTimeString('en-US', {hour12: false}) %></span>
+                                            class="time"><%= logs[index].log_time.getMonth() %>-<%= logs[index].log_time.getDate() %> <%= logs[index].log_time.getHours() %>:<%= logs[index].log_time.getMinutes() %></span>
                                 </li>
                                 <li class="log-msg"><span class="msg"><%= logs[index].score %> <%= logs[index].log_msg %></span></li>
                             </ul>
