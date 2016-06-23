@@ -9,6 +9,10 @@ var credit = {},
     async = require('async'),
     support = require('../lib/support');
 
+/**
+* 记录信用分更新日志
+ *
+* */
 credit.log = function(orderID, userOpenid, operatorOpenid, score, logType, logMsg){
     var insertQuery = 'insert into credit_score_log (order_id, user_openid, operator_openid, score, log_type, log_msg) '+
                       'values (?,?,?,?,?,?)',
@@ -76,6 +80,17 @@ credit.calculateCreditRule = function (logID, openid, callback) {
             }
         });
     });
+};
+
+/**
+ * 获取用户的信用日志记录
+ * 
+ * 2016-06-23 CHEN PU 创建
+ * */
+credit.getLog = function (openid, callback) {
+    var selectQuery = 'select * from credit_score_log_view where user_openid = ? order by log_id desc',
+        selectParams = [openid];
+    db.executeQuery(selectQuery, selectParams, callback);
 };
 
 module.exports = credit;

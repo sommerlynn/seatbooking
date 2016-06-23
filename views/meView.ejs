@@ -401,7 +401,7 @@
                                         <span class="credit-score-title">我的信用分:</span><span class="credit-score-info"><%= userInfo.credit_score %>分</span>
                                     </div>
                                     <div class="date-row">
-                                        <span class="credit-score-title">信用记录:</span><span class="credit-score-info">查询</span>
+                                        <span class="credit-score-title">信用记录:</span><span class="credit-score-info"><a href="/creditLogList/<%=openid%>">明细</a></span>
                                     </div>
                                 </li>
                                 <li class="right_part" style="padding: 0">
@@ -415,6 +415,9 @@
                                 </li>
                                 <div style="clear: both"></div>
                             </ul>
+                            <div class="card-footer date-row">
+                                <p class="seat-message">信用分满分12分, 0分时禁止使用图书馆座位。读者文明使用座位可获得文明星, 文明星可兑换信用分及奖品。</p>
+                            </div>
                         </div>
                     </li>
                     <div class="content-block-title">

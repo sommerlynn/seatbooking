@@ -1,0 +1,198 @@
+<% include ../header.html %>
+<style>
+    .content-block {
+        margin: 0;
+        padding: 0;
+        /*top: 2.2rem;*/
+        position: relative;
+    }
+
+    .bar {
+        /*background-color: #FFFFFF;*/
+    }
+
+    .bar:after {
+        height: 0;
+        background-color: #1D2025;
+    }
+
+    .bar-tab:before {
+        /*background-color: #33475F;*/
+    }
+
+    .card-content-inner {
+        padding: 0.75rem;
+        text-align: center;
+    }
+
+    .card-footer {
+        color: #000000;
+        background-color: #FFFFFF;
+        text-align: right;
+    }
+
+    .content-block-title {
+        margin: 0;
+        padding: .7rem;
+        background-color: #F7F7F8;
+        color: #A00000;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        border-left: 4px solid #A00000;
+    }
+
+    .content-block-title:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        top: auto;
+        height: 1px;
+        width: 100%;
+        background-color: #EFEFF4;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+    .content-block-title + .card {
+        margin-top: 0;
+    }
+
+    .list-block {
+        margin: 0;
+    }
+
+    .list-block ul:before {
+        height: 0;
+    }
+
+    .list-block .item-media {
+        padding: 0;
+    }
+
+    .list-block .item-inner {
+        padding: 0;
+        min-height: 0;
+    }
+
+    .list-block .item-inner:after {
+        height: 0px;
+    }
+
+    span.important {
+        text-decoration: underline;
+    }
+
+    .operation-list .operation {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 30%;
+        text-align: center;
+    }
+
+    .operation {
+        display: inline-block;
+        padding: 0.1875rem 0.3125rem;
+        width: 3.75rem;
+        border: 0.0625rem solid #DCC6C6;
+        color: #A00000;
+        /*margin-bottom: 0.55rem;*/
+    }
+
+    .verify-content {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        display: -webkit-flex; /* Safari */
+        display: inline-flex;
+    }
+
+    .left_part {
+        width: 72%;
+        line-height: 1rem;
+        padding: 0.3125rem;
+        font-family: 华文中宋;
+        float: left;
+        background-color: #FFFFFF;
+    }
+
+    .right_part {
+        width: 28%;
+        padding: 0.25rem 0 0 0;
+        text-align: center;
+        float: right;
+        /*background-color: #E2E1D0;*/
+        /*border-left: 1px dashed #332331;*/
+    }
+
+    .list-block ul ul {
+        padding: 0.25rem 0 0.25rem .25rem;
+    }
+</style>
+<div class="page">
+    <nav class="bar bar-tab">
+        <a class="tab-item" id="buildingTab" href="/building/<%= openid %>" external>
+            <span class="icon icon-building"></span>
+            <span class="tab-label">自习座位</span>
+        </a>
+        <a class="tab-item" id="skyTab" href="/reading/<%= openid %>" external>
+            <span class="icon icon-book"></span>
+            <span class="tab-label">七玥书斋</span>
+        </a>
+        <a class="tab-item active" id="meTab" href="/me/<%= openid %>" external>
+            <span class="icon icon-me"></span>
+            <span class="tab-label">我的</span>
+        </a>
+    </nav>
+    <div class="content" style="background-color: #FFFFFF">
+        <div class="content-block">
+            <div class="list-block cards-list">
+                <ul style="padding: 0; margin: 0">
+                    <div class="content-block-title">
+                        <div class="item-media">
+                            <i class="icon icon-credit-card"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">信用记录</div>
+                            <div></div>
+                        </div>
+                    </div>
+
+                    <% for(var index = 0; index < logs.length; index++) { %>
+                    <li class="card" style="height: auto; background-color: #FFFFFF; margin: 0">
+                        <div class="card-content">
+                            <ul class="log-card">
+                                <li class="user-header-img"><img width="20" height="20"
+                                                                 src="<%= logs[index].headimgurl.replace('/0', '/46') %>">
+                                </li>
+                                <li class="log-time"><span
+                                            class="time"><%= logs[index].log_time.toLocaleTimeString('en-US', {hour12: false}) %></span>
+                                </li>
+                                <li class="log-msg"><span class="msg"><%= logs[index].score %> <%= logs[index].log_msg %></span></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script>
+    $.config = {
+        autoInit: true,
+        router: false
+    }
+
+    $(document).on('click', '.operation', function () {
+        window.location.assign('/verifyDetail/' + this.id + '/' + '<%= openid %>')
+    });
+</script>
+<% include ../footer.html %>

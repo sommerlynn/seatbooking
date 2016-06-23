@@ -218,6 +218,12 @@ ALTER VIEW desire_view AS
         desire.openid = user.openid
 
 
+ALTER VIEW credit_score_log_view AS
+        SELECT credit_score_log.*, user.headimgurl
+        FROM credit_score_log LEFT JOIN user ON
+        credit_score_log.operator_openid = user.openid
+
+
 // 获取各教室今天的订座状态
 SELECT area_classroom.*,
 row_count*column_count AS seat_count,
