@@ -58,7 +58,7 @@
     }
 
     .content-block-title + .card {
-        margin-top: 0;
+        margin: 0;
     }
 
     .list-block {
@@ -67,22 +67,6 @@
 
     .list-block ul:before {
         height: 0;
-    }
-
-    .list-block li:after{
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        right: auto;
-        top: auto;
-        height: 1px;
-        width: 100%;
-        background-color: #A00000;
-        display: block;
-        z-index: 15;
-        -webkit-transform-origin: 50% 100%;
-        transform-origin: 50% 100%;
     }
 
     .list-block .item-media {
@@ -130,7 +114,7 @@
                     </div>
 
                     <% for(var index = 0; index < arbitrationList.length; index++) { %>
-                    <li class="card" style="height: auto; background-color: #FFFFFF;">
+                    <li class="card">
                         <div class="card-content">
                             <div class="card-content-inner"
                                  style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
