@@ -55,8 +55,8 @@ credit.calculateCreditRule = function (logID, openid) {
         // 预约导致的超时 扣1分
         if (results[0].log_type == 1) {
             var reasonMsg = '预约未按时签到';
-            credit.updateScore(results[0].original_openid, -1, reasonMsg);
-            credit.log(results[0].order_id, results[0].original_openid, '0101010101', -1, 1, reasonMsg);
+            credit.updateScore(results[0].original_openid, -2, reasonMsg);
+            credit.log(results[0].order_id, results[0].original_openid, '0101010101', -2, 1, reasonMsg);
         }
         // 暂离导致的超时
         else
