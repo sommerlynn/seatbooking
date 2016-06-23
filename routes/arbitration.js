@@ -164,7 +164,7 @@ router.get('/arbitrationAllList/:openid', function(req, res){
         res.render('./arbitration/arbitrationAllView',
             {
                 openid:req.params.openid,
-                title: '已处理仲裁',
+                title: '座位仲裁',
                 arbitrationList:arbitrationList
             });
     });
