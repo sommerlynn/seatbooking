@@ -65,7 +65,7 @@ arbitration.listOld = function(openid, callback){
 arbitration.listAllProcessed = function(callback){
     var selectQuery = 'select * from arbitration_view '+
             'order by apply_date desc',
-        selectParams = [openid];
+        selectParams = [];
     db.executeQuery(selectQuery, selectParams, callback);
 };
 
