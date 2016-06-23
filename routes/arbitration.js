@@ -153,4 +153,21 @@ router.get('/arbitrationOld/:openid', function(req, res){
     });
 });
 
+/**
+ * 所有已处理的仲裁申请
+ * 2016-06-23 CHEN PU 新建
+ *
+ *
+ * */
+router.get('/arbitrationAllList/:openid', function(req, res){
+    models.arbitrationModel.listAllProcessed(function(err, arbitrationList){
+        res.render('./arbitration/arbitrationAllView',
+            {
+                openid:req.params.openid,
+                title: '已处理仲裁',
+                arbitrationList:arbitrationList
+            });
+    });
+});
+
 module.exports = router;

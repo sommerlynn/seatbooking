@@ -59,6 +59,17 @@ arbitration.listOld = function(openid, callback){
 };
 
 /**
+ * 获取指定管理员所管理阅览室的已处理的申诉请求
+ * 2016-06-10： CHEN PU 创建
+ */
+arbitration.listAllProcessed = function(callback){
+    var selectQuery = 'select * from arbitration_view '+
+            'order by apply_date desc',
+        selectParams = [openid];
+    db.executeQuery(selectQuery, selectParams, callback);
+};
+
+/**
  * 获取指定的申诉请求
  * 2016-06-10： CHEN　PU 创建
  * */
