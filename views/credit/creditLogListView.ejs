@@ -136,6 +136,11 @@
     .msg {
 
     }
+    
+    .score{
+        color: #A00000;
+        margin: 0 .75rem 0 0;
+    }
 </style>
 <div class="page">
     <nav class="bar bar-tab">
@@ -176,7 +181,7 @@
                                 <li class="log-time"><span
                                             class="time"><%= logs[index].log_time.getMonth() %>-<%= logs[index].log_time.getDate() %> <%= logs[index].log_time.getHours() %>:<%= logs[index].log_time.getMinutes() %></span>
                                 </li>
-                                <li class="log-msg"><span class="msg"><%= logs[index].score %> <%= logs[index].log_msg %></span></li>
+                                <li class="log-msg"><span class="score"><%= logs[index].score %></span><span class="msg"><%= logs[index].log_msg %></span></li>
                             </ul>
                         </div>
                     </li>
