@@ -81,6 +81,9 @@ app.use('/', desire);
 var admin = require('./routes/admin');
 app.use('/', admin);
 
+var credit = require('./routes/credit');
+app.use('/', credit);
+
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
   var err = new Error('Not Found');
