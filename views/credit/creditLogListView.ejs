@@ -83,54 +83,58 @@
         height: 0px;
     }
 
-    span.important {
-        text-decoration: underline;
-    }
-
-    .operation-list .operation {
-        display: inline-block;
-        box-sizing: border-box;
-        width: 30%;
-        text-align: center;
-    }
-
-    .operation {
-        display: inline-block;
-        padding: 0.1875rem 0.3125rem;
-        width: 3.75rem;
-        border: 0.0625rem solid #DCC6C6;
-        color: #A00000;
-        /*margin-bottom: 0.55rem;*/
-    }
-
-    .verify-content {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        display: -webkit-flex; /* Safari */
-        display: inline-flex;
-    }
-
-    .left_part {
-        width: 72%;
-        line-height: 1rem;
-        padding: 0.3125rem;
-        font-family: 华文中宋;
-        float: left;
-        background-color: #FFFFFF;
-    }
-
-    .right_part {
-        width: 28%;
-        padding: 0.25rem 0 0 0;
-        text-align: center;
-        float: right;
-        /*background-color: #E2E1D0;*/
-        /*border-left: 1px dashed #332331;*/
-    }
-
     .list-block ul ul {
         padding: 0.25rem 0 0.25rem .25rem;
+    }
+
+    .log-card-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .log-card {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .log-card li {
+        display: table-cell;
+        line-height: 2rem;
+        height: 2rem;
+        text-align: center;
+        font-size: .75rem;
+    }
+
+    .user-header-img {
+        margin: 0 auto;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0px;
+        display: table-cell;
+    }
+
+    .user-header-img img {
+        vertical-align: middle;
+        border-radius: 10px;
+        margin: 0 .7rem;
+    }
+
+    .log-time {
+    }
+
+    .log-msg {
+    }
+
+    .time {
+        margin: 0 .75rem 0 0;
+    }
+
+    .msg {
+
     }
 </style>
 <div class="page">
@@ -151,7 +155,7 @@
     <div class="content" style="background-color: #FFFFFF">
         <div class="content-block">
             <div class="list-block cards-list">
-                <ul style="padding: 0; margin: 0">
+                <ul style="padding: 0; margin: 0" class="log-card-list">
                     <div class="content-block-title">
                         <div class="item-media">
                             <i class="icon icon-credit-card"></i>
