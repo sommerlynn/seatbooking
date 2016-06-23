@@ -154,17 +154,26 @@
                         <div class="card-content">
                             <div class="card-content-inner"
                                  style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
-                                <span class="important">申诉信息:</span><%= arbitrationList[index].apply_date.toLocaleString('en-US', {hour12: false}) %>,
-                                <%= arbitrationList[index].classroom_full_name %> <%= arbitrationList[index].seat_code %>,
-                                <%= arbitrationList[index].description %>。
+                                <div class="data-row">
+                                    <%= arbitrationList[index].classroom_full_name %> <%= arbitrationList[index].seat_code %>,
+                                    <%= arbitrationList[index].description %>。
+                                </div>
+                                <div class="data-row" style="text-align: right">
+                                    <%= arbitrationList[index].apply_date.toLocaleString('en-US', {hour12: false}) %>
+                                </div>
                             </div>
-                            <% if(arbitrationList[index].status == 2) {%>
-                            <div class="card-content-inner"
-                                 style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#666">
-                                <span class="important">处理信息:</span><%= arbitrationList[index].operate_date.toLocaleString('en-US', {hour12: false}) %>, <%= arbitrationList[index].operate_comment %>。
-                            </div>
-                            <% } %>
                         </div>
+                        <% if(arbitrationList[index].status == 2) {%>
+                        <div class="card-footer"
+                             style="text-align: justify; line-height: 1.25rem;font-size:0.625rem;color:#A00000;background-color: #EAE9EA;">
+                            <div class="data-row">
+                                <%= arbitrationList[index].operate_comment %>
+                            </div>
+                            <div class="data-row" style="text-align: right">
+                                <%= arbitrationList[index].operate_date.toLocaleString('en-US', {hour12: false}) %>
+                            </div>
+                        </div>
+                        <% } %>
                     </li>
                     <% } %>
                 </div>
