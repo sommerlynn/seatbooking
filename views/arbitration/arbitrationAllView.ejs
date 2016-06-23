@@ -124,11 +124,11 @@
                         <div class="card-content">
                             <div class="card-content-inner">
                                 <div class="data-row">
+                                    <%= arbitrationList[index].applier_headimgurl.replace('/0', '/46') %> <%= arbitrationList[index].apply_date.toLocaleString('en-US', {hour12: false}) %>
+                                </div>
+                                <div class="data-row">
                                     <%= arbitrationList[index].classroom_full_name %> <%= arbitrationList[index].seat_code %>,
                                     <%= arbitrationList[index].description %>。
-                                </div>
-                                <div class="data-row" style="text-align: right">
-                                    <%= arbitrationList[index].apply_date.toLocaleString('en-US', {hour12: false}) %>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                                 <%= arbitrationList[index].operate_comment %>
                             </div>
                             <div class="data-row" style="text-align: right">
-                                <%= arbitrationList[index].operate_date.toLocaleString('en-US', {hour12: false}) %>
+                                <%= arbitrationList[index].operator_headimgurl.replace('/0', '/46') %> <%= arbitrationList[index].operate_date.toLocaleString('en-US', {hour12: false}) %>
                             </div>
                         </div>
                         <% } %>
